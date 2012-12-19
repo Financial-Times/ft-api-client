@@ -1,8 +1,6 @@
 /*global console:true*/
-var notificationsModule = require('./getContentItemsNotification.js'),
-	itemsModule = require('./getContentApiContent.js'),
-	apiUtils = require('./apiUtils.js');
-
+var ftApi = require('./ftApi.js'),
+	apiKey = "XXXXXXXX";
 
 // Fetch a list of the latest notifications form the CAPI
 function getNotifications () {
@@ -14,17 +12,17 @@ function getNotifications () {
 
 	// Config can be set when a new GetChangesFromCapi object is created or when the request is made
 	// The 'apiKey' and the 'since' date are required.
-	initConfig.apiKey					= 'XXXXXX'; // Required, your API key
+	initConfig.apiKey					= apiKey; // Required, your API key
 	//initConfig.aggregateResponse		= false; Optional, set by default: Combine all the response and return them when 'loadComplete' fires
 	//initConfig.apiDomain				= 'api.ft.com'; // Optional, set by default: The domain for the CAPI
 	//initConfig.itemNotificationsPath	= '/content/notifications/v1/items'; // Optional, set by default
 	//initConfig.apiUpdateDelay			= 125; // Optional, set by default: Time in ms between requests, used to control the speed of comms to the API
-	//config.limit						= 20; // Optional, set by default: The number of items returned per request 
+	//config.limit						= 20; // Optional, set by default: The number of items returned per request
 
-	notificationsFetcher = new notificationsModule.GetChangesFromCapi(initConfig);
+	notificationsFetcher = new ftApi.notifications.GetChangesFromCapi(initConfig);
 
 	// The since date is required, should be in ISO format
-	config.since = '2012-12-18T09:00:00z'; // Required
+	config.since = '2012-12-19T13:00:00z'; // Required
 
 	// Get a list of modified articles from the CAPI
 	notificationsFetcher.fetchItems(config);
@@ -39,11 +37,11 @@ function getNotifications () {
 		// aggregateResponse = {
 		//	resultsList: [] A list of objects where each object is a reso=ponse object form the CAPI
 		//	totalResults: Int: The number of results, there may be a mismatch
-		// } 
+		// }
 		console.log(aggregatedResponse.resultsList.length, "of", aggregatedResponse.totalResults);
 
 		// Flatten the list of notifcations returned from the API using the helper method from apiUtils
-		var requestList = apiUtils.flattenNotificationsResponse(aggregatedResponse.resultsList);
+		var requestList = ftApi.utils.flattenNotificationsResponse(aggregatedResponse.resultsList);
 		console.log(aggregatedResponse);
 		getApiData(requestList);
 	});
@@ -63,16 +61,16 @@ function getApiData (itemsList) {
 		dataFetcher;
 
 	// The only required config is the apiKey
-	config.apiKey = 'XXXXX';
+	config.apiKey = apiKey;
 
 	// Optionally:
 	//config.aggregateResponse		= false; Optional, set by default: Combine all the response and return them when 'loadComplete' fires
 	//config.apiDomain				= 'api.ft.com'; // Optional, set by default: The domain for the CAPI
 	//config.apiItemPath			= '/content/notifications/v1/items'; // Optional, set by default
-	//config.apiUpdateDelay			= 125; // Optional, set by default: Time in ms between requests, used to control the speed of comms to the API	
+	//config.apiUpdateDelay			= 125; // Optional, set by default: Time in ms between requests, used to control the speed of comms to the API
 
 	// Create a new GetDataFromContentApi object and pass in any required config
-	dataFetcher = new itemsModule.GetDataFromContentApi(config);
+	dataFetcher = new ftApi.content.GetDataFromContentApi(config);
 
 	// Request the content from the API. Content is fetched synchronously and throttled using the apiUpdateDelay property of config.
 	// Pass an array of IDs
