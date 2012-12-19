@@ -1,5 +1,7 @@
-/*global console:true*/
-var ftApi = require('./ftApi.js'),
+Sample usage for accessing the notifications feed accessing specific content items
+==================================================================================
+<code>/*global console:true*/
+var ftApi = require('ft-api-client'),
 	apiKey = "XXXXXXXX";
 
 // Fetch a list of the latest notifications form the CAPI
@@ -87,3 +89,4 @@ function getApiData (itemsList) {
 		console.log(responseData);
 	});
 }
+<code>
