@@ -1,0 +1,27 @@
+{
+  "name": "ft-api-client",
+  "version": "0.1.0",
+  "description": "A client for the Financial Times content and search APIs",
+  "main": "ftApi.js",
+  "dependencies": {
+    "netaphor-search-client": "~0.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://richard.still@git.svc.ft.com:9080/git/content-api/nodeclient.git"
+  },
+  "keywords": [
+    "FT",
+    "Financial",
+    "Times",
+    "CAPI",
+    "API",
+    "SAPI"
+  ],
+  "author": "Richard Still",
+  "license": "BSD"
+}
