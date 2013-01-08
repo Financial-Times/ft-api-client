@@ -1,6 +1,6 @@
 /*global console:true*/
 var ftApi = require('./ftApi.js'),
-	apiKey = "XXXXXXXX";
+	apiKey = "XXXXXXX";
 
 // Fetch a list of the latest notifications form the CAPI
 function getNotifications () {
@@ -22,7 +22,7 @@ function getNotifications () {
 	notificationsFetcher = new ftApi.notifications.GetChangesFromCapi(initConfig);
 
 	// The since date is required, should be in ISO format
-	config.since = '2012-12-19T13:00:00z'; // Required
+	config.since = '2013-01-08T13:00:00z'; // Required
 
 	// Get a list of modified articles from the CAPI
 	notificationsFetcher.fetchItems(config);
@@ -52,7 +52,7 @@ function getNotifications () {
 	});
 
 }
-getNotifications();
+//getNotifications();
 
 
 function getApiData (itemsList) {
@@ -87,3 +87,30 @@ function getApiData (itemsList) {
 		console.log(responseData);
 	});
 }
+
+
+// Fetch a list of FT pages, then fetch the UK home page
+function getFtPages () {
+	"use strict";
+	var config = {}; // Config to be used when the request is made
+	
+	config.apiKey						= apiKey; // Required, your API key
+	//initConfig.apiDomain				= 'api.ft.com'; // Optional, set by default: The domain for the CAPI
+	//initConfig.pagePath				= '/site/v1/pages/'; // Optional, set by default
+
+	// Create a pages object
+	var ftPages = new ftApi.pages.GetPagesFromContentApi(config);
+	ftPages.getPages();
+
+	ftPages.on('pageListLoadComplete', function (pageList) {
+		console.log('Page list:', pageList);
+		//UK homepage 4c499f12-4e94-11de-8d4c-00144feabdc0
+		ftPages.getPage('4c499f12-4e94-11de-8d4c-00144feabdc0');
+	});
+
+	ftPages.on('pageLoadComplete', function (page) {
+		console.log('UK Homepage', page);
+	});
+
+}
+getFtPages();
