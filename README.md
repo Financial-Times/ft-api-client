@@ -21,7 +21,7 @@ This example will return a list of IDs
 		// Config can be set when a new GetChangesFromCapi object is created or when the request is made
 		// The 'apiKey' and the 'since' date are required.
 		initConfig.apiKey					= apiKey; // Required, your API key
-		//initConfig.aggregateResponse		= false; Optional, set by default: Combine all the response and return them when 'loadComplete' fires
+		//initConfig.aggregateResponse		= true; Optional, set by default: Combine all the responses into an array and return them when 'loadComplete' fires
 		//initConfig.apiDomain				= 'api.ft.com'; // Optional, set by default: The domain for the CAPI
 		//initConfig.itemNotificationsPath	= '/content/notifications/v1/items'; // Optional, set by default
 		//initConfig.apiUpdateDelay			= 125; // Optional, set by default: Time in ms between requests, used to control the speed of comms to the API
@@ -78,7 +78,7 @@ This example will return the full data for each ID specfied
 		config.apiKey = apiKey;
 
 		// Optionally:
-		//config.aggregateResponse		= false; Optional, set by default: Combine all the response and return them when 'loadComplete' fires
+		//config.aggregateResponse		= true; Optional, set true by default: Combine all the response and return them when 'loadComplete' fires
 		//config.apiDomain				= 'api.ft.com'; // Optional, set by default: The domain for the CAPI
 		//config.apiItemPath			= '/content/notifications/v1/items'; // Optional, set by default
 		//config.apiUpdateDelay			= 125; // Optional, set by default: Time in ms between requests, used to control the speed of comms to the API
