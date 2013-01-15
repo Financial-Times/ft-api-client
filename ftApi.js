@@ -1,7 +1,6 @@
 //Imported FT modules
 var notificationsModule	= require('./lib/getContentItemsNotification.js'),
 	contentModule		= require('./lib/getContentApiContent.js'),
-	pagesModule			= require('./lib/getContentApiPages.js'),
 	apiUtils			= require('./lib/apiUtils.js');
 
 // Imported Node modules

@@ -1,33 +1,28 @@
 /*global console:true*/
 var ftApi = require('../ftApi.js');
-
-// Fetch a list of FT pages, then fetch the UK home page
-function getFtPageMainContent () {
+	
+// Fetch a list of FT pages then get the content for each page
+function getFtPages () {
 	"use strict";
 	var config = {
-		apiKey: "f65958a8e35bd14bc52f268b8b3ab4ad" // Required, your API key
-	}; 
-	
-	// Ease of use reference for fetching pages
-	var ftPages = ftApi.content;
+			apiKey: "f65958a8e35bd14bc52f268b8b3ab4ad" // Required, your API key
+		},
+		requestList = ['97afb0ce-d324-11e0-9ba8-00144feab49a', 'c8406ad4-86e5-11e0-92df-00144feabdc0'];
 
-	ftPages.getPages(config);
+	// call getPageMainContent() to retrieve the main content for a page
+	// Pass a list of IDs and any configuration data
+	ftApi.content.getPageMainContent(requestList, config);
 
-	ftPages.on('pageListLoaded', function (pageList) {
-		var requestList = ftApi.utils.flattenNotificationsResponse(pageList.pages);
+	// An 'pageLoaded' event will fire after each page is loaded
+	ftApi.content.on('mainContentLoaded', function (data) {
+		console.log('Individual request complete');
+		console.log(data);
+	});
 
-		ftPages.getPageMainContent(requestList, config);
-
-		// An 'itemLoadComplete' event will fire after each item is successfully loaded
-		ftPages.on('mainContentLoaded', function (data) {
-			console.log('Individual request complete');
-		});
-
-		// A load complete event will fire when all content is loaded.
-		ftPages.on('allMainContentLoaded', function (responseData) {
-			// Returns a list of response CAPI response items
-			console.log(responseData);
-		});
+	// A 'allPagesLoaded' event will fire when all pages are loaded.
+	ftApi.content.on('allMainContentLoaded', function (responseData) {
+		// Returns a list of response CAPI response items
+		console.log(responseData);
 	});
 }
-getFtPageMainContent();
+getFtPages();
