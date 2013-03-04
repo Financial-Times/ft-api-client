@@ -7,7 +7,7 @@ function getNotifications () {
 	// The 'apiKey' and the 'since' date are required.
 	var config = {
 			apiKey: "f65958a8e35bd14bc52f268b8b3ab4ad",
-			since: '2013-01-14T11:40:00z' // Required should be in ISO format
+			since: '2013-03-03T11:40:00z' // Required should be in ISO format TODO, make this the current date - 1 day
 		};
 
 	// Optional parameters which override the defaults
