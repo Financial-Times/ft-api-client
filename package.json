@@ -6,7 +6,11 @@
   "directories": {
     "lib": "./lib"
   },
-  "devDependencies": {},
+  "devDependencies": {
+      "grunt": "0.4.1",
+      "grunt-jasmine-node": "0.1.0",
+      "grunt-contrib-watch": "0.4.4"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
