@@ -18,7 +18,7 @@ describe('Content API getter calls', function () {
     'GET_PAGES_CONFIG'
   ];
 
-  beforeEach(function () {
+  afterEach(function () {
     // Reset the content objects
     content = loadModule('lib/getContentApiContent.js');
     contentExports = content.exports;
