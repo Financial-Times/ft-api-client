@@ -4,24 +4,83 @@ var loadModule = require('./module-loader.js').loadModule,
   content = loadModule('lib/getContentApiContent.js'),
   contentExports = content.exports;
 
-describe('Content API Calls', function () {
-  it('exports getApiContent, getPage, getPageMainContent and getPages calls',
-      function () {
-    var callNames = [
-      'getApiContent',
-      'getPage',
-      'getPageMainContent',
-      'getPages'
-    ];
+describe('Content API getter calls', function () {
+  var CALL_NAMES = [
+    'getApiContent',
+    'getPage',
+    'getPageMainContent',
+    'getPages'
+  ],
+  CONFIG_NAMES = [
+    'GET_CONTENT_CONFIG',
+    'GET_PAGE_CONFIG',
+    'GET_PAGE_CONTENT_CONFIG',
+    'GET_PAGES_CONFIG'
+  ];
 
-    callNames.forEach(function (callName) {
+  beforeEach(function () {
+    // Reset the content objects
+    content = loadModule('lib/getContentApiContent.js');
+    contentExports = content.exports;
+  });
+
+  it('exports ' + CALL_NAMES.join(', ') + ' calls',
+      function () {
+    CALL_NAMES.forEach(function (callName) {
       expect(contentExports[callName]).toBeDefined();
       expect(typeof contentExports[callName]).toEqual('function');
     });
   });
 
-  // TODO: Cover off each call with tests
-  // TODO: Refactor calls be stateless? Consult Richard
+  CALL_NAMES.forEach(function (callName, index) {
+    it('implements ' + callName + ' by calling getApiItem with ' + CONFIG_NAMES[index],
+    function () {
+      // Given a spy on getApiItem
+      spyOn(contentExports, 'getApiItem');
+
+      // When we make the call with an arbitrary itemsList and config object
+      contentExports[callName]({}, {});
+
+      // Then getApiItem should have been called with the corresponding call config
+      expect(contentExports.getApiItem).toHaveBeenCalled();
+      expect(contentExports.getApiItem.mostRecentCall.args[3])
+          .toEqual(content[CONFIG_NAMES[index]]);
+    });
+
+    // TODO: Refactor calls be stateless? Consult Richard
+    it(callName + ' merges passed config with the content object\'s own config',
+    function () {
+      var callConfig, configKey;
+
+      // Given a fresh content item with default config
+      expect(contentExports.config).toBeDefined();
+      expect(typeof contentExports.config).toEqual('object');
+      // And arbitrary call config
+      callConfig = {
+        a: 'a',
+        b: 'b'
+      };
+      // TODO: Make getContentApiContent an Event Emitter internally so it doesn't die!
+      // And a spy on 'getApiItem' to stop it finding it's not an Event Emitter and dying
+      spyOn(contentExports, 'getApiItem');
+
+      // When make the call with the call config passed
+      if (callName === 'getPages') {
+        contentExports[callName](callConfig);
+      } else {
+        contentExports[callName]({}, callConfig);
+      }
+
+      // Then we expect that the callConfig has been merged on to the content's own config
+      expect(contentExports.config).toBeDefined();
+      expect(typeof contentExports.config).toEqual('object');
+      for (configKey in callConfig) {
+        if (callConfig.hasOwnProperty(configKey)) {
+          expect(contentExports.config[configKey]).toEqual(callConfig[configKey]);
+        }
+      }
+    });
+  });
 });
 
 describe('Content API Paths', function () {
