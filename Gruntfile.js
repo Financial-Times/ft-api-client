@@ -1,30 +1,83 @@
 /*global module:true */
 module.exports = function (grunt) {
-    grunt.initConfig({
-        jasmine_node: {
-            specNameMatcher: "spec", // load only specs containing specNameMatcher
-            projectRoot: ".",
-            requirejs: false,
-            forceExit: true,
-            jUnit: {
-                report: false,
-                savePath : "./build/reports/jasmine/",
-                useDotNotation: true,
-                consolidate: true
-            }
+  'use strict';
+
+  grunt.initConfig({
+    /* JSHINT */
+    /* See http://is.gd/jshintopts for more options */
+    /* This follows the npm style guide at http://is.gd/npmstyle */
+    jshint: { /* Lint the Gruntfile, ftApi and all sub-modules */
+      all: [
+        'Gruntfile.js',
+        'ftApi.js',
+        'lib/**/*.js'
+      ],
+      options: {
+        bitwise: true,
+        camelcase: true,
+        curly: true,
+        devel: true, /* Permit console and alert while developing. */
+        eqeqeq: true,
+        forin: true,
+        globals: { /* Jasmine's Globals*/
+          'describe': false,
+          'xdescribe': false,
+          'it': false,
+          'xit': false,
+          'beforeEach': false,
+          'afterEach': false,
+          'jasmine': false,
+          'spyOn': false,
+          'expect': false,
+          'waitsFor': false
         },
+        immed: true,
+        indent: 2,
+        latedef: true,
+        maxcomplexity: 10,
+        maxdepth: 2,
+        maxlen: 90, /* Node standard is 80, but we're hedonists */
+        newcap: true,
+        noarg: true,
+        node: true, /* Expect node environment */
+        noempty: true,
+        onevar: true,
+        plusplus: true,
+        quotmark: 'single', /* Use backslashes if you\'ve got to */
+        strict: true, /* Use one 'use strict'; per file. */
+        trailing: true, /* Turn 'show whitespace' on in your editor. */
+        undef: true,
+        unused: true
+      }
+    },
 
-        /* WATCH */
-        watch: {
-            files: ["**/*.js"],
-            tasks: ["default"]
-        }
-    });
+    /* JASMINE ON NODE */
+    /* See https://github.com/mhevery/jasmine-node for some info */
+    'jasmine_node': {
+      specNameMatcher: 'spec', // NB. Will match '.<specNameMatcher>.js'
+      projectRoot: '.',
+      requirejs: false,
+      forceExit: true,
+      jUnit: {
+        report: false,
+        savePath : './build/reports/jasmine/',
+        useDotNotation: true,
+        consolidate: true
+      }
+    },
 
-    /* LOAD PLUGINS */
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-jasmine-node');
+    /* WATCH */
+    watch: {
+      files: ['**/*.js'],
+      tasks: ['default']
+    }
+  });
 
-    /* TARGETS */
-    grunt.registerTask('default', ['jasmine_node']);
+  /* LOAD PLUGINS */
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-jasmine-node');
+
+  /* TARGETS */
+  grunt.registerTask('default', ['jshint', 'jasmine_node']);
 };
