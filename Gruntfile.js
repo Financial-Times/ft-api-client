@@ -10,7 +10,8 @@ module.exports = function (grunt) {
       all: [
         'Gruntfile.js',
         'ftApi.js',
-        'lib/**/*.js'
+        'lib/**/*.js',
+        'test/**/*.js'
       ],
       options: {
         bitwise: true,
