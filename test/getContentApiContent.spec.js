@@ -164,8 +164,8 @@ describe('Content API Logging', function () {
       if (messagesByCode.hasOwnProperty(statusCode)) {
         messageForCode = messagesByCode[statusCode];
 
-        // When we call logNon200Response
-        content.logNon200Response(statusCode);
+        // When we call logResponse
+        content.logResponse(statusCode);
 
         // Then console.log should have been called with the status message for the code
         expect(console.log).toHaveBeenCalled();
