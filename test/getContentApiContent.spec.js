@@ -4,7 +4,7 @@ var loadModule = require('./module-loader.js').loadModule,
   content = loadModule('lib/getContentApiContent.js'),
   contentExports = content.exports;
 
-describe('Content API getter calls', function () {
+describe('Content API Getter Calls', function () {
   var CALL_NAMES = [
     'getApiContent',
     'getPage',
@@ -150,7 +150,7 @@ describe('Content API Paths', function () {
   });
 });
 
-describe('Content API logging', function () {
+describe('Content API Logging', function () {
   it('logs the corresponding status message for each code',
   function () {
     var statusCode, messageForCode, messagesByCode;

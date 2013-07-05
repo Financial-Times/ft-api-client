@@ -3,7 +3,7 @@
 var events = require('events'),
   ftApi = require('../ftApi.js');
 
-describe('FT Api Client', function () {
+describe('FT API Client', function () {
   var content = ftApi.content,
     notifications = ftApi.notifications;
 
