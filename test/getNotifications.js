@@ -1,15 +1,21 @@
 /*global console:true*/
 'use strict';
 
-var ftApi = require('../ftApi.js');
+var ftApi = require('../ftApi.js'),
+    moment = require('moment');
+
+function getDateStringForHoursAgo(hoursAgo) {
+  var nowMoment = moment().utc(),
+      momentHoursAgo = nowMoment.subtract('hours', hoursAgo);
+  return momentHoursAgo.format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z';
+}
 
 // Fetch a list of the latest notifications form the CAPI
 function getNotifications () {
   // The 'apiKey' and the 'since' date are required.
   var config = {
       apiKey: 'f65958a8e35bd14bc52f268b8b3ab4ad',
-      // TODO: make this the current date - 1 day
-      since: '2013-03-03T11:40:00z' // Required should be in ISO format
+      since: getDateStringForHoursAgo(24) // Required to be in Z-ended ISO format
     };
 
   // Optional parameters which override the defaults
