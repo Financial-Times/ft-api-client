@@ -1,6 +1,9 @@
 'use strict';
 
-var apiUtils = require('../lib/apiUtils.js');
+var apiUtils = require('../lib/apiUtils.js'),
+    clone = function (obj) {
+      return JSON.parse(JSON.stringify(obj));
+    };
 
 describe('FT Api Utils', function () {
   describe('Merge Config', function () {
@@ -12,9 +15,6 @@ describe('FT Api Utils', function () {
       POPULATED_OBJECT_B = {
         corge: 'grault',
         garply: 'waldo'
-      },
-      clone = function (obj) {
-        return JSON.parse(JSON.stringify(obj));
       };
 
     it('changes the first object itself to merge keys on to it, and returns it too',
@@ -140,6 +140,80 @@ describe('FT Api Utils', function () {
   });
 
   describe('Flatten Notifications Response', function () {
-    // TODO: Cover off flatten notifications
+    it('logs the passed argument',
+    function () {
+      var sourceList;
+
+      // Given a mock console log and an arbitrary sourceList
+      spyOn(console, 'log');
+      sourceList = [
+        {
+          id: 'golly'
+        }
+      ];
+
+      // When we flatten the sourceList
+      apiUtils.flattenNotificationsResponse(sourceList);
+
+      // Then we expect log to have been called on the sourceList
+      expect(console.log).toHaveBeenCalled();
+      expect(console.log).toHaveBeenCalledWith(sourceList);
+    });
+
+    it('adds the id of each given item to the returned list',
+    function () {
+      var sourceList, returnedList;
+
+      // Given a source list of objects with ids
+      sourceList = [
+        {
+          id: 'spoob'
+        },
+        {
+          id: 'hubbleh'
+        }
+      ];
+
+      // When we flatten the source list
+      returnedList = apiUtils.flattenNotificationsResponse(sourceList);
+
+      // Then we should find that the ids only have been plucked
+      returnedList.forEach(function (returnedItem, index) {
+        expect(returnedItem).toEqual(sourceList[index].id);
+      });
+    });
+
+    it('adds the data content item id of items without ids to the returned list',
+    function () {
+      var sourceList, returnedList;
+
+      // Given a source list of objects without ids
+      sourceList = [
+        {
+          id: undefined,
+          data: {
+            'content-item': {
+              id: 'spongboob'
+            }
+          }
+        },
+        {
+          id: undefined,
+          data: {
+            'content-item': {
+              id: 'squidward'
+            }
+          }
+        }
+      ];
+
+      // When we flatten the source list
+      returnedList = apiUtils.flattenNotificationsResponse(sourceList);
+
+      // Then we should find that the data content item ids only have been plucked
+      returnedList.forEach(function (returnedItem, index) {
+        expect(returnedItem).toEqual(sourceList[index].data['content-item'].id);
+      });
+    });
   });
 });
