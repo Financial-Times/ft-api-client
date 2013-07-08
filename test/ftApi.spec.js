@@ -1,7 +1,6 @@
 'use strict';
 
-var events = require('events'),
-    FtApi = require('../FtApi.js'),
+var FtApi = require('../FtApi.js'),
     ContentModule = require('../lib/getContentApiContent.js'),
     NotificationsModule = require('../lib/getContentItemsNotification.js');
 
