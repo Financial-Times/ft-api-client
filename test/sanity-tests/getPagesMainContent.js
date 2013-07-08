@@ -4,8 +4,7 @@ var FtApi = require('../../FtApi.js');
 // Fetch a list of FT pages then get the content for each page
 function getFtPages () {
   'use strict';
-  var config = {},
-    requestList = [
+  var requestList = [
       '97afb0ce-d324-11e0-9ba8-00144feab49a',
       'c8406ad4-86e5-11e0-92df-00144feabdc0'
     ],
@@ -13,7 +12,7 @@ function getFtPages () {
 
   // call getPageMainContent() to retrieve the main content for a page
   // Pass a list of IDs and any configuration data
-  ftApi.content.getPageMainContent(requestList, config);
+  ftApi.content.getPageMainContent(requestList);
 
   // An 'pageLoaded' event will fire after each page is loaded
   ftApi.content.on('mainContentLoaded', function (data) {

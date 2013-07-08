@@ -4,8 +4,7 @@
 var FtApi = require('../../FtApi.js');
 
 function getApiData () {
-  var config = {},
-    itemsList = [
+  var itemsList = [
       '2eb9530a-5e6e-11e2-b3cb-00144feab49a',
       'becf9568-567a-11e2-aa70-00144feab49a'
     ],
@@ -24,7 +23,7 @@ function getApiData () {
   // Request the content from the API. Content is fetched synchronously and throttled
   // using the apiUpdateDelay property of config.
   // Pass an array of IDs
-  ftApi.content.getApiContent(itemsList, config);
+  ftApi.content.getApiContent(itemsList);
 
   // An 'itemLoaded' event will fire after each item is successfully loaded
   ftApi.content.on('itemLoaded', function (data) {

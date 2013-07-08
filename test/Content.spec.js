@@ -98,6 +98,7 @@ describe('Content API Getter Calls', function () {
     });
 
     // TODO: Refactor calls be stateless? Consult Richard
+    // TODO: Handles having no config passed gracefully
     it(callName + ' merges passed config with the content object\'s own config',
     function () {
       var callConfig, configKey;
@@ -117,7 +118,7 @@ describe('Content API Getter Calls', function () {
       if (callName === 'getPages') {
         content[callName](callConfig);
       } else {
-        content[callName]({}, callConfig);
+        content[callName]([], callConfig);
       }
 
       // Then we expect that the callConfig has been merged on to the content's own config
@@ -128,6 +129,24 @@ describe('Content API Getter Calls', function () {
           expect(content.config[configKey]).toEqual(callConfig[configKey]);
         }
       }
+    });
+
+    it(callName + ' gracefully handles not being passed the optional config argument',
+    function () {
+      // Given a stub itemsList, and content's config before the call
+      var stubItemsList = [],
+        configBeforeCall = content.config;
+      // When we call our function with no config specified
+      if (callName === 'getPages') {
+        content[callName]();
+      } else {
+        content[callName](stubItemsList);
+      }
+      // Then we should find that content's own config is still fine
+      expect(content.config).toBeDefined();
+      expect(typeof content.config).toEqual('object');
+      // And is equal to the config before the call was made :D
+      expect(content.config).toEqual(configBeforeCall);
     });
   });
 });

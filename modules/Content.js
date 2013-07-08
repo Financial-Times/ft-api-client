@@ -118,26 +118,30 @@ MESSAGES_BY_STATUS_CODE = {
 // A recursive method for fetching a list of items from the CAPI
 // We call recusively for two reasons: We can control the speed of requests and we know
 // when they have all finished
-Content.prototype.getApiContent = function (itemsList, passedConfig) {
-  this.config = apiUtils.mergeConfig(this.config, passedConfig);
+Content.prototype.getApiContent = function (itemsList, optionalConfig) {
+  var callConfig = optionalConfig || {};
+  this.config = apiUtils.mergeConfig(this.config, callConfig);
   this.getApiItem(itemsList, 0, [], GET_CONTENT_CONFIG);
 };
 
 // Get an individual page from the CAPI
-Content.prototype.getPage = function (itemsList, passedConfig) {
-  this.config = apiUtils.mergeConfig(this.config, passedConfig);
+Content.prototype.getPage = function (itemsList, optionalConfig) {
+  var callConfig = optionalConfig || {};
+  this.config = apiUtils.mergeConfig(this.config, callConfig);
   this.getApiItem(itemsList, 0, [], GET_PAGE_CONFIG);
 };
 
 // Get and individual page from the CAPI
-Content.prototype.getPageMainContent = function (itemsList, passedConfig) {
-  this.config = apiUtils.mergeConfig(this.config, passedConfig);
+Content.prototype.getPageMainContent = function (itemsList, optionalConfig) {
+  var callConfig = optionalConfig || {};
+  this.config = apiUtils.mergeConfig(this.config, callConfig);
   this.getApiItem(itemsList, 0, [], GET_PAGE_CONTENT_CONFIG);
 };
 
 // Get a list pf pages from the CAPI
-Content.prototype.getPages = function (passedConfig) {
-  this.config = apiUtils.mergeConfig(this.config, passedConfig);
+Content.prototype.getPages = function (optionalConfig) {
+  var callConfig = optionalConfig || {};
+  this.config = apiUtils.mergeConfig(this.config, callConfig);
   this.getApiItem([''], 0, [], GET_PAGES_CONFIG);
 };
 

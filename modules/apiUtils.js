@@ -1,22 +1,23 @@
 'use strict';
 
 // Merge any passed config with the default or previosuly set config
-exports.mergeConfig = function (config, passedConfig) {
-  var key;
+exports.mergeConfig = function (configA, configB) {
+  var newConfig = {},
+    key;
 
-  // Don't bother trying to parse anything other than an object
-  if (typeof passedConfig !== 'object') {
-    return config;
-  }
-
-  // Else merge keys
-  for (key in passedConfig) {
-    if (passedConfig.hasOwnProperty(key)) {
-      config[key] = passedConfig[key];
+  // Add properties, favouring the second object
+  for (key in configA) {
+    if (configA.hasOwnProperty(key)) {
+      newConfig[key] = configA[key];
     }
   }
-  console.log('Updated config', config);
-  return config;
+  for (key in configB) {
+    if (configB.hasOwnProperty(key)) {
+      newConfig[key] = configB[key];
+    }
+  }
+  console.log('Updated config', newConfig);
+  return newConfig;
 };
 
 // Flatten the response from the CAPI notifications to just a list of IDs

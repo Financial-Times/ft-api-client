@@ -17,7 +17,45 @@ describe('FT Api Utils', function () {
         garply: 'waldo'
       };
 
-    it('changes the first object itself to merge keys on to it, and returns it too',
+    it('gracefully handles being passed null or undefined arguments',
+    function () {
+      var mergedConfig,
+        stubConfig;
+      // Given two null arguments
+      // When we call merge config
+      mergedConfig = apiUtils.mergeConfig(null, null);
+      // Then we should get an empty object returned
+      expect(mergedConfig).toBeDefined();
+      expect(mergedConfig).not.toBeNull();
+      expect(typeof mergedConfig).toEqual('object');
+
+      // Given two undefined arguments
+      // When we call merge config
+      mergedConfig = apiUtils.mergeConfig(undefined, undefined);
+      // Then we should get an empty object returned
+      expect(mergedConfig).toBeDefined();
+      expect(mergedConfig).not.toBeNull();
+      expect(typeof mergedConfig).toEqual('object');
+
+      // Given a defined first argument and undefined second argument
+      stubConfig = {foo: 'bar'};
+      // When we call merge config
+      mergedConfig = apiUtils.mergeConfig(stubConfig, undefined);
+      // Then we should get an object equal to the stub config
+      expect(mergedConfig).toBeDefined();
+      expect(mergedConfig).toEqual(stubConfig);
+
+      // Given a undefined first argument and a defined second argument
+      stubConfig = {foo: 'bar'};
+      // When we call merge config
+      mergedConfig = apiUtils.mergeConfig(undefined, stubConfig);
+      // Then we should get an object equal to the stub config
+      expect(mergedConfig).toBeDefined();
+      expect(mergedConfig).toEqual(stubConfig);
+    });
+
+    // NB. These negative tests are because the previous version molested the first object
+    it('does not change the first object itself, and does not return the first object',
     function () {
       var firstObject, secondObject, returnedObject;
 
@@ -28,19 +66,41 @@ describe('FT Api Utils', function () {
       // When we merge the objects
       returnedObject = apiUtils.mergeConfig(firstObject, secondObject);
 
-      // Then should find that the first one has been insidiously molested
-      // And is no longer the empty object
-      expect(firstObject).toNotEqual(EMPTY_OBJECT);
-      // But is equal to the second, populated object
-      expect(firstObject).toEqual(POPULATED_OBJECT_A);
-      // But is not the second object reference
-      expect(firstObject).toNotBe(secondObject);
+      // Then should find that the first one has NOT been insidiously molested
+      // And is still the empty object
+      expect(firstObject).toEqual(EMPTY_OBJECT);
+      // And is not equal to the second, populated object
+      expect(firstObject).toNotEqual(POPULATED_OBJECT_A);
 
-      // While the second object has been left alone
+      // And the second object has been left alone too
       expect(secondObject).toEqual(POPULATED_OBJECT_A);
 
-      // And the first object has been returned too
-      expect(returnedObject).toBe(firstObject);
+      // And the first object has not been returned
+      expect(returnedObject).not.toBe(firstObject);
+    });
+
+    it('does not change the second object itself, and does not return the second object',
+    function () {
+      var firstObject, secondObject, returnedObject;
+
+      // Given an empty first object, and a populated object as above
+      firstObject = clone(EMPTY_OBJECT);
+      secondObject = clone(POPULATED_OBJECT_A);
+
+      // When we merge the objects
+      returnedObject = apiUtils.mergeConfig(firstObject, secondObject);
+
+      // Then should find that the second one has NOT been insidiously molested
+      // And is still the populated object
+      expect(secondObject).toEqual(POPULATED_OBJECT_A);
+      // And is not equal to the first empty object
+      expect(secondObject).toNotEqual(EMPTY_OBJECT);
+
+      // And the first object has been left alone too
+      expect(firstObject).toEqual(EMPTY_OBJECT);
+
+      // And the second object has not been returned
+      expect(returnedObject).not.toBe(secondObject);
     });
 
     it('merges two empty objects to produce a new empty object',
