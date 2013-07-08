@@ -1,6 +1,12 @@
 {
   "name": "ft-api-client",
-  "version": "0.2.1",
+  "version": "0.3.0-beta",
+  "private": true,
+  "repository": {
+      "type": "git",
+      "url": "http://git.svc.ft.com:9080/git/content-api/nodeclient.git"
+  },
+  "license": "BSD",
   "description": "A client for the Financial Times content and search APIs",
   "main": "./ftApi.js",
   "directories": {
@@ -13,9 +19,6 @@
       "grunt-jasmine-node": "0.1.0",
       "moment": "2.0.0"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "FT",
     "Financial",
@@ -24,6 +27,12 @@
     "API",
     "SAPI"
   ],
-  "author": "Richard Still",
-  "license": "BSD"
+  "author": {
+      "name": "Richard Still",
+      "email": "richard.still@ft.com"
+  },
+  "contributors": {
+      "name": "Sebastian Wolf",
+      "email": "sebastian.wolf@ft.com"
+  }
 }
