@@ -1,6 +1,5 @@
 /*global console:true*/
-var FtApi = require('../FtApi.js');
-
+var FtApi = require('../../FtApi.js');
 
 // Fetch a list of FT pages then get the content for each page
 function getFtPages () {
@@ -12,16 +11,18 @@ function getFtPages () {
     ],
     ftApi = new FtApi('f65958a8e35bd14bc52f268b8b3ab4ad');
 
-  ftApi.content.getPage(requestList, config);
+  // call getPageMainContent() to retrieve the main content for a page
+  // Pass a list of IDs and any configuration data
+  ftApi.content.getPageMainContent(requestList, config);
 
   // An 'pageLoaded' event will fire after each page is loaded
-  ftApi.content.on('pageLoaded', function (data) {
+  ftApi.content.on('mainContentLoaded', function (data) {
     console.log('Individual request complete');
     console.log(data);
   });
 
   // A 'allPagesLoaded' event will fire when all pages are loaded.
-  ftApi.content.on('allPagesLoaded', function (responseData) {
+  ftApi.content.on('allMainContentLoaded', function (responseData) {
     // Returns a list of response CAPI response items
     console.log(responseData);
   });

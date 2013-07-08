@@ -1,6 +1,6 @@
 'use strict';
 
-var apiUtils = require('../lib/apiUtils.js'),
+var apiUtils = require('../modules/apiUtils.js'),
     clone = function (obj) {
       return JSON.parse(JSON.stringify(obj));
     };

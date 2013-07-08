@@ -1,7 +1,7 @@
 /*global console:true*/
 'use strict';
 
-var FtApi = require('../FtApi.js');
+var FtApi = require('../../FtApi.js');
 
 function getApiData () {
   var config = {},

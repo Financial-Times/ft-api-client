@@ -1,9 +1,9 @@
 'use strict';
 
 var events = require('events'),
-  loadModule = require('./module-loader.js').loadModule,
+  loadModule = require('./utils/module-loader.js').loadModule,
   API_KEY = 'foo',
-  notificationsContext = loadModule('lib/getContentItemsNotification.js'),
+  notificationsContext = loadModule('modules/Notifications.js'),
   NotificationsModule = notificationsContext.Notifications,
   notifications = new NotificationsModule(API_KEY);
 

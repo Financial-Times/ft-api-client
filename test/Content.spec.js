@@ -1,9 +1,9 @@
 'use strict';
 
 var events = require('events'),
-  loadModule = require('./module-loader.js').loadModule,
+  loadModule = require('./utils/module-loader.js').loadModule,
   API_KEY = 'bar',
-  contentContext = loadModule('lib/getContentApiContent.js'),
+  contentContext = loadModule('modules/Content.js'),
   ContentModule = contentContext.Content,
   content = new ContentModule(API_KEY);
 

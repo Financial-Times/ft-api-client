@@ -1,7 +1,7 @@
 'use strict';
 
-var ContentModule = require('./lib/getContentApiContent.js'),
-    NotificationsModule = require('./lib/getContentItemsNotification.js');
+var ContentModule = require('./modules/Content.js'),
+    NotificationsModule = require('./modules/Notifications.js');
 
 // NB. API Key is not currently passed anywhere.
 function FtApi (apiKey) {

@@ -1,6 +1,6 @@
 // Fetch a list of FT pages then get the content for each page
 /*global console:true*/
-var FtApi = require('../FtApi.js');
+var FtApi = require('../../FtApi.js');
 
 function getFtPages () {
   'use strict';
