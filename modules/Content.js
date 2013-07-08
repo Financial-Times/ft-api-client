@@ -119,34 +119,34 @@ MESSAGES_BY_STATUS_CODE = {
 // We call recusively for two reasons: We can control the speed of requests and we know
 // when they have all finished
 Content.prototype.getApiContent = function (itemsList, optionalConfig) {
-  var callConfig = optionalConfig || {};
-  this.config = apiUtils.mergeConfig(this.config, callConfig);
-  this.getApiItem(itemsList, 0, [], GET_CONTENT_CONFIG);
+  var additionalConfig = optionalConfig || {},
+    callConfig = apiUtils.mergeConfig(this.config, additionalConfig);
+  this.getApiItem(itemsList, 0, [], GET_CONTENT_CONFIG, callConfig);
 };
 
 // Get an individual page from the CAPI
 Content.prototype.getPage = function (itemsList, optionalConfig) {
-  var callConfig = optionalConfig || {};
-  this.config = apiUtils.mergeConfig(this.config, callConfig);
-  this.getApiItem(itemsList, 0, [], GET_PAGE_CONFIG);
+  var additionalConfig = optionalConfig || {},
+    callConfig = apiUtils.mergeConfig(this.config, additionalConfig);
+  this.getApiItem(itemsList, 0, [], GET_PAGE_CONFIG, callConfig);
 };
 
 // Get and individual page from the CAPI
 Content.prototype.getPageMainContent = function (itemsList, optionalConfig) {
-  var callConfig = optionalConfig || {};
-  this.config = apiUtils.mergeConfig(this.config, callConfig);
-  this.getApiItem(itemsList, 0, [], GET_PAGE_CONTENT_CONFIG);
+  var additionalConfig = optionalConfig || {},
+    callConfig = apiUtils.mergeConfig(this.config, additionalConfig);
+  this.getApiItem(itemsList, 0, [], GET_PAGE_CONTENT_CONFIG, callConfig);
 };
 
 // Get a list pf pages from the CAPI
 Content.prototype.getPages = function (optionalConfig) {
-  var callConfig = optionalConfig || {};
-  this.config = apiUtils.mergeConfig(this.config, callConfig);
-  this.getApiItem([''], 0, [], GET_PAGES_CONFIG);
+  var additionalConfig = optionalConfig || {},
+    callConfig = apiUtils.mergeConfig(this.config, additionalConfig);
+  this.getApiItem([''], 0, [], GET_PAGES_CONFIG, callConfig);
 };
 
-// TODO: Make this module stateless by removing use of per-instance .config in getApiItem
-Content.prototype.getApiItem = function (itemsList, position, responseData, runtimeCfg) {
+Content.prototype.getApiItem =
+  function (itemsList, position, responseData, runtimeCfg, callConfig) {
   var req,
     options,
     self = this;
@@ -155,8 +155,8 @@ Content.prototype.getApiItem = function (itemsList, position, responseData, runt
 
   // Options for the node http request
   options = {
-    host: this.config.apiDomain,
-    path: runtimeCfg.makePath(this.config, itemsList[position]),
+    host: callConfig.apiDomain,
+    path: runtimeCfg.makePath(callConfig, itemsList[position]),
     method: 'GET'
   };
 
@@ -170,8 +170,8 @@ Content.prototype.getApiItem = function (itemsList, position, responseData, runt
       position:      position,
       self:          self,
       responseData:  responseData,
-      config:        self.config,
-      runtimeCfg:    runtimeCfg
+      runtimeCfg:    runtimeCfg,
+      callConfig:    callConfig
     };
     handleCapiHttpResponse(response, deps);
   });
@@ -199,6 +199,7 @@ handleResponseSuccess = function (response, deps) {
   var jsonResponse = '',
       self = deps.self,
       responseData = deps.responseData,
+      callConfig = deps.callConfig,
       runtimeCfg = deps.runtimeCfg,
       responseItem;
 
@@ -213,7 +214,7 @@ handleResponseSuccess = function (response, deps) {
     responseItem = JSON.parse(jsonResponse);
 
     // Add the response to the list of responses
-    if (self.config.aggregateResponse === true) {
+    if (callConfig.aggregateResponse === true) {
       responseData.push(responseItem);
     }
 
@@ -245,9 +246,9 @@ getNextItem = function (deps) {
   // Rate limit the requests to content API
   setTimeout(function () {
     self.getApiItem(
-        deps.itemsList, deps.position, deps.responseData, deps.runtimeCfg
+        deps.itemsList, deps.position, deps.responseData, deps.runtimeCfg, deps.callConfig
     );
-  }, self.config.apiUpdateDelay);
+  }, deps.callConfig.apiUpdateDelay);
 };
 
 logResponse = function (statusCode) {

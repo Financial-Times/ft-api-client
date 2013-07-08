@@ -83,7 +83,7 @@ describe('Content API Getter Calls', function () {
   });
 
   CALL_NAMES.forEach(function (callName, index) {
-    it('implements ' + callName + ' by calling getApiItem with ' + CONFIG_NAMES[index],
+    it(callName + ' calls getApiItem with ' + CONFIG_NAMES[index],
     function () {
       // Given a spy on getApiItem
       spyOn(content, 'getApiItem');
@@ -97,11 +97,10 @@ describe('Content API Getter Calls', function () {
           .toEqual(contentContext[CONFIG_NAMES[index]]);
     });
 
-    // TODO: Refactor calls be stateless? Consult Richard
-    // TODO: Handles having no config passed gracefully
-    it(callName + ' merges passed config with the content object\'s own config',
+    it(callName + ' calls getApiItem with merged optional config ' +
+      'and the content object\'s own config',
     function () {
-      var callConfig, configKey;
+      var callConfig, configKey, passedConfig;
 
       // Given a fresh content item with default config
       expect(content.config).toBeDefined();
@@ -121,12 +120,14 @@ describe('Content API Getter Calls', function () {
         content[callName]([], callConfig);
       }
 
-      // Then we expect that the callConfig has been merged on to the content's own config
-      expect(content.config).toBeDefined();
-      expect(typeof content.config).toEqual('object');
+      // Then we expect that getItem has been called with merged config passed
+      passedConfig = content.getApiItem.mostRecentCall.args[4];
+      // And the callConfig has been merged with the content's own config
+      expect(passedConfig).toBeDefined();
+      expect(typeof passedConfig).toEqual('object');
       for (configKey in callConfig) {
         if (callConfig.hasOwnProperty(configKey)) {
-          expect(content.config[configKey]).toEqual(callConfig[configKey]);
+          expect(passedConfig[configKey]).toEqual(callConfig[configKey]);
         }
       }
     });
