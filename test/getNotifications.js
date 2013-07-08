@@ -1,7 +1,7 @@
 /*global console:true*/
 'use strict';
 
-var ftApi = require('../ftApi.js'),
+var FtApi = require('../FtApi.js'),
     moment = require('moment');
 
 function getDateStringForHoursAgo(hoursAgo) {
@@ -14,9 +14,9 @@ function getDateStringForHoursAgo(hoursAgo) {
 function getNotifications () {
   // The 'apiKey' and the 'since' date are required.
   var config = {
-      apiKey: 'f65958a8e35bd14bc52f268b8b3ab4ad',
       since: getDateStringForHoursAgo(24) // Required to be in Z-ended ISO format
-    };
+    },
+    ftApi = new FtApi('f65958a8e35bd14bc52f268b8b3ab4ad');
 
   // Optional parameters which override the defaults
   // Optional, set true by default: Combine responses and return them on 'loadComplete'

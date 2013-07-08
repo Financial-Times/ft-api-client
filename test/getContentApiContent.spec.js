@@ -1,8 +1,59 @@
 'use strict';
 
-var loadModule = require('./module-loader.js').loadModule,
-  content = loadModule('lib/getContentApiContent.js'),
-  contentExports = content.exports;
+var events = require('events'),
+  loadModule = require('./module-loader.js').loadModule,
+  API_KEY = 'bar',
+  contentContext = loadModule('lib/getContentApiContent.js'),
+  ContentModule = contentContext.Content,
+  content = new ContentModule(API_KEY);
+
+describe('FT API Content Module', function () {
+  it('exports a constructor for a content module instance',
+  function () {
+    var contentInstance;
+    // Given an module constructor and a stub api key as above
+    // When we invoke it
+    contentInstance = new ContentModule(API_KEY);
+    // Then the instance should be a content module
+    expect(contentInstance instanceof ContentModule).toBeTruthy();
+  });
+
+  it('exports a constructor which throws an error unless an api key is given',
+  function () {
+    var contentInstance;
+    // Given the content module as above
+    // When we call the constructor with no arguments
+    // Then it should throw an error
+    expect(function () { new ContentModule(); }).toThrow();
+
+    // Given an api import as above
+    // When we call the constructor with an arbitrary string
+    contentInstance = new ContentModule(API_KEY);
+    // Then it should have returned an object
+    expect(contentInstance).toBeDefined();
+    expect(typeof contentInstance).toBe('object');
+  });
+
+  it('sets the config.apiKey from the API key passed to the constructor',
+  function () {
+    var stubApiKey, instance;
+    // Given an arbitrary stub api key
+    stubApiKey = 'floobally dap dap';
+    // When we create a new instance
+    instance = new ContentModule(stubApiKey);
+    // Then we should find that its config has an api which is the one passed
+    expect(instance.config.apiKey).toBeDefined();
+    expect(instance.config.apiKey).toEqual(stubApiKey);
+  });
+
+  it('is an EventEmitter',
+  function () {
+    // Given the an instance of the event module as above
+    // When we have a look at it
+    // Then we find it's an event emitter :D
+    expect(content instanceof events.EventEmitter).toBeTruthy();
+  });
+});
 
 describe('Content API Getter Calls', function () {
   var CALL_NAMES = [
@@ -20,15 +71,14 @@ describe('Content API Getter Calls', function () {
 
   afterEach(function () {
     // Reset the content objects
-    content = loadModule('lib/getContentApiContent.js');
-    contentExports = content.exports;
+    content = new ContentModule(API_KEY);
   });
 
   it('exports ' + CALL_NAMES.join(', ') + ' calls',
       function () {
     CALL_NAMES.forEach(function (callName) {
-      expect(contentExports[callName]).toBeDefined();
-      expect(typeof contentExports[callName]).toEqual('function');
+      expect(content[callName]).toBeDefined();
+      expect(typeof content[callName]).toEqual('function');
     });
   });
 
@@ -36,15 +86,15 @@ describe('Content API Getter Calls', function () {
     it('implements ' + callName + ' by calling getApiItem with ' + CONFIG_NAMES[index],
     function () {
       // Given a spy on getApiItem
-      spyOn(contentExports, 'getApiItem');
+      spyOn(content, 'getApiItem');
 
       // When we make the call with an arbitrary itemsList and config object
-      contentExports[callName]({}, {});
+      content[callName]({}, {});
 
       // Then getApiItem should have been called with the corresponding call config
-      expect(contentExports.getApiItem).toHaveBeenCalled();
-      expect(contentExports.getApiItem.mostRecentCall.args[3])
-          .toEqual(content[CONFIG_NAMES[index]]);
+      expect(content.getApiItem).toHaveBeenCalled();
+      expect(content.getApiItem.mostRecentCall.args[3])
+          .toEqual(contentContext[CONFIG_NAMES[index]]);
     });
 
     // TODO: Refactor calls be stateless? Consult Richard
@@ -53,30 +103,29 @@ describe('Content API Getter Calls', function () {
       var callConfig, configKey;
 
       // Given a fresh content item with default config
-      expect(contentExports.config).toBeDefined();
-      expect(typeof contentExports.config).toEqual('object');
+      expect(content.config).toBeDefined();
+      expect(typeof content.config).toEqual('object');
       // And arbitrary call config
       callConfig = {
         a: 'a',
         b: 'b'
       };
-      // TODO: Make getContentApiContent an Event Emitter internally so it doesn't die!
-      // And a spy on 'getApiItem' to stop it finding it's not an Event Emitter and dying
-      spyOn(contentExports, 'getApiItem');
+      // And a spy on 'getApiItem' to stop it executing getApiItem after
+      spyOn(content, 'getApiItem');
 
       // When make the call with the call config passed
       if (callName === 'getPages') {
-        contentExports[callName](callConfig);
+        content[callName](callConfig);
       } else {
-        contentExports[callName]({}, callConfig);
+        content[callName]({}, callConfig);
       }
 
       // Then we expect that the callConfig has been merged on to the content's own config
-      expect(contentExports.config).toBeDefined();
-      expect(typeof contentExports.config).toEqual('object');
+      expect(content.config).toBeDefined();
+      expect(typeof content.config).toEqual('object');
       for (configKey in callConfig) {
         if (callConfig.hasOwnProperty(configKey)) {
-          expect(contentExports.config[configKey]).toEqual(callConfig[configKey]);
+          expect(content.config[configKey]).toEqual(callConfig[configKey]);
         }
       }
     });
@@ -92,11 +141,11 @@ describe('Content API Paths', function () {
       path;
 
     // When we make the get content path
-    path = content.makeGetContentPath(stubConfig, id);
+    path = contentContext.makeGetContentPath(stubConfig, id);
 
     // Then it's equal to the chaps joined together
     expect(path).toEqual([
-      stubConfig.apiItemPath, id, content.API_PARAM, stubConfig.apiKey
+      stubConfig.apiItemPath, id, contentContext.API_PARAM, stubConfig.apiKey
     ].join(''));
   });
 
@@ -108,11 +157,11 @@ describe('Content API Paths', function () {
       path;
 
     // When we make the get content path
-    path = content.makeGetPagePath(stubConfig, id);
+    path = contentContext.makeGetPagePath(stubConfig, id);
 
     // Then it's equal to the chaps joined together
     expect(path).toEqual([
-      stubConfig.pagePath, id, content.API_PARAM, stubConfig.apiKey
+      stubConfig.pagePath, id, contentContext.API_PARAM, stubConfig.apiKey
     ].join(''));
   });
 
@@ -125,12 +174,12 @@ describe('Content API Paths', function () {
       path;
 
     // When we make the get content path
-    path = content.makeGetPageContentPath(stubConfig, id);
+    path = contentContext.makeGetPageContentPath(stubConfig, id);
 
     // Then it's equal to the chaps joined together
     expect(path).toEqual([
       stubConfig.pagePath, id, stubConfig.pageMainContent,
-      content.API_PARAM, stubConfig.apiKey
+      contentContext.API_PARAM, stubConfig.apiKey
     ].join(''));
   });
 
@@ -141,11 +190,11 @@ describe('Content API Paths', function () {
       path;
 
     // When we make the get content path
-    path = content.makeGetPagesPath(stubConfig);
+    path = contentContext.makeGetPagesPath(stubConfig);
 
     // Then it's equal to the chaps joined together
     expect(path).toEqual([
-      stubConfig.pagePath, content.API_PARAM, stubConfig.apiKey
+      stubConfig.pagePath, contentContext.API_PARAM, stubConfig.apiKey
     ].join(''));
   });
 });
@@ -155,7 +204,7 @@ describe('Content API Logging', function () {
   function () {
     var statusCode, messageForCode, messagesByCode;
     // Given a set of messages for each status code
-    messagesByCode = content.MESSAGES_BY_STATUS_CODE;
+    messagesByCode = contentContext.MESSAGES_BY_STATUS_CODE;
     // And a mock console log
     spyOn(console, 'log');
 
@@ -165,7 +214,7 @@ describe('Content API Logging', function () {
         messageForCode = messagesByCode[statusCode];
 
         // When we call logResponse
-        content.logResponse(statusCode);
+        contentContext.logResponse(statusCode);
 
         // Then console.log should have been called with the status message for the code
         expect(console.log).toHaveBeenCalled();

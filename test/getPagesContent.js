@@ -1,17 +1,16 @@
 /*global console:true*/
-var ftApi = require('../ftApi.js');
+var FtApi = require('../FtApi.js');
 
 
 // Fetch a list of FT pages then get the content for each page
 function getFtPages () {
   'use strict';
-  var config = {
-      apiKey: 'f65958a8e35bd14bc52f268b8b3ab4ad' // Required, your API key
-    },
+  var config = {},
     requestList = [
       '97afb0ce-d324-11e0-9ba8-00144feab49a',
       'c8406ad4-86e5-11e0-92df-00144feabdc0'
-    ];
+    ],
+    ftApi = new FtApi('f65958a8e35bd14bc52f268b8b3ab4ad');
 
   ftApi.content.getPage(requestList, config);
 

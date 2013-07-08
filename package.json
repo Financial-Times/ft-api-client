@@ -8,7 +8,7 @@
   },
   "license": "BSD",
   "description": "A client for the Financial Times content and search APIs",
-  "main": "./ftApi.js",
+  "main": "./FtApi.js",
   "directories": {
     "lib": "./lib"
   },

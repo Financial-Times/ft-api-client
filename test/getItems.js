@@ -1,16 +1,15 @@
 /*global console:true*/
 'use strict';
 
-var ftApi = require('../ftApi.js');
+var FtApi = require('../FtApi.js');
 
 function getApiData () {
-  var config = {
-      apiKey: 'f65958a8e35bd14bc52f268b8b3ab4ad'
-    },
+  var config = {},
     itemsList = [
       '2eb9530a-5e6e-11e2-b3cb-00144feab49a',
       'becf9568-567a-11e2-aa70-00144feab49a'
-    ];
+    ],
+    ftApi = new FtApi('f65958a8e35bd14bc52f268b8b3ab4ad');
 
   // Optionally:
   // Optional, set true by default: Combine responses and return them on 'loadComplete'

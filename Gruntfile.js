@@ -9,7 +9,7 @@ module.exports = function (grunt) {
     jshint: { /* Lint the Gruntfile, ftApi and all sub-modules */
       all: [
         'Gruntfile.js',
-        'ftApi.js',
+        'FtApi.js',
         'lib/**/*.js',
         'test/**/*.js'
       ],

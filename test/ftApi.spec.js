@@ -1,51 +1,62 @@
 'use strict';
 
 var events = require('events'),
-  ftApi = require('../ftApi.js');
+    FtApi = require('../FtApi.js'),
+    ContentModule = require('../lib/getContentApiContent.js'),
+    NotificationsModule = require('../lib/getContentItemsNotification.js');
 
 describe('FT API Client', function () {
-  var content = ftApi.content,
-    notifications = ftApi.notifications;
+  var API_KEY = 'foo';
 
-  it('exports notifications, content and utils', function() {
-    expect(ftApi.notifications).toBeDefined();
-    expect(ftApi.content).toBeDefined();
-    expect(ftApi.utils).toBeDefined();
-  });
+  describe('FT API Client Module', function () {
+    it('exports a constructor which returns an api instance',
+    function () {
+      var apiInstance;
+      // Given an api constructor
+      // When we invoke it
+      apiInstance = new FtApi(API_KEY);
+      // Then the instance should be an FT API
+      expect(apiInstance.constructor).toBe(FtApi);
+    });
 
-  it('exports content with getApiContent, getPage, getPageMainContent,' +
-      'getPages and getApiItem calls', function () {
-    var callNames = [
-      'getApiContent', 'getPage', 'getPageMainContent', 'getPages', 'getApiItem'
-    ];
+    it('exports a constructor which throws an error unless an api key is given',
+    function () {
+      var apiInstance;
+      // Given an api import as above
+      // When we call the constructor with no arguments
+      // Then it should throw an error
+      expect(function () { new FtApi(); }).toThrow();
 
-    callNames.forEach(function (callName) {
-      expect(content[callName]).toBeDefined();
-      expect(typeof content[callName]).toEqual('function');
+      // Given an api import as above
+      // When we call the constructor with a stub api key as above
+      apiInstance = new FtApi(API_KEY);
+      // Then it should have returned an object
+      expect(apiInstance).toBeDefined();
+      expect(typeof apiInstance).toBe('object');
     });
   });
 
-  it('exports notifications with a fetchItems call', function () {
-    expect(notifications.fetchItems).toBeDefined();
-    expect(typeof notifications.fetchItems).toEqual('function');
-  });
+  describe('FT API Client Instance', function () {
+    var apiInstance = new FtApi(API_KEY);
 
-  it('provides default configuration for content calls', function () {
-    expect(content.config).toBeDefined();
-    expect(typeof content.config).toEqual('object');
-  });
+    it('has a content property which is the content module',
+    function() {
+      // Given an api instance as above
+      // When we inspect its properties
+      // Then we should find a content property
+      expect(apiInstance.content).toBeDefined();
+      // And it should be an instance of the Content module
+      expect(apiInstance.content.constructor).toBe(ContentModule);
+    });
 
-  it('provides default configuration for notifications calls', function () {
-    expect(notifications.config).toBeDefined();
-    expect(typeof notifications.config).toEqual('object');
-  });
-
-  it('can emit content events because content is an EventEmitter', function () {
-    expect(content instanceof events.EventEmitter).toBeTruthy();
-  });
-
-  it('can emit notifications events because notifications is an EventEmitter',
-      function () {
-    expect(notifications instanceof events.EventEmitter).toBeTruthy();
+    it('has a notifications property which is the notifications module',
+    function() {
+      // Given an api instance as above
+      // When we inspect its properties
+      // Then we should find a notifications property
+      expect(apiInstance.notifications).toBeDefined();
+      // And it should be an instance of the Notifications module
+      expect(apiInstance.notifications.constructor).toBe(NotificationsModule);
+    });
   });
 });
