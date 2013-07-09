@@ -42,14 +42,9 @@ describe('Logger', function () {
 
   it('log just logs to console log',
   function () {
-    var stubArgument = {foo: 'bar'};
-    // Given a logger and a spy on console log
-    spyOn(console, 'log');
-    // When we call logger.log with an arbitrary argument
-    logger.log(stubArgument);
-    // Then we find that console log was called
-    expect(console.log).toHaveBeenCalled();
-    // With the given argument
-    expect(console.log).toHaveBeenCalledWith(stubArgument);
+    // Given a logger
+    // When we inspect it's log property
+    // Then we find it is console.log
+    expect(logger.log).toEqual(console.log);
   });
 });

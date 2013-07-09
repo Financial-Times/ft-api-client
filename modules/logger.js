@@ -20,10 +20,8 @@ MESSAGES_BY_STATUS_CODE = {
 };
 
 /* EXPORTS */
-exports.log = function (argument) {
-  console.log(argument);
-};
+exports.log = console.log;
 
 exports.logResponse = function (statusCode) {
-  exports.log(MESSAGES_BY_STATUS_CODE[statusCode]); // Defer to log above
+  console.log(MESSAGES_BY_STATUS_CODE[statusCode]); // Defer to log above
 };
