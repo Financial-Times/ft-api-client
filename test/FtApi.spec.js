@@ -1,8 +1,8 @@
 'use strict';
 
 var FtApi = require('../FtApi.js'),
-    ContentModule = require('../modules/Content.js'),
-    NotificationsModule = require('../modules/Notifications.js');
+    ContentModule = require('../lib/Content.js'),
+    NotificationsModule = require('../lib/Notifications.js');
 
 describe('FT API Client', function () {
   var API_KEY = 'foo',

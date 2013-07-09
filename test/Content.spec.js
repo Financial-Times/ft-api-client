@@ -3,7 +3,7 @@
 var events = require('events'),
   loadModule = require('./utils/module-loader.js').loadModule,
   STUB_API_KEY = 'bar',
-  contentContext = loadModule('modules/Content.js'),
+  contentContext = loadModule('lib/Content.js'),
   ContentModule = contentContext.Content,
   content = new ContentModule(STUB_API_KEY);
 

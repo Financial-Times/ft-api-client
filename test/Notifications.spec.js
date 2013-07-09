@@ -3,7 +3,7 @@
 var events = require('events'),
   loadModule = require('./utils/module-loader.js').loadModule,
   API_KEY = 'foo',
-  notificationsContext = loadModule('modules/Notifications.js'),
+  notificationsContext = loadModule('lib/Notifications.js'),
   NotificationsModule = notificationsContext.Notifications,
   notifications = new NotificationsModule(API_KEY);
 

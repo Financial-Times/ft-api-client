@@ -1,7 +1,7 @@
 'use strict';
 
 var loadModule = require('./utils/module-loader.js').loadModule,
-  loggerContext = loadModule('modules/logger.js'),
+  loggerContext = loadModule('lib/logger.js'),
   logger = loggerContext.exports;
 
 describe('Logger', function () {
@@ -12,8 +12,8 @@ describe('Logger', function () {
     function () {
       var loggerA, loggerB;
       // Given two logger modules that we require in
-      loggerA = require('../modules/logger.js');
-      loggerB = require('../modules/logger.js');
+      loggerA = require('../lib/logger.js');
+      loggerB = require('../lib/logger.js');
       // When we compare them
       // Then we should find they are equal and the same objects
       expect(loggerA).toEqual(loggerB);

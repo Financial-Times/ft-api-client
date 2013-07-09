@@ -1,8 +1,8 @@
 'use strict';
 
-var logger = require('./modules/logger.js'),
-    ContentModule = require('./modules/Content.js'),
-    NotificationsModule = require('./modules/Notifications.js');
+var logger = require('./lib/logger.js'),
+    ContentModule = require('./lib/Content.js'),
+    NotificationsModule = require('./lib/Notifications.js');
 
 function FtApi (apiKey) {
   if (typeof apiKey !== 'string' || apiKey === '') {

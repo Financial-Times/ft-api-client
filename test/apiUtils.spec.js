@@ -1,7 +1,7 @@
 'use strict';
 
-var apiUtils = require('../modules/apiUtils.js'),
-    logger = require('../modules/logger.js'),
+var apiUtils = require('../lib/apiUtils.js'),
+    logger = require('../lib/logger.js'),
     clone = function (obj) {
       return JSON.parse(JSON.stringify(obj));
     };

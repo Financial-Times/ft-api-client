@@ -1,6 +1,1 @@
-node_modules/.bin/
-node_modules/grunt-contrib-jshint/
-node_modules/grunt-contrib-watch/
-node_modules/grunt-jasmine-node/
-node_modules/grunt/
-node_modules/moment/
+node_modules/
