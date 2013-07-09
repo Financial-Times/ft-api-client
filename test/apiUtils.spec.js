@@ -1,6 +1,7 @@
 'use strict';
 
 var apiUtils = require('../modules/apiUtils.js'),
+    logger = require('../modules/logger.js'),
     clone = function (obj) {
       return JSON.parse(JSON.stringify(obj));
     };
@@ -204,8 +205,8 @@ describe('FT Api Utils', function () {
     function () {
       var sourceList;
 
-      // Given a mock console log and an arbitrary sourceList
-      spyOn(console, 'log');
+      // Given a mock logger and an arbitrary sourceList
+      spyOn(logger, 'log');
       sourceList = [
         {
           id: 'golly'
@@ -216,8 +217,8 @@ describe('FT Api Utils', function () {
       apiUtils.flattenNotificationsResponse(sourceList);
 
       // Then we expect log to have been called on the sourceList
-      expect(console.log).toHaveBeenCalled();
-      expect(console.log).toHaveBeenCalledWith(sourceList);
+      expect(logger.log).toHaveBeenCalled();
+      expect(logger.log).toHaveBeenCalledWith(sourceList);
     });
 
     it('adds the id of each given item to the returned list',

@@ -6,6 +6,7 @@ var http = require('https'),
   util = require('util'),
   events = require('events'),
   urlParser = require('url'),
+  logger = require('./logger.js'),
   apiUtils = require('./apiUtils.js'),
 
   /* PRIVATE METHODS */
@@ -79,7 +80,7 @@ Notifications.prototype.fetchItems = function (passedConfig, aggregateResponse) 
 
   // Create a new request
   request = http.request(options);
-  console.log(options.path);
+  logger.log(options.path);
 
   request.on('response', function (response) {
     handleResponse(response, self, aggregateResponse);
@@ -87,7 +88,7 @@ Notifications.prototype.fetchItems = function (passedConfig, aggregateResponse) 
 
   // Catch an error with the request and re-init the app
   request.on('error', function(e) {
-    console.log('Error with request:', e);
+    logger.log('Error with request:', e);
     self.emit('requestError', e);
   });
 
@@ -96,7 +97,7 @@ Notifications.prototype.fetchItems = function (passedConfig, aggregateResponse) 
 };
 
 handleResponse = function (response, self, aggregateResponse) {
-  console.log('Content API response: STATUS: ' + response.statusCode);
+  logger.logResponse(response.statusCode);
   if (response.statusCode === 200) {
     handleResponseSuccess(response, self, aggregateResponse);
   } else if (response.statusCode === 503) {
@@ -123,7 +124,7 @@ handleResponseSuccess = function (response, self, aggregateResponse) {
 handleResponseError = function (self, aggregateResponse) {
   // There was an error from the CAPI, probably transient
   // try again in a little while
-  console.log('Response error, delaying for', self.config.errorDelay/1000, 'seconds');
+  logger.log('Response error, delaying for', self.config.errorDelay/1000, 'seconds');
   setTimeout(function () {
     self.fetchItems(self.config, aggregateResponse);
   }, self.config.errorDelay);

@@ -1,5 +1,7 @@
 'use strict';
 
+var logger = require('./logger.js');
+
 // Merge any passed config with the default or previosuly set config
 exports.mergeConfig = function (configA, configB) {
   var newConfig = {},
@@ -16,13 +18,13 @@ exports.mergeConfig = function (configA, configB) {
       newConfig[key] = configB[key];
     }
   }
-  console.log('Updated config', newConfig);
+  logger.log('Updated config', newConfig);
   return newConfig;
 };
 
 // Flatten the response from the CAPI notifications to just a list of IDs
 exports.flattenNotificationsResponse = function (sourceList) {
-  console.log(sourceList);
+  logger.log(sourceList);
   var itemsList = [], i, item;
   for (i = 0; i < sourceList.length; i += 1) {
     item = sourceList[i];

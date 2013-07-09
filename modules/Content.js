@@ -6,6 +6,7 @@ var http = require('https'),
   util = require('util'),
   events = require('events'),
   apiUtils = require('./apiUtils.js'),
+  logger = require('./logger.js'),
   DEFAULT_CONFIG = require('../config/defaults.json'),
 
   /* INTERNAL METHODS */
@@ -14,7 +15,6 @@ var http = require('https'),
   handleResponseSuccess,
   handleResponseFailure,
   getNextItem,
-  logResponse,
   makeGetContentPath,
   makeGetPagePath,
   makeGetPageContentPath,
@@ -25,8 +25,6 @@ var http = require('https'),
   GET_PAGE_CONFIG,
   GET_PAGE_CONTENT_CONFIG,
   GET_PAGES_CONFIG,
-  MESSAGES_BY_STATUS_CODE,
-  STATUS_MESSAGE_PREFIX = 'Content API response: STATUS: ',
   API_PARAM = '?apiKey=';
 
 /* EXPORTS */
@@ -92,21 +90,6 @@ GET_PAGES_CONFIG = {
   }
 };
 
-MESSAGES_BY_STATUS_CODE = {
-  200: STATUS_MESSAGE_PREFIX + '200: Success',
-  400: STATUS_MESSAGE_PREFIX + '400: The request could not be understood by the ' +
-        'server due to malformed syntax',
-  401: STATUS_MESSAGE_PREFIX + '401: The request requires user authentication. ' +
-        'Typically this means a valid apiKey has not been supplied',
-  403: STATUS_MESSAGE_PREFIX + '403: Forbidden',
-  404: STATUS_MESSAGE_PREFIX + '404: CAPI does not have this content',
-  410: STATUS_MESSAGE_PREFIX + '410: Resource no longer exists',
-  429: STATUS_MESSAGE_PREFIX + '429: Too many resuests, slow down!',
-  500: STATUS_MESSAGE_PREFIX + '500: Internal server error',
-  503: STATUS_MESSAGE_PREFIX + '503: The server is currently unable to handle the ' +
-        'request, due to temporary overloading or maintenance of the server'
-};
-
 // A recursive method for fetching a list of items from the CAPI
 // We call recusively for two reasons: We can control the speed of requests and we know
 // when they have all finished
@@ -143,7 +126,7 @@ Content.prototype.getApiItem =
     options,
     self = this;
 
-  console.log('Item: ', position + 1, ' of ', itemsList.length);
+  logger.log('Item: ', position + 1, ' of ', itemsList.length);
 
   // Options for the node http request
   options = {
@@ -152,7 +135,7 @@ Content.prototype.getApiItem =
     method: 'GET'
   };
 
-  console.log('Content API request: path: ' + options.path);
+  logger.log('Content API request: path: ' + options.path);
 
   req = http.request(options);
 
@@ -179,7 +162,7 @@ Content.prototype.getApiItem =
 
 /* PRIVATE METHODS */
 handleCapiHttpResponse = function (response, deps) {
-  logResponse(response.statusCode);
+  logger.logResponse(response.statusCode);
   if (response.statusCode === 200) {
     handleResponseSuccess(response, deps);
   } else {
@@ -241,8 +224,4 @@ getNextItem = function (deps) {
         deps.itemsList, deps.position, deps.responseData, deps.runtimeCfg, deps.callConfig
     );
   }, deps.callConfig.apiUpdateDelay);
-};
-
-logResponse = function (statusCode) {
-  console.log(MESSAGES_BY_STATUS_CODE[statusCode]);
 };

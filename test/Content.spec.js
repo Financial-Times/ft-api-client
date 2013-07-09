@@ -233,28 +233,3 @@ describe('Content API Paths', function () {
     ].join(''));
   });
 });
-
-describe('Content API Logging', function () {
-  it('logs the corresponding status message for each code',
-  function () {
-    var statusCode, messageForCode, messagesByCode;
-    // Given a set of messages for each status code
-    messagesByCode = contentContext.MESSAGES_BY_STATUS_CODE;
-    // And a mock console log
-    spyOn(console, 'log');
-
-    // For each status code and corresponding message
-    for (statusCode in messagesByCode) {
-      if (messagesByCode.hasOwnProperty(statusCode)) {
-        messageForCode = messagesByCode[statusCode];
-
-        // When we call logResponse
-        contentContext.logResponse(statusCode);
-
-        // Then console.log should have been called with the status message for the code
-        expect(console.log).toHaveBeenCalled();
-        expect(console.log).toHaveBeenCalledWith(messageForCode);
-      }
-    }
-  });
-});
