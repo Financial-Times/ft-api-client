@@ -10,6 +10,8 @@ function getFtPages () {
     ],
     ftApi = new FtApi('f65958a8e35bd14bc52f268b8b3ab4ad');
 
+  ftApi.setLogLevel(FtApi.LOG_LEVEL_INFO);
+
   // call getPageMainContent() to retrieve the main content for a page
   // Pass a list of IDs and any configuration data
   ftApi.content.getPageMainContent(requestList);

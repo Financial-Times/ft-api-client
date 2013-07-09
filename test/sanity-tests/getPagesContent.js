@@ -11,6 +11,8 @@ function getFtPages () {
     ],
     ftApi = new FtApi('f65958a8e35bd14bc52f268b8b3ab4ad');
 
+  ftApi.setLogLevel(FtApi.LOG_LEVEL_INFO);
+
   ftApi.content.getPage(requestList);
 
   // An 'pageLoaded' event will fire after each page is loaded

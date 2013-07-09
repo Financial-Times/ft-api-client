@@ -126,7 +126,7 @@ Content.prototype.getApiItem =
     options,
     self = this;
 
-  logger.log('Item: ', position + 1, ' of ', itemsList.length);
+  logger.log('Item: ' + (position+1) + ' of ' + itemsList.length, logger.LOG_LEVEL_INFO);
 
   // Options for the node http request
   options = {
@@ -135,7 +135,7 @@ Content.prototype.getApiItem =
     method: 'GET'
   };
 
-  logger.log('Content API request: path: ' + options.path);
+  logger.log('Content API request: path: ' + options.path, logger.LOG_LEVEL_INFO);
 
   req = http.request(options);
 
@@ -162,10 +162,11 @@ Content.prototype.getApiItem =
 
 /* PRIVATE METHODS */
 handleCapiHttpResponse = function (response, deps) {
-  logger.logResponse(response.statusCode);
   if (response.statusCode === 200) {
+    logger.logResponse(response.statusCode, logger.LOG_LEVEL_INFO);
     handleResponseSuccess(response, deps);
   } else {
+    logger.logResponse(response.statusCode, logger.LOG_LEVEL_ERROR);
     handleResponseFailure(response, deps);
   }
 };

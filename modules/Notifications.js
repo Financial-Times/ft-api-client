@@ -80,7 +80,7 @@ Notifications.prototype.fetchItems = function (passedConfig, aggregateResponse) 
 
   // Create a new request
   request = http.request(options);
-  logger.log(options.path);
+  logger.log(options.path, logger.LOG_LEVEL_INFO);
 
   request.on('response', function (response) {
     handleResponse(response, self, aggregateResponse);
@@ -88,7 +88,7 @@ Notifications.prototype.fetchItems = function (passedConfig, aggregateResponse) 
 
   // Catch an error with the request and re-init the app
   request.on('error', function(e) {
-    logger.log('Error with request:', e);
+    logger.log('Error with request:' + e.toString(), logger.LOG_LEVEL_ERROR);
     self.emit('requestError', e);
   });
 
@@ -97,12 +97,14 @@ Notifications.prototype.fetchItems = function (passedConfig, aggregateResponse) 
 };
 
 handleResponse = function (response, self, aggregateResponse) {
-  logger.logResponse(response.statusCode);
   if (response.statusCode === 200) {
+    logger.logResponse(response.statusCode, logger.LOG_LEVEL_INFO);
     handleResponseSuccess(response, self, aggregateResponse);
   } else if (response.statusCode === 503) {
+    logger.logResponse(response.statusCode, logger.LOG_LEVEL_ERROR);
     handleResponseError(self, aggregateResponse);
   } else {
+    logger.logResponse(response.statusCode, logger.LOG_LEVEL_ERROR);
     self.emit('requestError', response);
   }
 };
@@ -124,7 +126,8 @@ handleResponseSuccess = function (response, self, aggregateResponse) {
 handleResponseError = function (self, aggregateResponse) {
   // There was an error from the CAPI, probably transient
   // try again in a little while
-  logger.log('Response error, delaying for', self.config.errorDelay/1000, 'seconds');
+  logger.log('Response error, delaying for' + (self.config.errorDelay/1000) + 'seconds',
+    logger.LOG_LEVEL_ERROR);
   setTimeout(function () {
     self.fetchItems(self.config, aggregateResponse);
   }, self.config.errorDelay);

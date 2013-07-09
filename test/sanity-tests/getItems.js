@@ -10,6 +10,7 @@ function getApiData () {
     ],
     ftApi = new FtApi('f65958a8e35bd14bc52f268b8b3ab4ad');
 
+  ftApi.setLogLevel(FtApi.LOG_LEVEL_INFO);
   // Optionally:
   // Optional, set true by default: Combine responses and return them on 'loadComplete'
   //config.aggregateResponse    = true;

@@ -18,13 +18,14 @@ exports.mergeConfig = function (configA, configB) {
       newConfig[key] = configB[key];
     }
   }
-  logger.log('Updated config', newConfig);
+  logger.log('Updated config', logger.LOG_LEVEL_INFO);
+  logger.log(newConfig, logger.LOG_LEVEL_INFO);
   return newConfig;
 };
 
 // Flatten the response from the CAPI notifications to just a list of IDs
 exports.flattenNotificationsResponse = function (sourceList) {
-  logger.log(sourceList);
+  logger.log(sourceList, logger.LOG_LEVEL_INFO);
   var itemsList = [], i, item;
   for (i = 0; i < sourceList.length; i += 1) {
     item = sourceList[i];

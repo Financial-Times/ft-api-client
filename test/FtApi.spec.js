@@ -5,7 +5,12 @@ var FtApi = require('../FtApi.js'),
     NotificationsModule = require('../modules/Notifications.js');
 
 describe('FT API Client', function () {
-  var API_KEY = 'foo';
+  var API_KEY = 'foo',
+    LOG_LEVEL_FLAGS = [
+      'LOG_LEVEL_NONE',
+      'LOG_LEVEL_INFO',
+      'LOG_LEVEL_ERROR'
+    ];
 
   describe('FT API Client Module', function () {
     it('exports a constructor which returns an api instance',
@@ -33,6 +38,17 @@ describe('FT API Client', function () {
       expect(apiInstance).toBeDefined();
       expect(typeof apiInstance).toBe('object');
     });
+
+    it('exports logging level flags',
+    function () {
+      // Given an ft api
+      // When we have a look at it
+      // For each log level
+      LOG_LEVEL_FLAGS.forEach(function (logLevelFlag) {
+        // We should find a corresponding flag on the FtApi
+        expect(FtApi[logLevelFlag]).toBeDefined();
+      });
+    });
   });
 
   describe('FT API Client Instance', function () {
@@ -56,6 +72,25 @@ describe('FT API Client', function () {
       expect(apiInstance.notifications).toBeDefined();
       // And it should be an instance of the Notifications module
       expect(apiInstance.notifications.constructor).toBe(NotificationsModule);
+    });
+
+    it('has setLoggingLevel getters and setters',
+    function () {
+      // Given an api instance as above
+      // When we have a look
+      // Then we should find getLogLevel and setLogLevel methods
+      expect(apiInstance.getLogLevel).toBeDefined();
+      expect(apiInstance.setLogLevel).toBeDefined();
+      expect(typeof apiInstance.getLogLevel).toEqual('function');
+      expect(typeof apiInstance.setLogLevel).toEqual('function');
+
+      // Given each log level flag and an api instance as above
+      LOG_LEVEL_FLAGS.forEach(function (logLevelFlag) {
+        // When we set the logging level
+        apiInstance.setLogLevel(FtApi[logLevelFlag]);
+        // Then that same logging level is returned on the getter
+        expect(apiInstance.getLogLevel()).toEqual(FtApi[logLevelFlag]);
+      });
     });
   });
 });

@@ -218,7 +218,7 @@ describe('FT Api Utils', function () {
 
       // Then we expect log to have been called on the sourceList
       expect(logger.log).toHaveBeenCalled();
-      expect(logger.log).toHaveBeenCalledWith(sourceList);
+      expect(logger.log.mostRecentCall.args[0]).toEqual(sourceList);
     });
 
     it('adds the id of each given item to the returned list',
