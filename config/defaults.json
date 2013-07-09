@@ -1,0 +1,8 @@
+{
+    "apiDomain": "api.ft.com",
+    "apiItemPath": "/content/items/v1/",
+    "pagePath": "/site/v1/pages/",
+    "pageMainContent": "/main-content",
+    "apiUpdateDelay": 125,
+    "aggregateResponse": true
+}

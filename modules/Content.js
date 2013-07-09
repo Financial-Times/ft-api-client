@@ -6,6 +6,7 @@ var http = require('https'),
   util = require('util'),
   events = require('events'),
   apiUtils = require('./apiUtils.js'),
+  DEFAULT_CONFIG = require('../config/defaults.json'),
 
   /* INTERNAL METHODS */
   handleCapiHttpResponse,
@@ -35,16 +36,7 @@ function Content (apiKey) {
       'which must be a non-empty string');
   }
 
-  // Default configuration data, only the 'apiKey' and 'since' do not have default values
-  this.config = {
-    apiKey:             apiKey,
-    apiDomain:          'api.ft.com',
-    apiItemPath:        '/content/items/v1/',
-    pagePath:           '/site/v1/pages/',
-    pageMainContent:    '/main-content',
-    apiUpdateDelay:     125,
-    aggregateResponse:  true
-  };
+  this.config = apiUtils.mergeConfig(DEFAULT_CONFIG, {apiKey: apiKey});
 }
 util.inherits(Content, events.EventEmitter);
 module.exports = Content;
