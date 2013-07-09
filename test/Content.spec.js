@@ -2,10 +2,10 @@
 
 var events = require('events'),
   loadModule = require('./utils/module-loader.js').loadModule,
-  API_KEY = 'bar',
+  STUB_API_KEY = 'bar',
   contentContext = loadModule('modules/Content.js'),
   ContentModule = contentContext.Content,
-  content = new ContentModule(API_KEY);
+  content = new ContentModule(STUB_API_KEY);
 
 describe('FT API Content Module', function () {
   it('exports a constructor for a content module instance',
@@ -13,7 +13,7 @@ describe('FT API Content Module', function () {
     var contentInstance;
     // Given an module constructor and a stub api key as above
     // When we invoke it
-    contentInstance = new ContentModule(API_KEY);
+    contentInstance = new ContentModule(STUB_API_KEY);
     // Then the instance should be a content module
     expect(contentInstance instanceof ContentModule).toBeTruthy();
   });
@@ -28,22 +28,37 @@ describe('FT API Content Module', function () {
 
     // Given an api import as above
     // When we call the constructor with an arbitrary string
-    contentInstance = new ContentModule(API_KEY);
+    contentInstance = new ContentModule(STUB_API_KEY);
     // Then it should have returned an object
     expect(contentInstance).toBeDefined();
     expect(typeof contentInstance).toBe('object');
   });
 
-  it('sets the config.apiKey from the API key passed to the constructor',
+  it('sets the instance config api key from the API key passed to the constructor',
   function () {
-    var stubApiKey, instance;
-    // Given an arbitrary stub api key
-    stubApiKey = 'floobally dap dap';
+    var instance;
+    // Given an arbitrary stub api key as above
     // When we create a new instance
-    instance = new ContentModule(stubApiKey);
+    instance = new ContentModule(STUB_API_KEY);
     // Then we should find that its config has an api which is the one passed
     expect(instance.config.apiKey).toBeDefined();
-    expect(instance.config.apiKey).toEqual(stubApiKey);
+    expect(instance.config.apiKey).toEqual(STUB_API_KEY);
+  });
+
+  it('includes all the default config into the instance\'s config',
+  function () {
+    var defaultConfig, instance, key;
+    // Given some default config from the context and an api key
+    defaultConfig = contentContext.DEFAULT_CONFIG;
+    // When we instantiate a Content module
+    instance = new ContentModule(STUB_API_KEY);
+    // We should find all the keys from the default config have been included
+    for (key in defaultConfig) {
+      if (defaultConfig.hasOwnProperty(key)) {
+        expect(instance.config[key]).toBeDefined();
+        expect(instance.config[key]).toEqual(defaultConfig[key]);
+      }
+    }
   });
 
   it('is an EventEmitter',
@@ -71,7 +86,7 @@ describe('Content API Getter Calls', function () {
 
   afterEach(function () {
     // Reset the content objects
-    content = new ContentModule(API_KEY);
+    content = new ContentModule(STUB_API_KEY);
   });
 
   it('exports ' + CALL_NAMES.join(', ') + ' calls',
