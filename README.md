@@ -62,7 +62,7 @@ This example will return the full data for each ID specfied
 		// Optionally:
 		//config.aggregateResponse		= true; Optional, set true by default: Combine all the response and return them when 'loadComplete' fires
 		//config.apiDomain				= 'api.ft.com'; // Optional, set by default: The domain for the CAPI
-		//config.apiItemPath			= '/content/notifications/v1/items'; // Optional, set by default
+		//config.item			= '/content/notifications/v1/items'; // Optional, set by default
 		//config.apiUpdateDelay			= 125; // Optional, set by default: Time in ms between requests, used to control the speed of comms to the API
 
 		// Request the content from the API. Content is fetched synchronously and throttled using the apiUpdateDelay property of config.

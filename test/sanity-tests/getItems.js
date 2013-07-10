@@ -17,7 +17,7 @@ function getApiData () {
   // Optional, set by default: The domain for the CAPI
   //config.apiDomain        = 'api.ft.com';
   // Optional, set by default
-  //config.apiItemPath      = '/content/notifications/v1/items';
+  //config.item      = '/content/notifications/v1/items';
   // Optional, set by default: Time in ms between requests, to control speed of comms
   //config.apiUpdateDelay      = 125;
 

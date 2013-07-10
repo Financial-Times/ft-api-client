@@ -1,6 +1,7 @@
 'use strict';
 
 var events = require('events'),
+  PathMapper = require('../lib/PathMapper.js'),
   loadModule = require('./utils/module-loader.js').loadModule,
   API_KEY = 'foo',
   notificationsContext = loadModule('lib/Notifications.js'),
@@ -34,16 +35,18 @@ describe('FT API Notifications Module', function () {
     expect(typeof notificationsInstance).toBe('object');
   });
 
-  it('sets the config.apiKey from the API key passed to the constructor',
+  it('has a pathMapper instantiated from the api key passed',
   function () {
-    var stubApiKey, instance;
-    // Given an arbitrary stub api key
-    stubApiKey = 'floobally dap dap';
-    // When we create a new instance
-    instance = new NotificationsModule(stubApiKey);
-    // Then we should find that its config has an api which is the one passed
-    expect(instance.config.apiKey).toBeDefined();
-    expect(instance.config.apiKey).toEqual(stubApiKey);
+    var newPathMapper, notificationsInstance;
+    // Given the module as above and a stub api key,
+    // and a new pathmapper made from the api key
+    newPathMapper = new PathMapper(API_KEY);
+    // When we call the constructor with a stub api key
+    notificationsInstance = new NotificationsModule(API_KEY);
+    // Then it should have a path mapper property
+    expect(notificationsInstance.pathMapper).toBeDefined();
+    // And it should be equal to a new path mapper
+    expect(notificationsInstance.pathMapper).toEqual(newPathMapper);
   });
 
   it('is an EventEmitter',
@@ -56,30 +59,6 @@ describe('FT API Notifications Module', function () {
 });
 
 describe('Notifications API Getter Calls', function () {
-  describe('get CAPI path for a given config object', function () {
-    it('joins the itemNotificationsPath, since param, limit param and api key',
-    function () {
-      var config, path;
-      // Given a config object with an item notifications path, since, limit and api key
-      config = {
-        itemNotificationsPath: 'krum',
-        since: 'yesterday',
-        limit: 25,
-        apiKey: 'ABCDEFG123456'
-      };
-
-      // When we get the capi path for the given config object
-      path = notificationsContext.getCapiPath(config);
-
-      // Then it should equal the join of the itemNotificationspath with the query params
-      expect(path).toEqual([
-        config.itemNotificationsPath, notificationsContext.SINCE_FIELD_STRING,
-        config.since, notificationsContext.LIMIT_FIELD_STRING, config.limit,
-        notificationsContext.API_KEY_FIELD_STRING, config.apiKey
-      ].join(''));
-    });
-  });
-
   describe('get new CAPI date from url path', function () {
     it('returns undefined if no query params are given', function () {
       var path, capiDate;
@@ -104,10 +83,9 @@ describe('Notifications API Getter Calls', function () {
     it('returns the since query param string if one is given', function () {
       var path, sinceParam, capiDate;
       // Given a since param
-      sinceParam = '08:00today_or_something';
+      sinceParam = '08:00_or_something';
       // And an arbitrary url path with query params including the since param
-      path = 'http://www.google.com/' + notificationsContext.SINCE_FIELD_STRING +
-          sinceParam + '&foo=bar&spub=tuppz#crumblz';
+      path = 'http://www.google.com/?since=' + sinceParam + '&foo=bar&spub=tuppz#crumblz';
       // When we retrieve the capiDate from the path
       capiDate = notificationsContext.getNewCapiDateFromPath(path);
       // Then it should be equal to the since param

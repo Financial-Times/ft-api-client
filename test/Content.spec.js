@@ -76,12 +76,6 @@ describe('Content API Getter Calls', function () {
     'getPage',
     'getPageMainContent',
     'getPages'
-  ],
-  CONFIG_NAMES = [
-    'GET_CONTENT_CONFIG',
-    'GET_PAGE_CONFIG',
-    'GET_PAGE_CONTENT_CONFIG',
-    'GET_PAGES_CONFIG'
   ];
 
   afterEach(function () {
@@ -97,21 +91,7 @@ describe('Content API Getter Calls', function () {
     });
   });
 
-  CALL_NAMES.forEach(function (callName, index) {
-    it(callName + ' calls getApiItem with ' + CONFIG_NAMES[index],
-    function () {
-      // Given a spy on getApiItem
-      spyOn(content, 'getApiItem');
-
-      // When we make the call with an arbitrary itemsList and config object
-      content[callName]({}, {});
-
-      // Then getApiItem should have been called with the corresponding call config
-      expect(content.getApiItem).toHaveBeenCalled();
-      expect(content.getApiItem.mostRecentCall.args[3])
-          .toEqual(contentContext[CONFIG_NAMES[index]]);
-    });
-
+  CALL_NAMES.forEach(function (callName) {
     it(callName + ' calls getApiItem with merged optional config ' +
       'and the content object\'s own config',
     function () {
@@ -164,72 +144,5 @@ describe('Content API Getter Calls', function () {
       // And is equal to the config before the call was made :D
       expect(content.config).toEqual(configBeforeCall);
     });
-  });
-});
-
-describe('Content API Paths', function () {
-  it('makes the get content path by joining api item path with the item id and api key',
-      function () {
-    // Given a stub config with an apiItemPath and api key, and an arbitrary id
-    var stubConfig = {apiItemPath: 'path/', apiKey: 'key'},
-      id = 'id',
-      path;
-
-    // When we make the get content path
-    path = contentContext.makeGetContentPath(stubConfig, id);
-
-    // Then it's equal to the chaps joined together
-    expect(path).toEqual([
-      stubConfig.apiItemPath, id, contentContext.API_PARAM, stubConfig.apiKey
-    ].join(''));
-  });
-
-  it('makes the get page path by joining page path with the item id and api key',
-      function () {
-    // Given a stub config with a page path and api key, and an arbitrary id
-    var stubConfig = {pagePath: 'path/', apiKey: 'key'},
-      id = 'id',
-      path;
-
-    // When we make the get content path
-    path = contentContext.makeGetPagePath(stubConfig, id);
-
-    // Then it's equal to the chaps joined together
-    expect(path).toEqual([
-      stubConfig.pagePath, id, contentContext.API_PARAM, stubConfig.apiKey
-    ].join(''));
-  });
-
-  it('makes the get page content path by joining page path with page main content path,' +
-      'the item id and api key',
-      function () {
-    // Given a stub config with a page path, page main content and api key, and an id
-    var stubConfig = {pagePath: 'path/', pageMainContent: 'pmc/', apiKey: 'key'},
-      id = 'id',
-      path;
-
-    // When we make the get content path
-    path = contentContext.makeGetPageContentPath(stubConfig, id);
-
-    // Then it's equal to the chaps joined together
-    expect(path).toEqual([
-      stubConfig.pagePath, id, stubConfig.pageMainContent,
-      contentContext.API_PARAM, stubConfig.apiKey
-    ].join(''));
-  });
-
-  it('makes the get pages path by joining page path with the api key',
-      function () {
-    // Given a stub config with an apiItemPath and api key
-    var stubConfig = {pagePath: 'path/', apiKey: 'key'},
-      path;
-
-    // When we make the get content path
-    path = contentContext.makeGetPagesPath(stubConfig);
-
-    // Then it's equal to the chaps joined together
-    expect(path).toEqual([
-      stubConfig.pagePath, contentContext.API_PARAM, stubConfig.apiKey
-    ].join(''));
   });
 });

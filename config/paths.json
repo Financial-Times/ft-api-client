@@ -1,0 +1,7 @@
+{
+    "apiDomain": "api.ft.com",
+    "notifications":  "/content/notifications/v1/items",
+    "item": "/content/items/v1/",
+    "pages": "/site/v1/pages/",
+    "pageMainContent": "/main-content"
+}
