@@ -9,6 +9,7 @@ describe('Content Calls Module', function () {
     afterEach(function () {
       contentCalls.setLogger(null);
       contentCalls.setPathMapper(null);
+      contentCalls.setRequestManager(null);
     });
 
     it('has a logger property', function () {
@@ -45,6 +46,23 @@ describe('Content Calls Module', function () {
       expect(contentCalls.pathMapper).toBe(newPathMapper);
     });
 
+    it('has a requestManager property', function () {
+      expect(contentCalls.requestManager).toBeDefined();
+    });
+
+    it('has a setter for the requestManager property', function () {
+      var newRequestManager = {foo: 'bar'};
+      // Given a content calls module with a set requestManager function
+      expect(contentCalls.setRequestManager).toBeDefined();
+      expect(typeof contentCalls.setRequestManager).toEqual('function');
+      // Which has a requestManager which is not the new requestManager
+      expect(contentCalls.requestManager).not.toEqual(newRequestManager);
+      // When we set the requestManager to the new requestManager
+      contentCalls.setRequestManager(newRequestManager);
+      // Then it should have been set to the new requestManager
+      expect(contentCalls.requestManager).toBe(newRequestManager);
+    });
+
     it('has a mixInTo method', function () {
       expect(contentCalls.mixInTo).toBeDefined();
       expect(typeof contentCalls.mixInTo).toEqual('function');
@@ -69,7 +87,8 @@ describe('Content Calls Module', function () {
         unmixedProperties = contentCallsContext.UNMIXED_PROPERTIES;
 
         // And a target object with the required properties, and a copy before mixing
-        targetObject = {foo: 'bar', baz: 'quux', pathMapper: 'tumblz', logger: 'woop'};
+        targetObject =
+          {foo: 'bar', pathMapper: 'tumblz', logger: 'woop', requestManager: 'woo'};
         originalTargetObject = JSON.parse(JSON.stringify(targetObject));
 
         // When we call mixInTo on the target object
@@ -93,19 +112,31 @@ describe('Content Calls Module', function () {
 
       it('throws an error if the target object does not have a logger property',
       function () {
-        var objectWithoutLogger = {foo: 'bar', pathMapper: 'baz'},
-          objectWithLogger = {foo: 'bar', pathMapper: 'baz', logger: 'quux'};
+        var objectWithoutLogger = {foo: 'bar', pathMapper: 'baz', requestManager: 'woo'},
+          objectWithLogger =
+          {foo: 'bar', pathMapper: 'baz', requestManager: 'woo', logger: 'quux'};
         expect(function () { contentCalls.mixInTo(objectWithoutLogger); }).toThrow();
         expect(function () { contentCalls.mixInTo(objectWithLogger); }).not.toThrow();
       });
 
       it('throws an error if the target object does not have a pathMapper property',
       function () {
-        var objectWithoutPathMapper = {foo: 'bar', logger: 'baz'},
-          objectWithPathMapper = {foo: 'bar', logger: 'baz', pathMapper: 'quux'};
+        var objectWithoutPathMapper = {foo: 'bar', logger: 'baz', requestManager: 'woo'},
+          objectWithPathMapper =
+            {foo: 'bar', logger: 'baz',  requestManager: 'woo', pathMapper: 'quux'};
         expect(function () { contentCalls.mixInTo(objectWithoutPathMapper); }).toThrow();
         expect(function () { contentCalls.mixInTo(objectWithPathMapper); }).not.toThrow();
       });
+
+      it('throws an error if the target object does not have a request manager property',
+        function () {
+          var objectWithoutReqMan =
+              {foo: 'bar', pathMapper: 'baz', logger: 'baz'},
+            objectWithReqMan =
+              {foo: 'bar', pathMapper: 'baz', logger: 'quux', requestManager: 'woo'};
+          expect(function () { contentCalls.mixInTo(objectWithoutReqMan); }).toThrow();
+          expect(function () { contentCalls.mixInTo(objectWithReqMan); }).not.toThrow();
+        });
     });
   });
 });
