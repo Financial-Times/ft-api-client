@@ -139,4 +139,20 @@ describe('Content Calls Module', function () {
         });
     });
   });
+
+  describe('calls to get items', function () {
+    var CALL_NAMES = [
+      'getItem',
+      'getPageList',
+      'getPage',
+      'getPageContent'
+    ];
+
+    CALL_NAMES.forEach(function (callName) {
+      it('has a ' + callName + ' call', function () {
+        expect(contentCalls[callName]).toBeDefined();
+        expect(typeof contentCalls[callName]).toEqual('function');
+      });
+    });
+  });
 });

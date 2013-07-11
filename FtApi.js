@@ -1,8 +1,11 @@
 'use strict';
 
-var logger = require('./lib/logger.js'),
-    ContentModule = require('./lib/Content.js'),
-    NotificationsModule = require('./lib/Notifications.js');
+var ContentModule = require('./lib/Content.js'),
+  NotificationsModule = require('./lib/Notifications.js'),
+  contentCalls = require('./lib/contentCalls.js'),
+  logger = require('./lib/logger.js'),
+  PathMapper = require('./lib/PathMapper.js'),
+  requestManager = require('./lib/requestManager.js');
 
 function FtApi (apiKey) {
   if (typeof apiKey !== 'string' || apiKey === '') {
@@ -12,6 +15,12 @@ function FtApi (apiKey) {
 
   this.content = new ContentModule(apiKey);
   this.notifications = new NotificationsModule(apiKey);
+
+  this.pathMapper = new PathMapper(apiKey);
+  this.logger = logger; // To be replaced with an instance soon
+  this.requestManager = requestManager;
+
+  contentCalls.mixInTo(this);
 }
 
 /* LOGGING */
