@@ -20,7 +20,8 @@
       "grunt-contrib-jshint": "0.6.0",
       "grunt-contrib-watch": "0.4.4",
       "grunt-jasmine-node": "0.1.0",
-      "moment": "2.0.0"
+      "moment": "2.0.0",
+      "underscore": "1.5.1"
   },
   "keywords": [
     "FT",
