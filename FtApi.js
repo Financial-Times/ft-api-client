@@ -1,7 +1,6 @@
 'use strict';
 
-var ContentModule = require('./lib/Content.js'),
-  NotificationsModule = require('./lib/Notifications.js'),
+var NotificationsModule = require('./lib/Notifications.js'),
   contentCalls = require('./lib/contentCalls.js'),
   Logger = require('./lib/Logger.js'),
   PathMapper = require('./lib/PathMapper.js'),
@@ -13,7 +12,6 @@ function FtApi (apiKey) {
         'which must be a non-empty string');
   }
 
-  this.content = new ContentModule(apiKey);
   this.notifications = new NotificationsModule(apiKey);
 
   this.pathMapper = new PathMapper(apiKey);

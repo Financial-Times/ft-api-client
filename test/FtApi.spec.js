@@ -11,7 +11,6 @@ var MOCK_CONTENT_CALLS = {
   ftApiContext = loadModule('FtApi.js', CONTEXT_MOCKS),
   FtApi = ftApiContext.module.exports,
   /* OTHER MODULES */
-  ContentModule = require('../lib/Content.js'),
   NotificationsModule = require('../lib/Notifications.js'),
   PathMapper = require('../lib/PathMapper.js'),
   Logger = require('../lib/Logger.js');
@@ -65,16 +64,6 @@ describe('FT API Client', function () {
 
   describe('FT API Client Instance', function () {
     var apiInstance = new FtApi(STUB_API_KEY);
-
-    it('has a content property which is the content module',
-    function() {
-      // Given an api instance as above
-      // When we inspect its properties
-      // Then we should find a content property
-      expect(apiInstance.content).toBeDefined();
-      // And it should be an instance of the Content module
-      expect(apiInstance.content.constructor).toBe(ContentModule);
-    });
 
     it('has a notifications property which is the notifications module',
     function() {

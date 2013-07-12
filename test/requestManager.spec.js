@@ -23,12 +23,69 @@ var MOCK_REQUEST = jasmine.createSpy(),
   };
 
 describe('Request Manager', function () {
-  var requestManagerContext, requestManager;
+  var requestManagerContext,
+    requestManager,
+    stubUrl = 'foo',
+    stubCallback = function () {};
 
   beforeEach(function () {
     // Reset each time to clear the internal state
     requestManagerContext = loadModule('lib/requestManager.js', CONTEXT_MOCKS);
     requestManager = requestManagerContext.exports;
+  });
+
+  describe('get item from url', function () {
+    it('adds a new request queue to queued requests, with a request for the item',
+    function () {
+      var requestQueue;
+      // Given a fresh module instance, and a stub url, logger and callback as above
+      // And a spy on add to request queue
+      spyOn(requestManager, 'addToQueuedRequests');
+      // When we call getItemForUrl for the stubz
+      requestManager.getItemFromUrl(stubUrl, MOCK_LOGGER, stubCallback);
+      // Then we should find that it added an item to the request queue
+      expect(requestManager.addToQueuedRequests).toHaveBeenCalled();
+      requestQueue = requestManager.addToQueuedRequests.mostRecentCall.args[0];
+      // And that item contained a request
+      expect(requestQueue.queue.length).toEqual(1);
+      // Which had the given url, logger and callback
+      expect(requestQueue.queue[0].url).toEqual(stubUrl);
+      expect(requestQueue.queue[0].logger).toEqual(MOCK_LOGGER);
+      expect(requestQueue.queue[0].completedCallback).toEqual(stubCallback);
+    });
+  });
+
+  describe('get items from urls', function () {
+    it('adds a new request queue to queued requests, with a request for each passed item',
+    function () {
+      var stubUrls, itemCallback, doneCallback, requestQueue;
+
+      // Given a fresh module instance
+      // And a set of urls, an item callback and a done callback
+      stubUrls = ['foo', 'bar'];
+      itemCallback = function () {};
+      doneCallback = function () {};
+      // And a spy on add to request queue
+      spyOn(requestManager, 'addToQueuedRequests');
+
+      // When we call getItemsForUrls for the stubz
+      requestManager.getItemsFromUrls(stubUrls, MOCK_LOGGER, itemCallback, doneCallback);
+
+      // Then we should find that it added stuff to the request queue
+      expect(requestManager.addToQueuedRequests).toHaveBeenCalled();
+      requestQueue = requestManager.addToQueuedRequests.mostRecentCall.args[0];
+      // And that added queue contained two requests
+      expect(requestQueue.queue.length).toEqual(2);
+      // Which had the given url, logger and callback
+      expect(requestQueue.queue[0].url).toEqual(stubUrls[0]);
+      expect(requestQueue.queue[0].logger).toEqual(MOCK_LOGGER);
+      expect(requestQueue.queue[0].completedCallback).toEqual(itemCallback);
+      expect(requestQueue.queue[1].url).toEqual(stubUrls[1]);
+      expect(requestQueue.queue[1].logger).toEqual(MOCK_LOGGER);
+      expect(requestQueue.queue[1].completedCallback).toEqual(itemCallback);
+      // And the queue's own done callback was the given done callback
+      expect(requestQueue.completedCallback).toEqual(doneCallback);
+    });
   });
 
   describe('add to queued requests', function () {
