@@ -1,17 +1,20 @@
 'use strict';
-
+  /* MOCK CONTEXT DEPENDENCIES */
 var MOCK_CONTENT_CALLS = {
     mixInTo: jasmine.createSpy()
   },
   CONTEXT_MOCKS = {
     './lib/contentCalls.js': MOCK_CONTENT_CALLS
   },
+  /* THE FT API MODULE */
   loadModule = require('./utils/module-loader.js').loadModule,
   ftApiContext = loadModule('FtApi.js', CONTEXT_MOCKS),
   FtApi = ftApiContext.module.exports,
+  /* OTHER MODULES */
   ContentModule = require('../lib/Content.js'),
   NotificationsModule = require('../lib/Notifications.js'),
-  PathMapper = require('../lib/PathMapper.js');
+  PathMapper = require('../lib/PathMapper.js'),
+  Logger = require('../lib/logger.js');
 
 describe('FT API Client', function () {
   var STUB_API_KEY = 'foo',
@@ -95,12 +98,12 @@ describe('FT API Client', function () {
       expect(apiInstance.pathMapper).toEqual(newPathMapper);
     });
 
-    it('has a logger property, which is the singleton logger',
+    it('has a logger property, which is a new logger instance',
     function (){
-      var loggerModule = require('../lib/logger.js');
+      var newLogger = new Logger();
       expect(apiInstance.logger).toBeDefined();
-      // Then it should be the exact same logger
-      expect(apiInstance.logger).toBe(loggerModule);
+      // Then it should be a new logger
+      expect(apiInstance.logger).toEqual(newLogger);
     });
 
     it('has a request manager property, which is the singleton request manager',

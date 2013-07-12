@@ -3,7 +3,7 @@
 var ContentModule = require('./lib/Content.js'),
   NotificationsModule = require('./lib/Notifications.js'),
   contentCalls = require('./lib/contentCalls.js'),
-  logger = require('./lib/logger.js'),
+  Logger = require('./lib/logger.js'),
   PathMapper = require('./lib/PathMapper.js'),
   requestManager = require('./lib/requestManager.js');
 
@@ -17,7 +17,7 @@ function FtApi (apiKey) {
   this.notifications = new NotificationsModule(apiKey);
 
   this.pathMapper = new PathMapper(apiKey);
-  this.logger = logger; // To be replaced with an instance soon
+  this.logger = new Logger();
   this.requestManager = requestManager;
 
   contentCalls.mixInTo(this);
@@ -26,16 +26,16 @@ function FtApi (apiKey) {
 /* LOGGING */
 /* Note that this is not a per-instance level. Should instance-ise later */
 FtApi.prototype.setLogLevel = function (logLevel) {
-  logger.setLogLevel(logLevel);
+  this.logger.setLogLevel(logLevel);
 };
 
 FtApi.prototype.getLogLevel = function () {
-  return logger.getLogLevel();
+  return this.logger.getLogLevel();
 };
 
 /* STATIC FLAGS */
-FtApi.LOG_LEVEL_NONE = logger.LOG_LEVEL_NONE;
-FtApi.LOG_LEVEL_INFO = logger.LOG_LEVEL_INFO;
-FtApi.LOG_LEVEL_ERROR = logger.LOG_LEVEL_ERROR;
+FtApi.LOG_LEVEL_NONE = Logger.LOG_LEVEL_NONE;
+FtApi.LOG_LEVEL_INFO = Logger.LOG_LEVEL_INFO;
+FtApi.LOG_LEVEL_ERROR = Logger.LOG_LEVEL_ERROR;
 
 module.exports = FtApi;
