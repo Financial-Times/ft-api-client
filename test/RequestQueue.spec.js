@@ -4,8 +4,8 @@ var RequestQueue = require('../lib/RequestQueue.js');
 
 describe('Request Queue', function () {
   var STUB_URL = 'foo',
-    STUB_CALLBACK = function () {},
-    STUB_LOGGER = {};
+    STUB_LOGGER = {},
+    STUB_CALLBACK = function () {};
 
   it('has a constructor that sets an optional completed callback, and sets the queue ' +
   'to a new array',
@@ -37,7 +37,7 @@ describe('Request Queue', function () {
       // Given a request queue and a stub url and callback as above
       requestQueue = new RequestQueue();
       // Then when we add a new request to the queue
-      requestQueue.addRequest(STUB_URL, STUB_CALLBACK, STUB_LOGGER);
+      requestQueue.addRequest(STUB_URL, STUB_LOGGER, STUB_CALLBACK);
       // Then the queue should now have a queued request
       expect(requestQueue.queue.length).toEqual(1);
       queuedRequest = requestQueue.queue[0];
@@ -53,8 +53,8 @@ describe('Request Queue', function () {
 
     beforeEach(function () {
       requestQueue = new RequestQueue();
-      requestQueue.addRequest(STUB_URL, STUB_CALLBACK, STUB_LOGGER);
-      requestQueue.addRequest(STUB_URL, STUB_CALLBACK, STUB_LOGGER);
+      requestQueue.addRequest(STUB_URL, STUB_LOGGER, STUB_CALLBACK);
+      requestQueue.addRequest(STUB_URL, STUB_LOGGER, STUB_CALLBACK);
     });
 
     it('returns false if no items in the queue have been completed',
@@ -81,8 +81,8 @@ describe('Request Queue', function () {
 
     beforeEach(function () {
       requestQueue = new RequestQueue();
-      requestQueue.addRequest(STUB_URL, STUB_CALLBACK, STUB_LOGGER);
-      requestQueue.addRequest(STUB_URL, STUB_CALLBACK, STUB_LOGGER);
+      requestQueue.addRequest(STUB_URL, STUB_LOGGER, STUB_CALLBACK);
+      requestQueue.addRequest(STUB_URL, STUB_LOGGER, STUB_CALLBACK);
     });
 
     it('returns false if no items in the queue are in progress',
@@ -108,8 +108,8 @@ describe('Request Queue', function () {
     it('doesn\'t call its completed callback if the queue hasn\'t completed',
     function () {
       var requestQueue = new RequestQueue(jasmine.createSpy());
-      requestQueue.addRequest(STUB_URL, STUB_CALLBACK, STUB_LOGGER);
-      requestQueue.addRequest(STUB_URL, STUB_CALLBACK, STUB_LOGGER);
+      requestQueue.addRequest(STUB_URL, STUB_LOGGER, STUB_CALLBACK);
+      requestQueue.addRequest(STUB_URL, STUB_LOGGER, STUB_CALLBACK);
       requestQueue.queue[0].isComplete = true;
       // When we manually call notify request completed
       requestQueue.notifyRequestCompleted();
@@ -122,8 +122,8 @@ describe('Request Queue', function () {
 
       completedCallback = jasmine.createSpy();
       requestQueue = new RequestQueue(completedCallback);
-      requestQueue.addRequest(STUB_URL, STUB_CALLBACK, STUB_LOGGER);
-      requestQueue.addRequest(STUB_URL, STUB_CALLBACK, STUB_LOGGER);
+      requestQueue.addRequest(STUB_URL, STUB_LOGGER, STUB_CALLBACK);
+      requestQueue.addRequest(STUB_URL, STUB_LOGGER, STUB_CALLBACK);
 
       requestQueue.queue[0].isComplete = true;
       requestQueue.queue[1].isComplete = true;
@@ -139,8 +139,8 @@ describe('Request Queue', function () {
       var requestQueue, errorA, itemA, errorB, itemB, errors, items;
       // Given a request queue with a spy completed callback and two queued requests
       requestQueue = new RequestQueue(jasmine.createSpy());
-      requestQueue.addRequest(STUB_URL, STUB_CALLBACK, STUB_LOGGER);
-      requestQueue.addRequest(STUB_URL, STUB_CALLBACK, STUB_LOGGER);
+      requestQueue.addRequest(STUB_URL, STUB_LOGGER, STUB_CALLBACK);
+      requestQueue.addRequest(STUB_URL, STUB_LOGGER, STUB_CALLBACK);
 
       // And the requests have both been notified complete with errors and items
       errorA = {foo: 'bar'};
