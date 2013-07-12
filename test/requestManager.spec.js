@@ -7,8 +7,8 @@ var MOCK_REQUEST = jasmine.createSpy(),
   },
   /* DEPENDENCIES */
   loadModule = require('./utils/module-loader.js').loadModule,
-  requestManagerContext = loadModule('lib/requestManager.js', CONTEXT_MOCKS),
-  requestManager = requestManagerContext.exports,
+  QueuedRequest = require('../lib/QueuedRequest.js'),
+  RequestQueue = require('../lib/RequestQueue.js'),
 
   /* MOCK ARGUMENTS */
   MOCK_LOGGER = {
@@ -17,35 +17,107 @@ var MOCK_REQUEST = jasmine.createSpy(),
   },
   MOCK_QUEUED_REQUEST = {
     logger: MOCK_LOGGER,
+    notifyInProgress: jasmine.createSpy(),
     notifyCompleted: jasmine.createSpy(),
     completedCallback: jasmine.createSpy()
   };
 
 describe('Request Manager', function () {
-  describe('getItemFromUrl', function () {
-    it('makes a request for json to the passed url', function () {
-      var stubUrl, stubCallback;
+  var requestManagerContext, requestManager;
+
+  beforeEach(function () {
+    // Reset each time to clear the internal state
+    requestManagerContext = loadModule('lib/requestManager.js', CONTEXT_MOCKS);
+    requestManager = requestManagerContext.exports;
+  });
+
+  describe('add to queued requests', function () {
+    it('adds the passed request queue\'s requests on to the queue',
+    function () {
+      var requestQueue;
+      requestQueue = new RequestQueue();
+      spyOn(requestManager, 'dispatchNextRequest'); // Spy to prevent callthrough
+      requestQueue.addRequest('foo', MOCK_LOGGER, function () {});
+      requestQueue.addRequest('bar', MOCK_LOGGER, function () {});
+      requestManager.addToQueuedRequests(requestQueue);
+      expect(requestManager.queuedRequests[0]).toEqual(requestQueue.queue[0]);
+      expect(requestManager.queuedRequests[1]).toEqual(requestQueue.queue[1]);
+    });
+
+    it('calls dispatchnextrequest if requests aren\'t in progress',
+    function () {
+      var requestQueue;
+      // Given a fresh module, such that requests aren't in progress
+      expect(requestManager.hasRequestsInProgress).toBeFalsy();
+      // And a request queue with one request
+      requestQueue = new RequestQueue();
+      requestQueue.addRequest('foo', MOCK_LOGGER, function () {});
+      // And a spy on dispatchNextRequest
+      spyOn(requestManager, 'dispatchNextRequest');
+      // When we add it to the queued requests
+      expect(requestManager.dispatchNextRequest).not.toHaveBeenCalled();
+      requestManager.addToQueuedRequests(requestQueue);
+      // Then we expect dispatch next request to have been called
+      expect(requestManager.dispatchNextRequest).toHaveBeenCalled();
+    });
+  });
+
+  describe('dispatch next request', function () {
+    it('calls make request with next request in queue, and takes it out of the queue',
+    function () {
+      spyOn(requestManager, 'makeRequest');
+      requestManager.queuedRequests.push(MOCK_QUEUED_REQUEST);
+      expect(requestManager.queuedRequests.length).toEqual(1);
+      expect(requestManager.makeRequest).not.toHaveBeenCalled();
+      requestManager.dispatchNextRequest();
+      expect(requestManager.queuedRequests.length).toEqual(0);
+      expect(requestManager.makeRequest).toHaveBeenCalledWith(MOCK_QUEUED_REQUEST);
+    });
+
+    it('sets hasRequestsInProgress true',
+    function () {
+      spyOn(requestManager, 'makeRequest'); // Prevent falling through with a spy
+      requestManager.queuedRequests.push(MOCK_QUEUED_REQUEST);
+      expect(requestManager.hasRequestsInProgress).toBeFalsy();
+      requestManager.dispatchNextRequest();
+      expect(requestManager.hasRequestsInProgress).toBeTruthy();
+    });
+  });
+
+  describe('make request', function () {
+    it('notifies the request that it\'s in progress', function () {
+      expect(MOCK_QUEUED_REQUEST.notifyInProgress).not.toHaveBeenCalled();
+      requestManager.makeRequest(MOCK_QUEUED_REQUEST);
+      expect(MOCK_QUEUED_REQUEST.notifyInProgress).toHaveBeenCalled();
+    });
+
+    it('makes a request for json to the passed queued request\'s url', function () {
+      var stubUrl, stubCallback, requestQueue, queuedRequest;
       // Given a mock request module as above, and a stub url and callback
       stubUrl = 'http://www.google.com/';
       stubCallback = function () {};
-      // When we get the item for the given url
-      requestManager.getItemFromUrl(stubUrl, MOCK_LOGGER, stubCallback);
-      // Then request should have been called, with the given url and json flag
+      requestQueue = new RequestQueue();
+      queuedRequest = new QueuedRequest(stubUrl, stubCallback, MOCK_LOGGER, requestQueue);
+      // When we make the request for the given request
+      requestManager.makeRequest(queuedRequest);
+      // Then the request module should have been called, with the given url and json flag
       expect(MOCK_REQUEST).toHaveBeenCalled();
       expect(MOCK_REQUEST.mostRecentCall.args[0]).toEqual({url: stubUrl, json: true});
     });
 
-    it('passes a callback to the request that will call handleResponse', function () {
+    it('passes a callback to the request module that will call handleResponse',
+    function () {
       var stubUrl, stubCallback, requestCallback;
       // Given a mock request module as above, and a stub url and callback
       stubUrl = 'http://www.google.com/';
       stubCallback = function () {};
+      // And a spy on handle response
       spyOn(requestManager, 'handleResponse');
 
       // When we get the item for the given url, with the spy callback
       requestManager.getItemFromUrl(stubUrl, MOCK_LOGGER, stubCallback);
 
-      // Then the mock request object should have been passed a callback
+      // Then the mock request module should have been passed a callback
       requestCallback = MOCK_REQUEST.mostRecentCall.args[1];
       expect(requestCallback).toBeDefined();
       expect(typeof requestCallback).toEqual('function');
