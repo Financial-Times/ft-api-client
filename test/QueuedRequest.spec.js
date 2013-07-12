@@ -5,27 +5,32 @@ var QueuedRequest = require('../lib/QueuedRequest.js');
 describe('Queued Request', function () {
   var STUB_URL = 'foo',
     STUB_CALLBACK = function () {},
-    STUB_PARENT_QUEUE = {notifyRequestCompleted: function () {}};
+    STUB_PARENT_QUEUE = {notifyRequestCompleted: function () {}},
+    STUB_LOGGER = {},
+    queuedRequest;
 
-  it('has a constructor that sets the queuedRequests url, completed callback and ' +
-    'parent queue',
+  beforeEach(function () {
+    queuedRequest =
+      new QueuedRequest(STUB_URL, STUB_CALLBACK, STUB_LOGGER, STUB_PARENT_QUEUE);
+  });
+
+  it('has a constructor that sets the queuedRequests url, completed callback, logger ' +
+    'and parent queue',
   function () {
-    var queuedRequest;
     // Given a stub url, completed callback and parent queue as above
-    // When we make a new queued request from these
-    queuedRequest = new QueuedRequest(STUB_URL, STUB_CALLBACK, STUB_PARENT_QUEUE);
+    // When we make a new queued request from these as above
     // Then the passed properties should have been assigned
     expect(queuedRequest.url).toBe(STUB_URL);
     expect(queuedRequest.completedCallback).toBe(STUB_CALLBACK);
+    expect(queuedRequest.logger).toBe(STUB_LOGGER);
     expect(queuedRequest.parentQueue).toBe(STUB_PARENT_QUEUE);
   });
 
-  it('has a constructor that sets its item, error and isComplete to default values',
+  it('has a constructor that sets its item, error, isComplete and isInProgress to ' +
+    'default values',
   function () {
-    var queuedRequest;
     // Given a stub url, completed callback and parent queue as above
-    // When we make a new queued request from these
-    queuedRequest = new QueuedRequest(STUB_URL, STUB_CALLBACK, STUB_PARENT_QUEUE);
+    // When we make a new queued request from these as above
     // Then we should find that the item, error and isComplete properties have been set
     expect(queuedRequest.item).toBeDefined();
     expect(queuedRequest.item).toEqual(null);
@@ -33,6 +38,16 @@ describe('Queued Request', function () {
     expect(queuedRequest.error).toEqual(null);
     expect(queuedRequest.isComplete).toBeDefined();
     expect(queuedRequest.isComplete).toEqual(false);
+    expect(queuedRequest.isInProgress).toBeDefined();
+    expect(queuedRequest.isInProgress).toEqual(false);
+  });
+
+  describe('notify request in progress', function () {
+    it('sets the request\'s in progress flag to true', function () {
+      expect(queuedRequest.isInProgress).toBeFalsy();
+      queuedRequest.notifyInProgress();
+      expect(queuedRequest.isInProgress).toEqual(true);
+    });
   });
 
   describe('notify request completed method', function () {
@@ -41,7 +56,8 @@ describe('Queued Request', function () {
       var queuedRequest, completedCallback, stubError, stubItem;
       // Given a queued request, a spy on the completed callback and a stub item and error
       completedCallback = jasmine.createSpy();
-      queuedRequest = new QueuedRequest(STUB_URL, completedCallback, STUB_PARENT_QUEUE);
+      queuedRequest =
+        new QueuedRequest(STUB_URL, completedCallback, STUB_LOGGER, STUB_PARENT_QUEUE);
       stubError = {};
       stubItem = {};
       // When we notify the request it's completed
@@ -53,20 +69,17 @@ describe('Queued Request', function () {
 
     it('calls notifyItemCompleted on its parent queue',
     function () {
-      var queuedRequest;
+      // May fail because of reference to parent queue
       spyOn(STUB_PARENT_QUEUE, 'notifyRequestCompleted');
-      queuedRequest = new QueuedRequest(STUB_URL, STUB_CALLBACK, STUB_PARENT_QUEUE);
-
       queuedRequest.notifyCompleted({}, {});
-
       expect(STUB_PARENT_QUEUE.notifyRequestCompleted).toHaveBeenCalled();
     });
 
-    it('sets its own item and error to the passed ones, and marks itself complete',
+    it('sets its own item and error to the passed ones, marks itself complete and ' +
+      'no longer in progress',
     function () {
-      var queuedRequest, stubError, stubItem;
+      var stubError, stubItem;
       // Given a queued request and a stub item and error
-      queuedRequest = new QueuedRequest(STUB_URL, STUB_CALLBACK, STUB_PARENT_QUEUE);
       stubError = {};
       stubItem = {};
       // When we notify it's complete
@@ -74,7 +87,9 @@ describe('Queued Request', function () {
       // Then it should have set its error and item to the passed ones
       expect(queuedRequest.error).toBe(stubError);
       expect(queuedRequest.item).toBe(stubItem);
+      // And be complete and no longer in progress
       expect(queuedRequest.isComplete).toBeTruthy();
+      expect(queuedRequest.isInProgress).toBeFalsy();
     });
   });
 });

@@ -1,18 +1,25 @@
 'use strict';
 
-  /* MOCK DEPENDENCIES */
-var MOCK_LOGGER = {
-    log: jasmine.createSpy(),
-    logResponse: jasmine.createSpy()
-  },
-  MOCK_REQUEST = jasmine.createSpy(),
+  /* MOCK CONTEXT DEPENDENCIES */
+var MOCK_REQUEST = jasmine.createSpy(),
   CONTEXT_MOCKS = {
     request: MOCK_REQUEST
   },
   /* DEPENDENCIES */
   loadModule = require('./utils/module-loader.js').loadModule,
   requestManagerContext = loadModule('lib/requestManager.js', CONTEXT_MOCKS),
-  requestManager = requestManagerContext.exports;
+  requestManager = requestManagerContext.exports,
+
+  /* MOCK ARGUMENTS */
+  MOCK_LOGGER = {
+    log: jasmine.createSpy(),
+    logResponse: jasmine.createSpy()
+  },
+  MOCK_QUEUED_REQUEST = {
+    logger: MOCK_LOGGER,
+    notifyCompleted: jasmine.createSpy(),
+    completedCallback: jasmine.createSpy()
+  };
 
 describe('Request Manager', function () {
   describe('getItemFromUrl', function () {
@@ -50,58 +57,62 @@ describe('Request Manager', function () {
   });
 
   describe('handleResponse', function () {
-    var SPY_CALLBACK = jasmine.createSpy();
-
-    it('logs the error to the passed logger if a defined error is passed', function () {
+    it('logs the error to the queued request\'s logger if a defined error is passed',
+    function () {
       var stubError, stubResponse;
 
-      // Given a mock logger as above, and a defined error object
+      // Given a mock logger in a mock queued request as above, and a defined error object
+      expect(MOCK_QUEUED_REQUEST.logger).toBe(MOCK_LOGGER);
       stubError = {};
       stubResponse = {statusCode: 200};
 
-      // When we call handle response
+
+      // When we call handle response with the args
       requestManager.handleResponse(
-        stubError, stubResponse, {}, MOCK_LOGGER, SPY_CALLBACK
+        stubError, stubResponse, {}, MOCK_QUEUED_REQUEST
       );
 
-      // Then we should find that logger.log has been called with the error
-      expect(MOCK_LOGGER.log).toHaveBeenCalled();
-      expect(MOCK_LOGGER.log.mostRecentCall.args[0]).toBe(stubError);
+      // Then the queued request's logger.log has been called with the error
+      expect(MOCK_QUEUED_REQUEST.logger.log).toHaveBeenCalled();
+      expect(MOCK_QUEUED_REQUEST.logger.log.mostRecentCall.args[0]).toBe(stubError);
     });
 
-    it('logs the response code to the passed logger if no error is defined', function () {
+    it('logs the response code to the queued request\'s logger if no error is defined',
+    function () {
       var stubError, stubResponse;
 
-      // Given a mock logger as above, and a null error object
+      // Given a mock logger in a mock queued request as above, and a null error object
+      expect(MOCK_QUEUED_REQUEST.logger).toBe(MOCK_LOGGER);
       stubError = null;
       stubResponse = {statusCode: 200};
 
       // When we call handle response
       requestManager.handleResponse(
-        stubError, stubResponse, {}, MOCK_LOGGER, SPY_CALLBACK
+        stubError, stubResponse, {}, MOCK_QUEUED_REQUEST
       );
 
-      // Then we should find that logger.logResponse has been called with the status code
-      expect(MOCK_LOGGER.logResponse).toHaveBeenCalled();
-      expect(MOCK_LOGGER.logResponse.mostRecentCall.args[0])
+      // Then the queued request's logger.logResponse has been called with the status code
+      expect(MOCK_QUEUED_REQUEST.logger.logResponse).toHaveBeenCalled();
+      expect(MOCK_QUEUED_REQUEST.logger.logResponse.mostRecentCall.args[0])
         .toBe(stubResponse.statusCode);
     });
 
-    it('calls the callback with the passed error and passed item', function () {
-      var stubError, stubItem, spyCallback, stubResponse;
-      // Given stub error, stub response, stub item and a spy callback
+    it('notifies the queued request it is completed, passing the error and item',
+    function () {
+      var stubError, stubItem, stubResponse;
+      // Given a stub error, stub response, stub item and a mock queued request as above
       stubError = {foo: 'bar'};
       stubItem = {baz: 'quux'};
       stubResponse = {statusCode: 200};
-      spyCallback = jasmine.createSpy();
 
       // When we call handleResponse
       requestManager.handleResponse(
-        stubError, stubResponse, stubItem, MOCK_LOGGER, spyCallback
+        stubError, stubResponse, stubItem, MOCK_QUEUED_REQUEST
       );
 
-      // Then we expect the callback to have been called with the error and item
-      expect(spyCallback).toHaveBeenCalledWith(stubError, stubItem);
+      // Then queued request's notifycompleted has been called with the error and item
+      expect(MOCK_QUEUED_REQUEST.notifyCompleted)
+        .toHaveBeenCalledWith(stubError, stubItem);
     });
   });
 });
