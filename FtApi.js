@@ -3,7 +3,7 @@
 var ContentModule = require('./lib/Content.js'),
   NotificationsModule = require('./lib/Notifications.js'),
   contentCalls = require('./lib/contentCalls.js'),
-  Logger = require('./lib/logger.js'),
+  Logger = require('./lib/Logger.js'),
   PathMapper = require('./lib/PathMapper.js'),
   requestManager = require('./lib/requestManager.js');
 

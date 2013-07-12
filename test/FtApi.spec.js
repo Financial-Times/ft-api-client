@@ -14,7 +14,7 @@ var MOCK_CONTENT_CALLS = {
   ContentModule = require('../lib/Content.js'),
   NotificationsModule = require('../lib/Notifications.js'),
   PathMapper = require('../lib/PathMapper.js'),
-  Logger = require('../lib/logger.js');
+  Logger = require('../lib/Logger.js');
 
 describe('FT API Client', function () {
   var STUB_API_KEY = 'foo',
