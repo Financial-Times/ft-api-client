@@ -30,7 +30,8 @@ module.exports = function (grunt) {
           'jasmine': false,
           'spyOn': false,
           'expect': false,
-          'waitsFor': false
+          'waitsFor': false,
+          'runs': false
         },
         immed: true,
         indent: 2,

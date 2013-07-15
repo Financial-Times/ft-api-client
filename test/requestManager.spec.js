@@ -244,4 +244,65 @@ describe('Request Manager', function () {
         .toHaveBeenCalledWith(stubError, stubItem);
     });
   });
+
+  it('re-makes any requests that temporarily failed',
+  function () {
+    var mockContext, spyRequest, requestManagerContext, requestManager, stubUrl,
+      itemCallback, stubError, temporaryFailureResponse, successResponse, stubItem,
+      requestCallback;
+
+    // Given a spy request
+    spyRequest = jasmine.createSpy();
+    // And a request module with config with max retries set to 1
+    mockContext = {
+      CONFIG: {
+        maxRetries: 1,
+        retryDelayMilliseconds: 0
+      },
+      request: spyRequest
+    };
+    requestManagerContext = loadModule('lib/requestManager.js', mockContext);
+    requestManager = requestManagerContext.exports;
+
+    // And a stub url and callback
+    stubUrl = 'api.ft.com/foo?bar=quux';
+    itemCallback = jasmine.createSpy();
+    // And a stub error, failed response code, success code and item
+    stubError = null;
+    temporaryFailureResponse = {statusCode: 429};
+    successResponse = {statusCode: 200};
+    stubItem = {};
+
+    // When we ask for an item from a url
+    requestManager.getItemFromUrl(stubUrl, MOCK_LOGGER, itemCallback);
+
+    // Then the request() method should have been called
+    expect(spyRequest).toHaveBeenCalled();
+    expect(spyRequest.callCount).toEqual(1);
+    // But the spy callback hasn't been called
+    expect(itemCallback).not.toHaveBeenCalled();
+
+    // When we call the callback passed to the request, with a temporary failure code
+    requestCallback = spyRequest.mostRecentCall.args[1];
+    expect(typeof requestCallback).toEqual('function');
+    requestCallback(stubError, temporaryFailureResponse, stubItem);
+
+    waitsFor(function () {
+      return spyRequest.callCount === 2;
+    }, 500);
+
+    runs(function () {
+      // Then we should find that request has been called again
+      expect(spyRequest.callCount).toEqual(2);
+
+      // When we call the callback passed to the request this time
+      requestCallback = spyRequest.mostRecentCall.args[1];
+      // With a success response
+      requestCallback(stubError, successResponse, stubItem);
+
+      // Then the spy callback should have been called with the stub error and item
+      expect(itemCallback).toHaveBeenCalled();
+      expect(itemCallback).toHaveBeenCalledWith(stubError, stubItem);
+    });
+  });
 });

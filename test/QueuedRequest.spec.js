@@ -26,8 +26,8 @@ describe('Queued Request', function () {
     expect(queuedRequest.parentQueue).toBe(STUB_PARENT_QUEUE);
   });
 
-  it('has a constructor that sets its item, error, isComplete and isInProgress to ' +
-    'default values',
+  it('has a constructor that sets its item, error, retryCount, isComplete and ' +
+    'isInProgress to default values',
   function () {
     // Given a stub url, completed callback and parent queue as above
     // When we make a new queued request from these as above
@@ -36,10 +36,22 @@ describe('Queued Request', function () {
     expect(queuedRequest.item).toEqual(null);
     expect(queuedRequest.error).toBeDefined();
     expect(queuedRequest.error).toEqual(null);
+    expect(queuedRequest.retryCount).toBeDefined();
+    expect(queuedRequest.retryCount).toEqual(0);
     expect(queuedRequest.isComplete).toBeDefined();
     expect(queuedRequest.isComplete).toEqual(false);
     expect(queuedRequest.isInProgress).toBeDefined();
     expect(queuedRequest.isInProgress).toEqual(false);
+  });
+
+  it('has a notify retrying method that increments retry count',
+  function () {
+    // Given a queued request as above, with a retry count of zero
+    expect(queuedRequest.retryCount).toEqual(0);
+    // When we notify it that it's being retried
+    queuedRequest.notifyRetrying();
+    // Then the retry count should have been incremented
+    expect(queuedRequest.retryCount).toEqual(1);
   });
 
   describe('notify request in progress', function () {

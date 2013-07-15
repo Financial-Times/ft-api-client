@@ -31,6 +31,7 @@ exports.loadModule = function(filePath, mocks) {
         return mocks[name] || require(resolveModule(name));
       },
       console: console,
+      setTimeout: setTimeout,
       exports: exports,
       module: {
         exports: exports

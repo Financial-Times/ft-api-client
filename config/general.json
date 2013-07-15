@@ -1,3 +1,5 @@
 {
-    "maxNotificationsPerCall": 200
+    "maxNotificationsPerCall": 200,
+    "maxRetries": 5,
+    "retryDelayMilliseconds": 125
 }
