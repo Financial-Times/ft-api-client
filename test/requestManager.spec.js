@@ -13,7 +13,9 @@ var MOCK_REQUEST = jasmine.createSpy(),
   /* MOCK ARGUMENTS */
   MOCK_LOGGER = {
     log: jasmine.createSpy(),
-    logResponse: jasmine.createSpy()
+    logResponse: jasmine.createSpy(),
+    logTempRequestFailure: function () {},
+    logRequestFailure: function () {}
   },
   MOCK_QUEUED_REQUEST = {
     logger: MOCK_LOGGER,
