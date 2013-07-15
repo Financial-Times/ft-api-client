@@ -80,7 +80,7 @@ describe('FT API Path Mapper', function () {
         pathMapper.paths.apiDomain,
         pathMapper.paths.item,
         itemId,
-        pathMapperContext.API_KEY_PARAM,
+        pathMapperContext.API_KEY_FIRST_PARAM,
         pathMapper.apiKey
       ].join(''));
     });
@@ -99,7 +99,7 @@ describe('FT API Path Mapper', function () {
         pathMapper.paths.apiDomain,
         pathMapper.paths.pages,
         itemId,
-        pathMapperContext.API_KEY_PARAM,
+        pathMapperContext.API_KEY_FIRST_PARAM,
         pathMapper.apiKey
       ].join(''));
     });
@@ -120,7 +120,7 @@ describe('FT API Path Mapper', function () {
         pathMapper.paths.pages,
         itemId,
         pathMapper.paths.pageMainContent,
-        pathMapperContext.API_KEY_PARAM,
+        pathMapperContext.API_KEY_FIRST_PARAM,
         pathMapper.apiKey
       ].join(''));
     });
@@ -137,7 +137,7 @@ describe('FT API Path Mapper', function () {
         pathMapperContext.PROTOCOL_PREFIX,
         pathMapper.paths.apiDomain,
         pathMapper.paths.pages,
-        pathMapperContext.API_KEY_PARAM,
+        pathMapperContext.API_KEY_FIRST_PARAM,
         pathMapper.apiKey
       ].join(''));
     });
@@ -161,12 +161,29 @@ describe('FT API Path Mapper', function () {
         pathMapperContext.PROTOCOL_PREFIX,
         pathMapper.paths.apiDomain,
         pathMapper.paths.notifications,
-        pathMapperContext.API_KEY_PARAM,
+        pathMapperContext.API_KEY_FIRST_PARAM,
         pathMapper.apiKey,
         pathMapperContext.SINCE_PARAM,
         apiDateTimeString,
         pathMapperContext.LIMIT_PARAM,
         limit
+      ].join(''));
+    });
+
+    it('has an add api key to url method, which appends the api key param to the url',
+    function () {
+      var passedUrl, pathWithApiKey;
+      // Given a pathMapper instance as above, and an arbitrary url to add the api key to
+      passedUrl = 'http://api.ft.com/v1/notifications?limit=200';
+
+      // When we get the notifications path
+      pathWithApiKey = pathMapper.addApiKeyTo(passedUrl);
+
+      // Then it's all these chaps joined together
+      expect(pathWithApiKey).toEqual([
+        passedUrl,
+        pathMapperContext.API_KEY_PARAM, // Note it's not the first param
+        pathMapper.apiKey
       ].join(''));
     });
   });

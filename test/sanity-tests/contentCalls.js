@@ -28,6 +28,7 @@ function logAllDone () {
     ];
 
   ftApi = new FtApi(apiKey);
+  ftApi.setLogLevel(FtApi.LOG_LEVEL_INFO);
 
   ftApi.getPages(pageIds, logDone, logAllDone);
 

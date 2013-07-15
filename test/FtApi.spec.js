@@ -3,15 +3,18 @@
 var MOCK_CONTENT_CALLS = {
     mixInTo: jasmine.createSpy()
   },
+  MOCK_NOTIFICATIONS_CALLS = {
+    mixInTo: jasmine.createSpy()
+  },
   CONTEXT_MOCKS = {
-    './lib/contentCalls.js': MOCK_CONTENT_CALLS
+    './lib/contentCalls.js': MOCK_CONTENT_CALLS,
+    './lib/notificationsCalls.js': MOCK_NOTIFICATIONS_CALLS
   },
   /* THE FT API MODULE */
   loadModule = require('./utils/module-loader.js').loadModule,
   ftApiContext = loadModule('FtApi.js', CONTEXT_MOCKS),
   FtApi = ftApiContext.module.exports,
   /* OTHER MODULES */
-  NotificationsModule = require('../lib/Notifications.js'),
   PathMapper = require('../lib/PathMapper.js'),
   Logger = require('../lib/Logger.js');
 
@@ -64,16 +67,6 @@ describe('FT API Client', function () {
 
   describe('FT API Client Instance', function () {
     var apiInstance = new FtApi(STUB_API_KEY);
-
-    it('has a notifications property which is the notifications module',
-    function() {
-      // Given an api instance as above
-      // When we inspect its properties
-      // Then we should find a notifications property
-      expect(apiInstance.notifications).toBeDefined();
-      // And it should be an instance of the Notifications module
-      expect(apiInstance.notifications.constructor).toBe(NotificationsModule);
-    });
 
     it('has a pathMapper property, which is a new pathMapper with the passed API key',
     function (){
@@ -133,6 +126,19 @@ describe('FT API Client', function () {
       // Then we expect content calls mixinTo to have been called on the instance itself
       expect(contentCalls.mixInTo).toHaveBeenCalled();
       expect(contentCalls.mixInTo).toHaveBeenCalledWith(apiInstance);
+    });
+
+    it('mixes in the notifications calls methods by calling notificationsCalls mixInTo',
+    function () {
+      var notificationsCalls, apiInstance;
+      // Given a mock notifications calls object passed into the context as above
+      notificationsCalls = MOCK_NOTIFICATIONS_CALLS;
+      // And a spy on notifications calls mixInTo as above
+      // When we create a new api instance
+      apiInstance = new FtApi(STUB_API_KEY);
+      // Then we expect content calls mixinTo to have been called on the instance itself
+      expect(notificationsCalls.mixInTo).toHaveBeenCalled();
+      expect(notificationsCalls.mixInTo).toHaveBeenCalledWith(apiInstance);
     });
   });
 });

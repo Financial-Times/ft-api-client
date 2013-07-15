@@ -1,10 +1,10 @@
 'use strict';
 
-var NotificationsModule = require('./lib/Notifications.js'),
-  contentCalls = require('./lib/contentCalls.js'),
+var PathMapper = require('./lib/PathMapper.js'),
   Logger = require('./lib/Logger.js'),
-  PathMapper = require('./lib/PathMapper.js'),
-  requestManager = require('./lib/requestManager.js');
+  requestManager = require('./lib/requestManager.js'),
+  contentCalls = require('./lib/contentCalls.js'),
+  notificationsCalls = require('./lib/notificationsCalls.js');
 
 function FtApi (apiKey) {
   if (typeof apiKey !== 'string' || apiKey === '') {
@@ -12,13 +12,12 @@ function FtApi (apiKey) {
         'which must be a non-empty string');
   }
 
-  this.notifications = new NotificationsModule(apiKey);
-
   this.pathMapper = new PathMapper(apiKey);
   this.logger = new Logger();
   this.requestManager = requestManager;
 
   contentCalls.mixInTo(this);
+  notificationsCalls.mixInTo(this);
 }
 
 /* LOGGING */
