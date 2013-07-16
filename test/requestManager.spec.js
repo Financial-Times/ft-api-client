@@ -15,7 +15,7 @@ var MOCK_REQUEST = jasmine.createSpy(),
     log: jasmine.createSpy(),
     logResponse: jasmine.createSpy(),
     logTempRequestFailure: function () {},
-    logRequestFailure: function () {}
+    logRequestRetryFailure: function () {}
   },
   MOCK_QUEUED_REQUEST = {
     logger: MOCK_LOGGER,

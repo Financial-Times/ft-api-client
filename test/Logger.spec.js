@@ -125,4 +125,14 @@ describe('Logger', function () {
       expect(console.log.callCount).toEqual(4);
     });
   });
+
+  xit('logs a temporary request failure by logging a message with the url',
+  function () {
+
+  });
+
+  xit('logs a request retry failure by logging a message with the url and retry count',
+  function () {
+
+  });
 });
