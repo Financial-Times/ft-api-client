@@ -2,11 +2,6 @@
 
 var FtApi = require('../../FtApi.js');
 
-function handleResponse (error, item) {
-  console.log(error);
-  console.log(item);
-}
-
 function logDone () {
   console.log('Done!');
 }
@@ -28,19 +23,13 @@ function logAllDone () {
     ];
 
   ftApi = new FtApi(apiKey);
-  ftApi.setLogLevel(FtApi.LOG_LEVEL_INFO);
+  ftApi.setLogLevel(FtApi.LOG_LEVEL_ERROR);
 
+  // Hit the client with lots of requests to max out the concurrent requests
   ftApi.getPages(pageIds, logDone, logAllDone);
-
+  ftApi.getPages(pageIds, logDone, logAllDone);
   ftApi.getItem(itemId, logDone);
   ftApi.getPageList(logDone);
-
-  setTimeout(function () {
-    ftApi.getPage(pageId, handleResponse);
-    ftApi.getPages(pageIds, logDone, logAllDone);
-    ftApi.getPageContent(pageId, handleResponse);
-  }, 10000);
-
   ftApi.getPage(pageId, logDone);
   ftApi.getPageContent(pageId, logDone);
 })();

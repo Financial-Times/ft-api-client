@@ -95,7 +95,7 @@ describe('Request Manager', function () {
     function () {
       var requestQueue;
       requestQueue = new RequestQueue();
-      spyOn(requestManager, 'dispatchNextRequest'); // Spy to prevent callthrough
+      spyOn(requestManager, 'conditionallyDispatchRequests'); // Spy to stop callthrough
       requestQueue.addRequest('foo', MOCK_LOGGER, function () {});
       requestQueue.addRequest('bar', MOCK_LOGGER, function () {});
       requestManager.addToQueuedRequests(requestQueue);
@@ -103,43 +103,104 @@ describe('Request Manager', function () {
       expect(requestManager.queuedRequests[1]).toEqual(requestQueue.queue[1]);
     });
 
-    it('calls dispatchnextrequest if requests aren\'t in progress',
+    it('calls conditionallyDispatchRequests',
     function () {
       var requestQueue;
       // Given a fresh module, such that requests aren't in progress
-      expect(requestManager.hasRequestsInProgress).toBeFalsy();
+      expect(requestManager.hasRequestsInProgress()).toBeFalsy();
       // And a request queue with one request
       requestQueue = new RequestQueue();
       requestQueue.addRequest('foo', MOCK_LOGGER, function () {});
-      // And a spy on dispatchNextRequest
-      spyOn(requestManager, 'dispatchNextRequest');
+      // And a spy on conditionallyDispatchRequests
+      spyOn(requestManager, 'conditionallyDispatchRequests');
       // When we add it to the queued requests
-      expect(requestManager.dispatchNextRequest).not.toHaveBeenCalled();
+      expect(requestManager.conditionallyDispatchRequests).not.toHaveBeenCalled();
       requestManager.addToQueuedRequests(requestQueue);
-      // Then we expect dispatch next request to have been called
-      expect(requestManager.dispatchNextRequest).toHaveBeenCalled();
+      // Then we expect conditionallyDispatchRequests to have been called
+      expect(requestManager.conditionallyDispatchRequests).toHaveBeenCalled();
     });
   });
 
-  describe('dispatch next request', function () {
-    it('calls make request with next request in queue, and takes it out of the queue',
+  describe('conditionally dispatch requests', function () {
+    function getRequestManagerWithMaxRequests(maxRequestCount) {
+      var mockConfig, contextMocks;
+      mockConfig = {maxConcurrentRequests: maxRequestCount};
+      contextMocks = {
+        '../config/general.json': mockConfig,
+        request: MOCK_REQUEST
+      };
+      requestManagerContext = loadModule('lib/requestManager.js', contextMocks);
+      return requestManagerContext.exports;
+    }
+
+    it('doesn\'t dispatch any requests if there are the maximum requests already ' +
+      'in progress',
     function () {
+      // Given a request manager with config such that zero requests are allowed
+      requestManager = getRequestManagerWithMaxRequests(0);
+
+      // And a spy on makeRequest
       spyOn(requestManager, 'makeRequest');
+      // And a request queue with a mock queued request
       requestManager.queuedRequests.push(MOCK_QUEUED_REQUEST);
-      expect(requestManager.queuedRequests.length).toEqual(1);
+
+      // When we call conditionally dispatch requests
+      requestManager.conditionallyDispatchRequests();
+      // Then make request should not have been called
       expect(requestManager.makeRequest).not.toHaveBeenCalled();
-      requestManager.dispatchNextRequest();
-      expect(requestManager.queuedRequests.length).toEqual(0);
-      expect(requestManager.makeRequest).toHaveBeenCalledWith(MOCK_QUEUED_REQUEST);
     });
 
-    it('sets hasRequestsInProgress true',
+    it('doesn\'t dispatch any requests if there are no queued requests to dispatch',
     function () {
-      spyOn(requestManager, 'makeRequest'); // Prevent falling through with a spy
+      // Given a request manager with config such that ten requests are allowed
+      requestManager = getRequestManagerWithMaxRequests(10);
+      // And an empty request queue
+      expect(requestManager.queuedRequests.length).toEqual(0);
+      // And a spy on makeRequest
+      spyOn(requestManager, 'makeRequest');
+
+      // When we call conditionally dispatch requests
+      requestManager.conditionallyDispatchRequests();
+      // Then make request should not have been called
+      expect(requestManager.makeRequest).not.toHaveBeenCalled();
+    });
+
+    it('dispatches as many requests as are in the queue if the queue length is less ' +
+      'than the remaining request capacity',
+    function () {
+      // Given a request manager with config such that ten requests are allowed
+      requestManager = getRequestManagerWithMaxRequests(10);
+      // And an request queue with two requests in
       requestManager.queuedRequests.push(MOCK_QUEUED_REQUEST);
-      expect(requestManager.hasRequestsInProgress).toBeFalsy();
-      requestManager.dispatchNextRequest();
-      expect(requestManager.hasRequestsInProgress).toBeTruthy();
+      requestManager.queuedRequests.push(MOCK_QUEUED_REQUEST);
+      // And a spy on makeRequest
+      spyOn(requestManager, 'makeRequest');
+
+      // When we call conditionally dispatch requests
+      requestManager.conditionallyDispatchRequests();
+      // Then make request should have been called twice
+      expect(requestManager.makeRequest).toHaveBeenCalled();
+      expect(requestManager.makeRequest.callCount).toEqual(2);
+    });
+
+    it('dispatches as many requests as there is capacity for if the queue length is ' +
+      'greater than the remaining request capacity',
+    function () {
+      // Given a request manager with config such that only two requests are allowed
+      requestManager = getRequestManagerWithMaxRequests(2);
+      // And an request queue with four requests in
+      requestManager.queuedRequests.push(MOCK_QUEUED_REQUEST);
+      requestManager.queuedRequests.push(MOCK_QUEUED_REQUEST);
+      requestManager.queuedRequests.push(MOCK_QUEUED_REQUEST);
+      requestManager.queuedRequests.push(MOCK_QUEUED_REQUEST);
+      // And a spy on makeRequest
+      spyOn(requestManager, 'makeRequest');
+
+      // When we call conditionally dispatch requests
+      requestManager.conditionallyDispatchRequests();
+      // Then make request should have been called twice
+      expect(requestManager.makeRequest).toHaveBeenCalled();
+      expect(requestManager.makeRequest.callCount).toEqual(2);
     });
   });
 
