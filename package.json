@@ -1,7 +1,6 @@
 {
   "name": "ft-api-client",
-  "version": "0.3.0-beta",
-  "private": true,
+  "version": "1.0.0",
   "repository": {
       "type": "git",
       "url": "http://git.svc.ft.com:9080/git/content-api/nodeclient.git"
@@ -13,15 +12,15 @@
     "lib": "./lib"
   },
   "dependencies": {
-      "request": "2.22.0"
+      "request": "2.22.0",
+      "moment": "2.0.0",
+      "underscore": "1.5.1"
   },
   "devDependencies": {
       "grunt": "0.4.1",
       "grunt-contrib-jshint": "0.6.0",
       "grunt-contrib-watch": "0.4.4",
-      "grunt-jasmine-node": "0.1.0",
-      "moment": "2.0.0",
-      "underscore": "1.5.1"
+      "grunt-jasmine-node": "0.1.0"
   },
   "keywords": [
     "FT",
@@ -31,12 +30,11 @@
     "API",
     "SAPI"
   ],
-  "author": {
+  "contributors": [{
       "name": "Richard Still",
       "email": "richard.still@ft.com"
-  },
-  "contributors": {
+  },{
       "name": "Sebastian Wolf",
       "email": "sebastian.wolf@ft.com"
-  }
+  }]
 }
