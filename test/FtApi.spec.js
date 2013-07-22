@@ -53,6 +53,23 @@ describe('FT API Client', function () {
       expect(typeof apiInstance).toBe('object');
     });
 
+    it('exports a constructor which has an optional log level argument',
+    function () {
+      var apiInstance;
+      // Given an api import as above
+      // When we call the constructor without the optional log level arg
+      // Then the log level is still set
+      apiInstance = new FtApi(STUB_API_KEY);
+      expect(apiInstance.getLogLevel()).toBeDefined();
+
+      // Given an api import as above
+      // When we call the constructor with an optional log level arg
+      apiInstance = new FtApi(STUB_API_KEY, FtApi.LOG_LEVEL_INFO);
+      // Then the log level should have been set to the one given
+      expect(apiInstance.getLogLevel()).toBeDefined();
+      expect(apiInstance.getLogLevel()).toEqual(FtApi.LOG_LEVEL_INFO);
+    });
+
     it('exports logging level flags',
     function () {
       // Given an ft api

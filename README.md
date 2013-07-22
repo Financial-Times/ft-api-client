@@ -2,6 +2,31 @@ Sample usage for the FT API Node Client
 ======================================
 To find out how to use the FT content API go to <https://developer.ft.com>
 
+Instantiating the Client
+-------------
+The client is implemented as an instantiable FtApi object.
+Create a client instance by calling FtApi as a constructor and passing your api key:
+
+	var FtApi = require('ft-api-client'),
+		ftApi;
+	ftApi = new FtApi('APIKEY');
+
+You can pass an optional log level argument to the constructor too.
+	ftApi = new FtApi('APIKEY', FtApi.LOG_LEVEL_NONE);
+
+Logging Levels
+-------------
+The API has three logging levels:
+    LOG_LEVEL_NONE - Logs no info messages and no errors
+    LOG_LEVEL_ERROR - Logs only errors, to stderr
+    LOG_LEVEL_INFO - Logs errors to stderr and info messages to stdout
+By default, instances have LOG_LEVEL_ERROR.
+
+Logging levels can be set from the FT API constructor, or using getLogLevel/setLogLevel
+ on an FtApi instance.
+
+	ftApi = new FtApi('APIKEY', FtApi.LOG_LEVEL_NONE);
+	ftApi.setLogLevel(FtApi.LOG_LEVEL_INFO);
 
 Fetching a list of recently updated items
 -------------

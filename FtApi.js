@@ -6,7 +6,7 @@ var PathMapper = require('./lib/PathMapper.js'),
   contentCalls = require('./lib/contentCalls.js'),
   notificationsCalls = require('./lib/notificationsCalls.js');
 
-function FtApi (apiKey) {
+function FtApi (apiKey, optionalLogLevel) {
   if (typeof apiKey !== 'string' || apiKey === '') {
     throw new TypeError('The FT API constructor requires an API key, ' +
         'which must be a non-empty string');
@@ -15,6 +15,10 @@ function FtApi (apiKey) {
   this.pathMapper = new PathMapper(apiKey);
   this.logger = new Logger();
   this.requestManager = requestManager;
+
+  if (typeof optionalLogLevel !== 'undefined') {
+    this.setLogLevel(optionalLogLevel);
+  }
 
   contentCalls.mixInTo(this);
   notificationsCalls.mixInTo(this);
