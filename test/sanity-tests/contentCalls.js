@@ -2,12 +2,17 @@
 
 var FtApi = require('../../FtApi.js');
 
-function logDone () {
-  console.log('Done!');
+function handleDone (error, item) {
+  console.log('Error:', error);
+  console.log('Item:', (item ? 'exists' : item));
+  console.log(''); // Line separator
 }
 
-function logAllDone () {
+function handleAllDone (errors, items) {
   console.log('All Done!');
+  console.log('Errors:', errors);
+  console.log('Item count:', (items && items.length > 0 ? items.length : 0));
+  console.log(''); // Line separator
 }
 
 (function () {
@@ -25,10 +30,10 @@ function logAllDone () {
   ftApi = new FtApi(apiKey, FtApi.LOG_LEVEL_INFO);
 
   // Hit the client with lots of requests to max out the concurrent requests
-  ftApi.getPages(pageIds, logDone, logAllDone);
-  ftApi.getPages(pageIds, logDone, logAllDone);
-  ftApi.getItem(itemId, logDone);
-  ftApi.getPageList(logDone);
-  ftApi.getPage(pageId, logDone);
-  ftApi.getPageContent(pageId, logDone);
+  ftApi.getPages(pageIds, handleDone, handleAllDone);
+  ftApi.getPages(pageIds, handleDone, handleAllDone);
+  ftApi.getItem(itemId, handleDone);
+  ftApi.getPageList(handleDone);
+  ftApi.getPage(pageId, handleDone);
+  ftApi.getPageContent(pageId, handleDone);
 })();

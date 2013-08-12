@@ -3,9 +3,10 @@
 var moment = require('moment'),
   FtApi = require('../../FtApi.js');
 
-function handleResponse (error, item) {
-  console.log(error);
-  console.log(item);
+function handleDone (error, item) {
+  console.log('Error:', error);
+  console.log('Item:', (item ? 'exists' : item));
+  console.log(''); // Line separator
 }
 
 (function () {
@@ -17,7 +18,7 @@ function handleResponse (error, item) {
 
   ftApi = new FtApi(apiKey, FtApi.LOG_LEVEL_INFO);
 
-  ftApi.getNotificationsSince(oneHourAgo, handleResponse);
-  ftApi.getNotificationsSince(twelveHoursAgo, handleResponse);
-  ftApi.getNotificationsSince(oneWeekAgo, handleResponse);
+  ftApi.getNotificationsSince(oneHourAgo, handleDone);
+  ftApi.getNotificationsSince(twelveHoursAgo, handleDone);
+  ftApi.getNotificationsSince(oneWeekAgo, handleDone);
 })();
