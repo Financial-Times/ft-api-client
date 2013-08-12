@@ -40,4 +40,43 @@ function () {
       expect(item).toEqual(data);
     });
   });
+
+  describe('get error for response data',
+  function () {
+    it('returns null unless there\'s a request error or a non-200 status code',
+    function () {
+      var error;
+
+      error = responseResolver.getErrorFor(null, null, null);
+      expect(error).toBeNull();
+      error = responseResolver.getErrorFor(null, {statusCode: 200}, null);
+      expect(error).toBeNull();
+
+      error = responseResolver.getErrorFor({}, null, null);
+      expect(error).toBeDefined();
+      error = responseResolver.getErrorFor(null, {statusCode: 201}, null);
+      expect(error).toBeDefined();
+    });
+
+    it('returns errors with a url property that\'s the url given',
+    function () {
+      var url, error;
+
+      url = 'wugwugwug.foogle.com';
+      error = responseResolver.getErrorFor({}, null, url);
+
+      expect(error.url).toBe(url);
+    });
+
+    it('returns an object with a message string and isUserActionable and canRetry flags',
+    function () {
+      var error;
+
+      error = responseResolver.getErrorFor({}, null, null);
+
+      expect(error.message).toBeDefined();
+      expect(error.isUserActionable).toBeDefined();
+      expect(error.canRetry).toBeDefined();
+    });
+  });
 });

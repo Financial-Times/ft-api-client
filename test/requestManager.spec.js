@@ -264,9 +264,9 @@ describe('Request Manager', function () {
         stubError, stubResponse, {}, MOCK_QUEUED_REQUEST
       );
 
-      // Then the queued request's logger.log has been called with the error
+      // Then the queued request's logger.log has been called with something
       expect(MOCK_QUEUED_REQUEST.logger.log).toHaveBeenCalled();
-      expect(MOCK_QUEUED_REQUEST.logger.log.mostRecentCall.args[0]).toBe(stubError);
+      expect(MOCK_QUEUED_REQUEST.logger.log.mostRecentCall.args[0]).toBeDefined();
     });
 
     it('logs the response code to the queued request\'s logger if no error is defined',
@@ -289,22 +289,22 @@ describe('Request Manager', function () {
         .toBe(stubResponse.statusCode);
     });
 
-    it('notifies the queued request it is completed, passing the error and item',
+    it('tells the queued request it\'s completed, passing an error and the data as item',
     function () {
-      var stubError, stubItem, stubResponse;
-      // Given a stub error, stub response, stub item and a mock queued request as above
-      stubError = {foo: 'bar'};
-      stubItem = {baz: 'quux'};
+      var stubRequestError, stubData, stubResponse;
+      // Given a stub request error, stub response, stub data and a mock queued request
+      stubRequestError = {foo: 'bar'};
+      stubData = {baz: 'quux'};
       stubResponse = {statusCode: 200};
 
       // When we call handleResponse
       requestManager.handleResponse(
-        stubError, stubResponse, stubItem, MOCK_QUEUED_REQUEST
+        stubRequestError, stubResponse, stubData, MOCK_QUEUED_REQUEST
       );
 
-      // Then queued request's notifycompleted has been called with the error and item
-      expect(MOCK_QUEUED_REQUEST.notifyCompleted)
-        .toHaveBeenCalledWith(stubError, stubItem);
+      // Then notifycompleted has been called with an error and the stub data as the item
+      expect(MOCK_QUEUED_REQUEST.notifyCompleted.mostRecentCall.args[0]).toBeDefined();
+      expect(MOCK_QUEUED_REQUEST.notifyCompleted.mostRecentCall.args[1]).toBe(stubData);
     });
   });
 
