@@ -78,6 +78,16 @@ describe('Logger', function () {
         }
       }
     });
+
+    xit('logs status message to standard error if status code was not 200',
+    function () {
+
+    });
+
+    xit('logs status message to standard output if status code was 200',
+    function () {
+
+    });
   });
 
   xdescribe('log method', function () {
