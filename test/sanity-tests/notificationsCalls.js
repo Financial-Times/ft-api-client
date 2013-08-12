@@ -15,8 +15,7 @@ function handleResponse (error, item) {
     oneWeekAgo = moment().subtract('weeks', 1).toDate(),
     apiKey = 'f65958a8e35bd14bc52f268b8b3ab4ad';
 
-  ftApi = new FtApi(apiKey);
-  ftApi.setLogLevel(FtApi.LOG_LEVEL_INFO);
+  ftApi = new FtApi(apiKey, FtApi.LOG_LEVEL_INFO);
 
   ftApi.getNotificationsSince(oneHourAgo, handleResponse);
   ftApi.getNotificationsSince(twelveHoursAgo, handleResponse);
