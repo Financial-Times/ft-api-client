@@ -6,8 +6,8 @@ describe('Response Resolver',
 function () {
   describe('get item for response data',
   function () {
-    it('returns null if there isn\'t a response with a 200 status code', function () {
-      var nullRequestError, nullResponse, non200Response, data, item;
+    it('returns null if there isn\'t a response with an error status code', function () {
+      var nullRequestError, nullResponse, errorResponse, data, item;
 
       nullRequestError = null;
       nullResponse = null;
@@ -17,11 +17,11 @@ function () {
 
       expect(item).toBeNull();
 
-      non200Response = {
-        statusCode: 201
+      errorResponse = {
+        statusCode: 410
       };
 
-      item = responseResolver.getItemFor(nullRequestError, non200Response, data);
+      item = responseResolver.getItemFor(nullRequestError, errorResponse, data);
 
       expect(item).toBeNull();
     });

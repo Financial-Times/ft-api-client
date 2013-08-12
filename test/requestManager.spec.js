@@ -289,22 +289,44 @@ describe('Request Manager', function () {
         .toBe(stubResponse.statusCode);
     });
 
-    it('tells the queued request it\'s completed, passing an error and the data as item',
+    it('tells a successful request it\'s completed, with no error and the data as item',
     function () {
-      var stubRequestError, stubData, stubResponse;
-      // Given a stub request error, stub response, stub data and a mock queued request
-      stubRequestError = {foo: 'bar'};
+      var nullRequestError, stubData, successResponse;
+
+      // Given a null request error, success response, stub data and a mock queued request
+      nullRequestError = null;
       stubData = {baz: 'quux'};
-      stubResponse = {statusCode: 200};
+      successResponse = {statusCode: 200};
 
       // When we call handleResponse
       requestManager.handleResponse(
-        stubRequestError, stubResponse, stubData, MOCK_QUEUED_REQUEST
+        nullRequestError, successResponse, stubData, MOCK_QUEUED_REQUEST
       );
 
-      // Then notifycompleted has been called with an error and the stub data as the item
-      expect(MOCK_QUEUED_REQUEST.notifyCompleted.mostRecentCall.args[0]).toBeDefined();
+      // Then notifycompleted has been called with null error and stub data as the item
+      expect(MOCK_QUEUED_REQUEST.notifyCompleted.mostRecentCall.args[0]).toBeNull();
       expect(MOCK_QUEUED_REQUEST.notifyCompleted.mostRecentCall.args[1]).toBe(stubData);
+    });
+
+    it('tells an unsuccessful request it\'s completed, with an error and no item',
+    function () {
+      var requestError, stubData, nullResponse;
+
+      // Given a request error, no response, stub data and a mock queued request
+      requestError = {
+        code: 'Total epic fail'
+      };
+      nullResponse = null;
+      stubData = {baz: 'quux'};
+
+      // When we call handleResponse
+      requestManager.handleResponse(
+        requestError, nullResponse, stubData, MOCK_QUEUED_REQUEST
+      );
+
+      // Then notifycompleted has been called with an error and null item
+      expect(MOCK_QUEUED_REQUEST.notifyCompleted.mostRecentCall.args[0]).toBeDefined();
+      expect(MOCK_QUEUED_REQUEST.notifyCompleted.mostRecentCall.args[1]).toBeNull();
     });
   });
 
