@@ -13,7 +13,8 @@ var MOCK_REQUEST = jasmine.createSpy(),
   /* MOCK ARGUMENTS */
   MOCK_LOGGER = {
     log: jasmine.createSpy(),
-    logResponse: jasmine.createSpy(),
+    logRequestError:  jasmine.createSpy(),
+    logRequestSuccess:  jasmine.createSpy(),
     logTempRequestFailure: function () {},
     logRequestRetryFailure: function () {}
   },
@@ -34,6 +35,67 @@ describe('Request Manager', function () {
     // Reset each time to clear the internal state
     requestManagerContext = loadModule('lib/requestManager.js', CONTEXT_MOCKS);
     requestManager = requestManagerContext.exports;
+  });
+
+  it('re-makes any requests that temporarily failed',
+  function () {
+    var mockContext, spyRequest, requestManagerContext, requestManager, stubUrl,
+      itemCallback, stubError, temporaryFailureResponse, successResponse, stubItem,
+      requestCallback;
+
+    // Given a spy request
+    spyRequest = jasmine.createSpy();
+    // And a request module with config with max retries set to 1
+    mockContext = {
+      CONFIG: {
+        maxRetries: 1,
+        retryDelayMilliseconds: 0
+      },
+      request: spyRequest
+    };
+    requestManagerContext = loadModule('lib/requestManager.js', mockContext);
+    requestManager = requestManagerContext.exports;
+
+    // And a stub url and callback
+    stubUrl = 'api.ft.com/foo?bar=quux';
+    itemCallback = jasmine.createSpy();
+    // And a stub error, failed response code, success code and item
+    stubError = null;
+    temporaryFailureResponse = {statusCode: 429};
+    successResponse = {statusCode: 200};
+    stubItem = {};
+
+    // When we ask for an item from a url
+    requestManager.getItemFromUrl(stubUrl, MOCK_LOGGER, itemCallback);
+
+    // Then the request() method should have been called
+    expect(spyRequest).toHaveBeenCalled();
+    expect(spyRequest.callCount).toEqual(1);
+    // But the spy callback hasn't been called
+    expect(itemCallback).not.toHaveBeenCalled();
+
+    // When we call the callback passed to the request, with a temporary failure code
+    requestCallback = spyRequest.mostRecentCall.args[1];
+    expect(typeof requestCallback).toEqual('function');
+    requestCallback(stubError, temporaryFailureResponse, stubItem);
+
+    waitsFor(function () {
+      return spyRequest.callCount === 2;
+    }, 500);
+
+    runs(function () {
+      // Then we should find that request has been called again
+      expect(spyRequest.callCount).toEqual(2);
+
+      // When we call the callback passed to the request this time
+      requestCallback = spyRequest.mostRecentCall.args[1];
+      // With a success response
+      requestCallback(stubError, successResponse, stubItem);
+
+      // Then the spy callback should have been called with the stub error and item
+      expect(itemCallback).toHaveBeenCalled();
+      expect(itemCallback).toHaveBeenCalledWith(stubError, stubItem);
+    });
   });
 
   describe('get item from url', function () {
@@ -249,7 +311,27 @@ describe('Request Manager', function () {
   });
 
   describe('handleResponse', function () {
-    it('logs the error to the queued request\'s logger if a defined error is passed',
+    it('logs the request success to the queued request\'s logger if no error is passed',
+    function () {
+      var nullError, stubResponse;
+
+      // Given a mock logger in a mock queued request as above, and a null error object
+      expect(MOCK_QUEUED_REQUEST.logger).toBe(MOCK_LOGGER);
+      nullError = null;
+      stubResponse = {statusCode: 200};
+
+      // When we call handle response with the args
+      requestManager.handleResponse(
+        nullError, stubResponse, {}, MOCK_QUEUED_REQUEST
+      );
+
+      // Then the queued request's logger.logRequestSuccess has been called with something
+      expect(MOCK_QUEUED_REQUEST.logger.logRequestSuccess).toHaveBeenCalled();
+      expect(MOCK_QUEUED_REQUEST.logger.logRequestSuccess.mostRecentCall.args[0])
+        .toBeDefined();
+    });
+
+    it('logs the request error to the queued request\'s logger if an error is passed',
     function () {
       var stubError, stubResponse;
 
@@ -258,35 +340,15 @@ describe('Request Manager', function () {
       stubError = {};
       stubResponse = {statusCode: 200};
 
-
       // When we call handle response with the args
       requestManager.handleResponse(
         stubError, stubResponse, {}, MOCK_QUEUED_REQUEST
       );
 
-      // Then the queued request's logger.log has been called with something
-      expect(MOCK_QUEUED_REQUEST.logger.log).toHaveBeenCalled();
-      expect(MOCK_QUEUED_REQUEST.logger.log.mostRecentCall.args[0]).toBeDefined();
-    });
-
-    it('logs the response code to the queued request\'s logger if no error is defined',
-    function () {
-      var stubError, stubResponse;
-
-      // Given a mock logger in a mock queued request as above, and a null error object
-      expect(MOCK_QUEUED_REQUEST.logger).toBe(MOCK_LOGGER);
-      stubError = null;
-      stubResponse = {statusCode: 200};
-
-      // When we call handle response
-      requestManager.handleResponse(
-        stubError, stubResponse, {}, MOCK_QUEUED_REQUEST
-      );
-
-      // Then the queued request's logger.logResponse has been called with the status code
-      expect(MOCK_QUEUED_REQUEST.logger.logResponse).toHaveBeenCalled();
-      expect(MOCK_QUEUED_REQUEST.logger.logResponse.mostRecentCall.args[0])
-        .toBe(stubResponse.statusCode);
+      // Then the queued request's logger.logRequestError has been called with something
+      expect(MOCK_QUEUED_REQUEST.logger.logRequestError).toHaveBeenCalled();
+      expect(MOCK_QUEUED_REQUEST.logger.logRequestError.mostRecentCall.args[0])
+        .toBeDefined();
     });
 
     it('tells a successful request it\'s completed, with no error and the data as item',
@@ -327,67 +389,6 @@ describe('Request Manager', function () {
       // Then notifycompleted has been called with an error and null item
       expect(MOCK_QUEUED_REQUEST.notifyCompleted.mostRecentCall.args[0]).toBeDefined();
       expect(MOCK_QUEUED_REQUEST.notifyCompleted.mostRecentCall.args[1]).toBeNull();
-    });
-  });
-
-  it('re-makes any requests that temporarily failed',
-  function () {
-    var mockContext, spyRequest, requestManagerContext, requestManager, stubUrl,
-      itemCallback, stubError, temporaryFailureResponse, successResponse, stubItem,
-      requestCallback;
-
-    // Given a spy request
-    spyRequest = jasmine.createSpy();
-    // And a request module with config with max retries set to 1
-    mockContext = {
-      CONFIG: {
-        maxRetries: 1,
-        retryDelayMilliseconds: 0
-      },
-      request: spyRequest
-    };
-    requestManagerContext = loadModule('lib/requestManager.js', mockContext);
-    requestManager = requestManagerContext.exports;
-
-    // And a stub url and callback
-    stubUrl = 'api.ft.com/foo?bar=quux';
-    itemCallback = jasmine.createSpy();
-    // And a stub error, failed response code, success code and item
-    stubError = null;
-    temporaryFailureResponse = {statusCode: 429};
-    successResponse = {statusCode: 200};
-    stubItem = {};
-
-    // When we ask for an item from a url
-    requestManager.getItemFromUrl(stubUrl, MOCK_LOGGER, itemCallback);
-
-    // Then the request() method should have been called
-    expect(spyRequest).toHaveBeenCalled();
-    expect(spyRequest.callCount).toEqual(1);
-    // But the spy callback hasn't been called
-    expect(itemCallback).not.toHaveBeenCalled();
-
-    // When we call the callback passed to the request, with a temporary failure code
-    requestCallback = spyRequest.mostRecentCall.args[1];
-    expect(typeof requestCallback).toEqual('function');
-    requestCallback(stubError, temporaryFailureResponse, stubItem);
-
-    waitsFor(function () {
-      return spyRequest.callCount === 2;
-    }, 500);
-
-    runs(function () {
-      // Then we should find that request has been called again
-      expect(spyRequest.callCount).toEqual(2);
-
-      // When we call the callback passed to the request this time
-      requestCallback = spyRequest.mostRecentCall.args[1];
-      // With a success response
-      requestCallback(stubError, successResponse, stubItem);
-
-      // Then the spy callback should have been called with the stub error and item
-      expect(itemCallback).toHaveBeenCalled();
-      expect(itemCallback).toHaveBeenCalledWith(stubError, stubItem);
     });
   });
 });
