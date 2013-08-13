@@ -18,9 +18,9 @@ You can pass an optional log level argument to the constructor too.
 Logging Levels
 -------------
 The API has three logging levels:
-    `LOG_LEVEL_NONE` - Logs no info messages and no errors
-    `LOG_LEVEL_ERROR` - Logs only errors to stderr
-    `LOG_LEVEL_INFO` - Logs errors to stderr and info messages to stdout
+* `LOG_LEVEL_NONE` - Logs no info messages and no errors
+* `LOG_LEVEL_ERROR` - Logs only errors to stderr
+* `LOG_LEVEL_INFO` - Logs errors to stderr and info messages to stdout
 By default, instances have `LOG_LEVEL_ERROR`.
 
 Logging levels can be set from the FT API constructor, or using getLogLevel/setLogLevel
