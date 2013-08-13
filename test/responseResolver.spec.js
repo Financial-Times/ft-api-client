@@ -43,19 +43,20 @@ function () {
 
   describe('get error for response data',
   function () {
-    it('returns null unless there\'s a request error or a non-200 status code',
+    it('returns null unless there\'s a request error, a falsy response or ' +
+      'an error status code',
     function () {
       var error;
 
-      error = responseResolver.getErrorFor(null, null, null);
+      error = responseResolver.getErrorFor(null, {statusCode: 0}, null);
       expect(error).toBeNull();
       error = responseResolver.getErrorFor(null, {statusCode: 200}, null);
       expect(error).toBeNull();
 
       error = responseResolver.getErrorFor({}, null, null);
-      expect(error).toBeDefined();
-      error = responseResolver.getErrorFor(null, {statusCode: 201}, null);
-      expect(error).toBeDefined();
+      expect(error).not.toBeNull();
+      error = responseResolver.getErrorFor(null, {statusCode: 404}, null);
+      expect(error).not.toBeNull();
     });
 
     it('returns errors with a url property that\'s the url given',
