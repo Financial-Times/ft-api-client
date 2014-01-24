@@ -2,9 +2,11 @@
 
 var PathMapper = require('./lib/PathMapper.js'),
   Logger = require('./lib/Logger.js'),
-  requestManager = require('./lib/requestManager.js'),
+  RequestManager = require('./lib/requestManager.js'),
   contentCalls = require('./lib/contentCalls.js'),
   notificationsCalls = require('./lib/notificationsCalls.js');
+
+var rm = new RequestManager();
 
 function FtApi (apiKey, optionalLogLevel) {
   if (typeof apiKey !== 'string' || apiKey === '') {
@@ -14,7 +16,7 @@ function FtApi (apiKey, optionalLogLevel) {
 
   this.pathMapper = new PathMapper(apiKey);
   this.logger = new Logger();
-  this.requestManager = requestManager;
+  this.requestManager = rm;
 
   if (typeof optionalLogLevel !== 'undefined') {
     this.setLogLevel(optionalLogLevel);
