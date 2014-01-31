@@ -311,29 +311,6 @@ describe('Request Manager', function () {
       expect(MOCK_REQUEST).toHaveBeenCalled();
       expect(MOCK_REQUEST.mostRecentCall.args[0]).toEqual({url: stubUrl, json: true});
     });
-
-    // what is this test even doing?
-    it('passes a callback to the request module that will call handleResponse',
-    function () {
-      var stubUrl, stubCallback, requestCallback;
-      // Given a mock request module as above, and a stub url and callback
-      stubUrl = 'http://www.google.com/';
-      stubCallback = function () {};
-      // And a spy on handle response
-      spyOn(requestManager, 'handleResponse');
-
-      // When we get the item for the given url, with the spy callback
-      requestManager.getItemFromUrl(stubUrl, MOCK_LOGGER, stubCallback);
-
-      // Then the mock request module should have been passed a callback
-      requestCallback = MOCK_REQUEST.mostRecentCall.args[1];
-      expect(requestCallback).toBeDefined();
-      expect(typeof requestCallback).toEqual('function');
-      // And that callback should call handleResponse
-      expect(requestManager.handleResponse).not.toHaveBeenCalled();
-      requestCallback();
-      expect(requestManager.handleResponse).toHaveBeenCalled();
-    });
   });
 
   describe('handleResponse', function () {
