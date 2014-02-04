@@ -1,7 +1,7 @@
 'use strict';
 
   /* MOCK CONTEXT DEPENDENCIES */
-var MOCK_REQUEST = jasmine.createSpy(),
+var MOCK_REQUEST = jasmine.createSpy('request'),
   CONTEXT_MOCKS = {
     request: MOCK_REQUEST
   },
@@ -34,7 +34,7 @@ describe('Request Manager', function () {
   beforeEach(function () {
     // Reset each time to clear the internal state
     requestManagerContext = loadModule('lib/requestManager.js', CONTEXT_MOCKS);
-    requestManager = requestManagerContext.exports;
+    requestManager = new requestManagerContext.RequestManager;
   });
 
   it('re-makes any requests that temporarily failed',
@@ -54,7 +54,7 @@ describe('Request Manager', function () {
       request: spyRequest
     };
     requestManagerContext = loadModule('lib/requestManager.js', mockContext);
-    requestManager = requestManagerContext.exports;
+    requestManager = new requestManagerContext.RequestManager;
 
     // And a stub url and callback
     stubUrl = 'api.ft.com/foo?bar=quux';
@@ -68,33 +68,37 @@ describe('Request Manager', function () {
     // When we ask for an item from a url
     requestManager.getItemFromUrl(stubUrl, MOCK_LOGGER, itemCallback);
 
-    // Then the request() method should have been called
-    expect(spyRequest).toHaveBeenCalled();
-    expect(spyRequest.callCount).toEqual(1);
-    // But the spy callback hasn't been called
-    expect(itemCallback).not.toHaveBeenCalled();
+    // wait for the internal polling
+    waits(1);
+    runs(function() {
+      // Then the request() method should have been called
+      expect(spyRequest).toHaveBeenCalled();
+      expect(spyRequest.callCount).toEqual(1);
+      // But the spy callback hasn't been called
+      expect(itemCallback).not.toHaveBeenCalled();
 
-    // When we call the callback passed to the request, with a temporary failure code
-    requestCallback = spyRequest.mostRecentCall.args[1];
-    expect(typeof requestCallback).toEqual('function');
-    requestCallback(stubError, temporaryFailureResponse, stubItem);
-
-    waitsFor(function () {
-      return spyRequest.callCount === 2;
-    }, 500);
-
-    runs(function () {
-      // Then we should find that request has been called again
-      expect(spyRequest.callCount).toEqual(2);
-
-      // When we call the callback passed to the request this time
+      // When we call the callback passed to the request, with a temporary failure code
       requestCallback = spyRequest.mostRecentCall.args[1];
-      // With a success response
-      requestCallback(stubError, successResponse, stubItem);
+      expect(typeof requestCallback).toEqual('function');
+      requestCallback(stubError, temporaryFailureResponse, stubItem);
 
-      // Then the spy callback should have been called with the stub error and item
-      expect(itemCallback).toHaveBeenCalled();
-      expect(itemCallback).toHaveBeenCalledWith(stubError, stubItem);
+      waitsFor(function () {
+        return spyRequest.callCount === 2;
+      }, 500);
+
+      runs(function () {
+        // Then we should find that request has been called again
+        expect(spyRequest.callCount).toEqual(2);
+
+        // When we call the callback passed to the request this time
+        requestCallback = spyRequest.mostRecentCall.args[1];
+        // With a success response
+        requestCallback(stubError, successResponse, stubItem);
+
+        // Then the spy callback should have been called with the stub error and item
+        expect(itemCallback).toHaveBeenCalled();
+        expect(itemCallback).toHaveBeenCalledWith(stubError, stubItem);
+      });
     });
   });
 
@@ -157,7 +161,7 @@ describe('Request Manager', function () {
     function () {
       var requestQueue;
       requestQueue = new RequestQueue();
-      spyOn(requestManager, 'conditionallyDispatchRequests'); // Spy to stop callthrough
+      spyOn(requestManager, 'dispatch'); // Spy to stop callthrough
       requestQueue.addRequest('foo', MOCK_LOGGER, function () {});
       requestQueue.addRequest('bar', MOCK_LOGGER, function () {});
       requestManager.addToQueuedRequests(requestQueue);
@@ -165,7 +169,7 @@ describe('Request Manager', function () {
       expect(requestManager.queuedRequests[1]).toEqual(requestQueue.queue[1]);
     });
 
-    it('calls conditionallyDispatchRequests',
+    it('calls dispatch',
     function () {
       var requestQueue;
       // Given a fresh module, such that requests aren't in progress
@@ -173,13 +177,17 @@ describe('Request Manager', function () {
       // And a request queue with one request
       requestQueue = new RequestQueue();
       requestQueue.addRequest('foo', MOCK_LOGGER, function () {});
-      // And a spy on conditionallyDispatchRequests
-      spyOn(requestManager, 'conditionallyDispatchRequests');
+      // And a spy on dispatch
+      spyOn(requestManager, 'dispatch');
       // When we add it to the queued requests
-      expect(requestManager.conditionallyDispatchRequests).not.toHaveBeenCalled();
+      expect(requestManager.dispatch).not.toHaveBeenCalled();
       requestManager.addToQueuedRequests(requestQueue);
-      // Then we expect conditionallyDispatchRequests to have been called
-      expect(requestManager.conditionallyDispatchRequests).toHaveBeenCalled();
+
+      waits(1); // wait for internal polling
+      runs(function() {
+        // Then we expect dispatch to have been called
+        expect(requestManager.dispatch).toHaveBeenCalled();
+      });
     });
   });
 
@@ -192,7 +200,7 @@ describe('Request Manager', function () {
         request: MOCK_REQUEST
       };
       requestManagerContext = loadModule('lib/requestManager.js', contextMocks);
-      return requestManagerContext.exports;
+      return new requestManagerContext.RequestManager();
     }
 
     it('doesn\'t dispatch any requests if there are the maximum requests already ' +
@@ -207,7 +215,7 @@ describe('Request Manager', function () {
       requestManager.queuedRequests.push(MOCK_QUEUED_REQUEST);
 
       // When we call conditionally dispatch requests
-      requestManager.conditionallyDispatchRequests();
+      requestManager.dispatch();
       // Then make request should not have been called
       expect(requestManager.makeRequest).not.toHaveBeenCalled();
     });
@@ -222,7 +230,7 @@ describe('Request Manager', function () {
       spyOn(requestManager, 'makeRequest');
 
       // When we call conditionally dispatch requests
-      requestManager.conditionallyDispatchRequests();
+      requestManager.dispatch();
       // Then make request should not have been called
       expect(requestManager.makeRequest).not.toHaveBeenCalled();
     });
@@ -231,38 +239,55 @@ describe('Request Manager', function () {
       'than the remaining request capacity',
     function () {
       // Given a request manager with config such that ten requests are allowed
-      requestManager = getRequestManagerWithMaxRequests(10);
-      // And an request queue with two requests in
-      requestManager.queuedRequests.push(MOCK_QUEUED_REQUEST);
-      requestManager.queuedRequests.push(MOCK_QUEUED_REQUEST);
-      // And a spy on makeRequest
-      spyOn(requestManager, 'makeRequest');
+      var mockRequest = jasmine.createSpy('request');
+      var requestManagerContext = loadModule('lib/requestManager.js', {
+        '../config/general.json': { maxConcurrentRequests: 10 },
+        request: mockRequest
+      });
+      var requestManager = new requestManagerContext.RequestManager();
 
-      // When we call conditionally dispatch requests
-      requestManager.conditionallyDispatchRequests();
-      // Then make request should have been called twice
-      expect(requestManager.makeRequest).toHaveBeenCalled();
-      expect(requestManager.makeRequest.callCount).toEqual(2);
+      // And an request queue with two requests in
+      requestManager.getItemsFromUrls([
+        'http://www.google.com',
+        'http://www.yahoo.com'
+      ], MOCK_LOGGER);
+
+      waits(100); // wait for internal polling
+      runs(function() {
+        // Then makeRequest should have been called twice
+        expect(mockRequest).toHaveBeenCalled();
+        expect(mockRequest.callCount).toEqual(2);
+      });
     });
 
+    // FIXME
+    // this is failing because we are testing the internals of a module, not it's api
+    // we shouldn't be mocking any internal functions, but the boundaries of a module
+    // i.e. where a module talks to another module
     it('dispatches as many requests as there is capacity for if the queue length is ' +
       'greater than the remaining request capacity',
     function () {
       // Given a request manager with config such that only two requests are allowed
-      requestManager = getRequestManagerWithMaxRequests(2);
-      // And an request queue with four requests in
-      requestManager.queuedRequests.push(MOCK_QUEUED_REQUEST);
-      requestManager.queuedRequests.push(MOCK_QUEUED_REQUEST);
-      requestManager.queuedRequests.push(MOCK_QUEUED_REQUEST);
-      requestManager.queuedRequests.push(MOCK_QUEUED_REQUEST);
-      // And a spy on makeRequest
-      spyOn(requestManager, 'makeRequest');
+      var mockRequest = jasmine.createSpy('request');
+      var requestManagerContext = loadModule('lib/requestManager.js', {
+        '../config/general.json': { maxConcurrentRequests: 2 },
+        request: mockRequest
+      });
+      var requestManager = new requestManagerContext.RequestManager();
 
-      // When we call conditionally dispatch requests
-      requestManager.conditionallyDispatchRequests();
-      // Then make request should have been called twice
-      expect(requestManager.makeRequest).toHaveBeenCalled();
-      expect(requestManager.makeRequest.callCount).toEqual(2);
+      // And an request queue with three requests in
+      requestManager.getItemsFromUrls([
+        'http://www.google.com',
+        'http://www.yahoo.com',
+        'http://www.ft.com'
+      ], MOCK_LOGGER);
+
+      waits(100);
+      runs(function() {
+        // Then make request should have been called twice
+        expect(mockRequest).toHaveBeenCalled();
+        expect(mockRequest.callCount).toEqual(2);
+      });
     });
   });
 
@@ -286,28 +311,6 @@ describe('Request Manager', function () {
       expect(MOCK_REQUEST).toHaveBeenCalled();
       expect(MOCK_REQUEST.mostRecentCall.args[0]).toEqual({url: stubUrl, json: true});
     });
-
-    it('passes a callback to the request module that will call handleResponse',
-    function () {
-      var stubUrl, stubCallback, requestCallback;
-      // Given a mock request module as above, and a stub url and callback
-      stubUrl = 'http://www.google.com/';
-      stubCallback = function () {};
-      // And a spy on handle response
-      spyOn(requestManager, 'handleResponse');
-
-      // When we get the item for the given url, with the spy callback
-      requestManager.getItemFromUrl(stubUrl, MOCK_LOGGER, stubCallback);
-
-      // Then the mock request module should have been passed a callback
-      requestCallback = MOCK_REQUEST.mostRecentCall.args[1];
-      expect(requestCallback).toBeDefined();
-      expect(typeof requestCallback).toEqual('function');
-      // And that callback should call handleResponse
-      expect(requestManager.handleResponse).not.toHaveBeenCalled();
-      requestCallback();
-      expect(requestManager.handleResponse).toHaveBeenCalled();
-    });
   });
 
   describe('handleResponse', function () {
@@ -322,7 +325,7 @@ describe('Request Manager', function () {
 
       // When we call handle response with the args
       requestManager.handleResponse(
-        nullError, stubResponse, {}, MOCK_QUEUED_REQUEST
+        MOCK_QUEUED_REQUEST, nullError, stubResponse, {}
       );
 
       // Then the queued request's logger.logRequestSuccess has been called with something
@@ -342,7 +345,7 @@ describe('Request Manager', function () {
 
       // When we call handle response with the args
       requestManager.handleResponse(
-        stubError, stubResponse, {}, MOCK_QUEUED_REQUEST
+        MOCK_QUEUED_REQUEST, stubError, stubResponse, {}
       );
 
       // Then the queued request's logger.logRequestError has been called with something
@@ -362,7 +365,7 @@ describe('Request Manager', function () {
 
       // When we call handleResponse
       requestManager.handleResponse(
-        nullRequestError, successResponse, stubData, MOCK_QUEUED_REQUEST
+        MOCK_QUEUED_REQUEST, nullRequestError, successResponse, stubData
       );
 
       // Then notifycompleted has been called with null error and stub data as the item
@@ -383,7 +386,7 @@ describe('Request Manager', function () {
 
       // When we call handleResponse
       requestManager.handleResponse(
-        requestError, nullResponse, stubData, MOCK_QUEUED_REQUEST
+        MOCK_QUEUED_REQUEST, requestError, nullResponse, stubData
       );
 
       // Then notifycompleted has been called with an error and null item
