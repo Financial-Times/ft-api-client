@@ -1,6 +1,6 @@
 {
   "name": "ft-api-client",
-  "version": "1.1.1",
+  "version": "1.2.1",
   "repository": {
       "type": "git",
       "url": "http://git.svc.ft.com:9080/git/content-api/nodeclient.git"
@@ -36,5 +36,8 @@
   },{
       "name": "Sebastian Wolf",
       "email": "sebastian.wolf@ft.com"
+  },{
+    "name": "James Nicholls",
+    "email": "james.nicholls@ft.com"
   }]
 }
