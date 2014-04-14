@@ -1,5 +1,3 @@
-/* global waits */
-
 'use strict';
 
   /* MOCK CONTEXT DEPENDENCIES */
