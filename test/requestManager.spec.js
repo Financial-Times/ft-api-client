@@ -102,7 +102,7 @@ describe('Request Manager', function () {
         // Then the spy callback should have been called with the stub error and item
         expect(itemCallback).toHaveBeenCalled();
         expect(itemCallback).toHaveBeenCalledWith(stubError, stubItem);
-        expect(requestManager.delay).toEqual(1);
+        expect(requestManager.delay).toEqual(10);
 
       });
     });
