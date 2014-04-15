@@ -107,8 +107,7 @@ describe('FT API Client', function () {
 
     it('has a request manager property, which is the singleton request manager',
     function () {
-      var requestManagerModule = require('../lib/requestManager.js'),
-        anotherApiInstance = new FtApi(STUB_API_KEY);
+	var anotherApiInstance = new FtApi(STUB_API_KEY);
 
       expect(apiInstance.requestManager).toBeDefined();
       // the request manager instance should be same for each instance of the client

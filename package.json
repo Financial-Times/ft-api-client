@@ -18,9 +18,10 @@
   },
   "devDependencies": {
       "grunt": "0.4.1",
-      "grunt-contrib-jshint": "0.6.0",
+      "grunt-contrib-jshint": "0.10.0",
       "grunt-contrib-watch": "0.4.4",
-      "grunt-jasmine-node": "0.1.0"
+      "grunt-jasmine-node": "0.1.0",
+      "jshint": "2.5.0"
   },
   "keywords": [
     "FT",

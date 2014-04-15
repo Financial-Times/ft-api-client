@@ -34,7 +34,7 @@ describe('Request Manager', function () {
   beforeEach(function () {
     // Reset each time to clear the internal state
     requestManagerContext = loadModule('lib/requestManager.js', CONTEXT_MOCKS);
-    requestManager = new requestManagerContext.RequestManager;
+    requestManager = new requestManagerContext.RequestManager();
   });
 
   it('re-makes any requests that temporarily failed',
@@ -54,7 +54,7 @@ describe('Request Manager', function () {
       request: spyRequest
     };
     requestManagerContext = loadModule('lib/requestManager.js', mockContext);
-    requestManager = new requestManagerContext.RequestManager;
+    requestManager = new requestManagerContext.RequestManager();
 
     // And a stub url and callback
     stubUrl = 'api.ft.com/foo?bar=quux';

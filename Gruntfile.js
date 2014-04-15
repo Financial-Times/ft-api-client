@@ -31,6 +31,7 @@ module.exports = function (grunt) {
           'spyOn': false,
           'expect': false,
           'waitsFor': false,
+          'waits': false,
           'runs': false
         },
         immed: true,
