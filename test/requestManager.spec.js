@@ -47,11 +47,13 @@ describe('Request Manager', function () {
     spyRequest = jasmine.createSpy();
     // And a request module with config with max retries set to 1
     mockContext = {
-      CONFIG: {
+      '../config/general.json': {
+        maxqNotificationsPerCall: 200,
+        maxConcurrentRequests: 10,
         maxRetries: 1,
         retryDelayMilliseconds: 0
       },
-      request: spyRequest
+      'request': spyRequest
     };
     requestManagerContext = loadModule('lib/requestManager.js', mockContext);
     requestManager = new requestManagerContext.RequestManager();
@@ -101,6 +103,78 @@ describe('Request Manager', function () {
       });
     });
   });
+
+  it('does\'nt re-make any requests that temporarily failed if ' +
+    'maxRetries have already been made',
+  function () {
+    var mockContext, spyRequest, requestManagerContext, requestManager, stubUrl,
+      itemCallback, stubError, temporaryFailureResponse, stubItem,
+      requestCallback;
+
+    // Given a spy request
+    spyRequest = jasmine.createSpy();
+    // And a request module with config with max retries set to 1
+    mockContext = {
+      '../config/general.json': {
+        maxNotificationsPerCall: 200,
+        maxConcurrentRequests: 10,
+        maxRetries:2,
+        retryDelayMilliseconds: 0
+      },
+      'request': spyRequest
+    };
+    requestManagerContext = loadModule('lib/requestManager.js', mockContext);
+    requestManager = new requestManagerContext.RequestManager();
+
+    // And a stub url and callback
+    stubUrl = 'api.ft.com/foo?bar=quux';
+    itemCallback = jasmine.createSpy();
+    // And a stub error, failed response code, success code and item
+    stubError = null;
+    temporaryFailureResponse = {statusCode: 429};
+    stubItem = {};
+
+    // When we ask for an item from a url
+    requestManager.getItemFromUrl(stubUrl, MOCK_LOGGER, itemCallback);
+
+    // wait for the internal polling
+    waits(1);
+    runs(function() {
+      // Then the request() method should have been called
+      expect(spyRequest).toHaveBeenCalled();
+      expect(spyRequest.callCount).toEqual(1);
+      // But the spy callback hasn't been called
+      expect(itemCallback).not.toHaveBeenCalled();
+
+      // When we call the callback passed to the request, with a temporary failure code
+      requestCallback = spyRequest.mostRecentCall.args[1];
+      expect(typeof requestCallback).toEqual('function');
+      requestCallback(stubError, temporaryFailureResponse, stubItem);
+
+      waitsFor(function () {
+        return spyRequest.callCount === 2;
+      }, 500);
+
+      runs(function () {
+        // Then we should find that request has been called again
+        expect(spyRequest.callCount).toEqual(2);
+
+        // When we call the callback 3 more times, with a temporary failure code
+        requestCallback = spyRequest.mostRecentCall.args[1];
+        expect(typeof requestCallback).toEqual('function');
+        requestCallback(stubError, temporaryFailureResponse, stubItem);
+        requestCallback(stubError, temporaryFailureResponse, stubItem);
+        requestCallback(stubError, temporaryFailureResponse, stubItem);
+
+        waits(4);
+        runs(function () {
+          // Then we should find that request has not been called more than once more
+          expect(spyRequest.callCount).toEqual(3);
+        });
+      });
+    });
+  });
+
 
   describe('get item from url', function () {
     it('adds a new request queue to queued requests, with a request for the item',
