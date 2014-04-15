@@ -2,5 +2,6 @@
     "maxNotificationsPerCall": 200,
     "maxConcurrentRequests": 10,
     "maxRetries": 5,
+    "defaultDelayMilliseconds": 1,
     "retryDelayMilliseconds": 125
 }

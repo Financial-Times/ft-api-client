@@ -48,12 +48,13 @@ describe('Request Manager', function () {
     // And a request module with config with max retries set to 1
     mockContext = {
       '../config/general.json': {
-        maxqNotificationsPerCall: 200,
+        maxNotificationsPerCall: 200,
         maxConcurrentRequests: 10,
         maxRetries: 1,
-        retryDelayMilliseconds: 0
+        defaultDelayMilliseconds: 1,
+        retryDelayMilliseconds: 10
       },
-      'request': spyRequest
+      request: spyRequest
     };
     requestManagerContext = loadModule('lib/requestManager.js', mockContext);
     requestManager = new requestManagerContext.RequestManager();
@@ -91,6 +92,7 @@ describe('Request Manager', function () {
       runs(function () {
         // Then we should find that request has been called again
         expect(spyRequest.callCount).toEqual(2);
+        expect(requestManager.delay).toEqual(10);
 
         // When we call the callback passed to the request this time
         requestCallback = spyRequest.mostRecentCall.args[1];
@@ -100,6 +102,8 @@ describe('Request Manager', function () {
         // Then the spy callback should have been called with the stub error and item
         expect(itemCallback).toHaveBeenCalled();
         expect(itemCallback).toHaveBeenCalledWith(stubError, stubItem);
+        expect(requestManager.delay).toEqual(1);
+
       });
     });
   });
@@ -119,6 +123,7 @@ describe('Request Manager', function () {
         maxNotificationsPerCall: 200,
         maxConcurrentRequests: 10,
         maxRetries:2,
+        defaultDelayMilliseconds: 0,
         retryDelayMilliseconds: 0
       },
       'request': spyRequest
