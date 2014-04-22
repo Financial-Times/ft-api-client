@@ -1,9 +1,12 @@
-Sample usage for the FT API Node Client
+FT API Node Client
 ======================================
-To find out how to use the FT content API go to <https://developer.ft.com>
+This is a node module that acts as a wrapper for the FT content api (<https://developer.ft.com>).
 
-Instantiating the Client
--------------
+Using the client
+-----------------
+
+###Instantiating
+
 The client is implemented as an instantiable FtApi object.
 Create a client instance by calling FtApi as a constructor and passing your api key:
 
@@ -15,8 +18,30 @@ You can pass an optional log level argument to the constructor too.
 
 	ftApi = new FtApi('APIKEY', FtApi.LOG_LEVEL_NONE);
 
-Logging Levels
--------------
+
+###Methods
+The Content API allows the retrieval of *content items*, *content item notifications*,*pages* and *page content*.
+
+####Content Items
+A [content item](https://developer.ft.com/api-reference/content-items#resource) represents a single piece of FT content (e.g. an article). The following methods are available:
+* `getItem(id, callback)` - retrieve a single item with the given id
+* `getItems(ids, itemCallback, optionalDoneCallback)` - retrieve multiple items
+
+####Content Item Notifications
+[Content item notifications](https://developer.ft.com/api-reference/notifications/) is a feed of content which has recently been modified or deleted. The following methods are available:
+* `getNotificationsSince(sinceDateTime, callback)` - get ALL notifications since the given time
+* `getNotificationsUpTo(maxNotifications, callback)` - get a maximum of *maxNotifications* notifications from the last 15 minuidtes
+* `getNotificationsUpTo(maxNotifications, sinceDateTime, callback)` - get a maximum of *maxNotifications* notifications from the given time
+
+####Pages
+A [page](https://developer.ft.com/api-reference/pages#resource) is is a collection of page resources, each of which represents a published page on the FT.com website. The following methods are available:
+* `getPage(, callback)` - retrieve a single page with the given id
+* `getPages(ids, itemCallback, optionalDoneCallback)` - retrieve multiple pages
+* `getPageList(callback)` - retrieve a list of all pages published on FT.com
+* `getPageContent(id, callback)` - retrieve the [main content](https://developer.ft.com/api-reference/page-items/main-content) for a given page id.
+
+###Logging
+
 The API has three logging levels:
 * `LOG_LEVEL_NONE` - Logs no info messages and no errors
 * `LOG_LEVEL_ERROR` - Logs only errors to stderr
@@ -34,8 +59,10 @@ or
 
 Note: The standard output stream is buffered and outputs asynchronously in Node. The standard error stream is not buffered and outputs synchronously. When `LOG_LEVEL_INFO` is used, you may see errors interspersed inside info logging. Compare logging URLs to ensure you're comparing error lines with the correct info lines.
 
-Single-Item Callbacks
--------------
+### Error Handling
+
+####Single-Item Callbacks
+
 The callback you pass to the client for a single item will be invoked in the Node idiom of
 
 	callback(error, item)
@@ -64,8 +91,8 @@ or
 
 Note: The item may be an empty object or empty array if that was the API's response. We're just the messenger.
 
-Multiple-Item Callbacks
-------------
+#### Multiple-Item Callbacks
+
 The callback you pass to the client for multiple items will be invoked in the Node idiom of
 
 	callback(errors, items)
@@ -94,8 +121,7 @@ or
 
 Note: You may wish to sense-check the expected item count against the length of the items array to ensure you received all the items you requested.
 
-Errors
-------------
+####Errors
 An error object has the format:
 
 	{
@@ -112,10 +138,9 @@ Url will always be set to the url of the request.
 
 If your log level is `LOG_LEVEL_ERROR` or higher, then a helpful representation of this error will be output to the standard error stream.
 
-
-Fetching a list of recently updated items
--------------
-This example will get all notifications from the last hour
+Examples
+----------------
+##### This example will get all notifications from the last hour
 
 	var FtApi = require('ft-api-client'),
 		ftApi,
@@ -138,7 +163,7 @@ This example will get all notifications from the last hour
 		}
 	});
 
-This example will return up to 10 notifications from the last 15 minutes (api default)
+##### This example will return up to 10 notifications from the last 15 minutes (api default)
 
 	var FtApi = require('ft-api-client'),
 		ftApi;
@@ -155,8 +180,8 @@ This example will return up to 10 notifications from the last 15 minutes (api de
 		}
 	});
 
-Fetching the data for *n* number of content IDs
--------------
+##### Fetching the data for *n* number of content IDs
+
 This example will return the full data for each ID specfied
 Note: The 'handle all items' callback is optional.
 
@@ -191,9 +216,7 @@ Note: The 'handle all items' callback is optional.
 	ftApi.getItems(itemIds, handleItemResponse, handleAllItems);
 
 
-Fetching a list of FT pages 
--------------
-List all pages available on www.ft.com.
+##### List all pages available on www.ft.com.
 
 	var FtApi = require('ft-api-client'),
 		ftApi;
@@ -211,8 +234,8 @@ List all pages available on www.ft.com.
 	});
 
 
-Fetching an FT page
--------------
+#####Fetching an FT page
+
 Get a page available on www.ft.com. Provides the page id, title, apiUrl, webUrl and a link to retrieve the main items of content listed on the page.
 Note: The 'handle all pages' callback is optional.
 
@@ -247,8 +270,8 @@ Note: The 'handle all pages' callback is optional.
 	ftApi.getPages(pageIds, handlePageResponse, handleAllPages);
 
 
-Fetching an FT page main content
--------------
+#####Fetching an FT page main content
+
 List all page items available on a published www.ft.com page.
 
 	var FtApi = require('ft-api-client'),
