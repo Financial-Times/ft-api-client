@@ -378,6 +378,38 @@ describe('Request Manager', function () {
         expect(mockRequest.callCount).toEqual(2);
       });
     });
+
+    it('resets the request manager delay back to 0 once the queue has finished',
+    function () {
+      // Given a request manager with config such that ten requests are allowed
+      var mockRequest = jasmine.createSpy('request');
+      var requestManagerContext = loadModule('lib/requestManager.js', {
+        '../config/general.json': { 
+          maxConcurrentRequests: 10, 
+          defaultDelayMilliseconds: 10 },
+        request: mockRequest
+      });
+      var requestManager = new requestManagerContext.RequestManager();
+      requestManager.delay = 20;
+      // And an request queue with two requests in
+      requestManager.getItemsFromUrls([
+        'http://www.google.com',
+        'http://www.yahoo.com'
+      ], MOCK_LOGGER);
+      waits(10); //half way through delay should still be 20
+      runs(function() {
+        expect(requestManager.delay).toEqual(20);
+      });
+      waits(51); // wait for internal polling
+      runs(function() {
+        expect(mockRequest.callCount).toEqual(2);
+        //queue has finished so delay should be set back to 10
+        expect(requestManager.delay).toEqual(10);
+      });
+    });
+
+
+
   });
 
   describe('make request', function () {
