@@ -109,7 +109,7 @@ describe('Request Manager', function () {
   });
 
   it('does\'nt re-make any requests that temporarily failed if ' +
-    'maxRetries have already been made',
+    'maxRetries have already been made for that request',
   function () {
     var mockContext, spyRequest, requestManagerContext, requestManager, stubUrl,
       itemCallback, stubError, temporaryFailureResponse, stubItem,
@@ -175,6 +175,16 @@ describe('Request Manager', function () {
         runs(function () {
           // Then we should find that request has not been called more than once more
           expect(spyRequest.callCount).toEqual(3);
+          expect(requestManager.totalRetries).toEqual(2);
+          requestManager.getItemFromUrl(stubUrl, MOCK_LOGGER, itemCallback);
+          waits(1);
+          //But when a different request fails it still retries
+          runs(function() {
+            requestCallback = spyRequest.mostRecentCall.args[1];
+            requestCallback(stubError, temporaryFailureResponse, stubItem);
+            expect(requestManager.totalRetries).toEqual(3);
+            expect(spyRequest.callCount).toEqual(4);
+          });
         });
       });
     });
