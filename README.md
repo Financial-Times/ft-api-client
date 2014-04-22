@@ -20,23 +20,24 @@ You can pass an optional log level argument to the constructor too.
 
 
 ###Methods
-The Content API allows the retrieval of *content items*, *content item notifications*,*pages* and *page content*.
+With this instance of the FtApi Object provides a number of methods that allow you to easily retrieve data from the FT content API.
+The Content API contains *content items*, *content item notifications*,*pages* and *page content*.
 
-####Content Items
+#####Content Items
 A [content item](https://developer.ft.com/api-reference/content-items#resource) represents a single piece of FT content (e.g. an article). The following methods are available:
 * `getItem(id, callback)` - retrieve a single item with the given id
-* `getItems(ids, itemCallback, optionalDoneCallback)` - retrieve multiple items
+* `getItems(ids, itemCallback, optionalDoneCallback)` - retrieve multiple items (with an array of ids). The *itemCallback* will be executed for each individual item retrieved, and the *optionalDoneCallback* will be executed at the end once all items have been retrieved.
 
-####Content Item Notifications
+#####Content Item Notifications
 [Content item notifications](https://developer.ft.com/api-reference/notifications/) is a feed of content which has recently been modified or deleted. The following methods are available:
 * `getNotificationsSince(sinceDateTime, callback)` - get ALL notifications since the given time
 * `getNotificationsUpTo(maxNotifications, callback)` - get a maximum of *maxNotifications* notifications from the last 15 minuidtes
 * `getNotificationsUpTo(maxNotifications, sinceDateTime, callback)` - get a maximum of *maxNotifications* notifications from the given time
 
-####Pages
+#####Pages
 A [page](https://developer.ft.com/api-reference/pages#resource) is is a collection of page resources, each of which represents a published page on the FT.com website. The following methods are available:
-* `getPage(, callback)` - retrieve a single page with the given id
-* `getPages(ids, itemCallback, optionalDoneCallback)` - retrieve multiple pages
+* `getPage(id, callback)` - retrieve a single page with the given page id
+* `getPages(ids, itemCallback, optionalDoneCallback)` - retrieve multiple pages (with an array of ids). The *itemCallback* will be executed for each individual item retrieved, and the *optionalDoneCallback* will be executed at the end once all items have been retrieved.
 * `getPageList(callback)` - retrieve a list of all pages published on FT.com
 * `getPageContent(id, callback)` - retrieve the [main content](https://developer.ft.com/api-reference/page-items/main-content) for a given page id.
 
@@ -61,7 +62,7 @@ Note: The standard output stream is buffered and outputs asynchronously in Node.
 
 ### Error Handling
 
-####Single-Item Callbacks
+##### Single-Item Callbacks
 
 The callback you pass to the client for a single item will be invoked in the Node idiom of
 
@@ -91,7 +92,7 @@ or
 
 Note: The item may be an empty object or empty array if that was the API's response. We're just the messenger.
 
-#### Multiple-Item Callbacks
+##### Multiple-Item Callbacks
 
 The callback you pass to the client for multiple items will be invoked in the Node idiom of
 
