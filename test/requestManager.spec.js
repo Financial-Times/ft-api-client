@@ -47,9 +47,12 @@ describe('Request Manager', function () {
     spyRequest = jasmine.createSpy();
     // And a request module with config with max retries set to 1
     mockContext = {
-      CONFIG: {
+      '../config/general.json': {
+        maxNotificationsPerCall: 200,
+        maxConcurrentRequests: 10,
         maxRetries: 1,
-        retryDelayMilliseconds: 0
+        defaultDelayMilliseconds: 1,
+        retryDelayMilliseconds: 10
       },
       request: spyRequest
     };
@@ -89,6 +92,7 @@ describe('Request Manager', function () {
       runs(function () {
         // Then we should find that request has been called again
         expect(spyRequest.callCount).toEqual(2);
+        expect(requestManager.delay).toEqual(10);
 
         // When we call the callback passed to the request this time
         requestCallback = spyRequest.mostRecentCall.args[1];
@@ -98,9 +102,94 @@ describe('Request Manager', function () {
         // Then the spy callback should have been called with the stub error and item
         expect(itemCallback).toHaveBeenCalled();
         expect(itemCallback).toHaveBeenCalledWith(stubError, stubItem);
+        expect(requestManager.delay).toEqual(10);
+
       });
     });
   });
+
+  it('does\'nt re-make any requests that temporarily failed if ' +
+    'maxRetries have already been made for that request',
+  function () {
+    var mockContext, spyRequest, requestManagerContext, requestManager, stubUrl,
+      itemCallback, stubError, temporaryFailureResponse, stubItem,
+      requestCallback;
+
+    // Given a spy request
+    spyRequest = jasmine.createSpy();
+    // And a request module with config with max retries set to 1
+    mockContext = {
+      '../config/general.json': {
+        maxNotificationsPerCall: 200,
+        maxConcurrentRequests: 10,
+        maxRetries:2,
+        defaultDelayMilliseconds: 0,
+        retryDelayMilliseconds: 0
+      },
+      'request': spyRequest
+    };
+    requestManagerContext = loadModule('lib/requestManager.js', mockContext);
+    requestManager = new requestManagerContext.RequestManager();
+
+    // And a stub url and callback
+    stubUrl = 'api.ft.com/foo?bar=quux';
+    itemCallback = jasmine.createSpy();
+    // And a stub error, failed response code, success code and item
+    stubError = null;
+    temporaryFailureResponse = {statusCode: 429};
+    stubItem = {};
+
+    // When we ask for an item from a url
+    requestManager.getItemFromUrl(stubUrl, MOCK_LOGGER, itemCallback);
+
+    // wait for the internal polling
+    waits(1);
+    runs(function() {
+      // Then the request() method should have been called
+      expect(spyRequest).toHaveBeenCalled();
+      expect(spyRequest.callCount).toEqual(1);
+      // But the spy callback hasn't been called
+      expect(itemCallback).not.toHaveBeenCalled();
+
+      // When we call the callback passed to the request, with a temporary failure code
+      requestCallback = spyRequest.mostRecentCall.args[1];
+      expect(typeof requestCallback).toEqual('function');
+      requestCallback(stubError, temporaryFailureResponse, stubItem);
+
+      waitsFor(function () {
+        return spyRequest.callCount === 2;
+      }, 500);
+
+      runs(function () {
+        // Then we should find that request has been called again
+        expect(spyRequest.callCount).toEqual(2);
+
+        // When we call the callback 3 more times, with a temporary failure code
+        requestCallback = spyRequest.mostRecentCall.args[1];
+        expect(typeof requestCallback).toEqual('function');
+        requestCallback(stubError, temporaryFailureResponse, stubItem);
+        requestCallback(stubError, temporaryFailureResponse, stubItem);
+        requestCallback(stubError, temporaryFailureResponse, stubItem);
+
+        waits(4);
+        runs(function () {
+          // Then we should find that request has not been called more than once more
+          expect(spyRequest.callCount).toEqual(3);
+          expect(requestManager.totalRetries).toEqual(2);
+          requestManager.getItemFromUrl(stubUrl, MOCK_LOGGER, itemCallback);
+          waits(1);
+          //But when a different request fails it still retries
+          runs(function() {
+            requestCallback = spyRequest.mostRecentCall.args[1];
+            requestCallback(stubError, temporaryFailureResponse, stubItem);
+            expect(requestManager.totalRetries).toEqual(3);
+            expect(spyRequest.callCount).toEqual(4);
+          });
+        });
+      });
+    });
+  });
+
 
   describe('get item from url', function () {
     it('adds a new request queue to queued requests, with a request for the item',
@@ -289,6 +378,38 @@ describe('Request Manager', function () {
         expect(mockRequest.callCount).toEqual(2);
       });
     });
+
+    it('resets the request manager delay back to 0 once the queue has finished',
+    function () {
+      // Given a request manager with config such that ten requests are allowed
+      var mockRequest = jasmine.createSpy('request');
+      var requestManagerContext = loadModule('lib/requestManager.js', {
+        '../config/general.json': { 
+          maxConcurrentRequests: 10, 
+          defaultDelayMilliseconds: 10 },
+        request: mockRequest
+      });
+      var requestManager = new requestManagerContext.RequestManager();
+      requestManager.delay = 20;
+      // And an request queue with two requests in
+      requestManager.getItemsFromUrls([
+        'http://www.google.com',
+        'http://www.yahoo.com'
+      ], MOCK_LOGGER);
+      waits(10); //half way through delay should still be 20
+      runs(function() {
+        expect(requestManager.delay).toEqual(20);
+      });
+      waits(51); // wait for internal polling
+      runs(function() {
+        expect(mockRequest.callCount).toEqual(2);
+        //queue has finished so delay should be set back to 10
+        expect(requestManager.delay).toEqual(10);
+      });
+    });
+
+
+
   });
 
   describe('make request', function () {
