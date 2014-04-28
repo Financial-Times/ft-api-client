@@ -255,6 +255,27 @@ describe('FT API Path Mapper', function () {
         'valid_feature=on',
       ].join(''));
     });
+
+    it('encodes special characters in the Feature Flag string',
+    function () {
+      var itemId, contentPath;
+      pathMapper = new PathMapper(STUB_API_KEY, ['f£@tur3&_Some*?']);
+      // Given a pathMapper instance with a stub api key as above, and an item id
+      itemId = STUB_ITEM_ID;
+      // When we get the content path for the item
+      contentPath = pathMapper.getContentPathFor(itemId);
+      // Then it should be equal to the join of all of these chappies
+      expect(contentPath).toEqual([
+        pathMapperContext.PROTOCOL_PREFIX,
+        pathMapper.paths.apiDomain,
+        pathMapper.paths.item,
+        itemId,
+        pathMapperContext.API_KEY_FIRST_PARAM,
+        pathMapper.apiKey,
+        pathMapperContext.FEATURE_FLAG_PARAM_PREFIX,
+        'f%C2%A3%40tur3%26_Some*%3F=on',
+      ].join(''));
+    });
   });
 
   describe('DateTime to date string mapping', function () {
