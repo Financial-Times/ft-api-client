@@ -188,6 +188,75 @@ describe('FT API Path Mapper', function () {
     });
   });
 
+  describe('API paths with feature flags enabled', function() {
+    var STUB_ITEM_ID = 'stub_id';
+
+    it('appends any feature flags to the url',
+    function () {
+      var itemId, contentPath;
+      pathMapper = new PathMapper(STUB_API_KEY, ['blogposts', 'other_feature']);
+      // Given a pathMapper instance with a stub api key as above, and an item id
+      itemId = STUB_ITEM_ID;
+      // When we get the content path for the item
+      contentPath = pathMapper.getContentPathFor(itemId);
+      // Then it should be equal to the join of all of these chappies
+      expect(contentPath).toEqual([
+        pathMapperContext.PROTOCOL_PREFIX,
+        pathMapper.paths.apiDomain,
+        pathMapper.paths.item,
+        itemId,
+        pathMapperContext.API_KEY_FIRST_PARAM,
+        pathMapper.apiKey,
+        pathMapperContext.FEATURE_FLAG_PARAM_PREFIX,
+        'blogposts=on',
+        pathMapperContext.FEATURE_FLAG_PARAM_PREFIX,
+        'other_feature=on',
+      ].join(''));
+    });
+
+
+    it('ignores an empty list of features',
+    function () {
+      var itemId, contentPath;
+      pathMapper = new PathMapper(STUB_API_KEY, []);
+      // Given a pathMapper instance with a stub api key as above, and an item id
+      itemId = STUB_ITEM_ID;
+      // When we get the content path for the item
+      contentPath = pathMapper.getContentPathFor(itemId);
+      // Then it should be equal to the join of all of these chappies
+      expect(contentPath).toEqual([
+        pathMapperContext.PROTOCOL_PREFIX,
+        pathMapper.paths.apiDomain,
+        pathMapper.paths.item,
+        itemId,
+        pathMapperContext.API_KEY_FIRST_PARAM,
+        pathMapper.apiKey
+      ].join(''));
+    });
+
+
+    it('ignores features that are not a string',
+    function () {
+      var itemId, contentPath;
+      pathMapper = new PathMapper(STUB_API_KEY, [{}, 'valid_feature', 5]);
+      // Given a pathMapper instance with a stub api key as above, and an item id
+      itemId = STUB_ITEM_ID;
+      // When we get the content path for the item
+      contentPath = pathMapper.getContentPathFor(itemId);
+      // Then it should be equal to the join of all of these chappies
+      expect(contentPath).toEqual([
+        pathMapperContext.PROTOCOL_PREFIX,
+        pathMapper.paths.apiDomain,
+        pathMapper.paths.item,
+        itemId,
+        pathMapperContext.API_KEY_FIRST_PARAM,
+        pathMapper.apiKey,
+        pathMapperContext.FEATURE_FLAG_PARAM_PREFIX,
+        'valid_feature=on',
+      ].join(''));
+    });
+  });
+
   describe('DateTime to date string mapping', function () {
     /* This has to exist because the API handles date strings incorrectly ✌.ʕʘ‿ʘʔ.✌ */
     it('turns a datetime to an iso string in UTC, with a mandatory Z for the time zone',

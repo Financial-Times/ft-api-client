@@ -8,17 +8,20 @@ var PathMapper = require('./lib/PathMapper.js'),
 
 var rm = new RequestManager();
 
-function FtApi (apiKey, optionalLogLevel) {
+function FtApi (apiKey, optionalLogLevel, optionalFeatureFlags) {
   if (typeof apiKey !== 'string' || apiKey === '') {
     throw new TypeError('The FT API constructor requires an API key, ' +
         'which must be a non-empty string');
   }
 
-  this.pathMapper = new PathMapper(apiKey);
+  if(typeof optionalFeatureFlags === 'undefined' && Array.isArray(optionalLogLevel)) {
+    optionalFeatureFlags = optionalLogLevel;
+  }
+  this.pathMapper = new PathMapper(apiKey, optionalFeatureFlags);
   this.logger = new Logger();
   this.requestManager = rm;
 
-  if (typeof optionalLogLevel !== 'undefined') {
+  if (typeof optionalLogLevel === 'number') {
     this.setLogLevel(optionalLogLevel);
   }
 
@@ -35,6 +38,7 @@ FtApi.prototype.setLogLevel = function (logLevel) {
 FtApi.prototype.getLogLevel = function () {
   return this.logger.getLogLevel();
 };
+
 
 /* STATIC FLAGS */
 FtApi.LOG_LEVEL_NONE = Logger.LOG_LEVEL_NONE;

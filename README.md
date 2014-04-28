@@ -14,9 +14,11 @@ Create a client instance by calling FtApi as a constructor and passing your api 
 		ftApi;
 	ftApi = new FtApi('APIKEY');
 
-You can pass an optional log level argument to the constructor too.
+There are also optional arguments to set the log level and/or enable feature flags on the Content API.
 
 	ftApi = new FtApi('APIKEY', FtApi.LOG_LEVEL_NONE);
+	ftApi = new FtApi('APIKEY', ['blogposts']);
+	ftApi = new FtApi('APIKEY', FtApi.LOG_LEVEL_NONE, ['blogposts']);
 
 
 ###Methods

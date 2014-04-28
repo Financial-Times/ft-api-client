@@ -70,6 +70,43 @@ describe('FT API Client', function () {
       expect(apiInstance.getLogLevel()).toEqual(FtApi.LOG_LEVEL_INFO);
     });
 
+    it('exports a constructor which has an optional feature flags argument',
+    function () {
+      var apiInstance,
+      features = ['some_feature'];
+      // Given an api import as above
+      // When we call the constructor without the optional feature flags arg
+      // Then the feature flags are still set as an empty list
+      apiInstance = new FtApi(STUB_API_KEY);
+      expect(apiInstance.pathMapper.features).toEqual('');
+
+      // When we call the constructor with an optional feature flags arg
+
+      apiInstance = new FtApi(STUB_API_KEY, features);
+      // Then the feature flags should have been set to the one given
+      expect(apiInstance.pathMapper.features).toContain('some_feature');
+      expect(apiInstance.getLogLevel()).toBeDefined();
+
+      // When we call the constructor a log level flag
+
+      apiInstance = new FtApi(STUB_API_KEY, FtApi.LOG_LEVEL_INFO);
+      // Then the feature flags should be set as empty
+      expect(apiInstance.pathMapper.features).toEqual('');
+      expect(apiInstance.getLogLevel()).toEqual(FtApi.LOG_LEVEL_INFO);
+
+      // When we call the constructor with both optional arguments
+
+      apiInstance = new FtApi(STUB_API_KEY, FtApi.LOG_LEVEL_INFO, features);
+      // Then the feature flags should be set as empty
+      expect(apiInstance.pathMapper.features).toContain('some_feature');
+      expect(apiInstance.getLogLevel()).toEqual(FtApi.LOG_LEVEL_INFO);
+
+      //When both arguments are passed the wrong way round, consider both to be incorrect
+      apiInstance = new FtApi(STUB_API_KEY, features, FtApi.LOG_LEVEL_INFO);
+      expect(apiInstance.pathMapper.features).toContain('');
+      expect(apiInstance.getLogLevel()).toEqual(FtApi.LOG_LEVEL_ERROR);
+    });
+
     it('exports logging level flags',
     function () {
       // Given an ft api
