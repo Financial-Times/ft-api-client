@@ -13,7 +13,7 @@ Create a client instance by calling FtApi as a constructor an object containing 
 The configuration options are as follows:
 * `apiKey`: The (string) API key for your app to access the Content API
 * `logLevel`: *optional* One of `FtApi.LOG_LEVEL_NONE`, `FtApi.LOG_LEVEL_ERROR` or `FtApi.LOG_LEVEL_INFO`. See *Logging* below for more details.
-* `featureFlags`: * optional* An array of strings containing the names of feature flags to be used with the content API.
+* `featureFlags`: *optional* An array of strings containing the names of feature flags to be used with the content API.
 
 Examples:
 	var FtApi = require('ft-api-client'),
