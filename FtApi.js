@@ -8,21 +8,24 @@ var PathMapper = require('./lib/PathMapper.js'),
 
 var rm = new RequestManager();
 
-function FtApi (apiKey, optionalLogLevel, optionalFeatureFlags) {
-  if (typeof apiKey !== 'string' || apiKey === '') {
+function FtApi (options) {
+  options = options || {};
+  if (typeof options.apiKey !== 'string' || options.apiKey === '') {
     throw new TypeError('The FT API constructor requires an API key, ' +
         'which must be a non-empty string');
   }
 
-  if(typeof optionalFeatureFlags === 'undefined' && Array.isArray(optionalLogLevel)) {
-    optionalFeatureFlags = optionalLogLevel;
+
+  if(!Array.isArray(options.featureFlags)) {
+    options.featureFlags = [];
   }
-  this.pathMapper = new PathMapper(apiKey, optionalFeatureFlags);
+
+  this.pathMapper = new PathMapper(options.apiKey, options.featureFlags);
   this.logger = new Logger();
   this.requestManager = rm;
 
-  if (typeof optionalLogLevel === 'number') {
-    this.setLogLevel(optionalLogLevel);
+  if (typeof options.logLevel === 'number') {
+    this.setLogLevel(options.logLevel);
   }
 
   contentCalls.mixInTo(this);

@@ -27,7 +27,7 @@ function handleAllDone (errors, items) {
       'b501d88a-86be-11e0-9d41-00144feabdc0'
     ];
 
-  ftApi = new FtApi(apiKey, FtApi.LOG_LEVEL_INFO);
+  ftApi = new FtApi({apiKey: apiKey, logLevel: FtApi.LOG_LEVEL_INFO});
 
   // Hit the client with lots of requests to max out the concurrent requests
   ftApi.getPages(pageIds, handleDone, handleAllDone);
