@@ -8,16 +8,29 @@ Using the client
 ###Instantiating
 
 The client is implemented as an instantiable FtApi object.
-Create a client instance by calling FtApi as a constructor and passing your api key:
+Create a client instance by calling FtApi as a constructor an object containing your api key and optional configuration:
 
+The configuration options are as follows:
+* `apiKey`: The (string) API key for your app to access the Content API
+* `logLevel`: *optional* One of `FtApi.LOG_LEVEL_NONE`, `FtApi.LOG_LEVEL_ERROR` or `FtApi.LOG_LEVEL_INFO`. See *Logging* below for more details.
+* `featureFlags`: *optional* An array of strings containing the names of feature flags to be used with the content API.
+
+Examples:
 	var FtApi = require('ft-api-client'),
 		ftApi;
-	ftApi = new FtApi('APIKEY');
+	
+	ftApi = new FtApi({ apiKey: 'APIKEY' });
 
-You can pass an optional log level argument to the constructor too.
+	ftApi = new FtApi({
+		apiKey: 'APIKEY',
+		logLevel: FtApi.LOG_LEVEL_NONE 
+	});
 
-	ftApi = new FtApi('APIKEY', FtApi.LOG_LEVEL_NONE);
-
+	ftApi = new FtApi({
+		apiKey: 'APIKEY',
+		featureFlags: ['blogposts'],
+		logLevel: FtApi.LOG_LEVEL_NONE 
+	});
 
 ###Methods
 With this instance of the FtApi Object provides a number of methods that allow you to easily retrieve data from the FT content API.
@@ -52,7 +65,10 @@ By default, instances have `LOG_LEVEL_ERROR`.
 Logging levels can be set from the FT API constructor, or using getLogLevel/setLogLevel
  on an FtApi instance.
 
-	ftApi = new FtApi('APIKEY', FtApi.LOG_LEVEL_NONE);
+	ftApi = new FtApi({ 
+		apiKey: 'APIKEY', 
+		logLevel: FtApi.LOG_LEVEL_NONE 
+	});
 
 or
 
@@ -250,7 +266,7 @@ Note: The 'handle all pages' callback is optional.
 		handleAllPages;
 
 	// Create a new Api Client from your API Key
-	ftApi = new FtApi('XXX');
+	ftApi = new FtApi({apiKey: 'XXX'});
 
 	handlePageResponse = function (error, page) {
 		if (error) {
@@ -281,7 +297,7 @@ List all page items available on a published www.ft.com page.
 		handlePageContent;
 
 	// Create a new Api Client from your API Key
-	ftApi = new FtApi('XXX');
+	ftApi = new FtApi({apiKey: 'XXX'});
 
 	handlePageContent = function (error, pageContent) {
 		if (error) {

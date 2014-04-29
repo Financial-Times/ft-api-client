@@ -32,7 +32,7 @@ describe('FT API Client', function () {
       var apiInstance;
       // Given an api constructor
       // When we invoke it
-      apiInstance = new FtApi(STUB_API_KEY);
+      apiInstance = new FtApi({apiKey: STUB_API_KEY});
       // Then the instance should be an FT API
       expect(apiInstance.constructor).toBe(FtApi);
     });
@@ -44,10 +44,11 @@ describe('FT API Client', function () {
       // When we call the constructor with no arguments
       // Then it should throw an error
       expect(function () { new FtApi(); }).toThrow();
+      expect(function () { new FtApi({}); }).toThrow();
 
       // Given an api import as above
       // When we call the constructor with a stub api key as above
-      apiInstance = new FtApi(STUB_API_KEY);
+      apiInstance = new FtApi({apiKey: STUB_API_KEY });
       // Then it should have returned an object
       expect(apiInstance).toBeDefined();
       expect(typeof apiInstance).toBe('object');
@@ -59,14 +60,68 @@ describe('FT API Client', function () {
       // Given an api import as above
       // When we call the constructor without the optional log level arg
       // Then the log level is still set
-      apiInstance = new FtApi(STUB_API_KEY);
+      apiInstance = new FtApi({ apiKey: STUB_API_KEY });
       expect(apiInstance.getLogLevel()).toBeDefined();
 
       // Given an api import as above
       // When we call the constructor with an optional log level arg
-      apiInstance = new FtApi(STUB_API_KEY, FtApi.LOG_LEVEL_INFO);
+      apiInstance = new FtApi({ 
+        apiKey: STUB_API_KEY,
+        logLevel: FtApi.LOG_LEVEL_INFO
+      });
       // Then the log level should have been set to the one given
       expect(apiInstance.getLogLevel()).toBeDefined();
+      expect(apiInstance.getLogLevel()).toEqual(FtApi.LOG_LEVEL_INFO);
+    });
+
+    it('exports a constructor which has an optional feature flags argument',
+    function () {
+      var apiInstance,
+      features = ['some_feature'];
+      // Given an api import as above
+      // When we call the constructor without the optional feature flags arg
+      // Then the feature flags are still set as an empty list
+      apiInstance = new FtApi({ apiKey: STUB_API_KEY });
+      expect(apiInstance.pathMapper.features).toEqual('');
+
+      // When we call the constructor with an optional feature flags arg
+      apiInstance = new FtApi({ 
+        apiKey: STUB_API_KEY,
+        featureFlags: features
+      });
+      // Then the feature flags should have been set to the one given
+      expect(apiInstance.pathMapper.features).toContain('some_feature');
+      expect(apiInstance.getLogLevel()).toBeDefined();
+
+      // When we call the constructor with an invalid feature flags arg
+
+      apiInstance = new FtApi({ 
+        apiKey: STUB_API_KEY,
+        featureFlags: 'string'
+      });
+            // Then the feature flags should have been set to the one given
+      expect(apiInstance.pathMapper.features).not.toContain('feature');
+      expect(apiInstance.pathMapper.features).not.toContain('string');
+      expect(apiInstance.getLogLevel()).toBeDefined();
+
+      // When we call the constructor a log level flag
+
+      apiInstance = new FtApi({ 
+        apiKey: STUB_API_KEY,
+        logLevel: FtApi.LOG_LEVEL_INFO
+      });
+            // Then the feature flags should be set as empty
+      expect(apiInstance.pathMapper.features).toEqual('');
+      expect(apiInstance.getLogLevel()).toEqual(FtApi.LOG_LEVEL_INFO);
+
+      // When we call the constructor with both optional arguments
+      apiInstance = new FtApi({ 
+        apiKey: STUB_API_KEY,
+        logLevel: FtApi.LOG_LEVEL_INFO,
+        featureFlags: features
+      });
+      // Then the feature flags should be set as empty
+      expect(apiInstance.pathMapper.features).toContain('some_feature');
       expect(apiInstance.getLogLevel()).toEqual(FtApi.LOG_LEVEL_INFO);
     });
 
@@ -83,7 +138,7 @@ describe('FT API Client', function () {
   });
 
   describe('FT API Client Instance', function () {
-    var apiInstance = new FtApi(STUB_API_KEY);
+    var apiInstance = new FtApi({apiKey: STUB_API_KEY });
 
     it('has a pathMapper property, which is a new pathMapper with the passed API key',
     function (){
@@ -107,7 +162,7 @@ describe('FT API Client', function () {
 
     it('has a request manager property, which is the singleton request manager',
     function () {
-	var anotherApiInstance = new FtApi(STUB_API_KEY);
+      var anotherApiInstance = new FtApi({apiKey: STUB_API_KEY });
 
       expect(apiInstance.requestManager).toBeDefined();
       // the request manager instance should be same for each instance of the client
@@ -140,7 +195,7 @@ describe('FT API Client', function () {
       contentCalls = MOCK_CONTENT_CALLS;
       // And a spy on content calls mixInTo as above
       // When we create a new api instance
-      apiInstance = new FtApi(STUB_API_KEY);
+      apiInstance = new FtApi({apiKey: STUB_API_KEY });
       // Then we expect content calls mixinTo to have been called on the instance itself
       expect(contentCalls.mixInTo).toHaveBeenCalled();
       expect(contentCalls.mixInTo).toHaveBeenCalledWith(apiInstance);
@@ -153,7 +208,7 @@ describe('FT API Client', function () {
       notificationsCalls = MOCK_NOTIFICATIONS_CALLS;
       // And a spy on notifications calls mixInTo as above
       // When we create a new api instance
-      apiInstance = new FtApi(STUB_API_KEY);
+      apiInstance = new FtApi({apiKey: STUB_API_KEY });
       // Then we expect content calls mixinTo to have been called on the instance itself
       expect(notificationsCalls.mixInTo).toHaveBeenCalled();
       expect(notificationsCalls.mixInTo).toHaveBeenCalledWith(apiInstance);
