@@ -16,6 +16,7 @@ The configuration options are as follows:
 * `featureFlags`: *optional* An array of strings containing the names of feature flags to be used with the content API.
 
 Examples:
+
 	var FtApi = require('ft-api-client'),
 		ftApi;
 	
