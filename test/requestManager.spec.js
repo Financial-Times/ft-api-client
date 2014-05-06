@@ -52,7 +52,8 @@ describe('Request Manager', function () {
         maxConcurrentRequests: 10,
         maxRetries: 1,
         defaultDelayMilliseconds: 1,
-        retryDelayMilliseconds: 10
+        retryDelayMilliseconds: 10,
+        defaultCacheTTLMilliseconds: 0
       },
       request: spyRequest
     };
@@ -124,7 +125,8 @@ describe('Request Manager', function () {
         maxConcurrentRequests: 10,
         maxRetries:2,
         defaultDelayMilliseconds: 0,
-        retryDelayMilliseconds: 0
+        retryDelayMilliseconds: 0,
+        defaultCacheTTLMilliseconds: 0
       },
       'request': spyRequest
     };
