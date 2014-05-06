@@ -14,7 +14,8 @@
   "dependencies": {
       "request": "2.22.0",
       "moment": "2.0.0",
-      "underscore": "1.5.1"
+      "underscore": "1.5.1",
+      "memory-cache": "0.0.5"
   },
   "devDependencies": {
       "grunt": "0.4.1",

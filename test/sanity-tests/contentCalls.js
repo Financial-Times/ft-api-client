@@ -30,10 +30,17 @@ function handleAllDone (errors, items) {
   ftApi = new FtApi({apiKey: apiKey, logLevel: FtApi.LOG_LEVEL_INFO});
 
   // Hit the client with lots of requests to max out the concurrent requests
-  ftApi.getPages(pageIds, null, handleAllDone);
-  ftApi.getPages(pageIds, handleDone, handleAllDone);
+  // ftApi.getPages(pageIds, null, handleAllDone);
+  // ftApi.getPages(pageIds, handleDone, handleAllDone);
   ftApi.getItem(itemId, handleDone);
-  ftApi.getPageList(handleDone);
-  ftApi.getPage(pageId, handleDone);
-  ftApi.getPageContent(pageId, handleDone);
+  ftApi.getItem(itemId, handleDone);
+  ftApi.getItem(itemId, handleDone);
+  ftApi.getItem(itemId, handleDone);
+  ftApi.getItem(itemId, handleDone);
+  ftApi.getItem(itemId, handleDone);
+
+  setTimeout()
+  // ftApi.getPageList(handleDone);
+  // ftApi.getPage(pageId, handleDone);
+  // ftApi.getPageContent(pageId, handleDone);
 })();
