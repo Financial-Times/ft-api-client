@@ -122,7 +122,8 @@ it('uses a default TTL of whatever is in config',
     var mockCachePut = jasmine.createSpy('cache put');
     // Given a request manager with config such that ten requests are allowed
     var requestManagerContext = loadModule('lib/requestManager.js', {
-      '../config/general.json': { maxConcurrentRequests: 10, defaultCacheTTL: 6000 },
+      '../config/general.json': { maxConcurrentRequests: 10, 
+            defaultCacheTTLMilliseconds: 6000 },
       request: mockRequest,
       'memory-cache': { put: mockCachePut },
       './responseResolver.js': {

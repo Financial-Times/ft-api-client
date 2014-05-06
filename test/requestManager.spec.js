@@ -53,7 +53,7 @@ describe('Request Manager', function () {
         maxRetries: 1,
         defaultDelayMilliseconds: 1,
         retryDelayMilliseconds: 10,
-        defaultCacheTTL: 0
+        defaultCacheTTLMilliseconds: 0
       },
       request: spyRequest
     };
@@ -126,7 +126,7 @@ describe('Request Manager', function () {
         maxRetries:2,
         defaultDelayMilliseconds: 0,
         retryDelayMilliseconds: 0,
-        defaultCacheTTL: 0
+        defaultCacheTTLMilliseconds: 0
       },
       'request': spyRequest
     };
