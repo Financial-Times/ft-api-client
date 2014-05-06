@@ -154,5 +154,55 @@ describe('Content Calls Module', function () {
         expect(typeof contentCalls[callName]).toEqual('function');
       });
     });
+
+
+    it('allows a null parameter for the single item callback', function() {
+      contentCallsContext = loadModule('lib/contentCalls.js', { 'underscore': {
+        map: function() {
+          return 'blah';}
+        }
+      });
+      contentCalls = contentCallsContext.exports;
+
+      contentCalls.requestManager = {
+        getItemsFromUrls: function() {}
+      };
+      contentCalls.pathMapper = {
+        getContentPathFor: function() {}
+      };
+      contentCalls.logger = 'logger';
+      var requestManagerSpy = spyOn(contentCalls.requestManager, 'getItemsFromUrls');
+      contentCalls.getItems('some ids', null, function() {
+
+      });
+
+      expect(requestManagerSpy).toHaveBeenCalledWith('blah', 
+        'logger', jasmine.any(Function), jasmine.any(Function));
+    });
+
+    it('allows a null parameter for the single page callback', function() {
+      contentCallsContext = loadModule('lib/contentCalls.js', { 'underscore': {
+        map: function() {
+          return 'blah';}
+        }
+      });
+      contentCalls = contentCallsContext.exports;
+
+      contentCalls.requestManager = {
+        getItemsFromUrls: function() {}
+      };
+      contentCalls.pathMapper = {
+        getPagePathFor: function() {}
+      };
+      contentCalls.logger = 'logger';
+      var requestManagerSpy = spyOn(contentCalls.requestManager, 'getItemsFromUrls');
+      contentCalls.getPages('some ids', null, function() {
+
+      });
+
+      expect(requestManagerSpy).toHaveBeenCalledWith('blah', 
+        'logger', jasmine.any(Function), jasmine.any(Function));
+    });
+
   });
 });

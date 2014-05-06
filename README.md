@@ -40,7 +40,7 @@ The Content API contains *content items*, *content item notifications*,*pages* a
 #####Content Items
 A [content item](https://developer.ft.com/api-reference/content-items#resource) represents a single piece of FT content (e.g. an article). The following methods are available:
 * `getItem(id, callback)` - retrieve a single item with the given id
-* `getItems(ids, itemCallback, optionalDoneCallback)` - retrieve multiple items (with an array of ids). The *itemCallback* will be executed for each individual item retrieved, and the *optionalDoneCallback* will be executed at the end once all items have been retrieved.
+* `getItems(ids, itemCallback, optionalDoneCallback)` - retrieve multiple items (with an array of ids). The *itemCallback* will be executed for each individual item retrieved, and the *optionalDoneCallback* will be executed at the end once all items have been retrieved. Pass null as *itemCallback* if you don't care about it.
 
 #####Content Item Notifications
 [Content item notifications](https://developer.ft.com/api-reference/notifications/) is a feed of content which has recently been modified or deleted. The following methods are available:
@@ -51,7 +51,7 @@ A [content item](https://developer.ft.com/api-reference/content-items#resource) 
 #####Pages
 A [page](https://developer.ft.com/api-reference/pages#resource) is is a collection of page resources, each of which represents a published page on the FT.com website. The following methods are available:
 * `getPage(id, callback)` - retrieve a single page with the given page id
-* `getPages(ids, itemCallback, optionalDoneCallback)` - retrieve multiple pages (with an array of ids). The *itemCallback* will be executed for each individual item retrieved, and the *optionalDoneCallback* will be executed at the end once all items have been retrieved.
+* `getPages(ids, itemCallback, optionalDoneCallback)` - retrieve multiple pages (with an array of ids). The *itemCallback* will be executed for each individual item retrieved, and the *optionalDoneCallback* will be executed at the end once all items have been retrieved. Pass null as *itemCallback* if you don't care about it.
 * `getPageList(callback)` - retrieve a list of all pages published on FT.com
 * `getPageContent(id, callback)` - retrieve the [main content](https://developer.ft.com/api-reference/page-items/main-content) for a given page id.
 
