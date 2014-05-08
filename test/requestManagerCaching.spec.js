@@ -91,11 +91,11 @@ describe('Request Manager Cache', function () {
     var req = { url: 'http://www.google.com',
       notifyInProgress: jasmine.createSpy(),
       notifyCompleted: jasmine.createSpy(),
-      logger: MOCK_LOGGER 
+      logger: MOCK_LOGGER
     };
     var res = {
       headers: {
-        'cache-control': 'max-age=1000, s-maxage=1000'
+        'cache-control': 's-maxage=234, max-age=1000'
       }
     };
 
@@ -179,7 +179,7 @@ it('doesn\'t save an erroneous response in cache',
     };
     var res = {
       headers: {
-        'cache-control': 'max-age=1000, s-maxage=1000'
+        'cache-control': 'max-age=1000, s-maxage=1000, public'
       }
     };
 
