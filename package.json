@@ -1,9 +1,9 @@
 {
   "name": "ft-api-client",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/Financial-Times/ft-api-client.git"
+    "type": "git",
+    "url": "https://github.com/Financial-Times/ft-api-client.git"
   },
   "license": "BSD",
   "description": "A client for the Financial Times content and search APIs",
@@ -12,17 +12,17 @@
     "lib": "./lib"
   },
   "dependencies": {
-      "request": "2.22.0",
-      "moment": "2.0.0",
-      "underscore": "1.5.1",
-      "memory-cache": "0.0.5"
+    "request": "2.22.0",
+    "moment": "2.0.0",
+    "underscore": "1.5.1",
+    "ttl-lru-cache": "0.0.2"
   },
   "devDependencies": {
-      "grunt": "0.4.1",
-      "grunt-contrib-jshint": "0.10.0",
-      "grunt-contrib-watch": "0.4.4",
-      "grunt-jasmine-node": "0.1.0",
-      "jshint": "2.5.0"
+    "grunt": "0.4.1",
+    "grunt-contrib-jshint": "0.10.0",
+    "grunt-contrib-watch": "0.4.4",
+    "grunt-jasmine-node": "0.1.0",
+    "jshint": "2.5.0"
   },
   "keywords": [
     "FT",
@@ -32,14 +32,22 @@
     "API",
     "SAPI"
   ],
-  "contributors": [{
+  "contributors": [
+    {
       "name": "Richard Still",
       "email": "richard.still@ft.com"
-  },{
+    },
+    {
       "name": "Sebastian Wolf",
       "email": "sebastian.wolf@ft.com"
-  },{
-    "name": "James Nicholls",
-    "email": "james.nicholls@ft.com"
-  }]
+    },
+    {
+      "name": "James Nicholls",
+      "email": "james.nicholls@ft.com"
+    },
+    {
+      "name": "Arjun Gadhia",
+      "email": "arjun.gadhia@ft.com"
+    }
+  ]
 }

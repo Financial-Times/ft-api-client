@@ -4,5 +4,6 @@
     "maxRetries": 50,
     "defaultDelayMilliseconds": 1,
     "retryDelayMilliseconds": 10,
-    "defaultCacheTTLMilliseconds": 120000
+    "defaultCacheTTLMilliseconds": 120000,
+    "maxCacheSize": 4000
 }
