@@ -23,7 +23,7 @@ describe('Request Manager Cache', function () {
     var requestManagerContext = loadModule('lib/requestManager.js', {
       '../config/general.json': { maxConcurrentRequests: 10 },
       request: mockRequest,
-      'memory-cache': { get: mockCacheGet }
+      'ttl-lru-cache': function() {return { get: mockCacheGet };},
     });
     var requestManager = new requestManagerContext.RequestManager();
     var req = { url: 'http://www.google.com',
@@ -53,7 +53,7 @@ describe('Request Manager Cache', function () {
     var requestManagerContext = loadModule('lib/requestManager.js', {
       '../config/general.json': { maxConcurrentRequests: 10 },
       request: mockRequest,
-      'memory-cache': { get: mockCacheGet }
+      'ttl-lru-cache': function() {return { get: mockCacheGet };},
     });
     var requestManager = new requestManagerContext.RequestManager();
     var req = { url: 'http://www.google.com',
@@ -76,12 +76,12 @@ describe('Request Manager Cache', function () {
   it('saves a successful request in cache',
   function () {
     var mockRequest = jasmine.createSpy('request');
-    var mockCachePut = jasmine.createSpy('cache put');
+    var mockCacheSet = jasmine.createSpy('cache set');
     // Given a request manager with config such that ten requests are allowed
     var requestManagerContext = loadModule('lib/requestManager.js', {
       '../config/general.json': { maxConcurrentRequests: 10 },
       request: mockRequest,
-      'memory-cache': { put: mockCachePut },
+      'ttl-lru-cache': function() {return { set: mockCacheSet };},
       './responseResolver.js': {
         getErrorFor: jasmine.createSpy().andReturn(null),
         getItemFor: jasmine.createSpy().andReturn('item')
@@ -107,7 +107,7 @@ describe('Request Manager Cache', function () {
 
 
     expect(requestManager.requestsInProgress.length).toEqual(0);
-    expect(mockCachePut).toHaveBeenCalledWith(
+    expect(mockCacheSet).toHaveBeenCalledWith(
       'http://www.google.com',
       {error: null, item: 'item'}, 
       1000*1000
@@ -119,13 +119,13 @@ describe('Request Manager Cache', function () {
 it('uses a default TTL of whatever is in config',
   function () {
     var mockRequest = jasmine.createSpy('request');
-    var mockCachePut = jasmine.createSpy('cache put');
+    var mockCacheSet = jasmine.createSpy('cache set');
     // Given a request manager with config such that ten requests are allowed
     var requestManagerContext = loadModule('lib/requestManager.js', {
       '../config/general.json': { maxConcurrentRequests: 10, 
             defaultCacheTTLMilliseconds: 6000 },
       request: mockRequest,
-      'memory-cache': { put: mockCachePut },
+      'ttl-lru-cache': function() {return { set: mockCacheSet };},
       './responseResolver.js': {
         getErrorFor: jasmine.createSpy().andReturn(null),
         getItemFor: jasmine.createSpy().andReturn('item')
@@ -148,7 +148,7 @@ it('uses a default TTL of whatever is in config',
 
 
     expect(requestManager.requestsInProgress.length).toEqual(0);
-    expect(mockCachePut).toHaveBeenCalledWith(
+    expect(mockCacheSet).toHaveBeenCalledWith(
       'http://www.google.com',
       {error: null, item: 'item'}, 
       6000
@@ -160,12 +160,12 @@ it('uses a default TTL of whatever is in config',
 it('doesn\'t save an erroneous response in cache',
   function () {
     var mockRequest = jasmine.createSpy('request');
-    var mockCachePut = jasmine.createSpy('cache put');
+    var mockCacheSet = jasmine.createSpy('cache set');
     // Given a request manager with config such that ten requests are allowed
     var requestManagerContext = loadModule('lib/requestManager.js', {
       '../config/general.json': { maxConcurrentRequests: 10 },
       request: mockRequest,
-      'memory-cache': { put: mockCachePut },
+      'ttl-lru-cache': function() {return { set: mockCacheSet };},
       './responseResolver.js': {
         getErrorFor: jasmine.createSpy().andReturn(true),
         getItemFor: jasmine.createSpy().andReturn(null)
@@ -191,7 +191,7 @@ it('doesn\'t save an erroneous response in cache',
 
 
     expect(requestManager.requestsInProgress.length).toEqual(0);
-    expect(mockCachePut).not.toHaveBeenCalled();
+    expect(mockCacheSet).not.toHaveBeenCalled();
     expect(req.notifyCompleted).toHaveBeenCalled();
 
   });
