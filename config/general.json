@@ -3,7 +3,7 @@
     "maxConcurrentRequests": 50,
     "maxRetries": 30,
     "defaultDelayMilliseconds": 1,
-    "retryDelayMilliseconds": 50,
+    "retryDelayMilliseconds": 10,
     "defaultCacheTTLMilliseconds": 120000,
     "maxCacheSize": 4000
 }
