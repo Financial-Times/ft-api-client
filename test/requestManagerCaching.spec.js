@@ -157,7 +157,7 @@ it('uses a default TTL of whatever is in config',
 
   });
 
-it('doesn\'t save an erroneous response in cache',
+it('doesn\'t save an erroneous retryable response in cache',
   function () {
     var mockRequest = jasmine.createSpy('request');
     var mockCacheSet = jasmine.createSpy('cache set');
@@ -167,7 +167,7 @@ it('doesn\'t save an erroneous response in cache',
       request: mockRequest,
       'ttl-lru-cache': function() {return { set: mockCacheSet };},
       './responseResolver.js': {
-        getErrorFor: jasmine.createSpy().andReturn(true),
+        getErrorFor: jasmine.createSpy().andReturn({canRetry: true}),
         getItemFor: jasmine.createSpy().andReturn(null)
       }
     });
@@ -192,6 +192,45 @@ it('doesn\'t save an erroneous response in cache',
 
     expect(requestManager.requestsInProgress.length).toEqual(0);
     expect(mockCacheSet).not.toHaveBeenCalled();
+    expect(req.notifyCompleted).toHaveBeenCalled();
+
+  });
+
+it('does save an erroneous non-retryable response in cache',
+  function () {
+    var mockRequest = jasmine.createSpy('request');
+    var mockCacheSet = jasmine.createSpy('cache set');
+    // Given a request manager with config such that ten requests are allowed
+    var requestManagerContext = loadModule('lib/requestManager.js', {
+      '../config/general.json': { maxConcurrentRequests: 10 },
+      request: mockRequest,
+      'ttl-lru-cache': function() {return { set: mockCacheSet };},
+      './responseResolver.js': {
+        getErrorFor: jasmine.createSpy().andReturn({canRetry: false}),
+        getItemFor: jasmine.createSpy().andReturn(null)
+      }
+    });
+    var requestManager = new requestManagerContext.RequestManager();
+    var req = { url: 'http://www.google.com',
+      notifyInProgress: jasmine.createSpy(),
+      notifyCompleted: jasmine.createSpy(),
+      logger: MOCK_LOGGER 
+    };
+    var res = {
+      headers: {
+        'cache-control': 'max-age=1000, s-maxage=1000, public'
+      }
+    };
+
+    requestManager.requestsInProgress.push(req);
+    // And an request queue with two requests in
+    expect(requestManager.requestsInProgress.length).toEqual(1);
+
+    requestManager.handleResponse(req, null, res, 'data');
+
+
+    expect(requestManager.requestsInProgress.length).toEqual(0);
+    expect(mockCacheSet).toHaveBeenCalled();
     expect(req.notifyCompleted).toHaveBeenCalled();
 
   });
