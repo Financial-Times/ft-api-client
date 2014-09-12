@@ -12,10 +12,11 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "request": "2.22.0",
+    "cheerio": "^0.17.0",
     "moment": "2.0.0",
-    "underscore": "1.5.1",
-    "ttl-lru-cache": "0.0.2"
+    "request": "2.22.0",
+    "ttl-lru-cache": "0.0.2",
+    "underscore": "1.5.1"
   },
   "devDependencies": {
     "grunt": "0.4.1",
