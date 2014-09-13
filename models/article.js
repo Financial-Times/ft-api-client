@@ -13,7 +13,7 @@ Article.prototype.parse = function (obj) {
 
 
 Article.prototype.paragraphs = function (to, from) {
-    var $ = cheerio.load(this.raw.item.body.body);
+    var $ = cheerio.load(this.body);
     return $('p').slice(to, from);
 }
 
