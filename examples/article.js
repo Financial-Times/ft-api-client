@@ -1,10 +1,14 @@
 
 GLOBAL.Promise = require('es6-promise').Promise;
 
-var ft = require('../lib2/api')('f65958a8e35bd14bc52f268b8b3ab4ad');
+var ft = require('../lib2/api')('ft-api-key');
+
+var id = process.argv[2] || 'b3665d54-3b5e-11e4-885d-00144feabdc0';
+
+console.log(id);
 
 ft
-  .get('03b49444-16c9-11e3-bced-00144feabdc0')
+  .get(id)
   .then(function (article) {
     console.log(article.id);
     console.log(article.largestImage);
