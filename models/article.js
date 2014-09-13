@@ -29,6 +29,19 @@ Object.defineProperty(Article.prototype, 'body', {
     }
 });
 
+
+Object.defineProperty(Article.prototype, 'largestImage', {
+    get: function () {
+        if (this.raw.item.images) {
+            var x = this.raw.item.images.sort(function (a, b) {
+                return a.width < b.width
+            });
+            return x[0];
+        }
+        return undefined;
+    }
+})
+
 module.exports = Article;
 
 
