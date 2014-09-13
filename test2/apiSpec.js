@@ -18,7 +18,7 @@ describe('API', function(){
         article: fs.readFileSync('test2/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' })
     }
 
-    it('get an article', function(done) {
+    it('Get an article', function(done) {
         nock(host).get(util.format(path, 'abc', '123')).reply(200, fixtures.article);
         ft.get('abc')
           .then(function (article) {
@@ -27,7 +27,7 @@ describe('API', function(){
         })
     })
     
-    it('reject api calls that result in API errors', function(done) {
+    it('Reject api calls that result in API errors', function(done) {
         nock(host).get(util.format(path, 'abc', '123')).reply(503, 'error');
         ft.get('abc')
           .then(noop, function (error) {
@@ -36,7 +36,7 @@ describe('API', function(){
         })
     })
     
-    it('reject api calls that return invalid JSON', function(done) {
+    it('Reject api calls that return invalid JSON', function(done) {
         nock(host).get(util.format(path, 'abc', '123')).reply(200, '{ "bad" "json" }');
         ft.get('abc')
           .then(noop, function (error) {
