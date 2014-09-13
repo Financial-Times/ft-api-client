@@ -27,11 +27,20 @@ describe('API', function(){
         })
     })
     
-    it('reject api calls that result in errors', function(done) {
+    it('reject api calls that result in API errors', function(done) {
         nock(host).get(util.format(path, 'abc', '123')).reply(503, 'error');
         ft.get('abc')
           .then(noop, function (error) {
             expect(error.statusCode).to.equal(503);
+            done();
+        })
+    })
+    
+    it('reject api calls that return invalid JSON', function(done) {
+        nock(host).get(util.format(path, 'abc', '123')).reply(200, '{ "bad" "json" }');
+        ft.get('abc')
+          .then(noop, function (error) {
+            expect(error).to.equal('error parsing JSON');
             done();
         })
     })
