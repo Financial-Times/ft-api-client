@@ -43,10 +43,3 @@ Object.defineProperty(Article.prototype, 'largestImage', {
 })
 
 module.exports = Article;
-
-
-//
-//var a = new Article({ "item": { "id": "03b49444-16c9-11e3-bced-00144feabdc0", "body": { "body": '<p>US President <a href="http://www.ft.com/adsf">adf</a> body.</p>' } }  });
-
-//  Will 'fix' the anchors in the body to be relative URLs
-//console.log(a.id, a.body)
