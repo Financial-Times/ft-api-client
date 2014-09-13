@@ -15,16 +15,19 @@
     "cheerio": "^0.17.0",
     "es6-promise": "^1.0.0",
     "moment": "2.0.0",
+    "nock": "^0.47.0",
     "request": "2.22.0",
     "ttl-lru-cache": "0.0.2",
     "underscore": "1.5.1"
   },
   "devDependencies": {
+    "chai": "^1.9.1",
     "grunt": "0.4.1",
     "grunt-contrib-jshint": "0.10.0",
     "grunt-contrib-watch": "0.4.4",
     "grunt-jasmine-node": "0.1.0",
-    "jshint": "2.5.0"
+    "jshint": "2.5.0",
+    "mocha": "^1.21.4"
   },
   "keywords": [
     "FT",

@@ -29,7 +29,16 @@ FtApi.prototype.get = function (id) {
                         reject(err);
                     }
 
-                    resolve(new model.Article(JSON.parse(body)));
+                    if (err) return reject(err);
+                    if (response.statusCode >= 400) return reject(response)
+
+                    try {
+                        var body = JSON.parse(body);
+                    } catch (error) {
+                        return reject('error parsing JSON');
+                    }
+                    
+                    resolve(new model.Article(body));
             })
         }
     );
