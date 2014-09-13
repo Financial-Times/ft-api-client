@@ -8,6 +8,10 @@ Install the dependencies,
 
     npm install
 
+If you aren't using a Promise-friendly version of node,
+
+    npm install --save es6-promise
+
 Check everything works,
 
     make test
@@ -26,3 +30,4 @@ Then,
       }, function (err) {
         console.error(err);
       });
+
