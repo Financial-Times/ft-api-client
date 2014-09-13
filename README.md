@@ -4,6 +4,16 @@ This is a node module that acts as a wrapper for the FT content api (<https://de
 
 ## Usage
 
+Install the dependencies,
+
+    npm install
+
+Check everything works,
+
+    make test
+
+Then,
+
     GLOBAL.Promise = require('es6-promise').Promise;
 
     var ft = require('../lib2/api')('your-api-key');
