@@ -21,7 +21,8 @@ Then,
     ft
       .get('03b49444-16c9-11e3-bced-00144feabdc0')
       .then(function (article) {
-        console.log(article.id);  //  print 
+        console.log(article.id);
+        console.log(article.largestImage);
       }, function (err) {
         console.error(err);
       });
