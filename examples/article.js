@@ -12,6 +12,7 @@ ft
   .then(function (article) {
     console.log(article.id);
     console.log(article.largestImage);
+    console.log(article.paragraphs(0, 2));
   }, function (err) {
     console.log('error'); 
   });

@@ -9,15 +9,21 @@ function Article (obj) {
 Article.prototype.parse = function (obj) {
     this.id = obj.item.id;
     this.raw = obj;
-    this._dom = cheerio.load(obj.item.body.body);
+}
+
+
+Article.prototype.paragraphs = function (to, from) {
+    var $ = cheerio.load(this.raw.item.body.body);
+    return $('p').slice(to, from);
 }
 
 Object.defineProperty(Article.prototype, 'body', {
     get: function () {
 
+        var $ = cheerio.load(this.raw.item.body.body);
         // Fix any old ft links, Eg. 
         //  www.ft.com/cms/s/43515588-00fc-11e4-a938-00144feab7de.html -> /43515588-00fc-11e4-a938-00144feab7de 
-        this._dom('a').attr('href', function (index, value) {
+        $('a').attr('href', function (index, value) {
             var path = url.parse(value).pathname;
             var re = /\/([^\/]+)\.html$/.exec(path);
             if (re) {
@@ -25,9 +31,10 @@ Object.defineProperty(Article.prototype, 'body', {
             }
             return value;
         });
-        return this._dom.html();
+        return $.html();
     }
 });
+
 
 
 Object.defineProperty(Article.prototype, 'largestImage', {

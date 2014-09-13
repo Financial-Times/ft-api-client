@@ -20,5 +20,12 @@ describe('Article', function(){
         var article = new models.Article(fixtures.article);
         expect(article.largestImage.url).to.equal('http://im.ft-static.com/content/images/4cec0d2e-8898-4193-8db4-dc0c2ba33df9.img');
     })
+    
+    it('Get a specified number of paragraphs from the article body', function() {
+        var article = new models.Article(fixtures.article);
+        var p = article.paragraphs(0, 4)
+        expect(p.length).to.equal(4);
+        expect(p.text()).to.match(/(.*)principle\.”$/);
+    })
 
 })
