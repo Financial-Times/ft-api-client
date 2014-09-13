@@ -1,5 +1,6 @@
 
 var cheerio = require('cheerio')
+var url     = require('url')
 
 function Article (obj) {
     obj && this.parse(obj);
@@ -14,10 +15,13 @@ Article.prototype.parse = function (obj) {
 Object.defineProperty(Article.prototype, 'body', {
     get: function () {
 
-        // Relativise any ft links
+        // Fix any old ft links, Eg. 
+        //  www.ft.com/cms/s/43515588-00fc-11e4-a938-00144feab7de.html -> /43515588-00fc-11e4-a938-00144feab7de 
         this._dom('a').attr('href', function (index, value) {
-            if (/^http:\/\/www\.ft\.com/.test(value)) {
-                return value.replace('http://www.ft.com/', '/') // TODO - weed out unsupported links
+            var path = url.parse(value).pathname;
+            var re = /\/([^\/]+)\.html$/.exec(path);
+            if (re) {
+                return '/' + re[1]; 
             }
             return value;
         });
@@ -29,7 +33,7 @@ module.exports = Article;
 
 
 //
-var a = new Article({ "item": { "id": "03b49444-16c9-11e3-bced-00144feabdc0", "body": { "body": '<p>US President <a href="http://www.ft.com/adsf">adf</a> body.</p>' } }  });
+//var a = new Article({ "item": { "id": "03b49444-16c9-11e3-bced-00144feabdc0", "body": { "body": '<p>US President <a href="http://www.ft.com/adsf">adf</a> body.</p>' } }  });
 
 //  Will 'fix' the anchors in the body to be relative URLs
-console.log(a.id, a.body)
+//console.log(a.id, a.body)
