@@ -11,11 +11,28 @@ Article.prototype.parse = function (obj) {
     this.raw = obj;
 }
 
-
 Article.prototype.paragraphs = function (to, from) {
     var $ = cheerio.load(this.body);
     return $('p').slice(to, from);
 }
+
+Article.prototype.packages = function (to, from) {
+    this.raw.item.package.map(function (pkg) {
+        return pkg.id;
+    })
+}
+
+Object.defineProperty(Article.prototype, 'published', {
+    get: function () {
+        return new Date(this.raw.item.lifecycle.initialPublishDateTime);
+    }
+});
+
+Object.defineProperty(Article.prototype, 'updated', {
+    get: function () {
+        return new Date(this.raw.item.lifecycle.lastPublishDateTime);
+    }
+});
 
 Object.defineProperty(Article.prototype, 'body', {
     get: function () {

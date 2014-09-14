@@ -27,5 +27,11 @@ describe('Article', function(){
         expect(p.length).to.equal(4);
         expect(p.text()).to.match(/(.*)principle\.”$/);
     })
+    
+    it('Get the published and updated dates', function() {
+        var article = new models.Article(fixtures.article);
+        expect(article.published.toString()).to.equal('Fri Sep 06 2013 10:12:45 GMT+0100 (BST)');
+        expect(article.updated.toString()).to.equal('Fri Sep 06 2013 17:16:04 GMT+0100 (BST)');
+    })
 
 })
