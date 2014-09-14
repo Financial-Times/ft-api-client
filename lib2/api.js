@@ -10,7 +10,7 @@ var FtApi = function (apikey) {
 FtApi.prototype.get = function (id) {
     
     var headers = { 
-        'user-agent': 'https://github.com/Financial-Times/ft-api-client - v3.0.0'
+        'user-agent': 'https://github.com/Financial-Times/ft-api-client - v3.x'
     };
 
     var self = this;
