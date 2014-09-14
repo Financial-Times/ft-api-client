@@ -5,7 +5,7 @@ var fs      = require("fs");
 
 var models  = require("../../models");
 
-describe('Article', function(){
+describe('Article model', function(){
 
     var fixtures = {
         article: JSON.parse(fs.readFileSync('test2/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' }))
