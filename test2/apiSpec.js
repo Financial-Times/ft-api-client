@@ -27,6 +27,19 @@ describe('API', function(){
         })
     })
     
+    it('Get several articles in a single request', function(done) {
+        nock(host).get(util.format(path, 'x', '123')).reply(200, fixtures.article);
+        nock(host).get(util.format(path, 'y', '123')).reply(200, fixtures.article);
+        nock(host).get(util.format(path, 'z', '123')).reply(200, fixtures.article);
+        ft.get(['x', 'z', 'y'])
+          .then(function (articles) {
+            expect(articles.length).to.equal(3);
+            done();
+        })
+    })
+   
+    //site/v1/pages/bd1f7f78-d3f0-11e2-8639-00144feab7de/main-content
+
     it('Reject api calls that result in API errors', function(done) {
         nock(host).get(util.format(path, 'abc', '123')).reply(503, 'error');
         ft.get('abc')

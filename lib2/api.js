@@ -8,15 +8,15 @@ var FtApi = function (apikey) {
 } 
 
 FtApi.prototype.get = function (id) {
-    
+
     var headers = { 
         'user-agent': 'https://github.com/Financial-Times/ft-api-client - v3.x'
     };
 
     var self = this;
-
-    return new Promise(
-        function(resolve, reject) { 
+        
+    var promiseOfArticle = function(id) {
+        return function(resolve, reject) { 
             request({
                     url: 'http://api.ft.com/content/items/v1/' + id,
                     qs: {
@@ -26,7 +26,7 @@ FtApi.prototype.get = function (id) {
                 }, function (err, response, body) {
                     
                     if (err) {
-                        reject(err);
+                        return reject(err);
                     }
 
                     if (err) return reject(err);
@@ -41,7 +41,21 @@ FtApi.prototype.get = function (id) {
                     resolve(new model.Article(body));
             })
         }
-    );
+    }
+
+    if (id instanceof Array) {
+        
+        var promises = id.map(function (i) {
+            return new Promise(promiseOfArticle(i));
+        })
+        
+        return Promise.all(promises);
+
+    } else {
+
+        return new Promise(promiseOfArticle(id));
+    
+    }
 
 }
 

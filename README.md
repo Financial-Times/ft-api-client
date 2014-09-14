@@ -31,3 +31,14 @@ Then,
         console.error(err);
       });
 
+Or you can get several resources in a single request,
+
+    ft
+      .get([
+          '03b49444-16c9-11e3-bced-00144feabdc0',
+          '7d9ee96e-3a70-11e4-bd08-00144feabdc0',
+          'a7008958-f2f3-11e3-a3f8-00144feabdc0'
+        ])
+      .then(function (articles) {
+        console.log(article);
+      })
