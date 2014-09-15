@@ -6,34 +6,52 @@ function Article (obj) {
     obj && this.parse(obj);
 }
 
+/**
+ * Hydrates the model from a raw API response
+ */
 Article.prototype.parse = function (obj) {
     this.id = obj.item.id;
     this.raw = obj;
 }
 
+/**
+ * Returns a given range of paragraphs from the article body
+ */
 Article.prototype.paragraphs = function (to, from) {
     var $ = cheerio.load(this.body);
     return $('p').slice(to, from);
 }
 
+/**
+ * Returns a list of package id's
+ */
 Article.prototype.packages = function (to, from) {
     this.raw.item.package.map(function (pkg) {
         return pkg.id;
     })
 }
 
+/**
+ * The resource's published date as a JavaScript Date object.
+ */
 Object.defineProperty(Article.prototype, 'published', {
     get: function () {
         return new Date(this.raw.item.lifecycle.initialPublishDateTime);
     }
 });
 
+/*
+ * The resource's last updated date as a JavaScript Date object.
+ */
 Object.defineProperty(Article.prototype, 'updated', {
     get: function () {
         return new Date(this.raw.item.lifecycle.lastPublishDateTime);
     }
 });
 
+/**
+ * The article body as HTML.
+ */
 Object.defineProperty(Article.prototype, 'body', {
     get: function () {
 
@@ -52,17 +70,17 @@ Object.defineProperty(Article.prototype, 'body', {
     }
 });
 
-
-
+/**
+ * The largest image (ie. in pixels) that is associated with the resource
+ */
 Object.defineProperty(Article.prototype, 'largestImage', {
     get: function () {
         if (this.raw.item.images) {
-            var x = this.raw.item.images.sort(function (a, b) {
+            var sortedImages = this.raw.item.images.sort(function (a, b) {
                 return a.width < b.width
             });
-            return x[0];
+            return sortedImages[0];
         }
-        return undefined;
     }
 })
 
