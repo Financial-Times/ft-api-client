@@ -1,0 +1,14 @@
+
+HIGH
+----
+
+- Support v2 of the Content API
+- Support decorating the API responses with additional content/structure - Laurent
+- DONE Move things back in to standard lib & test directories
+
+LOW 
+---
+
+- Isomophic ?
+- Internal caching
+
