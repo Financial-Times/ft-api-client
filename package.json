@@ -1,13 +1,13 @@
 {
   "name": "ft-api-client",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/Financial-Times/ft-api-client.git"
   },
   "license": "BSD",
   "description": "A client for the Financial Times content and search APIs",
-  "main": "./lib2/api",
+  "main": "./lib/api",
   "directories": {
     "lib": "./lib"
   },

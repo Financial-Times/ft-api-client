@@ -8,7 +8,7 @@ var models  = require("../../models");
 describe('Article model', function(){
 
     var fixtures = {
-        article: JSON.parse(fs.readFileSync('test2/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' }))
+        article: JSON.parse(fs.readFileSync('test/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' }))
     }
 
     it('Convert article links to relative paths', function() {

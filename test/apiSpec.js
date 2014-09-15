@@ -6,7 +6,7 @@ var fs      = require("fs");
 
 GLOBAL.Promise = require('es6-promise').Promise;
 
-var ft      = require("../lib2/api")('123');
+var ft      = require("../lib/api")('123');
 
 describe('API', function(){
  
@@ -15,7 +15,7 @@ describe('API', function(){
     var path = '/content/items/v1/%s?apiKey=%s';
 
     var fixtures = {
-        article: fs.readFileSync('test2/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' })
+        article: fs.readFileSync('test/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' })
     }
 
     it('Get an article', function(done) {
@@ -37,8 +37,10 @@ describe('API', function(){
             done();
         })
     })
-   
-    //site/v1/pages/bd1f7f78-d3f0-11e2-8639-00144feab7de/main-content
+
+    // FIXME - we probably want to resolve HTTP errors rather than reject them as in the case of fetching 
+    // several articles in a batch the Promise will fail if it receives a single error. It's probably more 
+    // tolerant to mask the errors.
 
     it('Reject api calls that result in API errors', function(done) {
         nock(host).get(util.format(path, 'abc', '123')).reply(503, 'error');
