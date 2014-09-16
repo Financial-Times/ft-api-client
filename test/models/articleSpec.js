@@ -30,8 +30,8 @@ describe('Article model', function(){
     
     it('Get the published and updated dates', function() {
         var article = new models.Article(fixtures.article);
-        expect(article.published.toString()).to.equal('Fri Sep 06 2013 10:12:45 GMT+0100 (BST)');
-        expect(article.updated.toString()).to.equal('Fri Sep 06 2013 17:16:04 GMT+0100 (BST)');
+        expect(article.firstPublished.toString()).to.equal('Fri Sep 06 2013 10:12:45 GMT+0100 (BST)');
+        expect(article.lastUpdated.toString()).to.equal('Fri Sep 06 2013 17:16:04 GMT+0100 (BST)');
     })
 
 })
