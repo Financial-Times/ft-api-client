@@ -14,10 +14,8 @@
   "dependencies": {
     "cheerio": "^0.17.0",
     "es6-promise": "^1.0.0",
-    "moment": "2.0.0",
     "request": "2.22.0",
-    "ttl-lru-cache": "0.0.2",
-    "underscore": "1.5.1"
+    "ttl-lru-cache": "0.0.2"
   },
   "devDependencies": {
     "chai": "^1.9.1",
