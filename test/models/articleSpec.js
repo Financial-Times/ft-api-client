@@ -2,6 +2,7 @@
 var expect  = require("chai").expect;
 var util    = require("util");
 var fs      = require("fs");
+var cheerio = require("cheerio");
 
 var models  = require("../../models");
 
@@ -16,9 +17,10 @@ describe('Article model', function(){
         expect(article.body).to.contain('href="/5ba75aac-1619-11e3-a57d-00144feabdc0"');
     })
     
-    it('Remove links that are not Content API articles from the body ', function() {
+    it('Remove links that are not Content API articles from the body', function() {
         var article = new models.Article(fixtures.article);
-        console.log(article.body)
+        $ = cheerio.load(article.body);
+        expect($('a').length).to.equal(3);
     })
     
     it('Get the largest image associated with the article', function() {
