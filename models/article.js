@@ -4,7 +4,7 @@ var url     = require('url')
 var util    = require('util')
 
 function Article (obj) {
-    obj && this.parse(obj);
+    obj && obj.item && this.parse(obj);
 }
 
 /**
