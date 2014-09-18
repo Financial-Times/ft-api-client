@@ -1,6 +1,7 @@
 
 var cheerio = require('cheerio')
 var url     = require('url')
+var util    = require('util')
 
 function Article (obj) {
     obj && this.parse(obj);
@@ -59,19 +60,46 @@ Object.defineProperty(Article.prototype, 'lastUpdated', {
  */
 Object.defineProperty(Article.prototype, 'body', {
     get: function () {
-
-        var $ = cheerio.load(this.raw.item.body.body);
+        
         // Fix any old ft links, Eg. 
         //  www.ft.com/cms/s/43515588-00fc-11e4-a938-00144feab7de.html -> /43515588-00fc-11e4-a938-00144feab7de 
-        $('a').attr('href', function (index, value) {
-            var path = url.parse(value).pathname;
-            var re = /\/([^\/]+)\.html$/.exec(path);
-            if (re) {
-                return '/' + re[1]; 
-            }
-            return value;
-        });
-        return $.html();
+        var relativeLinks = function (html) {
+            var $ = cheerio.load(html);
+            $('a').attr('href', function (index, value) {
+                var path = url.parse(value).pathname;
+                var re = /\/([^\/]+)\.html$/.exec(path);
+                if (re) {
+                    return '/' + re[1]; 
+                }
+                return value;
+            });
+            return $.html();
+        }
+       
+        // Strips any links from the HTML that aren't Content API articles 
+        var removeNonArticleLinks = function (html) {
+            var $ = cheerio.load(html);
+            $('a').replaceWith(function (index, el) {
+                var isContentApiLink = /^\/([\w\d]+)-([\w\d]+)-([\w\d]+)-([\w\d]+)-([\w\d]+)$/.test(el.attribs.href);
+                if (isContentApiLink) {
+                    return util.format('<a href="%s">%s</a>', el.attribs.href, el.children[0].data);
+                } else {
+                    return el.children[0].data;
+                }
+
+            })
+            return $.html();
+        }
+      
+        var html = this.raw.item.body.body;
+        
+        return removeNonArticleLinks(
+                relativeLinks(
+                    html
+                )
+        );
+
+
     }
 });
 

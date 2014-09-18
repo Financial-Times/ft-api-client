@@ -16,6 +16,11 @@ describe('Article model', function(){
         expect(article.body).to.contain('href="/5ba75aac-1619-11e3-a57d-00144feabdc0"');
     })
     
+    it('Remove links that are not Content API articles from the body ', function() {
+        var article = new models.Article(fixtures.article);
+        console.log(article.body)
+    })
+    
     it('Get the largest image associated with the article', function() {
         var article = new models.Article(fixtures.article);
         expect(article.largestImage.url).to.equal('http://im.ft-static.com/content/images/4cec0d2e-8898-4193-8db4-dc0c2ba33df9.img');
@@ -36,7 +41,7 @@ describe('Article model', function(){
     
     it('Get the article word count and estimated reading time', function() {
         var article = new models.Article(fixtures.article);
-        expect(article.wordCount).to.equal(803);
+        expect(article.wordCount).to.equal(765);
         expect(article.readingTime).to.equal(3); // in minutes
     })
 
