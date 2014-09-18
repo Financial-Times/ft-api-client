@@ -12,6 +12,11 @@ function Article (obj) {
 Article.prototype.parse = function (obj) {
     this.id = obj.item.id;
     this.raw = obj;
+
+    var readingSpeed = 250; // wpm
+
+    this.wordCount = this.body.split(' ').length;
+    this.readingTime = Math.round(this.wordCount / readingSpeed);
 }
 
 /**
