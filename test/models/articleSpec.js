@@ -2,6 +2,7 @@
 var expect  = require("chai").expect;
 var util    = require("util");
 var fs      = require("fs");
+var cheerio = require("cheerio");
 
 var models  = require("../../models");
 
@@ -14,6 +15,12 @@ describe('Article model', function(){
     it('Convert article links to relative paths', function() {
         var article = new models.Article(fixtures.article);
         expect(article.body).to.contain('href="/5ba75aac-1619-11e3-a57d-00144feabdc0"');
+    })
+    
+    it('Remove links that are not Content API articles from the body', function() {
+        var article = new models.Article(fixtures.article);
+        $ = cheerio.load(article.body);
+        expect($('a').length).to.equal(3);
     })
     
     it('Get the largest image associated with the article', function() {
@@ -36,7 +43,7 @@ describe('Article model', function(){
     
     it('Get the article word count and estimated reading time', function() {
         var article = new models.Article(fixtures.article);
-        expect(article.wordCount).to.equal(803);
+        expect(article.wordCount).to.equal(765);
         expect(article.readingTime).to.equal(3); // in minutes
     })
 
