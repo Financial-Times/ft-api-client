@@ -84,7 +84,7 @@ Object.defineProperty(Article.prototype, 'body', {
                 if (isContentApiLink) {
                     return util.format('<a href="%s">%s</a>', el.attribs.href, el.children[0].data);
                 } else {
-                    return el.children[0].data;
+                    return (el.children.length > 0) ? el.children[0].data : '';
                 }
 
             })

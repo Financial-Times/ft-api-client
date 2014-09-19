@@ -43,7 +43,7 @@ describe('Article model', function(){
     
     it('Get the article word count and estimated reading time', function() {
         var article = new models.Article(fixtures.article);
-        expect(article.wordCount).to.equal(765);
+        expect(article.wordCount).to.equal(766);
         expect(article.readingTime).to.equal(3); // in minutes
     })
 
