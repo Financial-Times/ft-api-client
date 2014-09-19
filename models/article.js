@@ -12,6 +12,11 @@ function Article (obj) {
 Article.prototype.parse = function (obj) {
     this.id = obj.item.id;
     this.raw = obj;
+
+    var readingSpeed = 250; // wpm
+
+    this.wordCount = this.body.split(' ').length;
+    this.readingTime = Math.round(this.wordCount / readingSpeed);
 }
 
 /**
@@ -34,7 +39,7 @@ Article.prototype.packages = function (to, from) {
 /**
  * The resource's published date as a JavaScript Date object.
  */
-Object.defineProperty(Article.prototype, 'published', {
+Object.defineProperty(Article.prototype, 'firstPublished', {
     get: function () {
         return new Date(this.raw.item.lifecycle.initialPublishDateTime);
     }
@@ -43,7 +48,7 @@ Object.defineProperty(Article.prototype, 'published', {
 /*
  * The resource's last updated date as a JavaScript Date object.
  */
-Object.defineProperty(Article.prototype, 'updated', {
+Object.defineProperty(Article.prototype, 'lastUpdated', {
     get: function () {
         return new Date(this.raw.item.lifecycle.lastPublishDateTime);
     }
