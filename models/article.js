@@ -81,10 +81,11 @@ Object.defineProperty(Article.prototype, 'body', {
             var $ = cheerio.load(html);
             $('a').replaceWith(function (index, el) {
                 var isContentApiLink = /^\/([\w\d]+)-([\w\d]+)-([\w\d]+)-([\w\d]+)-([\w\d]+)$/.test(el.attribs.href);
+                var textContent = (el.children.length > 0) ? el.children[0].data : '';
                 if (isContentApiLink) {
-                    return util.format('<a href="%s">%s</a>', el.attribs.href, el.children[0].data);
+                    return util.format('<a href="%s">%s</a>', el.attribs.href, textContent);
                 } else {
-                    return (el.children.length > 0) ? el.children[0].data : '';
+                    return textContent; 
                 }
 
             })
