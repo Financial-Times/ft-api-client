@@ -19,7 +19,7 @@ ft
 
 
 ft
-  .search(id)
+  .search('"Climate change"')
   .then(function (articles) {
     console.log(articles);
   }, function (err) {
