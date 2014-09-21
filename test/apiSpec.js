@@ -39,6 +39,7 @@ describe('API', function(){
         })
     })
 
+    // FIXME - need tests for no search results, errors, maxResults etc...
     it('Search for articles matching a term', function(done) {
 
         var postBody = {
