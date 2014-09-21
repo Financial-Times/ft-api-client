@@ -16,6 +16,8 @@ Check everything works,
 
     make test
 
+### Articles
+
 Then,
 
     GLOBAL.Promise = require('es6-promise').Promise;
@@ -40,5 +42,16 @@ Or you can get several resources in a single request,
           'a7008958-f2f3-11e3-a3f8-00144feabdc0'
         ])
       .then(function (articles) {
-        console.log(article);
+        console.log(articles);
       })
+
+### Search 
+
+Or retrieve a collection of articles via a search term,
+
+    ft
+      .search("Climate change")
+      .then(function (articles) {
+        console.log(articles);
+      })
+

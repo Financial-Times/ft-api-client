@@ -40,6 +40,7 @@ describe('API', function(){
     })
 
     it('Search for articles matching a term', function(done) {
+
         var postBody = {
             "queryString":"topics:\"Climate change\"",
             "queryContext":{
