@@ -9,13 +9,14 @@ GLOBAL.Promise = require('es6-promise').Promise;
 var ft      = require("../lib/api")('123');
 
 describe('API', function(){
- 
+
     var noop = function () { };
     var host = 'http://api.ft.com';
     var path = '/content/items/v1/%s?apiKey=%s';
-
+    var searchPath = '/content/search/v1?apiKey=%s'
     var fixtures = {
-        article: fs.readFileSync('test/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' })
+        article: fs.readFileSync('test/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' }),
+        search:  fs.readFileSync('test/fixtures/search-for__climate-change', { encoding: 'utf8' })
     }
 
     it('Get an article', function(done) {
@@ -38,6 +39,39 @@ describe('API', function(){
         })
     })
 
+    it('Search for articles matching a term', function(done) {
+        var postBody = {
+            "queryString":"topics:\"Climate change\"",
+            "queryContext":{
+                "curations":["ARTICLES"]
+            },
+            "resultContext":{
+                "aspects" : ["editorial","images","lifecycle","location","master","metadata","nature","summary","title"],
+                "maxResults":3,
+                "offset":0,
+                "contextual": true,
+                "highlight": false,
+                "facets":{
+                    "names":["organisations"],
+                    "maxElements":-1,
+                    "minThreshold":100
+                }
+            }
+        };
+
+        nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search).log(console.log);
+        
+        ft.search('Climate change')
+          .then(function (articles) {
+            var foo = articles.map(function (article) {
+                return article.id
+            })
+            expect(foo).to.deep.equal([ '3031199c-3e8d-11e4-a620-00144feabdc0',
+                                   'c48b2eac-3fb9-11e4-a381-00144feabdc0',
+                                   '3c34252e-3fd0-11e4-a381-00144feabdc0' ])
+            done();
+        }, function (err) { console.log(err) })
+    })
     // We probably want to resolve HTTP errors rather than reject them as in the case of fetching 
     // several articles in a batch the Promise will fail if it receives a single error. It's probably more 
     // tolerant to mask the errors.

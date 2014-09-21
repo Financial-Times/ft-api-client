@@ -16,6 +16,8 @@ Article.prototype.parse = function (obj) {
 
     var readingSpeed = 250; // wpm
 
+    if (!this.raw.item.body) return;
+
     this.wordCount = this.body.split(' ').length;
     this.readingTime = Math.round(this.wordCount / readingSpeed);
 }
