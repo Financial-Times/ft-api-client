@@ -19,7 +19,7 @@ ft
 
 
 ft
-  .search('"Climate change"')
+  .search('topics:%22Climate%20change%22') // or authors:%22Martin%20Wolf%22
   .then(function (articles) {
     console.log(articles);
   }, function (err) {
