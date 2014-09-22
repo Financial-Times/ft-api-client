@@ -62,12 +62,12 @@ describe('Article model', function(){
             expect(article.authors[0].searchString).to.equal('author:"Charles Clover"')
         });
 
-        xit('Get a list of associated people', function() {
+        it('Get a list of associated people', function() {
             var article = new models.Article(fixtures.article);
             var people = article.people.map(function (people) {
                 return people.name;
             }).join(", ")
-            expect(people).to.equal("Charles Clover, Courtney Weaver, George Parker")
+            expect(people).to.equal("Vladimir Putin, Barack Obama, David Cameron (politician)")
         });
     
         it('Get the primary section', function() {
@@ -80,17 +80,21 @@ describe('Article model', function(){
             expect(article.primaryTheme.name).to.equal('Scottish Independence');
         });
 
-        xit('Get the associated tags', function() {});
-        xit('Get a list of places mentioned', function() {});
+        
+        xit('Get a list of places mentioned', function() {
+            //people
+        });
+        
         xit('Get a list of organisations mentioned', function() {});
+        xit('Get the associated tags', function() {});
     
     });
 
     describe('Media', function () {
 
-    // TODO - images, galleries, audio, slide shows etc.
-    xit('Add a flag to denote the article containing a video', function() {});
-    xit('Extract the video from the article, Eg, article.videos', function() {});
+        // TODO - images, galleries, audio, slide shows etc.
+        xit('Add a flag to denote the article containing a video', function() {});
+        xit('Extract the video from the article, Eg, article.videos', function() {});
 
     });
 

@@ -57,6 +57,21 @@ Object.defineProperty(Article.prototype, 'authors', {
 });
 
 /**
+ * Returns a list of people 
+ */
+Object.defineProperty(Article.prototype, 'people', {
+    get: function () {
+        if (this.raw.item.metadata && this.raw.item.metadata.people) { 
+            return this.raw.item.metadata.people.map(function (person) {
+                person.term.searchString = 'people:"' + person.term.name + '"';
+                return person.term;
+            })
+        }
+        return [];
+    }
+});
+
+/**
  * Returns a the primary section object 
  */
 Object.defineProperty(Article.prototype, 'primarySection', {
