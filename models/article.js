@@ -11,6 +11,7 @@ function Article (obj) {
  * Hydrates the model from a raw API response
  */
 Article.prototype.parse = function (obj) {
+    
     this.id = obj.item.id;
     this.raw = obj;
 
@@ -18,6 +19,7 @@ Article.prototype.parse = function (obj) {
 
     if (!this.raw.item.body) return;
 
+    // FIXME - move to defineProperty getters
     this.wordCount = this.body.split(' ').length;
     this.readingTime = Math.round(this.wordCount / readingSpeed);
 }
@@ -46,6 +48,7 @@ Object.defineProperty(Article.prototype, 'authors', {
     get: function () {
         if (this.raw.item.metadata && this.raw.item.metadata.authors) { 
             return this.raw.item.metadata.authors.map(function (author) {
+                author.term.searchString = 'author:"' + author.term.name + '"';
                 return author.term;
             })
         }

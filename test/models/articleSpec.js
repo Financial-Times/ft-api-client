@@ -53,10 +53,10 @@ describe('Article model', function(){
     it('Get a list of authors', function() {
         var article = new models.Article(fixtures.article);
         var authors = article.authors.map(function (author) {
-            author.searchString = 'author:"' + author.name + '"';
             return author.name;
         }).join(", ")
         expect(authors).to.equal("Charles Clover, Courtney Weaver, George Parker")
+        expect(article.authors[0].searchString).to.equal('author:"Charles Clover"')
     });
     
     it('Get the primary section', function() {
