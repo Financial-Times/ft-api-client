@@ -68,6 +68,7 @@ describe('Article model', function(){
                 return people.name;
             }).join(", ")
             expect(people).to.equal("Vladimir Putin, Barack Obama, David Cameron (politician)")
+            expect(article.people[0].searchString).to.equal('people:"Vladimir Putin"')
         });
     
         it('Get the primary section', function() {
