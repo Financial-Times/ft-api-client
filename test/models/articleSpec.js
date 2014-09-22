@@ -40,7 +40,8 @@ describe('Article model', function(){
         expect(article.firstPublished.toString()).to.equal('Fri Sep 06 2013 10:12:45 GMT+0100 (BST)');
         expect(article.lastUpdated.toString()).to.equal('Fri Sep 06 2013 17:16:04 GMT+0100 (BST)');
     })
-    
+   
+    // FIXME 
     xit('Get the published and updated dates as relative time', function() { });
     
     it('Get the article word count and estimated reading time', function() {
@@ -49,13 +50,21 @@ describe('Article model', function(){
         expect(article.readingTime).to.equal(3); // in minutes
     })
     
-    it('Get authors', function() {
+    it('Get a list of authors', function() {
         var article = new models.Article(fixtures.article);
         var authors = article.authors.map(function (author) {
-            return author.name }
-        ).join(", ")
-        expect(authors).to.deep.equal("Charles Clover, Courtney Weaver, George Parker")
+            author.searchString = 'author:"' + author.name + '"';
+            return author.name;
+        }).join(", ")
+        expect(authors).to.equal("Charles Clover, Courtney Weaver, George Parker")
     });
+    
+    it('Get the primary section', function() {
+        var article = new models.Article(fixtures.article);
+        expect(article.primarySection.name).to.equal('Middle Eastern Politics & Society');
+    });
+
+    xit('Get the tags', function() {});
 
 
 })

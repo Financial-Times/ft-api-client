@@ -54,6 +54,18 @@ Object.defineProperty(Article.prototype, 'authors', {
 });
 
 /**
+ * Returns a the primary section object 
+ */
+Object.defineProperty(Article.prototype, 'primarySection', {
+    get: function () {
+        if (this.raw.item.metadata && this.raw.item.metadata.primarySection) { 
+            return this.raw.item.metadata.primarySection.term
+        }
+        return [];
+    }
+});
+
+/**
  * The resource's published date as a JavaScript Date object.
  */
 Object.defineProperty(Article.prototype, 'firstPublished', {
