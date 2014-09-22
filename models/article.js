@@ -37,7 +37,21 @@ Article.prototype.packages = function (to, from) {
     this.raw.item.package.map(function (pkg) {
         return pkg.id;
     })
-}
+};
+
+/**
+ * Returns a list of authors 
+ */
+Object.defineProperty(Article.prototype, 'authors', {
+    get: function () {
+        if (this.raw.item.metadata && this.raw.item.metadata.authors) { 
+            return this.raw.item.metadata.authors.map(function (author) {
+                return author.term;
+            })
+        }
+        return [];
+    }
+});
 
 /**
  * The resource's published date as a JavaScript Date object.

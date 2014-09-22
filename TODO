@@ -2,13 +2,16 @@
 HIGH
 ----
 
-- Support v2 of the FT Content API (i.e. be fairly trasparent)
 - Support decorating the API responses with additional content/structure - for Laurent
+- Add convenient methods for metadata (Eg, primarySection, authors) etc.
+- Add convenient methods for video, audio, gallery etc.
 - DONE Move things back in to standard lib & test directories
+- DONE Add simple search API
 
 LOW 
 ---
 
+- Support v2 of the FT Content API (i.e. be fairly trasparent)
 - Isomophic ?
 - Internal caching
 - Strategy for API quota limits (Eg, v2.x uses a queue, can we avoid that?)
@@ -19,7 +22,7 @@ From old library
 ----------------
 
 - Throw error if no API key given
-- Logging (levels?)
+- Logging (levels?) - just use npm debug()
 - Pages
 - Notifications
 

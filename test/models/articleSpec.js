@@ -41,10 +41,21 @@ describe('Article model', function(){
         expect(article.lastUpdated.toString()).to.equal('Fri Sep 06 2013 17:16:04 GMT+0100 (BST)');
     })
     
+    xit('Get the published and updated dates as relative time', function() { });
+    
     it('Get the article word count and estimated reading time', function() {
         var article = new models.Article(fixtures.article);
         expect(article.wordCount).to.equal(766);
         expect(article.readingTime).to.equal(3); // in minutes
     })
+    
+    it('Get authors', function() {
+        var article = new models.Article(fixtures.article);
+        var authors = article.authors.map(function (author) {
+            return author.name }
+        ).join(", ")
+        expect(authors).to.deep.equal("Charles Clover, Courtney Weaver, George Parker")
+    });
+
 
 })
