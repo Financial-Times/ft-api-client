@@ -14,7 +14,7 @@ Article.prototype.parse = function (obj) {
     this.id = obj.item.id;
     this.raw = obj;
 
-    var readingSpeed = 250; // wpm
+    var readingSpeed = 300; // wpm
 
     if (!this.raw.item.body) return;
 
