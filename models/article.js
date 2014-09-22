@@ -72,6 +72,21 @@ Object.defineProperty(Article.prototype, 'people', {
 });
 
 /**
+ * Returns a list of organisations 
+ */
+Object.defineProperty(Article.prototype, 'organisations', {
+    get: function () {
+        if (this.raw.item.metadata && this.raw.item.metadata.organisations) {
+            return this.raw.item.metadata.organisations.map(function (org) {
+                org.term.searchString = 'organisations:"' + org.term.name + '"';
+                return org.term;
+            })
+        }
+        return [];
+    }
+});
+
+/**
  * Returns a the primary section object 
  */
 Object.defineProperty(Article.prototype, 'primarySection', {

@@ -70,6 +70,16 @@ describe('Article model', function(){
             expect(people).to.equal("Vladimir Putin, Barack Obama, David Cameron (politician)")
             expect(article.people[0].searchString).to.equal('people:"Vladimir Putin"')
         });
+        
+        it('Get a list of organisations mentioned', function() {
+            var article = new models.Article(fixtures.article);
+            var org = article.organisations.map(function (org) {
+                return org.name;
+            }).join(", ")
+            expect(org).to.equal("Group of Twenty")
+            expect(article.organisations[0].searchString).to.equal('organisations:"Group of Twenty"')
+        
+        });
     
         it('Get the primary section', function() {
             var article = new models.Article(fixtures.article);
@@ -81,12 +91,7 @@ describe('Article model', function(){
             expect(article.primaryTheme.name).to.equal('Scottish Independence');
         });
 
-        
-        xit('Get a list of places mentioned', function() {
-            //people
-        });
-        
-        xit('Get a list of organisations mentioned', function() {});
+        xit('Get a list of places mentioned', function() { });
         xit('Get the associated tags', function() {});
     
     });
