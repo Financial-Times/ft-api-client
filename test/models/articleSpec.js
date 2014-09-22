@@ -84,15 +84,20 @@ describe('Article model', function(){
         it('Get the primary section', function() {
             var article = new models.Article(fixtures.article);
             expect(article.primarySection.name).to.equal('Middle Eastern Politics & Society');
+            // TODO expect(article.organisations[0].searchString).to.equal('organisations:"Group of Twenty"')
         });
         
         it('Get the primary theme', function() {
             var article = new models.Article(fixtures.article);
             expect(article.primaryTheme.name).to.equal('Scottish Independence');
+            // TODO expect(article.organisations[0].searchString).to.equal('organisations:"Group of Twenty"')
         });
-
-        xit('Get a list of places mentioned', function() { });
-        xit('Get the associated tags', function() {});
+       
+        // Sets the visual tone of the article
+        it('Get the genre of the article', function() {
+            var article = new models.Article(fixtures.article);
+            expect(article.genre).to.equal('News');
+        });
     
     });
 

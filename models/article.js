@@ -87,6 +87,18 @@ Object.defineProperty(Article.prototype, 'organisations', {
 });
 
 /**
+ * Returns a the genre. For simplicity articles only have one genre. 
+ */
+Object.defineProperty(Article.prototype, 'genre', {
+    get: function () {
+        if (this.raw.item.metadata && this.raw.item.metadata.genre) { 
+            return this.raw.item.metadata.genre[0].term.name
+        }
+        return undefined;
+    }
+});
+
+/**
  * Returns a the primary section object 
  */
 Object.defineProperty(Article.prototype, 'primarySection', {
