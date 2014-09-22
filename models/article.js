@@ -48,7 +48,7 @@ Object.defineProperty(Article.prototype, 'authors', {
     get: function () {
         if (this.raw.item.metadata && this.raw.item.metadata.authors) { 
             return this.raw.item.metadata.authors.map(function (author) {
-                author.term.searchString = 'author:"' + author.term.name + '"';
+                author.term.searchString = 'authors:"' + author.term.name + '"';
                 return author.term;
             })
         }

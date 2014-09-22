@@ -59,7 +59,7 @@ describe('Article model', function(){
                 return author.name;
             }).join(", ")
             expect(authors).to.equal("Charles Clover, Courtney Weaver, George Parker")
-            expect(article.authors[0].searchString).to.equal('author:"Charles Clover"')
+            expect(article.authors[0].searchString).to.equal('authors:"Charles Clover"')
         });
 
         it('Get a list of associated people', function() {
