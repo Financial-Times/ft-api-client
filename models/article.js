@@ -69,6 +69,18 @@ Object.defineProperty(Article.prototype, 'primarySection', {
 });
 
 /**
+ * Returns a the primary theme object 
+ */
+Object.defineProperty(Article.prototype, 'primaryTheme', {
+    get: function () {
+        if (this.raw.item.metadata && this.raw.item.metadata.primaryTheme) { 
+            return this.raw.item.metadata.primaryTheme.term
+        }
+        return [];
+    }
+});
+
+/**
  * The resource's published date as a JavaScript Date object.
  */
 Object.defineProperty(Article.prototype, 'firstPublished', {

@@ -50,21 +50,49 @@ describe('Article model', function(){
         expect(article.readingTime).to.equal(3); // in minutes
     })
     
-    it('Get a list of authors', function() {
-        var article = new models.Article(fixtures.article);
-        var authors = article.authors.map(function (author) {
-            return author.name;
-        }).join(", ")
-        expect(authors).to.equal("Charles Clover, Courtney Weaver, George Parker")
-        expect(article.authors[0].searchString).to.equal('author:"Charles Clover"')
-    });
     
-    it('Get the primary section', function() {
-        var article = new models.Article(fixtures.article);
-        expect(article.primarySection.name).to.equal('Middle Eastern Politics & Society');
+    describe('Metadata', function () {
+    
+        it('Get a list of article authors (i.e. byline)', function() {
+            var article = new models.Article(fixtures.article);
+            var authors = article.authors.map(function (author) {
+                return author.name;
+            }).join(", ")
+            expect(authors).to.equal("Charles Clover, Courtney Weaver, George Parker")
+            expect(article.authors[0].searchString).to.equal('author:"Charles Clover"')
+        });
+
+        xit('Get a list of associated people', function() {
+            var article = new models.Article(fixtures.article);
+            var people = article.people.map(function (people) {
+                return people.name;
+            }).join(", ")
+            expect(people).to.equal("Charles Clover, Courtney Weaver, George Parker")
+        });
+    
+        it('Get the primary section', function() {
+            var article = new models.Article(fixtures.article);
+            expect(article.primarySection.name).to.equal('Middle Eastern Politics & Society');
+        });
+        
+        it('Get the primary theme', function() {
+            var article = new models.Article(fixtures.article);
+            expect(article.primaryTheme.name).to.equal('Scottish Independence');
+        });
+
+        xit('Get the associated tags', function() {});
+        xit('Get a list of places mentioned', function() {});
+        xit('Get a list of organisations mentioned', function() {});
+    
     });
 
-    xit('Get the tags', function() {});
+    describe('Media', function () {
 
+    // TODO - images, galleries, audio, slide shows etc.
+    xit('Add a flag to denote the article containing a video', function() {});
+    xit('Extract the video from the article, Eg, article.videos', function() {});
 
+    });
+
+    // people, orgs, regions/places
 })

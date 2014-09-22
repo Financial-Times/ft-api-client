@@ -120,6 +120,14 @@
                     }
                 }
             ],
+            "primaryTheme": {
+                "term": {
+                    "name": "Scottish Independence",
+                    "id": "OGRhMjA4YWEtY2NiNC00YTkyLWFhMTYtOWFkZjRhYThhZDk5-VG9waWNz",
+                    "attributes": [],
+                    "taxonomy": "topics"
+                }
+            },
             "authors": [
                 {
                     "term": {
