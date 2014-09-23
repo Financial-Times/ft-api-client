@@ -226,12 +226,12 @@ Object.defineProperty(Article.prototype, 'body', {
         }
       
         var html = this.raw.item.body.body;
-        
-        return removeNonArticleLinks(
-                relativeLinks(
-                    html
-                )
-        );
+       
+        try {
+            return removeNonArticleLinks(relativeLinks(html));
+        } catch (e) {
+            return '<p>Error parsing this article.</p>'
+        }
 
 
     }
