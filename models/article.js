@@ -140,6 +140,18 @@ Object.defineProperty(Article.prototype, 'lastUpdated', {
     }
 });
 
+Object.defineProperty(Article.prototype, 'has_video', {
+    get: function () {
+        if (this.raw.item.assets) {
+            return this.raw.item.assets.some(function (asset) {
+                return asset.type === 'video';
+            }) 
+        } else {
+            return false;
+        }
+    }
+});
+
 /**
  * The article body as HTML.
  */

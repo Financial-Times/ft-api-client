@@ -16,7 +16,8 @@ describe('Article model', function(){
         var article = new models.Article(fixtures.article);
         expect(article.body).to.contain('href="/5ba75aac-1619-11e3-a57d-00144feabdc0"');
     })
-    
+   
+    // This is specifically for Next. We don't support all types of content from day 1.
     it('Remove links that are not Content API articles from the body', function() {
         var article = new models.Article(fixtures.article);
         $ = cheerio.load(article.body);
@@ -50,7 +51,6 @@ describe('Article model', function(){
         expect(article.readingTime).to.equal(3); // in minutes
     })
     
-    
     describe('Metadata', function () {
     
         it('Get a list of article authors (i.e. byline)', function() {
@@ -78,7 +78,6 @@ describe('Article model', function(){
             }).join(", ")
             expect(org).to.equal("Group of Twenty")
             expect(article.organisations[0].searchString).to.equal('organisations:"Group of Twenty"')
-        
         });
     
         it('Get the primary section', function() {
@@ -101,9 +100,15 @@ describe('Article model', function(){
     
     });
 
-    describe('Media', function () {
+    describe('Assets', function () {
 
-        // TODO - images, galleries, audio, slide shows etc.
+        it("Indicates if the article contains video", function () {
+            var article = new models.Article(fixtures.article);
+            expect(article.has_video).to.be.true;
+        });
+        
+        // TODO find an example
+        xit("Indicates if the aricle contains audio", function () { });
         xit('Add a flag to denote the article containing a video', function() {});
         xit('Extract the video from the article, Eg, article.videos', function() {});
 
