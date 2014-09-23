@@ -546,6 +546,35 @@
         ],
         "assets": [
             {
+                "type": "slideshow",
+                "name": "asset1",
+                "fields": {
+                    "title": "Scotland Decides",
+                    "slides": [
+                        {
+                            "slideNumber": 1,
+                            "url": "http://im.ft-static.com/content/images/512b837c-72af-45d1-b238-2057f01d2fce.img",
+                            "source": "Reuters",
+                            "alt": "David Cameron",
+                            "caption": "David Cameron, Britain’s prime minister, speaks from Number 10 Downing Street in London after the No vote is declared in Scotland",
+                            "height": 547,
+                            "width": 972,
+                            "mediaType": "image/jpeg"
+                        },
+                        {
+                            "slideNumber": 2,
+                            "url": "http://im.ft-static.com/content/images/9ca41ec9-93cf-4db8-a506-49d6b989583f.img",
+                            "source": "PA",
+                            "alt": "Alex Salmond, first minister of Scotland",
+                            "caption": "Alex Salmond, first minister of Scotland, during a press conference at Dynamic Earth in Edinburgh after Scotland rejected independence",
+                            "height": 547,
+                            "width": 972,
+                            "mediaType": "image/jpeg"
+                        }
+                    ]
+                }
+            },
+            {
                 "type": "pullQuote",
                 "name": "asset1",
                 "fields": {

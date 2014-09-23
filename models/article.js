@@ -140,6 +140,10 @@ Object.defineProperty(Article.prototype, 'lastUpdated', {
     }
 });
 
+/**
+ * Indicates that the article contains a video.
+ * @return Boolean 
+ */
 Object.defineProperty(Article.prototype, 'has_video', {
     get: function () {
         if (this.raw.item.assets) {
@@ -148,6 +152,38 @@ Object.defineProperty(Article.prototype, 'has_video', {
             }) 
         } else {
             return false;
+        }
+    }
+})
+
+/**
+ * Indicates that the article contains a video.
+ * @return Boolean 
+ */
+Object.defineProperty(Article.prototype, 'has_gallery', {
+    get: function () {
+        if (this.raw.item.assets) {
+            return this.raw.item.assets.some(function (asset) {
+                return asset.type === 'slideshow';
+            }) 
+        } else {
+            return false;
+        }
+    }
+});
+
+/**
+ * Extracts the pull quotes from the article assets 
+ * @return Object
+ */
+Object.defineProperty(Article.prototype, 'quotes', {
+    get: function () {
+        if (this.raw.item.assets) {
+            return this.raw.item.assets.filter(function (asset) {
+                return asset.type === 'pullQuote';
+            }) 
+        } else {
+            return [];
         }
     }
 });

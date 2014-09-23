@@ -61,7 +61,7 @@ describe('API', function(){
             }
         };
 
-        nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search).log(console.log);
+        nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
         
         ft.search('Climate change')
           .then(function (articles) {
