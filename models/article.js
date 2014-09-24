@@ -87,6 +87,26 @@ Object.defineProperty(Article.prototype, 'organisations', {
 });
 
 /**
+ * Returns a list of stock market ticker symbols related to the article 
+ */
+Object.defineProperty(Article.prototype, 'tickerSymbols', {
+    get: function () {
+        if (this.raw.item.metadata && this.raw.item.metadata.tags) {
+            return this.raw.item.metadata.tags.filter(function (tag) {
+                return tag.term.attributes.some(function(attribute) {
+                    return attribute.key === 'FTSymbol';
+                });
+            }).map(function (company) {
+                return { 
+                    name: company.term.name,
+                    code: company.term.attributes.filter(function (attribute) { return attribute.key === 'FTSymbol' })[0].value
+                }
+            })
+        }
+        return [];
+    }
+});
+/**
  * Returns a the genre. For simplicity articles only have one genre. 
  */
 Object.defineProperty(Article.prototype, 'genre', {

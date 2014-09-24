@@ -99,6 +99,66 @@
                 },
                 {
                     "term": {
+                        "name": "J Sainsbury PLC",
+                        "attributes": [
+                            {
+                                "key": "FTSymbol",
+                                "value": "uk:SBRY"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Police PLC",
+                        "attributes": [
+                            {
+                                "value": "uk:SBRY"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Comment",
+                        "id": "OA==-R2VucmVz",
+                        "attributes": [],
+                        "taxonomy": "genre"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Text",
+                        "id": "ZjMwY2E2NjctMDA1Ni00ZTk4LWI0MWUtZjk5MTk2ZTMyNGVm-TWVkaWFUeXBlcw==",
+                        "attributes": [],
+                        "taxonomy": "mediaType"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Fresh Easy Neighborhood Market Inc",
+                        "attributes": []
+                    }
+                },
+                {
+                    "term": {
+                        "name": "British_Broadcasting_Corp",
+                        "attributes": []
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Tesco PLC",
+                        "attributes": [
+                            {
+                                "key": "FTSymbol",
+                                "value": "uk:TSCO"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "term": {
                         "name": "News",
                         "id": "Nw==-R2VucmVz",
                         "attributes": [],

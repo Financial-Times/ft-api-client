@@ -79,6 +79,14 @@ describe('Article model', function(){
             expect(org).to.equal("Group of Twenty")
             expect(article.organisations[0].searchString).to.equal('organisations:"Group of Twenty"')
         });
+        
+        it('Get a list of organisations stock market symbols', function() {
+            var article = new models.Article(fixtures.article);
+            expect(article.tickerSymbols).to.deep.equal([
+                    { "code": "uk:SBRY", "name": "J Sainsbury PLC" },
+                    { "code": "uk:TSCO", "name": "Tesco PLC" }
+            ]);
+        });
     
         it('Get the primary section', function() {
             var article = new models.Article(fixtures.article);
