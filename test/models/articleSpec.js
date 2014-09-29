@@ -111,13 +111,13 @@ describe('Article model', function(){
 
         it("Indicates if the article contains video", function () {
             var article = new models.Article(fixtures.article);
-            expect(article.has_video).to.be.true();
+            expect(article.has_video).to.be.true;
         });
         
         // TODO - Is there a difference between a gallery and a slideshow? 
         it("Indicates if the article contains a gallery or slideshow", function () {
             var article = new models.Article(fixtures.article);
-            expect(article.has_gallery).to.be.true();
+            expect(article.has_gallery).to.be.true;
         });
         
         it("Get associated pull quotes", function () {
