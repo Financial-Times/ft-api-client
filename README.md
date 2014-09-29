@@ -20,7 +20,7 @@ Check everything works,
 
 Then,
 
-    GLOBAL.Promise = require('es6-promise').Promise;
+    require('es6-promise').polyfill();
 
     var ft = require('../lib2/api')('your-api-key');
 
