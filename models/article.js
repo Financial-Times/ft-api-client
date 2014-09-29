@@ -46,9 +46,6 @@ Object.defineProperty(Article.prototype, 'packages', {
     }
 });
 
-    Article.prototype.packages = function (to, from) {
-};
-
 /**
  * Returns a list of authors 
  */
