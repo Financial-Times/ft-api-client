@@ -44,8 +44,8 @@ describe('Article model', function(){
         
         it('Get the published and updated dates', function() {
             var article = new models.Article(fixtures.article);
-            expect(article.firstPublished.toString()).to.match(/^Fri Sep 06 2013 10:12:45 GMT+/);
-            expect(article.lastUpdated.toString()).to.match(/^Fri Sep 06 2013 17:16:04 GMT+/);
+            expect(article.firstPublished.toUTCString()).to.equal('Fri, 06 Sep 2013 09:12:45 GMT');
+            expect(article.lastUpdated.toUTCString()).to.equal('Fri, 06 Sep 2013 16:16:04 GMT');
         });
     
         // FIXME 
