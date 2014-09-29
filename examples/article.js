@@ -1,5 +1,5 @@
 
-GLOBAL.Promise = require('es6-promise').Promise;
+require('es6-promise').polyfill();
 
 var ft = require('../lib/api')(process.env.apikey);
 
