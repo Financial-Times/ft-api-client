@@ -35,11 +35,16 @@ Article.prototype.paragraphs = function (to, from) {
 /**
  * Returns a list of package id's
  */
-Article.prototype.packages = function (to, from) {
-    this.raw.item.package.map(function (pkg) {
-        return pkg.id;
-    })
-};
+Object.defineProperty(Article.prototype, 'packages', {
+    get: function () {
+        if (this.raw.item.package) {
+            return this.raw.item.package.map(function (package) {
+                return package.id;
+            })
+        }
+        return [];
+    }
+});
 
 /**
  * Returns a list of authors 

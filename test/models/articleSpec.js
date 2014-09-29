@@ -114,6 +114,11 @@ describe('Article model', function(){
             expect(article.has_video).to.be.true;
         });
         
+        it("List the packages", function () {
+            var article = new models.Article(fixtures.article);
+            expect(article.packages[2]).to.equal('ecfea614-1712-11e3-9ec2-00144feabdc0');
+        });
+        
         // TODO - Is there a difference between a gallery and a slideshow? 
         it("Indicates if the article contains a gallery or slideshow", function () {
             var article = new models.Article(fixtures.article);

@@ -17,7 +17,7 @@ function handleAllDone (errors, items) {
 
 (function () {
   var ftApi,
-    apiKey = 'f65958a8e35bd14bc52f268b8b3ab4ad',
+    apiKey = 'XXXXXXXXXXXXXXXX',
     itemId = '84a0fcf0-d43e-11e2-8639-00144feab7de',
     pageId = 'c2efc338-d323-11e0-9ba8-00144feab49a',
     pageIds = [
