@@ -1,17 +1,18 @@
-
-var cheerio = require('cheerio')
-var url     = require('url')
-var util    = require('util')
+'use strict';
+var cheerio = require('cheerio');
+var url     = require('url');
+var util    = require('util');
 
 function Article (obj) {
-    obj && obj.item && this.parse(obj);
+    if (obj && obj.item) { 
+        this.parse(obj);
+    }
 }
 
 /**
  * Hydrates the model from a raw API response
  */
 Article.prototype.parse = function (obj) {
-    
     this.id = obj.item.id;
     this.raw = obj;
 
@@ -22,7 +23,7 @@ Article.prototype.parse = function (obj) {
     // FIXME - move to defineProperty getters
     this.wordCount = this.body.split(' ').length;
     this.readingTime = Math.round(this.wordCount / readingSpeed);
-}
+};
 
 /**
  * Returns a given range of paragraphs from the article body
@@ -30,7 +31,7 @@ Article.prototype.parse = function (obj) {
 Article.prototype.paragraphs = function (to, from) {
     var $ = cheerio.load(this.body);
     return $('p').slice(to, from);
-}
+};
 
 /**
  * Returns a list of package id's
@@ -38,9 +39,9 @@ Article.prototype.paragraphs = function (to, from) {
 Object.defineProperty(Article.prototype, 'packages', {
     get: function () {
         if (this.raw.item.package) {
-            return this.raw.item.package.map(function (package) {
-                return package.id;
-            })
+            return this.raw.item.package.map(function (currentPackage) {
+                return currentPackage.id;
+            });
         }
         return [];
     }
@@ -55,7 +56,7 @@ Object.defineProperty(Article.prototype, 'authors', {
             return this.raw.item.metadata.authors.map(function (author) {
                 author.term.searchString = 'authors:"' + author.term.name + '"';
                 return author.term;
-            })
+            });
         }
         return [];
     }
@@ -70,7 +71,7 @@ Object.defineProperty(Article.prototype, 'people', {
             return this.raw.item.metadata.people.map(function (person) {
                 person.term.searchString = 'people:"' + person.term.name + '"';
                 return person.term;
-            })
+            });
         }
         return [];
     }
@@ -85,7 +86,7 @@ Object.defineProperty(Article.prototype, 'organisations', {
             return this.raw.item.metadata.organisations.map(function (org) {
                 org.term.searchString = 'organisations:"' + org.term.name + '"';
                 return org.term;
-            })
+            });
         }
         return [];
     }
@@ -104,9 +105,11 @@ Object.defineProperty(Article.prototype, 'tickerSymbols', {
             }).map(function (company) {
                 return { 
                     name: company.term.name,
-                    code: company.term.attributes.filter(function (attribute) { return attribute.key === 'FTSymbol' })[0].value
-                }
-            })
+                    code: company.term.attributes.filter(function (attribute) { 
+                        return attribute.key === 'FTSymbol';
+                    })[0].value
+                };
+            });
         }
         return [];
     }
@@ -117,7 +120,7 @@ Object.defineProperty(Article.prototype, 'tickerSymbols', {
 Object.defineProperty(Article.prototype, 'genre', {
     get: function () {
         if (this.raw.item.metadata && this.raw.item.metadata.genre) { 
-            return this.raw.item.metadata.genre[0].term.name
+            return this.raw.item.metadata.genre[0].term.name;
         }
         return undefined;
     }
@@ -129,7 +132,7 @@ Object.defineProperty(Article.prototype, 'genre', {
 Object.defineProperty(Article.prototype, 'primarySection', {
     get: function () {
         if (this.raw.item.metadata && this.raw.item.metadata.primarySection) { 
-            return this.raw.item.metadata.primarySection.term
+            return this.raw.item.metadata.primarySection.term;
         }
         return [];
     }
@@ -141,7 +144,7 @@ Object.defineProperty(Article.prototype, 'primarySection', {
 Object.defineProperty(Article.prototype, 'primaryTheme', {
     get: function () {
         if (this.raw.item.metadata && this.raw.item.metadata.primaryTheme) { 
-            return this.raw.item.metadata.primaryTheme.term
+            return this.raw.item.metadata.primaryTheme.term;
         }
         return [];
     }
@@ -174,12 +177,12 @@ Object.defineProperty(Article.prototype, 'has_video', {
         if (this.raw.item.assets) {
             return this.raw.item.assets.some(function (asset) {
                 return asset.type === 'video';
-            }) 
+            });
         } else {
             return false;
         }
     }
-})
+});
 
 /**
  * Indicates that the article contains a video.
@@ -190,7 +193,7 @@ Object.defineProperty(Article.prototype, 'has_gallery', {
         if (this.raw.item.assets) {
             return this.raw.item.assets.some(function (asset) {
                 return asset.type === 'slideshow';
-            }) 
+            }); 
         } else {
             return false;
         }
@@ -206,7 +209,7 @@ Object.defineProperty(Article.prototype, 'quotes', {
         if (this.raw.item.assets) {
             return this.raw.item.assets.filter(function (asset) {
                 return asset.type === 'pullQuote';
-            }) 
+            }); 
         } else {
             return [];
         }
@@ -236,7 +239,7 @@ Object.defineProperty(Article.prototype, 'body', {
                 return value;
             });
             return $.html();
-        }
+        };
        
         // Strips any links from the HTML that aren't Content API articles 
         var removeNonArticleLinks = function (html) {
@@ -250,16 +253,16 @@ Object.defineProperty(Article.prototype, 'body', {
                     return textContent; 
                 }
 
-            })
+            });
             return $.html();
-        }
+        };
       
         var html = this.raw.item.body.body;
        
         try {
             return removeNonArticleLinks(relativeLinks(removeEmptyParagraphs(html)));
         } catch (e) {
-            return '<p>Error parsing this article.</p>'
+            return '<p>Error parsing this article.</p>';
         }
 
 
@@ -273,11 +276,11 @@ Object.defineProperty(Article.prototype, 'largestImage', {
     get: function () {
         if (this.raw.item.images) {
             var sortedImages = this.raw.item.images.sort(function (a, b) {
-                return a.width < b.width
+                return a.width < b.width;
             });
             return sortedImages[0];
         }
     }
-})
+});
 
 module.exports = Article;
