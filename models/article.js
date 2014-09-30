@@ -219,7 +219,7 @@ Object.defineProperty(Article.prototype, 'quotes', {
 Object.defineProperty(Article.prototype, 'body', {
     get: function () {
 
-	var emptyParagraphs = function(html) {
+	var removeEmptyParagraphs = function(html) {
 	    return html.replace(/<p>\s+<\/p>/, '');
 	};
         
@@ -257,7 +257,7 @@ Object.defineProperty(Article.prototype, 'body', {
         var html = this.raw.item.body.body;
        
         try {
-            return removeNonArticleLinks(relativeLinks(emptyParagraphs(html)));
+            return removeNonArticleLinks(relativeLinks(removeEmptyParagraphs(html)));
         } catch (e) {
             return '<p>Error parsing this article.</p>'
         }
