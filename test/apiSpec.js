@@ -1,6 +1,8 @@
 'use strict';
+
 var expect  = require("chai").expect;
 var nock    = require("nock");
+var sinon   = require("sinon");
 var util    = require("util");
 var fs      = require("fs");
 
@@ -42,26 +44,6 @@ describe('API', function(){
     // FIXME - need tests for no search results, errors, maxResults etc...
     it('Search for articles matching a term', function(done) {
 
-// FIXME - This isn't used
-//      var postBody = {
-//          "queryString":"topics:\"Climate change\"",
-//          "queryContext":{
-//              "curations":["ARTICLES"]
-//          },
-//          "resultContext":{
-//              "aspects" : ["editorial","images","lifecycle","location","master","metadata","nature","summary","title"],
-//              "maxResults":3,
-//              "offset":0,
-//              "contextual": true,
-//              "highlight": false,
-//              "facets":{
-//                  "names":["organisations"],
-//                  "maxElements":-1,
-//                  "minThreshold":100
-//              }
-//          }
-//      };
-
         nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
         
         ft.search('Climate change')
@@ -75,6 +57,24 @@ describe('API', function(){
             done();
         }, function (err) { console.log(err); });
     });
+    
+    it('Return the specified number of search results', function(done) {
+
+        var spy = sinon.spy(function (body) {
+            return '*';
+        })
+
+        nock(host).filteringRequestBody(spy).post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
+        
+        ft.search("Portillo's teeth removed to boost pound", 99)
+          .then(function (articles) {
+            expect(spy.calledOnce).to.true;
+            expect(JSON.parse(spy.firstCall.args[0]).resultContext.maxResults).to.equal(99);
+            done();
+        }, function (err) { console.log(err); });
+    });
+
+    
     // We probably want to resolve HTTP errors rather than reject them as in the case of fetching 
     // several articles in a batch the Promise will fail if it receives a single error. It's probably more 
     // tolerant to mask the errors.

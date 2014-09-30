@@ -221,6 +221,10 @@ Object.defineProperty(Article.prototype, 'quotes', {
  */
 Object.defineProperty(Article.prototype, 'body', {
     get: function () {
+
+	var removeEmptyParagraphs = function(html) {
+	    return html.replace(/<p>\s+<\/p>/, '');
+	};
         
         // Fix any old ft links, Eg. 
         //  www.ft.com/cms/s/43515588-00fc-11e4-a938-00144feab7de.html -> /43515588-00fc-11e4-a938-00144feab7de 
@@ -256,7 +260,7 @@ Object.defineProperty(Article.prototype, 'body', {
         var html = this.raw.item.body.body;
        
         try {
-            return removeNonArticleLinks(relativeLinks(html));
+            return removeNonArticleLinks(relativeLinks(removeEmptyParagraphs(html)));
         } catch (e) {
             return '<p>Error parsing this article.</p>';
         }
