@@ -29,7 +29,8 @@ Article.prototype.parse = function (obj) {
  * Returns a given range of paragraphs from the article body
  */
 Article.prototype.paragraphs = function (to, from, options) {
-    var removeImages = options && options.removeImages;
+    options = options || {};
+    var removeImages = options.removeImages !== false;
     var $ = cheerio.load(this.body);
     if (removeImages) $('img').remove('img');
     return $('p').slice(to, from);

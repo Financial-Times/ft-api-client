@@ -151,8 +151,8 @@ describe('Article model', function(){
     describe('Paragraphs', function () {
 	it("Provides an option to remove images from paragraphs", function () {
 	  var article = new models.Article(fixtures.article);
-	  expect(!!article.paragraphs(0, 1).html().match(/<img[^>]*>/)).to.be.true;
-	  expect(!!article.paragraphs(0, 1, { removeImages: true }).html().match(/<img[^>]*>/)).to.be.false;
+	  expect(!!article.paragraphs(0, 1, { removeImages: false }).html().match(/<img[^>]*>/)).to.be.true;
+	  expect(!!article.paragraphs(0, 1).html().match(/<img[^>]*>/)).to.be.false;
 	});
     });
 
