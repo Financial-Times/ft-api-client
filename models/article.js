@@ -30,7 +30,7 @@ Article.prototype.parse = function (obj) {
  */
 Article.prototype.paragraphs = function (to, from) {
     var $ = cheerio.load(this.body);
-    return $('p').slice(to, from);
+    return $('p').slice(to, from).remove('img');
 };
 
 /**
