@@ -1,0 +1,672 @@
+{
+    "requestUrl": "http://api.ft.com/content/items/v1/03b49444-16c9-11e3-bced-00144feabdc0",
+    "item": {
+        "aspectSet": "article",
+        "aspects": [
+            "assets",
+            "body",
+            "editorial",
+            "images",
+            "lifecycle",
+            "location",
+            "master",
+            "mediaAssets",
+            "metadata",
+            "package",
+            "packaging",
+            "provenance",
+            "summary",
+            "title"
+        ],
+        "modelVersion": "1",
+        "id": "03b49444-16c9-11e3-bced-00144feabdc0",
+        "apiUrl": "http://api.ft.com/content/items/v1/03b49444-16c9-11e3-bced-00144feabdc0",
+        "title": {
+            "title": "Obama steadfast on Syria strikes despite G20 opposition"
+        },
+        "body": {
+            "mediaType": "text/html",
+            "body": "<p>US President <a href=\"link-with-no-text\"></a> Barack Obama <img height=\"223\" alt=\"Comment cartoon for September 29\" width=\"300\" class=\"ft-web-inline-picture\" src=\"http://im.ft-static.com/content/images/230e016c-4608-11e4-937a-00144feabdc0.img\"> emerged from a <a title=\"G20 news headlines - FT.com\" href=\"http://www.ft.com/intl/topics/organisations/G20\">G20</a> summit on Friday with few signs of international support for his plan to launch military strikes against Syria and significant political opposition at home. </p>\n<p>Mr Obama, who is seeking <a title=\"US senators offer support for Syria strike - FT.com\" href=\"http://www.ft.com/cms/s/0/654f3846-149c-11e3-b3db-00144feabdc0.html\">Congressional approval</a> for a “limited and proportionate” strike against Bashar al-Assad, the Syrian president, said he was determined to respond to the alleged use of chemical weapons by the Syrian regime despite opposition from most leaders at the<a title=\"G20 leaders split on Syria - FT.com\" href=\"http://blogs.ft.com/cms/s/0/5ba75aac-1619-11e3-a57d-00144feabdc0.html\"> summit</a> to intervention without UN approval.</p>\n<p>Mr Obama declined to say what he would do if US legislators refused to back him. But he plans to address the American people on Tuesday to put his case for military intervention after the Assad regime allegedly killed more than 1,400 people in a chemical weapons attack in the eastern suburbs of Damascus on August 21.</p>\n<p>“Gassing innocent people, delivering chemical weapons against children is not something we do,” Mr Obama said at a post-summit press conference. “It’s prohibited in active wars between countries, even more so against children, and we’ve got to stand up for that principle.”</p>\n<p>He acknowledged that he might not win the votes in Congress, where opposition to his military plan is particularly strong in the Republican-controlled House of Representatives. “I knew this was going to be a heavy lift,” he said.</p>\n<p>Mr Obama said the G20 leaders were unanimous that chemical weapons had been used and that international norms against them had to be maintained. He said the “majority of the room” agreed with Washington that the Assad regime was responsible for their use but acknowledged that there was resistance to action without UN Security Council authorisation.</p>\n<p>The White House later released a joint statement backing US action on behalf of the leaders of Australia, Canada, France, Italy, Japan, South Korea, Saudi Arabia, Spain, Turkey and the UK.</p>\n<p>“The world cannot wait for endless failed processes that can only lead to increased suffering in Syria and regional instability,” the statement said. “We support efforts undertaken by the United States and other countries to reinforce the prohibition on the use of chemical weapons.” </p>\n<p>Vladimir Putin, Russia’s president, who is a longtime ally of <a title=\"Syria crisis in depth - FT.com\" href=\"http://www.ft.com/indepth/syria-crisis\">Syria</a> and has repeatedly blocked UN action against Mr Assad, said after the summit that the majority of countries opposed a US-led strike. He repeated his view that such intervention would be “a provocation” and said Russia would support Syria in the event of a US attack.</p>\n<p>“We are already helping it now, we are supplying weapons there and co-operating in the economic sector and I hope there will be more co-operation in the humanitarian field, including in supplying humanitarian aid to provide support to those civilians who have found themselves in a very difficult situation in this country,” he said.</p>\n<aside data-asset-type=\"pullQuote\" data-asset-name=\"asset1\"></aside><p>The two leaders said they had discussed Syria for 20 minutes on Thursday night on the sidelines of the summit and effectively agreed to disagree on military intervention.</p>\n<p><a title=\"UK gives extra £52m in Syria aid - FT.com\" href=\"http://www.ft.com/intl/cms/s/0/f6e04630-16c5-11e3-9ec2-00144feabdc0.html\">David Cameron</a>, the UK prime minister, said after the summit that the advocates of intervention had had “by far the better of the argument”. But he admitted that conquering public opinion was proving tough: “Clearly there’s a great deal of scepticism on how to help with this Syrian conflict.”</p>\n<p>Mr Obama accepted that he still had to convince many Americans and their representatives in Congress of the need for military intervention and the nature of the strike he is proposing.</p>\n<aside data-asset-type=\"promoBox\" data-asset-name=\"asset2\"></aside><p>“One of the biggest concerns of the American people is understanding that what we’re describing here would be limited, proportionate and designed to address this chemical weapons use and uphold a norm that keeps all of us safe,” he said.</p>\n<p>The president repeatedly declined to say what he would do if Congress did not vote to intervene.</p>\n<p>Earlier on Friday, Tony Blinken, Mr Obama’s deputy national security adviser, told National Public Radio that Mr Obama had the right to act without congressional approval “but it’s neither his desire nor his intention to use that authority absent of Congress backing him”.</p>\n<p>The US has ordered non-essential diplomats out of Lebanon “due to potential threats to US mission facilities and personnel” and advised against all non-essential travel to the country. Washington also authorised the removal of non-essential staff from its consulate general in Adana, a Turkish city near the Syrian border.</p>\n<p>Xi Jinping, China’s president, told Mr Obama in a bilateral meeting that “a political solution is the only right way out for the Syrian crisis and a military strike cannot solve the problem from the root”, according to China’s Xinhua news agency.</p>\n<p>“We expect certain countries to have a second thought before action,” Mr Xi reportedly added.</p>"
+        },
+        "lifecycle": {
+            "initialPublishDateTime": "2013-09-06T09:12:45Z",
+            "lastPublishDateTime": "2013-09-06T16:16:04Z"
+        },
+        "location": {
+            "uri": "http://www.ft.com/cms/s/0/03b49444-16c9-11e3-bced-00144feabdc0.html"
+        },
+        "summary": {
+            "excerpt": "US president sets out the case for a missile strike on Syria but G20 leaders are divided on whether to support intervention without UN approval"
+        },
+        "packaging": {
+            "spHeadline": "Obama urges Syria strike despite G20"
+        },
+        "master": {
+            "masterSource": "Methode",
+            "masterEntityId": "03b49444-16c9-11e3-bced-00144feabdc0"
+        },
+        "editorial": {
+            "subheading": "US president to address American people on Tuesday",
+            "leadBody": "US president sets out the case for a missile strike on Syria but G20 leaders are divided on whether to support intervention without UN approval",
+            "byline": "By George Parker, Charles Clover and Courtney Weaver in St Petersburg"
+        },
+        "provenance": {
+            "originatingParty": "FT"
+        },
+        "metadata": {
+            "primarySection": {
+                "term": {
+                    "name": "Middle Eastern Politics & Society",
+                    "id": "MTg=-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            },
+            "primaryTheme": {
+                "term": {
+                    "name": "Group of Twenty",
+                    "id": "TnN0ZWluX09OX0FGVE1fT05fMTQyMTA0-T04=",
+                    "attributes": [
+                        {
+                            "key": "is_company",
+                            "value": "false"
+                        }
+                    ],
+                    "taxonomy": "organisations"
+                }
+            },
+            "tags": [
+                {
+                    "term": {
+                        "name": "Middle Eastern Politics & Society",
+                        "id": "MTg=-U2VjdGlvbnM=",
+                        "attributes": [],
+                        "taxonomy": "sections"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Group of Twenty",
+                        "id": "TnN0ZWluX09OX0FGVE1fT05fMTQyMTA0-T04=",
+                        "attributes": [
+                            {
+                                "key": "is_company",
+                                "value": "false"
+                            }
+                        ],
+                        "taxonomy": "organisations"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "J Sainsbury PLC",
+                        "attributes": [
+                            {
+                                "key": "FTSymbol",
+                                "value": "uk:SBRY"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Police PLC",
+                        "attributes": [
+                            {
+                                "value": "uk:SBRY"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Comment",
+                        "id": "OA==-R2VucmVz",
+                        "attributes": [],
+                        "taxonomy": "genre"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Text",
+                        "id": "ZjMwY2E2NjctMDA1Ni00ZTk4LWI0MWUtZjk5MTk2ZTMyNGVm-TWVkaWFUeXBlcw==",
+                        "attributes": [],
+                        "taxonomy": "mediaType"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Fresh Easy Neighborhood Market Inc",
+                        "attributes": []
+                    }
+                },
+                {
+                    "term": {
+                        "name": "British_Broadcasting_Corp",
+                        "attributes": []
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Tesco PLC",
+                        "attributes": [
+                            {
+                                "key": "FTSymbol",
+                                "value": "uk:TSCO"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "term": {
+                        "name": "News",
+                        "id": "Nw==-R2VucmVz",
+                        "attributes": [],
+                        "taxonomy": "genre"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Text",
+                        "id": "ZjMwY2E2NjctMDA1Ni00ZTk4LWI0MWUtZjk5MTk2ZTMyNGVm-TWVkaWFUeXBlcw==",
+                        "attributes": [],
+                        "taxonomy": "mediaType"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Group_of_Twenty",
+                        "attributes": []
+                    }
+                }
+            ],
+            "primaryTheme": {
+                "term": {
+                    "name": "Scottish Independence",
+                    "id": "OGRhMjA4YWEtY2NiNC00YTkyLWFhMTYtOWFkZjRhYThhZDk5-VG9waWNz",
+                    "attributes": [],
+                    "taxonomy": "topics"
+                }
+            },
+            "authors": [
+                {
+                    "term": {
+                        "name": "Charles Clover",
+                        "id": "Q0ItMDAwMDc0MA==-QXV0aG9ycw==",
+                        "attributes": [],
+                        "taxonomy": "authors"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Courtney Weaver",
+                        "id": "Q0ItMDAwMDg5MA==-QXV0aG9ycw==",
+                        "attributes": [],
+                        "taxonomy": "authors"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "George Parker",
+                        "id": "Q0ItMDAwMDgzMA==-QXV0aG9ycw==",
+                        "attributes": [],
+                        "taxonomy": "authors"
+                    }
+                }
+            ],
+            "brand": [],
+            "genre": [
+                {
+                    "term": {
+                        "name": "News",
+                        "id": "Nw==-R2VucmVz",
+                        "attributes": [],
+                        "taxonomy": "genre"
+                    }
+                }
+            ],
+            "icb": [],
+            "iptc": [
+                {
+                    "term": {
+                        "name": "11001002 - national security",
+                        "id": "MTEwMDEwMDI=-SVBUQw==",
+                        "attributes": [],
+                        "taxonomy": "iptc"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "11001004 - armed forces",
+                        "id": "MTEwMDEwMDQ=-SVBUQw==",
+                        "attributes": [],
+                        "taxonomy": "iptc"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "11001007 - biological and chemical weapons",
+                        "id": "MTEwMDEwMDc=-SVBUQw==",
+                        "attributes": [],
+                        "taxonomy": "iptc"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "11002000 - diplomacy",
+                        "id": "MTEwMDIwMDA=-SVBUQw==",
+                        "attributes": [],
+                        "taxonomy": "iptc"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "11002003 - peace negotiations",
+                        "id": "MTEwMDIwMDM=-SVBUQw==",
+                        "attributes": [],
+                        "taxonomy": "iptc"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "11006006 - heads of state",
+                        "id": "MTEwMDYwMDY=-SVBUQw==",
+                        "attributes": [],
+                        "taxonomy": "iptc"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "11006008 - public officials",
+                        "id": "MTEwMDYwMDg=-SVBUQw==",
+                        "attributes": [],
+                        "taxonomy": "iptc"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "16002000 - armed conflict",
+                        "id": "MTYwMDIwMDA=-SVBUQw==",
+                        "attributes": [],
+                        "taxonomy": "iptc"
+                    }
+                }
+            ],
+            "mediaType": [
+                {
+                    "term": {
+                        "name": "Text",
+                        "id": "ZjMwY2E2NjctMDA1Ni00ZTk4LWI0MWUtZjk5MTk2ZTMyNGVm-TWVkaWFUeXBlcw==",
+                        "attributes": [],
+                        "taxonomy": "mediaType"
+                    }
+                }
+            ],
+            "organisations": [
+                {
+                    "term": {
+                        "name": "Group of Twenty",
+                        "id": "TnN0ZWluX09OX0FGVE1fT05fMTQyMTA0-T04=",
+                        "attributes": [
+                            {
+                                "key": "is_company",
+                                "value": "false"
+                            }
+                        ],
+                        "taxonomy": "organisations"
+                    }
+                }
+            ],
+            "people": [
+                {
+                    "term": {
+                        "name": "Vladimir Putin",
+                        "id": "TnN0ZWluX1BOX0FGVE1fUE5fMzA5NTgy-UE4=",
+                        "attributes": [],
+                        "taxonomy": "people"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Barack Obama",
+                        "id": "TnN0ZWluX1BOX1BvbGl0aWNpYW5fMjM=-UE4=",
+                        "attributes": [],
+                        "taxonomy": "people"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "David Cameron (politician)",
+                        "id": "TnN0ZWluX1BOX1BvbGl0aWNpYW5fMjcx-UE4=",
+                        "attributes": [],
+                        "taxonomy": "people"
+                    }
+                }
+            ],
+            "regions": [
+                {
+                    "term": {
+                        "name": "United Kingdom",
+                        "id": "TnN0ZWluX0dMX0dC-R0w=",
+                        "attributes": [],
+                        "taxonomy": "regions"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Russia",
+                        "id": "TnN0ZWluX0dMX1JV-R0w=",
+                        "attributes": [],
+                        "taxonomy": "regions"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Syria",
+                        "id": "TnN0ZWluX0dMX1NZ-R0w=",
+                        "attributes": [],
+                        "taxonomy": "regions"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "United States of America",
+                        "id": "TnN0ZWluX0dMX1VT-R0w=",
+                        "attributes": [],
+                        "taxonomy": "regions"
+                    }
+                }
+            ],
+            "sections": [
+                {
+                    "term": {
+                        "name": "World",
+                        "id": "MQ==-U2VjdGlvbnM=",
+                        "attributes": [],
+                        "taxonomy": "sections"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Middle East & North Africa",
+                        "id": "MTY=-U2VjdGlvbnM=",
+                        "attributes": [],
+                        "taxonomy": "sections"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Middle Eastern Politics & Society",
+                        "id": "MTg=-U2VjdGlvbnM=",
+                        "attributes": [],
+                        "taxonomy": "sections"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "US & Canada",
+                        "id": "Mg==-U2VjdGlvbnM=",
+                        "attributes": [],
+                        "taxonomy": "sections"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "US Politics & Policy",
+                        "id": "Mw==-U2VjdGlvbnM=",
+                        "attributes": [],
+                        "taxonomy": "sections"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "UK",
+                        "id": "Ng==-U2VjdGlvbnM=",
+                        "attributes": [],
+                        "taxonomy": "sections"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "UK Politics & Policy",
+                        "id": "OA==-U2VjdGlvbnM=",
+                        "attributes": [],
+                        "taxonomy": "sections"
+                    }
+                }
+            ],
+            "specialReports": [],
+            "subjects": [
+                {
+                    "term": {
+                        "name": "Summits & Talks",
+                        "id": "MTA0-U3ViamVjdHM=",
+                        "attributes": [],
+                        "taxonomy": "subjects"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "National Security",
+                        "id": "MTAw-U3ViamVjdHM=",
+                        "attributes": [],
+                        "taxonomy": "subjects"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Politics",
+                        "id": "MTAx-U3ViamVjdHM=",
+                        "attributes": [],
+                        "taxonomy": "subjects"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "General News",
+                        "id": "MTE4-U3ViamVjdHM=",
+                        "attributes": [],
+                        "taxonomy": "subjects"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Human Resources & Employment",
+                        "id": "MTM=-U3ViamVjdHM=",
+                        "attributes": [],
+                        "taxonomy": "subjects"
+                    }
+                },
+                {
+                    "term": {
+                        "name": "Industrial Relations & Unions",
+                        "id": "MTY=-U3ViamVjdHM=",
+                        "attributes": [],
+                        "taxonomy": "subjects"
+                    }
+                }
+            ],
+            "topics": [
+                {
+                    "term": {
+                        "name": "Syria crisis",
+                        "id": "YjcwMThlYjQtYzQyOC00NWU1LTkyNTEtMDVmMTYxYWI5MDM4-VG9waWNz",
+                        "attributes": [],
+                        "taxonomy": "topics"
+                    }
+                }
+            ]
+        },
+        "images": [
+            {
+                "url": "http://im.ft-static.com/content/images/ddcd454f-8580-45c3-8fb6-187851f2a183.img",
+                "type": "primary",
+                "source": "AFP/Getty Images",
+                "alt": "RUSSIA-G20-SUMMIT",
+                "height": 153,
+                "width": 272,
+                "mediaType": "image/jpeg"
+            },
+            {
+                "url": "http://im.ft-static.com/content/images/9ba9fc53-8af1-4145-9109-bd6f0ccff3bd.img",
+                "type": "secondary",
+                "source": "AFP/Getty Images",
+                "alt": "RUSSIA-G20-SUMMIT",
+                "height": 94,
+                "width": 167,
+                "mediaType": "image/jpeg"
+            },
+            {
+                "url": "http://im.ft-static.com/content/images/99974603-cdd9-400d-afa1-75c15d19b925.img",
+                "type": "article",
+                "source": "AFP/Getty Images",
+                "alt": "RUSSIA-G20-SUMMIT",
+                "height": 338,
+                "width": 600,
+                "mediaType": "image/jpeg"
+            },
+            {
+                "url": "http://im.ft-static.com/content/images/fa064fdb-e501-41e6-a3c7-4f8a477db95e.img",
+                "type": "leader",
+                "source": "AFP/Getty Images",
+                "alt": "RUSSIA-G20-SUMMIT",
+                "height": 233,
+                "width": 414,
+                "mediaType": "image/jpeg"
+            },
+            {
+                "url": "http://im.ft-static.com/content/images/4cec0d2e-8898-4193-8db4-dc0c2ba33df9.img",
+                "type": "wide-format",
+                "source": "AFP/Getty Images",
+                "alt": "RUSSIA-G20-SUMMIT",
+                "height": 547,
+                "width": 972,
+                "mediaType": "image/jpeg"
+            },
+            {
+                "url": "http://im.ft-static.com/content/images/e28400ca-9e89-11e0-9469-00144feabdc0.img",
+                "type": "promo",
+                "height": 96,
+                "width": 167,
+                "mediaType": "image/jpeg"
+            }
+        ],
+        "package": [
+            {
+                "id": "a2b1e962-16e6-11e3-9ec2-00144feabdc0",
+                "apiUrl": "http://api.ft.com/content/items/v1/a2b1e962-16e6-11e3-9ec2-00144feabdc0",
+                "packaging": {
+                    "kicker": "Editorial",
+                    "spHeadline": "When lawmakers are warmakers"
+                },
+                "provenance": {
+                    "originatingParty": "FT"
+                }
+            },
+            {
+                "id": "fed436cc-16d3-11e3-bced-00144feabdc0",
+                "apiUrl": "http://api.ft.com/content/items/v1/fed436cc-16d3-11e3-bced-00144feabdc0",
+                "packaging": {
+                    "spHeadline": "Hollande fails to win over Europe leaders"
+                },
+                "provenance": {
+                    "originatingParty": "FT"
+                }
+            },
+            {
+                "id": "ecfea614-1712-11e3-9ec2-00144feabdc0",
+                "apiUrl": "http://api.ft.com/content/items/v1/ecfea614-1712-11e3-9ec2-00144feabdc0",
+                "packaging": {
+                    "spHeadline": "Kerry praised for confident call to arms"
+                },
+                "provenance": {
+                    "originatingParty": "FT"
+                }
+            },
+            {
+                "id": "293f9a7e-1714-11e3-9ec2-00144feabdc0",
+                "apiUrl": "http://api.ft.com/content/items/v1/293f9a7e-1714-11e3-9ec2-00144feabdc0",
+                "packaging": {
+                    "spHeadline": "US hawks face struggle to turn opinion"
+                },
+                "provenance": {
+                    "originatingParty": "FT"
+                }
+            },
+            {
+                "id": "edc4961a-1575-11e3-b519-00144feabdc0",
+                "apiUrl": "http://api.ft.com/content/items/v1/edc4961a-1575-11e3-b519-00144feabdc0",
+                "packaging": {
+                    "spHeadline": "Turkey attacks US stance on Syria"
+                },
+                "provenance": {
+                    "originatingParty": "FT"
+                }
+            }
+        ],
+        "assets": [
+            {
+                "type": "slideshow",
+                "name": "asset1",
+                "fields": {
+                    "title": "Scotland Decides",
+                    "slides": [
+                        {
+                            "slideNumber": 1,
+                            "url": "http://im.ft-static.com/content/images/512b837c-72af-45d1-b238-2057f01d2fce.img",
+                            "source": "Reuters",
+                            "alt": "David Cameron",
+                            "caption": "David Cameron, Britain’s prime minister, speaks from Number 10 Downing Street in London after the No vote is declared in Scotland",
+                            "height": 547,
+                            "width": 972,
+                            "mediaType": "image/jpeg"
+                        },
+                        {
+                            "slideNumber": 2,
+                            "url": "http://im.ft-static.com/content/images/9ca41ec9-93cf-4db8-a506-49d6b989583f.img",
+                            "source": "PA",
+                            "alt": "Alex Salmond, first minister of Scotland",
+                            "caption": "Alex Salmond, first minister of Scotland, during a press conference at Dynamic Earth in Edinburgh after Scotland rejected independence",
+                            "height": 547,
+                            "width": 972,
+                            "mediaType": "image/jpeg"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "pullQuote",
+                "name": "asset1",
+                "fields": {
+                    "body": "<p>One of the biggest concerns of the American people is understanding that what we’re describing here would be limited, proportionate and designed to address this chemical weapons use and uphold a norm that keeps all of us safe</p>",
+                    "attribution": "President Barack Obama"
+                }
+            },
+            {
+                "type": "video",
+                "name": "asset3",
+                "fields": {
+                    "source": "Brightcove",
+                    "sourceReference": "3794473930001"
+                } 
+            },
+            {
+                "type": "promoBox",
+                "name": "asset2",
+                "fields": {
+                    "title": "<p>In depth</p>",
+                    "headline": "<p><a title=\"Syria crisis in depth - FT.com\" href=\"http://www.ft.com/intl/indepth/syria\">Syria crisis</a>\n</p>",
+                    "intro": "<p>An apparent chemical attack by the regime of Bashar al-Assad on a Damascus suburb has shifted opinion in the west towards possible military intervention</p>",
+                    "image": {
+                        "url": "http://im.ft-static.com/content/images/e28400ca-9e89-11e0-9469-00144feabdc0.img",
+                        "type": "promo",
+                        "height": 96,
+                        "width": 167,
+                        "mediaType": "image/jpeg"
+                    }
+                }
+            }
+        ],
+        "mediaAssets": []
+    }
+}

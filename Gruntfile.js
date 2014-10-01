@@ -15,8 +15,6 @@ module.exports = function (grunt) {
       ],
       options: {
         bitwise: true,
-        camelcase: true,
-        curly: true,
         devel: true, /* Permit console and alert while developing. */
         eqeqeq: true,
         forin: true,
@@ -29,7 +27,6 @@ module.exports = function (grunt) {
           'afterEach': false,
           'jasmine': false,
           'spyOn': false,
-          'expect': false,
           'waitsFor': false,
           'waits': false,
           'runs': false
@@ -39,14 +36,13 @@ module.exports = function (grunt) {
         latedef: true,
         maxcomplexity: 10,
         maxdepth: 2,
-        maxlen: 90, /* Node standard is 80, but we're hedonists */
         newcap: true,
         noarg: true,
         node: true, /* Expect node environment */
         noempty: true,
         onevar: true,
+        predef: ['Promise'],
         plusplus: true,
-        quotmark: 'single', /* Use backslashes if you\'ve got to */
         strict: true, /* Use one 'use strict'; per file. */
         trailing: true, /* Turn 'show whitespace' on in your editor. */
         undef: true,
