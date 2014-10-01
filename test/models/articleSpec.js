@@ -25,6 +25,13 @@ describe('Article model', function(){
             expect($('a').length).to.equal(3);
         });
     
+        // This is specifically for Next. We don't support all types of content from day 1.
+        it('Remove links that are not Content API articles from the body', function() {
+            var article = new models.Article(fixtures.article);
+            var $ = cheerio.load(article.body);
+            expect($('a').length).to.equal(3);
+        });
+    
         it('Get a specified number of paragraphs from the article body', function() {
             var article = new models.Article(fixtures.article);
             var p = article.paragraphs(0, 4);
@@ -34,7 +41,7 @@ describe('Article model', function(){
     
         it('Calculate the article word count and estimated reading time', function() {
             var article = new models.Article(fixtures.article);
-            expect(article.wordCount).to.equal(766);
+            expect(article.wordCount).to.equal(776);
             expect(article.readingTime).to.equal(3); // in minutes
         });
         
@@ -139,6 +146,14 @@ describe('Article model', function(){
         xit("Indicates if the aricle contains audio", function () { });
         xit('Extract the video from the article, Eg, article.videos', function() {});
 
+    });
+
+    describe('Paragraphs', function () {
+	it("Provides an option to remove images from paragraphs", function () {
+	  var article = new models.Article(fixtures.article);
+	  expect(!!article.paragraphs(0, 1, { removeImages: false }).html().match(/<img[^>]*>/)).to.be.true;
+	  expect(!!article.paragraphs(0, 1).html().match(/<img[^>]*>/)).to.be.false;
+	});
     });
 
     // people, orgs, regions/places

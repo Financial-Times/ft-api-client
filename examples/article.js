@@ -23,5 +23,5 @@ ft
   .then(function (articles) {
     console.log(articles);
   }, function (err) {
-    console.log('error', err); 
+    console.log('error', err);
   });
