@@ -10,16 +10,18 @@ console.log(id);
 ft
   .get(id)
   .then(function (article) {
-    console.log(article.paragraphs(0, 2).html());
+    console.log(article.id);
+    console.log(article.largestImage);
+    console.log(article.paragraphs(0, 2));
   }, function (err) {
     console.log('error'); 
   });
 
 
-//ft
-//  .search('topics:%22Climate%20change%22') // or authors:%22Martin%20Wolf%22
-//  .then(function (articles) {
-//    console.log(articles);
-//  }, function (err) {
-//    console.log('error', err); 
-//  });
+ft
+  .search('topics:%22Climate%20change%22') // or authors:%22Martin%20Wolf%22
+  .then(function (articles) {
+    console.log(articles);
+  }, function (err) {
+    console.log('error', err);
+  });
