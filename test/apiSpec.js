@@ -18,7 +18,8 @@ describe('API', function(){
     var searchPath = '/content/search/v1?apiKey=%s';
     var fixtures = {
         article: fs.readFileSync('test/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' }),
-        search:  fs.readFileSync('test/fixtures/search-for__climate-change', { encoding: 'utf8' })
+        search:  fs.readFileSync('test/fixtures/search-for__climate-change', { encoding: 'utf8' }),
+        page:    fs.readFileSync('test/fixtures/page_front-page', { encoding: 'utf8' })
     };
 
     it('Get an article', function(done) {
@@ -43,29 +44,24 @@ describe('API', function(){
 
     // FIXME - need tests for no search results, errors, maxResults etc...
     it('Search for articles matching a term', function(done) {
-
         nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
-        
         ft.search('Climate change')
           .then(function (articles) {
             var foo = articles.map(function (article) {
                 return article.id;
             });
             expect(foo).to.deep.equal([ '3031199c-3e8d-11e4-a620-00144feabdc0',
-                                   'c48b2eac-3fb9-11e4-a381-00144feabdc0',
-                                   '3c34252e-3fd0-11e4-a381-00144feabdc0' ]);
+                                        'c48b2eac-3fb9-11e4-a381-00144feabdc0',
+                                        '3c34252e-3fd0-11e4-a381-00144feabdc0'  ]);
             done();
         }, function (err) { console.log(err); });
     });
     
     it('Return the specified number of search results', function(done) {
-
         var spy = sinon.spy(function (body) {
             return '*';
         })
-
         nock(host).filteringRequestBody(spy).post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
-        
         ft.search("Portillo's teeth removed to boost pound", 99)
           .then(function (articles) {
             expect(spy.calledOnce).to.true;
@@ -74,6 +70,18 @@ describe('API', function(){
         }, function (err) { console.log(err); });
     });
 
+    it('Search for pages (i.e. curated content)', function(done) {
+        var path = '/site/v1/pages/4c499f12-4e94-11de-8d4c-00144feabdc0/main-content?apiKey=%s';
+        nock(host).get(util.format(path, '123')).reply(200, fixtures.page);
+        ft.search('page:Front page')
+          .then(function (articles) {
+            var foo = articles.map(function (article) {
+                return article.id;
+            });
+            expect(foo[1]).to.equal('118b635a-4a34-11e4-bc07-00144feab7de');
+            done();
+        }, function (err) { console.log(err); });
+    });
     
     // We probably want to resolve HTTP errors rather than reject them as in the case of fetching 
     // several articles in a batch the Promise will fail if it receives a single error. It's probably more 
