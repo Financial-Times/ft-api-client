@@ -23,7 +23,7 @@ describe('API', function(){
 
     it('Get an article', function(done) {
         nock(host).get(util.format(path, 'abc', '123')).reply(200, fixtures.article);
-        ft.items('abc')
+        ft.get('abc')
           .then(function (article) {
             expect(article.id).to.equal('03b49444-16c9-11e3-bced-00144feabdc0');
             done();
@@ -34,7 +34,7 @@ describe('API', function(){
         nock(host).get(util.format(path, 'x', '123')).reply(200, fixtures.article);
         nock(host).get(util.format(path, 'y', '123')).reply(200, fixtures.article);
         nock(host).get(util.format(path, 'z', '123')).reply(200, fixtures.article);
-        ft.items(['x', 'z', 'y'])
+        ft.get(['x', 'z', 'y'])
           .then(function (articles) {
             expect(articles.length).to.equal(3);
             done();
@@ -81,7 +81,7 @@ describe('API', function(){
 
     it('Resolve calls that result in API errors as undefined', function(done) {
         nock(host).get(util.format(path, 'abc', '123')).reply(503, 'error');
-        ft.items('abc')
+        ft.get('abc')
           .then(function (article) {
             expect(article).to.equal(undefined);
             done();
@@ -91,7 +91,7 @@ describe('API', function(){
     it('Fulfill the Promise.all even if some of the API call fail', function(done) {
         nock(host).get(util.format(path, 'x', '123')).reply(200, fixtures.article);
         nock(host).get(util.format(path, 'y', '123')).reply(503, fixtures.article);
-        ft.items(['x', 'y'])
+        ft.get(['x', 'y'])
           .then(function (articles) {
             expect(articles.filter(function (article) {
                 return !!article; 
@@ -102,7 +102,7 @@ describe('API', function(){
     
     it('Reject api calls that return invalid JSON', function(done) {
         nock(host).get(util.format(path, 'abc', '123')).reply(200, '{ "bad" "json" }');
-        ft.items('abc')
+        ft.get('abc')
           .then(noop, function (error) {
             expect(error).to.equal('error parsing JSON');
             done();
