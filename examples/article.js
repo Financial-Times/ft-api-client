@@ -34,3 +34,11 @@ ft
   }, function (err) {
     console.log('error', err);
   });
+
+ft
+  .search('page:Front page')
+  .then(function (articles) {
+    console.log(articles)
+  }, function (err) {
+    console.log('error', err);
+  });
