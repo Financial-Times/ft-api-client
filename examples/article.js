@@ -6,7 +6,7 @@ var ft = require('../lib/api')(process.env.apikey);
 var id = process.argv[2] || 'b3665d54-3b5e-11e4-885d-00144feabdc0';
 
 ft
-  .get(id)
+  .items(id)
   .then(function (article) {
     console.log(article.id);
     console.log(article.largestImage.url);
@@ -18,7 +18,7 @@ ft
   .search('authors:"Martin Wolf"', 7)
   .then(function (articles) {
       ft
-        .get(articles.map(
+        .items(articles.map(
             function (article) {
                 return article.id
             }
