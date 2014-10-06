@@ -1,4 +1,5 @@
 'use strict';
+
 var cheerio = require('cheerio');
 var url     = require('url');
 var util    = require('util');
@@ -188,7 +189,7 @@ Object.defineProperty(Article.prototype, 'has_video', {
 });
 
 /**
- * Indicates that the article contains a video.
+ * Returns a list of videos associated with the article  
  * @return Array 
  */
 Object.defineProperty(Article.prototype, 'videos', {
@@ -204,7 +205,7 @@ Object.defineProperty(Article.prototype, 'videos', {
 });
 
 /**
- * Indicates that the article contains a video.
+ * Indicates that the article contains a gallery.
  * @return Boolean 
  */
 Object.defineProperty(Article.prototype, 'has_gallery', {
