@@ -60,7 +60,7 @@ describe('API', function(){
     it('Return the specified number of search results', function(done) {
         var spy = sinon.spy(function (body) {
             return '*';
-        })
+        });
         nock(host).filteringRequestBody(spy).post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
         ft.search("Portillo's teeth removed to boost pound", 99)
           .then(function (articles) {
@@ -88,8 +88,9 @@ describe('API', function(){
     // tolerant to mask the errors.
 
     it('Resolve calls that result in API errors as undefined', function(done) {
-        nock(host).get(util.format(path, 'abc', '123')).reply(503, 'error');
-        ft.get('abc')
+        var id  = 'abced';
+        nock(host).get(util.format(path, id, '123')).reply(503, 'error');
+        ft.get(id)
           .then(function (article) {
             expect(article).to.equal(undefined);
             done();
@@ -97,9 +98,10 @@ describe('API', function(){
     });
 
     it('Fulfill the Promise.all even if some of the API call fail', function(done) {
-        nock(host).get(util.format(path, 'x', '123')).reply(200, fixtures.article);
-        nock(host).get(util.format(path, 'y', '123')).reply(503, fixtures.article);
-        ft.get(['x', 'y'])
+        var ids = ['xxx', 'yyy'];
+        nock(host).get(util.format(path, ids[0], '123')).reply(200, fixtures.article);
+        nock(host).get(util.format(path, ids[1], '123')).reply(503, fixtures.article);
+        ft.get([ids[0], ids[1]])
           .then(function (articles) {
             expect(articles.filter(function (article) {
                 return !!article; 
@@ -109,8 +111,9 @@ describe('API', function(){
     });
     
     it('Reject api calls that return invalid JSON', function(done) {
-        nock(host).get(util.format(path, 'abc', '123')).reply(200, '{ "bad" "json" }');
-        ft.get('abc')
+        var id = 'abcdefghi';
+        nock(host).get(util.format(path, id, '123')).reply(200, '{ "bad" "json" }');
+        ft.get(id)
           .then(noop, function (error) {
             expect(error).to.equal('error parsing JSON');
             done();
