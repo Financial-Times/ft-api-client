@@ -30,6 +30,15 @@ describe('API', function(){
             done();
         });
     });
+
+    it('Check it was cached for a subsequent resposne', function(done) {
+        nock(host).get(util.format(path, 'abc', '123')).reply(200, fixtures.article);
+        ft.get('abc')
+          .then(function (article) {
+            expect(article.raw.wasCached).to.equal(true);
+            done();
+        });
+    });    
     
     it('Get several articles in a single request', function(done) {
         nock(host).get(util.format(path, 'x', '123')).reply(200, fixtures.article);
