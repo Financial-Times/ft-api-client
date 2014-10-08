@@ -17,13 +17,13 @@
   "dependencies": {
     "cheerio": "^0.17.0",
     "debug": "^2.0.0",
-    "es6-promise": "^1.0.0",
     "lodash": "^2.4.1",
     "request": "2.22.0",
     "ttl-lru-cache": "0.0.2"
   },
   "devDependencies": {
     "chai": "^1.9.1",
+    "es6-promise": "^1.0.0",
     "grunt": "0.4.1",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-jshint": "0.10.0",
