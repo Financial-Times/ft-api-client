@@ -1,4 +1,5 @@
 'use strict';
+
 var expect  = require("chai").expect;
 var fs      = require("fs");
 var cheerio = require("cheerio");
@@ -119,6 +120,11 @@ describe('Article model', function(){
         it("Indicates if the article contains video", function () {
             var article = new models.Article(fixtures.article);
             expect(article.has_video).to.be.true;
+        });
+        
+        it("Get the associated videos", function () {
+            var article = new models.Article(fixtures.article);
+            expect(article.videos[0].fields.sourceReference).to.equal('3794473930001');
         });
         
         it("List the packages", function () {

@@ -189,6 +189,22 @@ Object.defineProperty(Article.prototype, 'has_video', {
 
 /**
  * Indicates that the article contains a video.
+ * @return Array 
+ */
+Object.defineProperty(Article.prototype, 'videos', {
+    get: function () {
+        if (this.raw.item.assets) {
+            return this.raw.item.assets.filter(function (asset) {
+                return asset.type === 'video';
+            });
+        } else {
+            return [];
+        }
+    }
+});
+
+/**
+ * Indicates that the article contains a video.
  * @return Boolean 
  */
 Object.defineProperty(Article.prototype, 'has_gallery', {
