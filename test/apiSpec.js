@@ -110,7 +110,7 @@ describe('API', function(){
         var ids = ['xxx', 'yyy'];
         nock(host).get(util.format(path, ids[0], '123')).reply(200, fixtures.article);
         nock(host).get(util.format(path, ids[1], '123')).reply(503, fixtures.article);
-        ft.get([ids[0], ids[1]])
+        ft.get(ids)
           .then(function (articles) {
             expect(articles.filter(function (article) {
                 return !!article; 
