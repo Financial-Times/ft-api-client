@@ -8,4 +8,4 @@ module.exports.findByTitle = function (title) {
 			return item;
 		}
 	});
-}
+};
