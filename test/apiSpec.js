@@ -35,7 +35,7 @@ describe('API', function(){
         nock(host).get(util.format(path, 'abc', '123')).reply(200, fixtures.article);
         ft.get('abc')
           .then(function (article) {
-            expect(article.raw.wasCached).to.equal(true);
+            expect(article.raw.cacheHit).to.equal(true);
             done();
         });
     });    
