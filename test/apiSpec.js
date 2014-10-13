@@ -19,7 +19,7 @@ describe('API', function(){
     var fixtures = {
         article: fs.readFileSync('test/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' }),
         search:  fs.readFileSync('test/fixtures/search-for__climate-change', { encoding: 'utf8' }),
-		searchNoResults : fs.readFileSync('test/fixtures/search-no_results', {encoding: 'utf8'}),
+        searchNoResults : fs.readFileSync('test/fixtures/search-no_results', {encoding: 'utf8'}),
         page:    fs.readFileSync('test/fixtures/page_front-page', { encoding: 'utf8' })
     };
 
