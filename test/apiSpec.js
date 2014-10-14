@@ -139,9 +139,9 @@ describe('API', function(){
             }, done)
     });
 
-    it.only('Should be possible to perform a  low-level search using a custom body', function(done){
-        var filterStub = sinon.stub().returnsArg(0);
-        nock(host).filteringRequestBody(filterStub).post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
+    it('Should be possible to perform a  low-level search using a custom body', function(done){
+        var filterStub = sinon.stub().returns('*');
+        nock(host).filteringRequestBody(filterStub).post(util.format(searchPath, '123')).reply(200, fixtures.search);
 
         var searchBody = {
             "queryString":"Climate Change",
@@ -156,17 +156,20 @@ describe('API', function(){
                 "highlight": false,
                 "facets":{
                     "names":["organisations"],
-                    "maxElements":-1,
-                    "minThreshold":100
+                    "maxElements":-1
                 }
             }
         };
 
-        debugger;
         ft.search(searchBody)
             .then(function(articles){
-                var requestBody = filterStub.lastCall().args[0];
-                expect(requestBody).to.contain(JSON.stringify(searchBody));
+                try{
+                    var requestBody = filterStub.lastCall.args[0];
+                    expect(requestBody).to.contain(JSON.stringify(searchBody));
+                    done();
+                }catch(e){
+                    done(e);
+                }
             }, done);
 
     });
