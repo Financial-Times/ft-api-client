@@ -1,7 +1,13 @@
 'use strict';
-var cheerio = require('cheerio');
+
 var url     = require('url');
 var util    = require('util');
+
+// body text processing
+var cheerio                 = require('cheerio');
+var removeNonArticleLinks   = require('../models/cheerio/remove-non-article-links');
+var relativeLinks           = require('../models/cheerio/relative-links');
+var removeEmptyParagraphs   = require('../models/cheerio/remove-empty-paragraphs');
 
 function Article (obj) {
     if (obj && obj.item) { 
@@ -188,7 +194,7 @@ Object.defineProperty(Article.prototype, 'has_video', {
 });
 
 /**
- * Indicates that the article contains a video.
+ * Returns a list of videos associated with the article  
  * @return Array 
  */
 Object.defineProperty(Article.prototype, 'videos', {
@@ -204,7 +210,7 @@ Object.defineProperty(Article.prototype, 'videos', {
 });
 
 /**
- * Indicates that the article contains a video.
+ * Indicates that the article contains a gallery.
  * @return Boolean 
  */
 Object.defineProperty(Article.prototype, 'has_gallery', {
@@ -241,46 +247,12 @@ Object.defineProperty(Article.prototype, 'quotes', {
 Object.defineProperty(Article.prototype, 'body', {
     get: function () {
 
-	var removeEmptyParagraphs = function(html) {
-	    return html.replace(/<p>\s+<\/p>/, '');
-	};
-        
-        // Fix any old ft links, Eg. 
-        //  www.ft.com/cms/s/43515588-00fc-11e4-a938-00144feab7de.html -> /43515588-00fc-11e4-a938-00144feab7de 
-        var relativeLinks = function (html) {
-            var $ = cheerio.load(html);
-            $('a').attr('href', function (index, value) {
-                var path = url.parse(value).pathname;
-                var re = /\/([^\/]+)\.html$/.exec(path);
-                if (re) {
-                    return '/' + re[1]; 
-                }
-                return value;
-            });
-            return $.html();
-        };
-       
-        // Strips any links from the HTML that aren't Content API articles 
-        var removeNonArticleLinks = function (html) {
-            var $ = cheerio.load(html);
-            $('a').replaceWith(function (index, el) {
-                var isContentApiLink = /^\/([\w\d]+)-([\w\d]+)-([\w\d]+)-([\w\d]+)-([\w\d]+)$/.test(el.attribs.href);
-                var textContent = (el.children.length > 0) ? el.children[0].data : '';
-                if (isContentApiLink) {
-                    return util.format('<a href="%s">%s</a>', el.attribs.href, textContent);
-                } else {
-                    return textContent; 
-                }
-
-            });
-            return $.html();
-        };
-      
         var html = this.raw.item.body.body;
-       
+
         try {
             return removeNonArticleLinks(relativeLinks(removeEmptyParagraphs(html)));
         } catch (e) {
+            console.error('Error parsing article body', e);
             return '<p>Error parsing this article.</p>';
         }
 
