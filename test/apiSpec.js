@@ -130,13 +130,49 @@ describe('API', function(){
         });
     });
 
-	it.only('Should not die when no search results are returned', function(done){
-		nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.searchNoResults);
-		ft.search('brand:Apple')
-			.then(function(articles){
-				expect(articles.length).to.equal(0);
-				done();
-			}, done)
-	});
+    it('Should not die when no search results are returned', function(done){
+        nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.searchNoResults);
+        ft.search('brand:Apple')
+            .then(function(articles){
+                expect(articles.length).to.equal(0);
+                done();
+            }, done)
+    });
+
+    it('Should be possible to perform a  low-level search using a custom body', function(done){
+        var filterStub = sinon.stub().returns('*');
+        nock(host).filteringRequestBody(filterStub).post(util.format(searchPath, '123')).reply(200, fixtures.search);
+
+        var searchBody = {
+            "queryString":"Climate Change",
+            "queryContext":{
+                "curations":["ARTICLES"]
+            },
+            "resultContext":{
+                "aspects" : ["editorial","images","lifecycle","location","master","metadata","nature","summary","title"],
+                "maxResults": 5,
+                "offset":0,
+                "contextual": true,
+                "highlight": false,
+                "facets":{
+                    "names":["organisations"],
+                    "maxElements":-1
+                }
+            }
+        };
+
+        ft.search(searchBody)
+            .then(function(articles){
+                try{
+                    var requestBody = filterStub.lastCall.args[0];
+                    expect(requestBody).to.contain(JSON.stringify(searchBody));
+                    done();
+                }catch(e){
+                    done(e);
+                }
+            }, done);
+
+    });
+
 
 });
