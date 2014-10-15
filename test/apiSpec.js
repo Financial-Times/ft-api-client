@@ -132,7 +132,6 @@ describe('API', function(){
 
     it('Should not die when no search results are returned', function(done){
         nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.searchNoResults);
-        debugger;
         ft.search('brand:Apple')
             .then(function(articles){
                 expect(articles.length).to.equal(0);
