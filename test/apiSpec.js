@@ -130,13 +130,12 @@ describe('API', function(){
         });
     });
 
-	it.only('Should not die when no search results are returned', function(done){
-		nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.searchNoResults);
-		ft.search('brand:Apple')
-			.then(function(articles){
-				expect(articles.length).to.equal(0);
-				done();
-			}, done)
-	});
-
+    it('Should not die when search returns zero results', function(done){
+        nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.searchNoResults);
+        ft.search('brand:Apple')
+            .then(function(articles){
+                expect(articles.length).to.equal(0);
+                done();
+            }, done)
+    });
 });
