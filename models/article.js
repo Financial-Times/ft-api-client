@@ -102,6 +102,21 @@ Object.defineProperty(Article.prototype, 'organisations', {
 });
 
 /**
+ * Returns a list of countries 
+ */
+Object.defineProperty(Article.prototype, 'regions', {
+    get: function () {
+        if (this.raw.item.metadata && this.raw.item.metadata.organisations) {
+            return this.raw.item.metadata.regions.map(function (region) {
+                region.term.searchString = 'regions:"' + region.term.name + '"';
+                return region.term;
+            });
+        }
+        return [];
+    }
+});
+
+/**
  * Returns a list of stock market ticker symbols related to the article 
  */
 Object.defineProperty(Article.prototype, 'tickerSymbols', {

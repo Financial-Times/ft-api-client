@@ -87,6 +87,15 @@ describe('Article model', function(){
             expect(article.organisations[0].searchString).to.equal('organisations:"Group of Twenty"');
         });
         
+        it('Get a list of regions the article mentions', function() {
+            var article = new models.Article(fixtures.article);
+            var regions = article.regions.map(function (region) {
+                return region.name;
+            }).join(", ");
+            expect(regions).to.equal("United Kingdom, Russia, Syria, United States of America");
+            expect(article.regions[0].searchString).to.equal('regions:"United Kingdom"');
+        });
+        
         it('Get a list of organisations stock market symbols', function() {
             var article = new models.Article(fixtures.article);
             expect(article.tickerSymbols).to.deep.equal([
