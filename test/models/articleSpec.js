@@ -26,13 +26,6 @@ describe('Article model', function(){
             expect($('a').length).to.equal(3);
         });
     
-        it('Get a specified number of paragraphs from the article body', function() {
-            var article = new models.Article(fixtures.article);
-            var p = article.paragraphs(0, 4);
-            expect(p.length).to.equal(4);
-            expect(p.text()).to.match(/(.*)principle\.”$/);
-        });
-    
         it('Calculate the article word count and estimated reading time', function() {
             var article = new models.Article(fixtures.article);
             expect(article.wordCount).to.equal(776);
@@ -105,7 +98,7 @@ describe('Article model', function(){
         
         });
         
-        it('Get a list of topic the article refers to', function() {
+        it('Get a list of topics the article refers to', function() {
             var article = new models.Article(fixtures.article);
             var topics = article.topics.map(function (topic) {
                 return topic.name;
@@ -187,6 +180,14 @@ describe('Article model', function(){
             expect(!!article.paragraphs(0, 1, { removeImages: false }).html().match(/<img[^>]*>/)).to.be.true;
             expect(!!article.paragraphs(0, 1).html().match(/<img[^>]*>/)).to.be.false;
         });
+        
+        it('Get a specified number of paragraphs from the article body', function() {
+            var article = new models.Article(fixtures.article);
+            var p = article.paragraphs(0, 4);
+            expect(p.length).to.equal(4);
+            expect(p.text()).to.match(/(.*)principle\.”$/);
+        });
+    
 
     });
 
