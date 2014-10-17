@@ -56,8 +56,8 @@ describe('API', function(){
     it('Search for articles matching a term', function(done) {
         nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
         ft.search('Climate change')
-          .then(function (articles) {
-            var foo = articles.map(function (article) {
+          .then(function (result) {
+            var foo = result.articles.map(function (article) {
                 return article.id;
             });
             expect(foo).to.deep.equal([ '3031199c-3e8d-11e4-a620-00144feabdc0',
@@ -73,7 +73,7 @@ describe('API', function(){
         });
         nock(host).filteringRequestBody(spy).post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
         ft.search("Portillo's teeth removed to boost pound", 99)
-          .then(function (articles) {
+          .then(function () {
             expect(spy.calledOnce).to.true;
             expect(JSON.parse(spy.firstCall.args[0]).resultContext.maxResults).to.equal(99);
             done();
@@ -133,9 +133,25 @@ describe('API', function(){
     it('Should not die when search returns zero results', function(done){
         nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.searchNoResults);
         ft.search('brand:Apple')
-            .then(function(articles){
-                expect(articles.length).to.equal(0);
+            .then(function(response){
+                expect(response.articles.length).to.equal(0);
                 done();
             }, done)
+    });
+
+    it('Should return a list of facets that appear in the results', function(done){
+        var result = JSON.parse(fixtures.search);
+        nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
+        ft.search('Climate change')
+            .then(function (response) {
+                try{
+                    expect(response.meta.facets).to.exist;
+                    expect(response.meta.facets[0].name).to.equal(result.results[0].facets[0].name);
+                    done();
+                }catch(e){
+                    done(e);
+                }
+
+            }, done);
     });
 });
