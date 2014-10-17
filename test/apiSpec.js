@@ -145,8 +145,8 @@ describe('API', function(){
         ft.search('Climate change')
             .then(function (response) {
                 try{
-                    expect(response.facets).to.exist;
-                    expect(response.facets[0].name).to.equal(result.results[0].facets[0].name);
+                    expect(response.meta.facets).to.exist;
+                    expect(response.meta.facets[0].name).to.equal(result.results[0].facets[0].name);
                     done();
                 }catch(e){
                     done(e);
