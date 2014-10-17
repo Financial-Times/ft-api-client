@@ -97,6 +97,30 @@ describe('Article model', function(){
             expect(article.regions[0].searchString).to.equal('regions:"United Kingdom"');
         });
         
+        // TODO - not sure if we want to use sections in v3 as it re-enforces
+        // the view that the world is seen through our editorial structure.
+        
+        xit('Get a list of the sections an article is classfied under', function() { });
+        
+        it('Get a subjects the article is about', function() {
+            var article = new models.Article(fixtures.article);
+            var subjects = article.subjects.map(function (subject) {
+                return subject.name;
+            }).join(", ");
+            expect(subjects).to.equal("Summits & Talks, National Security, Politics, General News, Human Resources & Employment, Industrial Relations & Unions");
+            expect(article.subjects[0].searchString).to.equal('subjects:"Summits & Talks"');
+        
+        });
+        
+        it('Get a list of topic the article refers to', function() {
+            var article = new models.Article(fixtures.article);
+            var topics = article.topics.map(function (topic) {
+                return topic.name;
+            }).join(", ");
+            expect(topics).to.equal("Syria crisis");
+            expect(article.topics[0].searchString).to.equal('topics:"Syria crisis"');
+        });
+        
         it('Get a list of organisations stock market symbols', function() {
             var article = new models.Article(fixtures.article);
             expect(article.tickerSymbols).to.deep.equal([

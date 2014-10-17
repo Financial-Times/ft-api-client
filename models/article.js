@@ -114,7 +114,7 @@ Object.defineProperty(Article.prototype, 'organisations', {
 });
 
 /**
- * Returns a list of countries 
+ * Returns a list of countries, places etc. 
  */
 Object.defineProperty(Article.prototype, 'regions', {
     get: function () {
@@ -122,6 +122,36 @@ Object.defineProperty(Article.prototype, 'regions', {
             return this.raw.item.metadata.regions.map(function (region) {
                 region.term.searchString = 'regions:"' + region.term.name + '"';
                 return region.term;
+            });
+        }
+        return [];
+    }
+});
+
+/**
+ * Returns a list of topics 
+ */
+Object.defineProperty(Article.prototype, 'topics', {
+    get: function () {
+        if (this.raw.item.metadata && this.raw.item.metadata.topics) {
+            return this.raw.item.metadata.topics.map(function (topic) {
+                topic.term.searchString = 'topics:"' + topic.term.name + '"';
+                return topic.term;
+            });
+        }
+        return [];
+    }
+});
+
+/**
+ * Returns a list of subjects the article is about
+ */
+Object.defineProperty(Article.prototype, 'subjects', {
+    get: function () {
+        if (this.raw.item.metadata && this.raw.item.metadata.subjects) {
+            return this.raw.item.metadata.subjects.map(function (subject) {
+                subject.term.searchString = 'subjects:"' + subject.term.name + '"';
+                return subject.term;
             });
         }
         return [];
