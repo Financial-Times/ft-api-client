@@ -26,13 +26,6 @@ describe('Article model', function(){
             expect($('a').length).to.equal(3);
         });
     
-        // This is specifically for Next. We don't support all types of content from day 1.
-        it('Remove links that are not Content API articles from the body', function() {
-            var article = new models.Article(fixtures.article);
-            var $ = cheerio.load(article.body);
-            expect($('a').length).to.equal(3);
-        });
-    
         it('Get a specified number of paragraphs from the article body', function() {
             var article = new models.Article(fixtures.article);
             var p = article.paragraphs(0, 4);
