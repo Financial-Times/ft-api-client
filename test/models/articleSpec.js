@@ -12,7 +12,7 @@ describe('Article model', function(){
         article: JSON.parse(fs.readFileSync('test/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' }))
     };
 
-    describe('Body', function () {
+    describe('Editorial', function () {
 
         it('Convert article links to relative paths', function() {
             var article = new models.Article(fixtures.article);
@@ -45,6 +45,11 @@ describe('Article model', function(){
             expect(article.wordCount).to.equal(776);
             expect(article.readingTime).to.equal(3); // in minutes
         });
+
+        it('Get the headline', function() {
+            var article = new models.Article(fixtures.article);
+            expect(article.headline).to.equal('Obama steadfast on Syria strikes despite G20 opposition');
+        });
         
     });
 
@@ -55,10 +60,6 @@ describe('Article model', function(){
             expect(article.firstPublished.toUTCString()).to.equal('Fri, 06 Sep 2013 09:12:45 GMT');
             expect(article.lastUpdated.toUTCString()).to.equal('Fri, 06 Sep 2013 16:16:04 GMT');
         });
-    
-        // FIXME 
-        xit('Get the published and updated dates as relative time', function() { });
-    
     
         it('Get a list of article authors (i.e. byline)', function() {
             var article = new models.Article(fixtures.article);
@@ -87,6 +88,39 @@ describe('Article model', function(){
             expect(article.organisations[0].searchString).to.equal('organisations:"Group of Twenty"');
         });
         
+        it('Get a list of regions the article mentions', function() {
+            var article = new models.Article(fixtures.article);
+            var regions = article.regions.map(function (region) {
+                return region.name;
+            }).join(", ");
+            expect(regions).to.equal("United Kingdom, Russia, Syria, United States of America");
+            expect(article.regions[0].searchString).to.equal('regions:"United Kingdom"');
+        });
+        
+        // TODO - not sure if we want to use sections in v3 as it re-enforces
+        // the view that the world is seen through our editorial structure.
+        
+        xit('Get a list of the sections an article is classfied under', function() { });
+        
+        it('Get a subjects the article is about', function() {
+            var article = new models.Article(fixtures.article);
+            var subjects = article.subjects.map(function (subject) {
+                return subject.name;
+            }).join(", ");
+            expect(subjects).to.equal("Summits & Talks, National Security, Politics, General News, Human Resources & Employment, Industrial Relations & Unions");
+            expect(article.subjects[0].searchString).to.equal('subjects:"Summits & Talks"');
+        
+        });
+        
+        it('Get a list of topic the article refers to', function() {
+            var article = new models.Article(fixtures.article);
+            var topics = article.topics.map(function (topic) {
+                return topic.name;
+            }).join(", ");
+            expect(topics).to.equal("Syria crisis");
+            expect(article.topics[0].searchString).to.equal('topics:"Syria crisis"');
+        });
+        
         it('Get a list of organisations stock market symbols', function() {
             var article = new models.Article(fixtures.article);
             expect(article.tickerSymbols).to.deep.equal([
@@ -112,7 +146,7 @@ describe('Article model', function(){
             var article = new models.Article(fixtures.article);
             expect(article.genre).to.equal('News');
         });
-    
+        
     });
 
     describe('Assets', function () {
@@ -150,16 +184,17 @@ describe('Article model', function(){
         
         // TODO audio etc. 
         xit("Indicates if the aricle contains audio", function () { });
-        xit('Extract the video from the article, Eg, article.videos', function() {});
 
     });
 
     describe('Paragraphs', function () {
-	it("Provides an option to remove images from paragraphs", function () {
-	  var article = new models.Article(fixtures.article);
-	  expect(!!article.paragraphs(0, 1, { removeImages: false }).html().match(/<img[^>]*>/)).to.be.true;
-	  expect(!!article.paragraphs(0, 1).html().match(/<img[^>]*>/)).to.be.false;
-	});
+        
+        it("Provides an option to remove images from paragraphs", function () {
+            var article = new models.Article(fixtures.article);
+            expect(!!article.paragraphs(0, 1, { removeImages: false }).html().match(/<img[^>]*>/)).to.be.true;
+            expect(!!article.paragraphs(0, 1).html().match(/<img[^>]*>/)).to.be.false;
+        });
+
     });
 
     // people, orgs, regions/places
