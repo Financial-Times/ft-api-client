@@ -45,6 +45,18 @@ Article.prototype.paragraphs = function (to, from, options) {
 /**
  * Returns a list of package id's
  */
+Object.defineProperty(Article.prototype, 'headline', {
+    get: function () {
+        if (this.raw.item.title) {
+            return this.raw.item.title.title
+        }
+        return false;
+    }
+});
+
+/**
+ * Returns a list of package id's
+ */
 Object.defineProperty(Article.prototype, 'packages', {
     get: function () {
         if (this.raw.item.package) {
