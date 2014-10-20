@@ -185,7 +185,67 @@ describe('API', function(){
                     }
 
                 }, done);
-        })
+        });
+
+        it('Should return the total number of results', function(done){
+            var result = JSON.parse(fixtures.search);
+            var facets = ["people", "organisations"];
+            nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
+            ft.search('Climate change', 5, facets)
+                .then(function (response) {
+                    try{
+                       expect(response.meta.counts.total).to.equal(result.results[0].indexCount);
+                        done();
+                    }catch(e){
+                        done(e);
+                    }
+
+                }, done);
+        });
+
+        it('Should return the total count for each facet', function(done){
+            var result = JSON.parse(fixtures.search);
+            var facets = ["people", "organisations"];
+            nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
+            ft.search('Climate change', 5, facets)
+                .then(function (response) {
+                    try{
+                        var total = result.results[0].facets[0].facetElements.reduce(function(count, facet){
+                            return count + facet.count;
+                        }, 0);
+                       expect(response.meta.facets[0].totalCount).to.equal(total);
+                        done();
+                    }catch(e){
+                        done(e);
+                    }
+
+                }, done);
+        });
+
+        it('Should return the top 5 elements across all facets', function(done){
+            var result = JSON.parse(fixtures.search);
+            var allFacets = [];
+
+            result.results[0].facets.forEach(function(facet){
+                allFacets = allFacets.concat(facet.facetElements);
+            });
+
+            allFacets.sort(function(a, b){
+                return b.count - a.count;
+            });
+
+            nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
+            ft.search('Climate change', 5)
+                .then(function (response) {
+                    debugger;
+                    try{
+                        expect(response.meta.insights.top5Facets).to.deep.equal(allFacets.slice(0,5));
+                        done();
+                    }catch(e){
+                        done(e);
+                    }
+                }, done);
+        });
 
     }); // End of Search Section
 });
