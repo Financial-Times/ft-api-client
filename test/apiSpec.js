@@ -135,6 +135,7 @@ describe('API', function(){
         ft.search('brand:Apple')
             .then(function(response){
                 expect(response.articles.length).to.equal(0);
+                expect(response.meta.facets.length).to.equal(0);
                 done();
             }, done)
     });
