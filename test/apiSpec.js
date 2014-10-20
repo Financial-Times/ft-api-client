@@ -84,7 +84,8 @@ describe('API', function(){
         var path = '/site/v1/pages/4c499f12-4e94-11de-8d4c-00144feabdc0/main-content?apiKey=%s';
         nock(host).get(util.format(path, '123')).reply(200, fixtures.page);
         ft.search('page:Front page')
-          .then(function (articles) {
+          .then(function (results) {
+            var articles = results.articles;
             var foo = articles.map(function (article) {
                 return article.id;
             });
