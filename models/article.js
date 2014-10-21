@@ -214,7 +214,8 @@ Object.defineProperty(Article.prototype, 'genre', {
 });
 
 /**
- * Returns a the tone. Either - Newss, Comment, or Analysis.
+ * Returns a the tone, either - News, Comment, or Analysis - and default to
+ * news.
  */
 Object.defineProperty(Article.prototype, 'visualTone', {
     get: function () {
