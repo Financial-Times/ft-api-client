@@ -226,8 +226,9 @@ Object.defineProperty(Article.prototype, 'visualTone', {
             case 'Comment':
                 return 'comment';
             case 'News':
-            default:
                 return 'news';
+            default:
+                return 'vanilla';
         }
     }
 });
