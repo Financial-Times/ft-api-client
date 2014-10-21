@@ -239,7 +239,7 @@ describe('API', function(){
                 .then(function (response) {
                     debugger;
                     try{
-                        expect(response.meta.insights.top5Facets).to.deep.equal(allFacets.slice(0,5));
+                        expect(response.meta.facetElements).to.deep.equal(allFacets);
                         done();
                     }catch(e){
                         done(e);

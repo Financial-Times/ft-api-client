@@ -18,8 +18,8 @@ describe('Facets model', function(){
             return new FacetsModel(d);
         });
 
-        expect(models[0].name).to.equal(data[0].name);
-        expect(models[0].elements[0].name).to.equal(fixture.results[0].facets[0].facetElements[0].name);
-        expect(models[0].elements[0].count).to.equal(fixture.results[0].facets[0].facetElements[0].count);
+        expect(models[0].name).to.equal('organisations');
+        expect(models[0].elements[0].name).to.equal('European Union');
+        expect(models[0].elements[0].count).to.equal(3282);
     });
 });
