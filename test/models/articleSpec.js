@@ -127,10 +127,14 @@ describe('Article model', function(){
             // TODO expect(article.organisations[0].searchString).to.equal('organisations:"Group of Twenty"')
         });
        
-        // Sets the visual tone of the article
         it('Get the genre of the article', function() {
             var article = new models.Article(fixtures.article);
             expect(article.genre).to.equal('News');
+        });
+        
+        it('Get the (visual) tone of the article', function() {
+            var article = new models.Article(fixtures.article);
+            expect(article.visualTone).to.equal('news');
         });
         
     });

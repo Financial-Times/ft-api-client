@@ -200,6 +200,7 @@ Object.defineProperty(Article.prototype, 'tickerSymbols', {
         return [];
     }
 });
+
 /**
  * Returns a the genre. For simplicity articles only have one genre. 
  */
@@ -209,6 +210,24 @@ Object.defineProperty(Article.prototype, 'genre', {
             return this.raw.item.metadata.genre[0].term.name;
         }
         return undefined;
+    }
+});
+
+/**
+ * Returns a the tone. Either - Newss, Comment, or Analysis.
+ */
+Object.defineProperty(Article.prototype, 'visualTone', {
+    get: function () {
+
+        switch (this.genre) {
+            case 'Analysis':
+                return 'analysis';
+            case 'Comment':
+                return 'comment';
+            case 'News':
+            default:
+                return 'news';
+        }
     }
 });
 
