@@ -8,6 +8,8 @@ var cheerio                 = require('cheerio');
 var removeNonArticleLinks   = require('../models/cheerio/remove-non-article-links');
 var relativeLinks           = require('../models/cheerio/relative-links');
 var removeEmptyParagraphs   = require('../models/cheerio/remove-empty-paragraphs');
+var findInboundLinks        = require('../models/cheerio/find-inbound-links');
+var findOutboundLinks       = require('../models/cheerio/find-outbound-links');
 
 function Article (obj) {
     if (obj && obj.item) { 
@@ -41,6 +43,24 @@ Article.prototype.paragraphs = function (to, from, options) {
     if (removeImages) $('img').remove('img');
     return $('p').slice(to, from);
 };
+
+/**
+ * Returns a list of inbound links to other FT articles contained within the article body
+ */
+Object.defineProperty(Article.prototype, 'inboundLinks', {
+    get: function () {
+        return findInboundLinks(this.raw.item.body.body);
+    }
+});
+
+/**
+ * Returns a list of outbound links contained within the article body
+ */
+Object.defineProperty(Article.prototype, 'outboundLinks', {
+    get: function () {
+        return findOutboundLinks(this.raw.item.body.body);
+    }
+});
 
 /**
  * Returns a list of package id's

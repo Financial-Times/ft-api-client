@@ -14,7 +14,7 @@ describe('Article model', function(){
 
     describe('Editorial', function () {
 
-        it('Convert article links to relative paths', function() {
+        xit('Convert article links to relative paths', function() {
             var article = new models.Article(fixtures.article);
             expect(article.body).to.contain('href="/5ba75aac-1619-11e3-a57d-00144feabdc0"');
         });
@@ -23,26 +23,12 @@ describe('Article model', function(){
         it('Remove links that are not Content API articles from the body', function() {
             var article = new models.Article(fixtures.article);
             var $ = cheerio.load(article.body);
-            expect($('a').length).to.equal(3);
-        });
-    
-        // This is specifically for Next. We don't support all types of content from day 1.
-        it('Remove links that are not Content API articles from the body', function() {
-            var article = new models.Article(fixtures.article);
-            var $ = cheerio.load(article.body);
-            expect($('a').length).to.equal(3);
-        });
-    
-        it('Get a specified number of paragraphs from the article body', function() {
-            var article = new models.Article(fixtures.article);
-            var p = article.paragraphs(0, 4);
-            expect(p.length).to.equal(4);
-            expect(p.text()).to.match(/(.*)principle\.”$/);
+            expect($('a').length).to.equal(2);
         });
     
         it('Calculate the article word count and estimated reading time', function() {
             var article = new models.Article(fixtures.article);
-            expect(article.wordCount).to.equal(776);
+            expect(article.wordCount).to.equal(775);
             expect(article.readingTime).to.equal(3); // in minutes
         });
 
@@ -112,7 +98,7 @@ describe('Article model', function(){
         
         });
         
-        it('Get a list of topic the article refers to', function() {
+        it('Get a list of topics the article refers to', function() {
             var article = new models.Article(fixtures.article);
             var topics = article.topics.map(function (topic) {
                 return topic.name;
@@ -185,6 +171,19 @@ describe('Article model', function(){
         // TODO audio etc. 
         xit("Indicates if the aricle contains audio", function () { });
 
+        // Factors the effect prominence
+        it("List inbound links", function () {
+            var article = new models.Article(fixtures.article);
+            expect(article.inboundLinks[0]).to.equal('http://www.ft.com/cms/s/0/654f3846-149c-11e3-b3db-00144feabdc0.html');
+        });
+
+        it("List outbound links", function () {
+            var article = new models.Article(fixtures.article);
+            expect(article.outboundLinks[1]).to.equal('http://www.bbc.co.uk/news/uk-29662245');
+        });
+
+        xit("Denote sharecount", function () { });
+
     });
 
     describe('Paragraphs', function () {
@@ -194,8 +193,14 @@ describe('Article model', function(){
             expect(!!article.paragraphs(0, 1, { removeImages: false }).html().match(/<img[^>]*>/)).to.be.true;
             expect(!!article.paragraphs(0, 1).html().match(/<img[^>]*>/)).to.be.false;
         });
+        
+        it('Get a specified number of paragraphs from the article body', function() {
+            var article = new models.Article(fixtures.article);
+            var p = article.paragraphs(0, 4);
+            expect(p.length).to.equal(4);
+            expect(p.text()).to.match(/(.*)principle\.”$/);
+        });
 
     });
 
-    // people, orgs, regions/places
 });
