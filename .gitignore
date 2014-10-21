@@ -2,3 +2,4 @@ node_modules/
 .idea/
 *.iml
 lib/v2
+npm-debug.log
