@@ -138,7 +138,7 @@ Object.defineProperty(Article.prototype, 'organisations', {
  */
 Object.defineProperty(Article.prototype, 'regions', {
     get: function () {
-        if (this.raw.item.metadata && this.raw.item.metadata.organisations) {
+        if (this.raw.item.metadata && this.raw.item.metadata.regions) {
             return this.raw.item.metadata.regions.map(function (region) {
                 region.term.searchString = 'regions:"' + region.term.name + '"';
                 return region.term;
