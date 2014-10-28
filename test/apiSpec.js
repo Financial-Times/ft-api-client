@@ -14,8 +14,8 @@ describe('API', function(){
 
     var noop = function () { };
     var host = 'http://api.ft.com';
-    var path = '/content/items/v1/%s?apiKey=%s';
-    var searchPath = '/content/search/v1?apiKey=%s';
+    var path = '/content/items/v1/%s?apiKey=%s&feature.blogposts=on';
+    var searchPath = '/content/search/v1?apiKey=%s&feature.blogposts=on';
     var fixtures = {
         article: fs.readFileSync('test/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' }),
         search:  fs.readFileSync('test/fixtures/search-for__climate-change', { encoding: 'utf8' }),
@@ -81,7 +81,7 @@ describe('API', function(){
     });
 
     it('Search for pages (i.e. curated content)', function(done) {
-        var path = '/site/v1/pages/4c499f12-4e94-11de-8d4c-00144feabdc0/main-content?apiKey=%s';
+        var path = '/site/v1/pages/4c499f12-4e94-11de-8d4c-00144feabdc0/main-content?apiKey=%s&feature.blogposts=on';
         nock(host).get(util.format(path, '123')).reply(200, fixtures.page);
         ft.search('page:Front page')
           .then(function (results) {
