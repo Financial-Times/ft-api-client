@@ -9,14 +9,15 @@ var models  = require("../../models");
 describe('Article model', function(){
 
     var fixtures = {
-        article: JSON.parse(fs.readFileSync('test/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' }))
+        article: JSON.parse(fs.readFileSync('test/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' })),
+        brandedArticle: JSON.parse(fs.readFileSync('test/fixtures/3822867f-85bf-33a2-85a5-4a40974d7d9e', { encoding: 'utf8' }))
     };
 
     describe('Editorial', function () {
 
-        xit('Convert article links to relative paths', function() {
+        it('Convert article links to relative paths', function() {
             var article = new models.Article(fixtures.article);
-            expect(article.body).to.contain('href="/5ba75aac-1619-11e3-a57d-00144feabdc0"');
+            expect(article.body).not.to.contain('href="http://"');
         });
     
         // This is specifically for Next. We don't support all types of content from day 1.
@@ -36,7 +37,7 @@ describe('Article model', function(){
             var article = new models.Article(fixtures.article);
             expect(article.headline).to.equal('Obama steadfast on Syria strikes despite G20 opposition');
         });
-        
+
     });
 
     describe('Metadata', function () {
@@ -135,6 +136,11 @@ describe('Article model', function(){
         it('Get the (visual) tone of the article', function() {
             var article = new models.Article(fixtures.article);
             expect(article.visualTone).to.equal('news');
+        });
+
+        it('Get the brand of the article', function() {
+            var article = new models.Article(fixtures.brandedArticle);
+            expect(article.brand).to.equal('Gavyn Davies');
         });
         
     });
