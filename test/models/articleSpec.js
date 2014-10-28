@@ -140,7 +140,7 @@ describe('Article model', function(){
 
         it('Get the brand of the article', function() {
             var article = new models.Article(fixtures.brandedArticle);
-            expect(article.brand).to.equal('Gavyn Davies');
+            expect(article.brand.name).to.equal('Gavyn Davies');
         });
         
     });

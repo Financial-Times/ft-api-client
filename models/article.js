@@ -219,7 +219,7 @@ Object.defineProperty(Article.prototype, 'genre', {
 Object.defineProperty(Article.prototype, 'brand', {
     get: function () {
         if (this.raw.item.metadata && this.raw.item.metadata.brand && this.raw.item.metadata.brand.length) { 
-            return this.raw.item.metadata.brand[0].term.name;
+            return this.raw.item.metadata.brand[0].term;
         }
         return undefined;
     }
