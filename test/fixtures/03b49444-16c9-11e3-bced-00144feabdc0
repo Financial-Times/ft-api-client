@@ -214,7 +214,16 @@
                     }
                 }
             ],
-            "brand": [],
+            "brand": [
+                {
+                    "term": {
+                        "name": "Gavyn Davies",
+                        "id": "NDdkYzA2MzgtNzczNS00OGMxLWFhNjgtMjI0YWU0MzkyNmJh-QnJhbmRz",
+                        "attributes": [],
+                        "taxonomy": "brand"
+                    }
+                }
+            ],
             "genre": [
                 {
                     "term": {

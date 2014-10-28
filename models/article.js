@@ -63,7 +63,7 @@ Object.defineProperty(Article.prototype, 'outboundLinks', {
 });
 
 /**
- * Returns a list of package id's
+ * Returns the article headline
  */
 Object.defineProperty(Article.prototype, 'headline', {
     get: function () {
@@ -212,6 +212,19 @@ Object.defineProperty(Article.prototype, 'genre', {
         return undefined;
     }
 });
+
+/**
+ * Returns the brand. For simplicity articles only have one brand. 
+ */
+Object.defineProperty(Article.prototype, 'brand', {
+    get: function () {
+        if (this.raw.item.metadata && this.raw.item.metadata.brand && this.raw.item.metadata.brand.length) { 
+            return this.raw.item.metadata.brand[0].term;
+        }
+        return undefined;
+    }
+});
+
 
 /**
  * Returns a the tone, either - News, Comment, or Analysis - and default to
