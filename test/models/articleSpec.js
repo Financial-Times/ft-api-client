@@ -9,8 +9,7 @@ var models  = require("../../models");
 describe('Article model', function(){
 
     var fixtures = {
-        article: JSON.parse(fs.readFileSync('test/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' })),
-        brandedArticle: JSON.parse(fs.readFileSync('test/fixtures/3822867f-85bf-33a2-85a5-4a40974d7d9e', { encoding: 'utf8' }))
+        article: JSON.parse(fs.readFileSync('test/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' }))
     };
 
     describe('Editorial', function () {
@@ -139,7 +138,7 @@ describe('Article model', function(){
         });
 
         it('Get the brand of the article', function() {
-            var article = new models.Article(fixtures.brandedArticle);
+            var article = new models.Article(fixtures.article);
             expect(article.brand.name).to.equal('Gavyn Davies');
         });
         
