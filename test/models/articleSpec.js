@@ -134,7 +134,7 @@ describe('Article model', function(){
         
         it('Get the (visual) tone of the article', function() {
             var article = new models.Article(fixtures.article);
-            expect(article.visualTone).to.equal('news');
+            expect(article.visualTone).to.equal('video');
         });
 
         it('Get the brand of the article', function() {
