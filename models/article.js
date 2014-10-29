@@ -337,7 +337,7 @@ Object.defineProperty(Article.prototype, 'has_gallery', {
 });
 
 /**
- * Returns a list of videos associated with the article  
+ * Returns a list of slideshows associated with the article  
  * @return Array 
  */
 Object.defineProperty(Article.prototype, 'galleries', {
