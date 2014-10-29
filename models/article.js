@@ -246,6 +246,7 @@ Object.defineProperty(Article.prototype, 'visualTone', {
                     return 'vanilla';
             }    
         }
+        
     }
 });
 
