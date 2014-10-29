@@ -227,22 +227,26 @@ Object.defineProperty(Article.prototype, 'brand', {
 
 
 /**
- * Returns a the tone, either - News, Comment, or Analysis - and default to
+ * Returns the tone, either - News, Comment, Analysis or Video - and default to
  * news.
  */
 Object.defineProperty(Article.prototype, 'visualTone', {
     get: function () {
-
-        switch (this.genre) {
-            case 'Analysis':
-                return 'analysis';
-            case 'Comment':
-                return 'comment';
-            case 'News':
-                return 'news';
-            default:
-                return 'vanilla';
+        if (this.has_video) {
+            return 'video';    
+        } else {
+            switch (this.genre) {
+                case 'Analysis':
+                    return 'analysis';
+                case 'Comment':
+                    return 'comment';
+                case 'News':
+                    return 'news';
+                default:
+                    return 'vanilla';
+            }    
         }
+        
     }
 });
 
