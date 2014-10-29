@@ -337,6 +337,23 @@ Object.defineProperty(Article.prototype, 'has_gallery', {
 });
 
 /**
+ * Returns a list of slideshows associated with the article  
+ * @return Array 
+ */
+Object.defineProperty(Article.prototype, 'galleries', {
+    get: function () {
+        if (this.raw.item.assets) {
+            return this.raw.item.assets.filter(function (asset) {
+                return asset.type === 'slideshow';
+            });
+        } else {
+            return [];
+        }
+    }
+});
+
+
+/**
  * Extracts the pull quotes from the article assets 
  * @return Object
  */
