@@ -8,8 +8,19 @@ var models  = require("../../models");
 
 describe('Article model', function(){
 
+    /*
+        Article 1: Visual Tone: Video
+        Article 2: Visual Tone: News
+        Article 3: Visual Tone: Comment
+        Article 4: Visual Tone: Analysis
+        Article 5: Visual Tone: Vanilla
+    */
     var fixtures = {
-        article: JSON.parse(fs.readFileSync('test/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' }))
+        article: JSON.parse(fs.readFileSync('test/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' })),  
+        article2: JSON.parse(fs.readFileSync('test/fixtures/94635748-600e-11e4-98e6-00144feabdc0', { encoding: 'utf8' })),
+        article3: JSON.parse(fs.readFileSync('test/fixtures/b9d1b2ca-5dfe-11e4-bc04-00144feabdc0', { encoding: 'utf8' })), 
+        article4: JSON.parse(fs.readFileSync('test/fixtures/a60413c2-7c46-11e3-9179-00144feabdc0', { encoding: 'utf8' })), 
+        article5: JSON.parse(fs.readFileSync('test/fixtures/07de76b4-5e05-11e4-bc04-00144feabdc0', { encoding: 'utf8' })), 
     };
 
     describe('Editorial', function () {
@@ -132,10 +143,32 @@ describe('Article model', function(){
             expect(article.genre).to.equal('News');
         });
         
-        it('Get the (visual) tone of the article', function() {
+        //START: Visual Tones
+        it('Get the (visual) tone of the article with video', function() {
             var article = new models.Article(fixtures.article);
             expect(article.visualTone).to.equal('video');
         });
+        
+        it('Get the (visual) tone of the news article', function() {
+            var article = new models.Article(fixtures.article2);
+            expect(article.visualTone).to.equal('news');
+        });
+
+        it('Get the (visual) tone of the comment article', function() {
+            var article = new models.Article(fixtures.article3);
+            expect(article.visualTone).to.equal('comment');
+        });
+        
+        it('Get the (visual) tone of the analysis article', function() {
+            var article = new models.Article(fixtures.article4);
+            expect(article.visualTone).to.equal('analysis');
+        });
+
+        it('Get the (visual) tone of the letters article', function() {
+            var article = new models.Article(fixtures.article5);
+            expect(article.visualTone).to.equal('vanilla');
+        });
+        //END: Visual Tones
 
         it('Get the brand of the article', function() {
             var article = new models.Article(fixtures.article);
