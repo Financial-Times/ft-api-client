@@ -3,3 +3,4 @@ node_modules/
 *.iml
 lib/v2
 npm-debug.log
+.DS_Store

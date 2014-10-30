@@ -1,0 +1,362 @@
+{
+    "requestUrl": "http://api.ft.com/content/items/v1/94635748-600e-11e4-98e6-00144feabdc0?feature.blogposts=on",
+    "item": {
+        "aspectSet": "article",
+        "aspects": ["assets", "body", "editorial", "images", "lifecycle", "location", "master", "mediaAssets", "metadata", "package", "packaging", "provenance", "summary", "title"],
+        "modelVersion": "1",
+        "id": "94635748-600e-11e4-98e6-00144feabdc0",
+        "apiUrl": "http://api.ft.com/content/items/v1/94635748-600e-11e4-98e6-00144feabdc0",
+        "title": {
+            "title": "Barclays sets aside £500m for forex probe"
+        },
+        "body": {
+            "mediaType": "text/html",
+            "body": "<p>Barclays set aside £500m to cover the cost of investigations into suspected manipulation of the <a title=\"UBS books $2bn litigation charge - www.ft.com\" href=\"http://www.ft.com/cms/s/0/f854e00e-5e66-11e4-b81d-00144feabdc0.html?siteedition=uk\">foreign exchange market</a>, as a sharp decline at its investment bank limited a rise in third-quarter profit at the bank. </p>\n\n<p>The move is the latest blow to Barclays from a growing list of regulatory and legal problems that continue to haunt Antony Jenkins, who was brought in as chief executive to clean up the bank’s reputation after an interest rate manipulation scandal two years ago.</p>\n<p>Combined with a £360m loss on the sale of its Spanish retail bank and a further £170m provision for mis-selling of payment protection insurance in the UK, the extra litigation costs and slide in trading income offset the positive impact of recent cost cutting.</p>\n<p>On the plus side, Barclays said on Thursday it recorded a £461m gain to reflect “greater certainty around the recoverability of assets not yet received” from the bank’s acquisition of the<a title=\"Regulators aim to learn lessons from Lehman Brothers collapse - www.ft.com\" href=\"http://www.ft.com/cms/s/0/87d09c7a-5abe-11e4-b449-00144feab7de.html\"> US operations of Lehman Brothers</a>. It also wrote back £160m of provisions for mis-selling of interest rate swaps in the UK.</p>\n<p>Shares in Barclays rose 2 per cent in early London trading to 224.8p with most analysts seeing the results as above expectations.</p>\n<p><img alt=\"\" src=\"http://markets.ft.com/RESEARCH/API/ChartBuilder?t=equities&amp;p=eyJzeW1ib2wiOiI1NzQ5MSIsInJlZ2lvbiI6bnVsbCwiaGVpZ2h0IjoiMTkzIiwid2lkdGgiOiIyNzIiLCJsaW5lU3R5bGUiOiJsaW5lIiwiZHVyYXRpb24iOiIzNjUiLCJzdGFydERhdGUiOm51bGwsImVuZERhdGUiOm51bGwsInByaW1hcnlMYWJlbCI6IkJhcmNsYXlzIiwic2Vjb25kYXJ5TGFiZWwiOiIxIHllYXIgdG8gT2N0IDMwIiwidGVydGlhcnlMYWJlbCI6bnVsbCwicXVhdGVybmFyeUxhYmVsIjpudWxsLCJpc01vYmlsZSI6ZmFsc2UsIlNob3dEaXNjbGFpbWVyIjp0cnVlLCJ1bml0IjoicHgifQ==\"/>Tushar Morzaria, finance director, said: “2014 continues to be a transition year as we invest in the business and focus on balance sheet optimisation and cost reduction, while addressing ongoing regulatory and litigation issues.”</p>\n<p>Barclays is one of a handful of market-leading forex dealers at the centre of a global investigation by more than 15 authorities into alleged collusion and rate-rigging in the $5.3tn-a-day currency market.</p>\n<p>The bank reported pre-tax profit of £1.2bn for the three months to September, slightly up from the same period last year. Pre-tax profit in Barclays’ investment bank decreased to £284m from £465m in the same period last year.</p>\n<p>Mr Jenkins said: “The investment bank’s performance in the quarter was disappointing, but we have been able to offset that within the rebalanced group and still deliver good core performance.”</p>\n<p>Revenues rose 1 per cent year-on-year in the three months to September. The <a title=\"Banks must cut costs but remember what their customers want - www.ft.com\" href=\"http://www.ft.com/cms/s/0/a3fbfd2e-5873-11e4-942f-00144feab7de.html\">benefits of restructuring</a>, including a reduction of 7,800 jobs in the past year, helped to reduce operating expenses by almost 7 per cent.</p>\n<p>The decline in investment banking was mainly driven by a 13 per cent fall in revenues from its markets business, which was hit by a drop in credit and equities trading. That contrasts with many of its rivals, which have recently reported a rally in fixed income trading.</p>\n<p>Mr Morzaria said a lawsuit by New York’s financial regulator over Barclays’ anonymous “dark pool” trading venue had impacted equity trading and contributed to a drop in investment banking revenue. Barclays has filed a motion to dismiss the case.</p>\n<p>He added that since Barclays shrank the more complex credit trading operations of its investment bank in a restructuring it announced in May, it missed out on a recent rally in areas such as distressed debt, structured products and emerging markets debt in the past quarter.</p>\n<p>Elsewhere, growth in quarterly profits from the personal and corporate bank as well as Barclaycard was partially offset by a fall at its Africa business.</p>\n<p>Earnings per share fell from 3.8p to 2.4p in the quarter. The cost-income ratio was flat at 70 per cent, well above many rivals, but the common equity tier one ratio – an important measure of financial strength – rose from 9.9 per cent to 10.2 per cent in the quarter.</p>\n<p>“This is our third consecutive lowest cost quarter and is in fact our lowest cost quarter for five years,” said Mr Morzaria.</p>\n<p>The bank said its leverage ratio rose slightly to 3.5 per cent, above the minimum required of 3 per cent. But it could face pressure to increase it much further when the Bank of England publishes its new standard for the measure on Friday, when it is expected to set a new floor of between 4 per cent and 5 per cent.</p>\n<p>Mr Morzaria said the bank had hit its objective for a leverage ratio of 3.5 per cent a year ahead of target. “I feel very confident that our ability to manage leverage is very good,” he said, adding: “Hopefully the momentum we have got here will stand us in good stead for whatever is announced tomorrow.”</p>\n<p>Chirantan Barua, analyst at Bernstein, said: “We see third-quarter results as a clear indication of a deleveraging investment bank under significant pressure. Leverage ratios at the end of the week could be crucial for the sustainability of this business.”</p>\n<p>Barclays is one of six institutions that have been meeting the UK’s Financial Conduct Authority to thrash out the details of a so-called global settlement to the watchdog’s probe into the forex market that could come as soon as next month.</p>\n<p>The other banks are UBS, Citigroup, HSBC, JPMorgan Chase and Royal Bank of Scotland. Several of those lenders – including UBS and JPMorgan – have already put money aside to cover the cost of a likely settlement with regulators for alleged wrongdoing.</p>"
+        },
+        "lifecycle": {
+            "initialPublishDateTime": "2014-10-30T08:51:38Z",
+            "lastPublishDateTime": "2014-10-30T08:51:38Z"
+        },
+        "location": {
+            "uri": "http://www.ft.com/cms/s/0/94635748-600e-11e4-98e6-00144feabdc0.html"
+        },
+        "summary": {
+            "excerpt": "Investment bank decline limits rise in third-quarter profit"
+        },
+        "packaging": {
+            "spHeadline": "Barclays sets aside £500m for forex probe"
+        },
+        "master": {
+            "masterSource": "Methode",
+            "masterEntityId": "94635748-600e-11e4-98e6-00144feabdc0"
+        },
+        "editorial": {
+            "subheading": "Investment bank decline limits rise in third-quarter profit",
+            "standFirst": "Investment bank decline limits rise in third-quarter profit",
+            "byline": "Martin Arnold"
+        },
+        "provenance": {
+            "originatingParty": "FT"
+        },
+        "metadata": {
+            "primarySection": {
+                "term": {
+                    "name": "Banks",
+                    "id": "NTg=-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            },
+            "primaryTheme": {
+                "term": {
+                    "name": "Barclays PLC",
+                    "id": "TnN0ZWluX09OX0ZvcnR1bmVDb21wYW55X0JBUkM=-T04=",
+                    "attributes": [{
+                        "key": "wsod_key",
+                        "value": "uk:BARC"
+                    }, {
+                        "key": "is_company",
+                        "value": "true"
+                    }],
+                    "taxonomy": "organisations"
+                }
+            },
+            "tags": [{
+                "term": {
+                    "name": "Banks",
+                    "id": "NTg=-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }, {
+                "term": {
+                    "name": "Barclays PLC",
+                    "id": "TnN0ZWluX09OX0ZvcnR1bmVDb21wYW55X0JBUkM=-T04=",
+                    "attributes": [{
+                        "key": "wsod_key",
+                        "value": "uk:BARC"
+                    }, {
+                        "key": "is_company",
+                        "value": "true"
+                    }],
+                    "taxonomy": "organisations"
+                }
+            }, {
+                "term": {
+                    "name": "News",
+                    "id": "Nw==-R2VucmVz",
+                    "attributes": [],
+                    "taxonomy": "genre"
+                }
+            }, {
+                "term": {
+                    "name": "Text",
+                    "id": "ZjMwY2E2NjctMDA1Ni00ZTk4LWI0MWUtZjk5MTk2ZTMyNGVm-TWVkaWFUeXBlcw==",
+                    "attributes": [],
+                    "taxonomy": "mediaType"
+                }
+            }, {
+                "term": {
+                    "name": "Barclays PLC",
+                    "attributes": [{
+                        "key": "FTSymbol",
+                        "value": "uk:BARC"
+                    }]
+                }
+            }],
+            "authors": [{
+                "term": {
+                    "name": "Martin Arnold",
+                    "id": "Q0ItMDAwMDcyMw==-QXV0aG9ycw==",
+                    "attributes": [],
+                    "taxonomy": "authors"
+                }
+            }],
+            "brand": [],
+            "genre": [{
+                "term": {
+                    "name": "News",
+                    "id": "Nw==-R2VucmVz",
+                    "attributes": [],
+                    "taxonomy": "genre"
+                }
+            }],
+            "icb": [{
+                "term": {
+                    "name": "8355 Banks",
+                    "id": "MTQy-SUNC",
+                    "attributes": [],
+                    "taxonomy": "icb"
+                }
+            }],
+            "iptc": [{
+                "term": {
+                    "name": "02008001 - litigation",
+                    "id": "MDIwMDgwMDE=-SVBUQw==",
+                    "attributes": [],
+                    "taxonomy": "iptc"
+                }
+            }, {
+                "term": {
+                    "name": "04008009 - interest rate",
+                    "id": "MDQwMDgwMDk=-SVBUQw==",
+                    "attributes": [],
+                    "taxonomy": "iptc"
+                }
+            }, {
+                "term": {
+                    "name": "04016000 - company information",
+                    "id": "MDQwMTYwMDA=-SVBUQw==",
+                    "attributes": [],
+                    "taxonomy": "iptc"
+                }
+            }, {
+                "term": {
+                    "name": "04016018 - earnings",
+                    "id": "MDQwMTYwMTg=-SVBUQw==",
+                    "attributes": [],
+                    "taxonomy": "iptc"
+                }
+            }, {
+                "term": {
+                    "name": "04016024 - leveraged buyout",
+                    "id": "MDQwMTYwMjQ=-SVBUQw==",
+                    "attributes": [],
+                    "taxonomy": "iptc"
+                }
+            }, {
+                "term": {
+                    "name": "04016027 - litigation and regulation",
+                    "id": "MDQwMTYwMjc=-SVBUQw==",
+                    "attributes": [],
+                    "taxonomy": "iptc"
+                }
+            }, {
+                "term": {
+                    "name": "04016039 - restructuring and recapitalisation",
+                    "id": "MDQwMTYwMzk=-SVBUQw==",
+                    "attributes": [],
+                    "taxonomy": "iptc"
+                }
+            }],
+            "mediaType": [{
+                "term": {
+                    "name": "Text",
+                    "id": "ZjMwY2E2NjctMDA1Ni00ZTk4LWI0MWUtZjk5MTk2ZTMyNGVm-TWVkaWFUeXBlcw==",
+                    "attributes": [],
+                    "taxonomy": "mediaType"
+                }
+            }],
+            "organisations": [{
+                "term": {
+                    "name": "Barclays PLC",
+                    "id": "TnN0ZWluX09OX0ZvcnR1bmVDb21wYW55X0JBUkM=-T04=",
+                    "attributes": [{
+                        "key": "wsod_key",
+                        "value": "uk:BARC"
+                    }, {
+                        "key": "is_company",
+                        "value": "true"
+                    }],
+                    "taxonomy": "organisations"
+                }
+            }],
+            "people": [{
+                "term": {
+                    "name": "Antony Jenkins",
+                    "id": "MjdmYzRjYjAtZGJiYy00NjVlLThkZWItNjY3NzFjODM2ZDhk-UE4=",
+                    "attributes": [],
+                    "taxonomy": "people"
+                }
+            }],
+            "regions": [{
+                "term": {
+                    "name": "United Kingdom",
+                    "id": "TnN0ZWluX0dMX0dC-R0w=",
+                    "attributes": [],
+                    "taxonomy": "regions"
+                }
+            }],
+            "sections": [{
+                "term": {
+                    "name": "Currencies",
+                    "id": "MTAz-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }, {
+                "term": {
+                    "name": "Companies",
+                    "id": "Mjk=-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }, {
+                "term": {
+                    "name": "Financials",
+                    "id": "NTc=-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }, {
+                "term": {
+                    "name": "Banks",
+                    "id": "NTg=-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }, {
+                "term": {
+                    "name": "UK Companies",
+                    "id": "NjM=-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }, {
+                "term": {
+                    "name": "Markets Regulation",
+                    "id": "OTU=-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }, {
+                "term": {
+                    "name": "Clearing & Settlement",
+                    "id": "OTc=-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }],
+            "specialReports": [],
+            "subjects": [{
+                "term": {
+                    "name": "Foreign Exchange Markets",
+                    "id": "MTE1-U3ViamVjdHM=",
+                    "attributes": [],
+                    "taxonomy": "subjects"
+                }
+            }, {
+                "term": {
+                    "name": "Interim Results",
+                    "id": "NDE=-U3ViamVjdHM=",
+                    "attributes": [],
+                    "taxonomy": "subjects"
+                }
+            }, {
+                "term": {
+                    "name": "Corporate Finance",
+                    "id": "Ng==-U3ViamVjdHM=",
+                    "attributes": [],
+                    "taxonomy": "subjects"
+                }
+            }],
+            "topics": [{
+                "term": {
+                    "name": "UK banks",
+                    "id": "NDJkNTQ3NjQtMTlhYi00MDZmLWI4NzctNWYwNTU3MTlmZmRh-VG9waWNz",
+                    "attributes": [],
+                    "taxonomy": "topics"
+                }
+            }, {
+                "term": {
+                    "name": "Forex trading probes",
+                    "id": "NjdhNGRjMWUtMTBjZS00MzM0LWFiMDEtYTYwNzZmNjFiMGVh-VG9waWNz",
+                    "attributes": [],
+                    "taxonomy": "topics"
+                }
+            }]
+        },
+        "images": [{
+            "url": "http://im.ft-static.com/content/images/8f599eeb-9600-4d46-af8e-ee78c97359ee.img",
+            "type": "primary",
+            "source": "Bloomberg",
+            "alt": "Barclays has paid nearly $20m to settle a lawsuit over benchmark manipulation",
+            "caption": "Barclays has paid nearly $20m to settle a lawsuit over benchmark manipulation",
+            "height": 153,
+            "width": 272,
+            "mediaType": "image/jpeg"
+        }, {
+            "url": "http://im.ft-static.com/content/images/6e217d43-240e-4d10-bb1d-838020b00fe1.img",
+            "type": "secondary",
+            "source": "Bloomberg",
+            "alt": "Barclays has paid nearly $20m to settle a lawsuit over benchmark manipulation",
+            "caption": "Barclays has paid nearly $20m to settle a lawsuit over benchmark manipulation",
+            "height": 94,
+            "width": 167,
+            "mediaType": "image/jpeg"
+        }, {
+            "url": "http://im.ft-static.com/content/images/0cca13e8-9087-4950-a22c-0c7786141ce8.img",
+            "type": "article",
+            "source": "Bloomberg",
+            "alt": "Barclays has paid nearly $20m to settle a lawsuit over benchmark manipulation",
+            "caption": "Barclays has paid nearly $20m to settle a lawsuit over benchmark manipulation",
+            "height": 338,
+            "width": 600,
+            "mediaType": "image/jpeg"
+        }, {
+            "url": "http://im.ft-static.com/content/images/7428a46c-fa2e-4eab-8479-a9c37638e39b.img",
+            "type": "leader",
+            "source": "Bloomberg",
+            "alt": "Barclays has paid nearly $20m to settle a lawsuit over benchmark manipulation",
+            "caption": "Barclays has paid nearly $20m to settle a lawsuit over benchmark manipulation",
+            "height": 233,
+            "width": 414,
+            "mediaType": "image/jpeg"
+        }, {
+            "url": "http://im.ft-static.com/content/images/44bbdd82-ae8f-48c7-8201-0b25a02be53e.img",
+            "type": "wide-format",
+            "source": "Bloomberg",
+            "alt": "Barclays has paid nearly $20m to settle a lawsuit over benchmark manipulation",
+            "caption": "Barclays has paid nearly $20m to settle a lawsuit over benchmark manipulation",
+            "height": 547,
+            "width": 972,
+            "mediaType": "image/jpeg"
+        }, {
+            "url": "http://markets.ft.com/RESEARCH/API/ChartBuilder?t=equities&p=eyJzeW1ib2wiOiI1NzQ5MSIsInJlZ2lvbiI6bnVsbCwiaGVpZ2h0IjoiMTkzIiwid2lkdGgiOiIyNzIiLCJsaW5lU3R5bGUiOiJsaW5lIiwiZHVyYXRpb24iOiIzNjUiLCJzdGFydERhdGUiOm51bGwsImVuZERhdGUiOm51bGwsInByaW1hcnlMYWJlbCI6IkJhcmNsYXlzIiwic2Vjb25kYXJ5TGFiZWwiOiIxIHllYXIgdG8gT2N0IDMwIiwidGVydGlhcnlMYWJlbCI6bnVsbCwicXVhdGVybmFyeUxhYmVsIjpudWxsLCJpc01vYmlsZSI6ZmFsc2UsIlNob3dEaXNjbGFpbWVyIjp0cnVlLCJ1bml0IjoicHgifQ==",
+            "type": "inline-external"
+        }],
+        "package": [],
+        "assets": [],
+        "mediaAssets": []
+    }
+}

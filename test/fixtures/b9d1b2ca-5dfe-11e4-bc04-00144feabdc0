@@ -1,0 +1,253 @@
+{
+    "requestUrl": "http://api.ft.com/content/items/v1/b9d1b2ca-5dfe-11e4-bc04-00144feabdc0?feature.blogposts=on",
+    "item": {
+        "aspectSet": "article",
+        "aspects": ["assets", "body", "editorial", "images", "lifecycle", "location", "master", "mediaAssets", "metadata", "package", "packaging", "provenance", "summary", "title"],
+        "modelVersion": "1",
+        "id": "b9d1b2ca-5dfe-11e4-bc04-00144feabdc0",
+        "apiUrl": "http://api.ft.com/content/items/v1/b9d1b2ca-5dfe-11e4-bc04-00144feabdc0",
+        "title": {
+            "title": "Corporate cash hoarding has to end to drive recovery"
+        },
+        "body": {
+            "mediaType": "text/html",
+            "body": "<p>Is the era of corporate cash hoarding <a title=\"www.ft.com\" href=\"http://www.ft.com/cms/s/0/1e8670cc-5ba5-11e4-81ac-00144feab7de.html#axzz3HLgr7L4s\">coming to an end</a>? Certainly an end is devoutly to be hoped for. If US companies decided to run down cash to increase capital investment, thereby driving a more robust recovery, the benefit would be felt around the world. The global economy would likewise benefit if the corporate misers of Japan and China were to help reduce Asia’s mountain of excess savings. </p>\n<p>If there is going to be movement in this direction the likely starting point is the US. According to a new survey of corporate treasurers by the Association for Financial Professionals, US companies are indeed starting to run down their cash balances for the first time since the recession. This squares with evidence in the national accounts. Federal Reserve data show that the US non-financial corporate sector has gone from being a net lender to the rest of the economy, to the tune of nearly $500bn at the peak in 2009, to being a modest net borrower in the first half of this year. </p>\n<p>The snag is that this newfound confidence is not being reflected in non-residential private fixed investment, which Fed economists reckon increased at an annual average rate of only about 4 per cent in 2012 and 2013. Net investment after depreciation as a percentage of the capital stock remains subdued, hovering around 1.5 per cent a year. </p>\n<p>In effect, animal spirits in the corporate sector are being diverted into <a title=\"Buybacks: Money well spent? - The Big Read - FT.com\" href=\"http://www.ft.com/cms/s/0/16e71bdc-4f16-11e4-9c88-00144feab7de.html#slide0\">share buybacks</a>. Such financial engineering reduces the number of shares in issue and artificially boosts earnings per share. For executives whose bonuses and incentive packages are related to earnings per share this works wonders on overall pay. For shareholders it may be another matter. </p>\n<p>With equity valuations historically high, this is unlikely to be an efficient allocation of capital. That reflects an ownership vacuum. Over the next 12 months we will find out how damaging this might be for the real economy if quoted businesses continue to invest only halfheartedly in equipment.</p>\n<p>In Japan, too, poor corporate governance plays a part in corporate cash hoarding. With minimal accountability to shareholders, companies naturally hang on to cash. A deflationary environment has also acted as a deterrent to increasing what is already a high level of business investment relative to the US. To its credit, Shinzo Abe’s government has introduced governance reforms designed to encourage companies to raise payout ratios. Yet the macro side of Abenomics will far outweigh governance reform because of a misdiagnosis of <a title=\"Abe has no easy fix for Japan’s economic woes - FT.com\" href=\"http://www.ft.com/cms/s/0/344fa260-584a-11e4-a31b-00144feab7de.html\">Japan’s economic problems</a>.   </p>\n<p>At root, the deflationary threat in Japan results from underconsumption. The corporate sector’s savings surplus – cash flow far exceeds investment – is part of that. Business is simply hogging too much of national income. Yet the effect of yen devaluation has been to transfer income to the corporate sector from the household sector. To prevent increased consumption tax weakening domestic demand, the government has also reduced corporation tax and dished out investment incentives to business, while raising public spending. Once again the flows are the wrong way round.  </p>\n<p>The prospect of change in China may be better. In the effort to shift from an investment rate not far short of 50 per cent of gross domestic product to a more consumption-oriented economic model, Chinese state-owned companies will be encouraged to pay out more of their cash. Yet the interesting question here is whether the beneficial effect of less cash hoarding, in global terms, will be offset by excessive saving in the eurozone.</p>\n<p>The eurozone’s positive current account balance is now running at 2.5 per cent of GDP. Since the surplus represents an excess of savings over investment, the eurozone is sucking demand out of the world economy. And as a result of German-led fiscal austerity the eurozone economy is on the brink of deflation. While the European Central Bank is buying assets in an attempt to loosen policy, it is not clear that it can do so on a scale and in a timely enough way to prevent deflationary psychology setting in.</p>\n<p>With fiscal tensions mounting and friction between creditor and debtor countries over any potential move by the ECB to quantitative easing building up, the eurozone appears to have reached a pivotal moment. Current policy has failed. A new approach needs to be thrashed out.    </p>\n<p><span class=\"ft-italic\">The writer is an FT columnist</span>\n</p>\n\n"
+        },
+        "lifecycle": {
+            "initialPublishDateTime": "2014-10-28T08:38:08Z",
+            "lastPublishDateTime": "2014-10-28T08:38:08Z"
+        },
+        "location": {
+            "uri": "http://www.ft.com/cms/s/0/b9d1b2ca-5dfe-11e4-bc04-00144feabdc0.html"
+        },
+        "summary": {
+            "excerpt": "Spending must be on fixed investment not just share buybacks"
+        },
+        "packaging": {
+            "spHeadline": "Corporate cash hoarding has to end"
+        },
+        "master": {
+            "masterSource": "Methode",
+            "masterEntityId": "b9d1b2ca-5dfe-11e4-bc04-00144feabdc0"
+        },
+        "editorial": {
+            "subheading": "Spending must be on fixed investment not just share buybacks",
+            "standFirst": "Spending must be on fixed investment not just share buybacks",
+            "byline": "John Plender"
+        },
+        "provenance": {
+            "originatingParty": "FT"
+        },
+        "metadata": {
+            "primarySection": {
+                "term": {
+                    "name": "Markets",
+                    "id": "NzE=-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            },
+            "primaryTheme": {
+                "term": {
+                    "name": "US economic recovery",
+                    "id": "YjFhOTNhYTAtZmUxNi00MjIwLTk1YTAtMWFjZmMzY2U3ZGNh-VG9waWNz",
+                    "attributes": [],
+                    "taxonomy": "topics"
+                }
+            },
+            "tags": [{
+                "term": {
+                    "name": "Markets",
+                    "id": "NzE=-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }, {
+                "term": {
+                    "name": "US economic recovery",
+                    "id": "YjFhOTNhYTAtZmUxNi00MjIwLTk1YTAtMWFjZmMzY2U3ZGNh-VG9waWNz",
+                    "attributes": [],
+                    "taxonomy": "topics"
+                }
+            }, {
+                "term": {
+                    "name": "Markets Insight",
+                    "id": "QnJhbmRzXzExNg==-QnJhbmRz",
+                    "attributes": [],
+                    "taxonomy": "brand"
+                }
+            }, {
+                "term": {
+                    "name": "Comment",
+                    "id": "OA==-R2VucmVz",
+                    "attributes": [],
+                    "taxonomy": "genre"
+                }
+            }, {
+                "term": {
+                    "name": "Text",
+                    "id": "ZjMwY2E2NjctMDA1Ni00ZTk4LWI0MWUtZjk5MTk2ZTMyNGVm-TWVkaWFUeXBlcw==",
+                    "attributes": [],
+                    "taxonomy": "mediaType"
+                }
+            }],
+            "authors": [],
+            "brand": [{
+                "term": {
+                    "name": "Markets Insight",
+                    "id": "QnJhbmRzXzExNg==-QnJhbmRz",
+                    "attributes": [],
+                    "taxonomy": "brand"
+                }
+            }],
+            "genre": [{
+                "term": {
+                    "name": "Comment",
+                    "id": "OA==-R2VucmVz",
+                    "attributes": [],
+                    "taxonomy": "genre"
+                }
+            }],
+            "icb": [],
+            "iptc": [{
+                "term": {
+                    "name": "04016047 - shareholders",
+                    "id": "MDQwMTYwNDc=-SVBUQw==",
+                    "attributes": [],
+                    "taxonomy": "iptc"
+                }
+            }, {
+                "term": {
+                    "name": "04016048 - corporate performance",
+                    "id": "MDQwMTYwNDg=-SVBUQw==",
+                    "attributes": [],
+                    "taxonomy": "iptc"
+                }
+            }, {
+                "term": {
+                    "name": "11013000 - state budget and tax",
+                    "id": "MTEwMTMwMDA=-SVBUQw==",
+                    "attributes": [],
+                    "taxonomy": "iptc"
+                }
+            }],
+            "mediaType": [{
+                "term": {
+                    "name": "Text",
+                    "id": "ZjMwY2E2NjctMDA1Ni00ZTk4LWI0MWUtZjk5MTk2ZTMyNGVm-TWVkaWFUeXBlcw==",
+                    "attributes": [],
+                    "taxonomy": "mediaType"
+                }
+            }],
+            "organisations": [],
+            "people": [],
+            "regions": [{
+                "term": {
+                    "name": "China",
+                    "id": "TnN0ZWluX0dMX0NO-R0w=",
+                    "attributes": [],
+                    "taxonomy": "regions"
+                }
+            }, {
+                "term": {
+                    "name": "Japan",
+                    "id": "TnN0ZWluX0dMX0pQ-R0w=",
+                    "attributes": [],
+                    "taxonomy": "regions"
+                }
+            }, {
+                "term": {
+                    "name": "United States of America",
+                    "id": "TnN0ZWluX0dMX1VT-R0w=",
+                    "attributes": [],
+                    "taxonomy": "regions"
+                }
+            }],
+            "sections": [{
+                "term": {
+                    "name": "Asia-Pacific Economy",
+                    "id": "MGUyZjE5YTktNzk1MS00ZTQxLTk0ZTctYWYzYjRhYzM1ZTFj-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }, {
+                "term": {
+                    "name": "Global Economy",
+                    "id": "MTA3-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }, {
+                "term": {
+                    "name": "EU Economy",
+                    "id": "MTA4-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }, {
+                "term": {
+                    "name": "UK Economy",
+                    "id": "MTA5-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }, {
+                "term": {
+                    "name": "US Economy",
+                    "id": "MTEw-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }, {
+                "term": {
+                    "name": "Chinese Economy",
+                    "id": "MTEx-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }, {
+                "term": {
+                    "name": "Markets",
+                    "id": "NzE=-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }],
+            "specialReports": [],
+            "subjects": [{
+                "term": {
+                    "name": "Share Buy-backs",
+                    "id": "NTE=-U3ViamVjdHM=",
+                    "attributes": [],
+                    "taxonomy": "subjects"
+                }
+            }],
+            "topics": [{
+                "term": {
+                    "name": "Business investment",
+                    "id": "MjM1ZmIxYzEtYWRlNC00Y2VhLWEyZTctYWNmYjE0NTM0NzBl-VG9waWNz",
+                    "attributes": [],
+                    "taxonomy": "topics"
+                }
+            }, {
+                "term": {
+                    "name": "Share buy-backs",
+                    "id": "YTFhY2E1NjItM2YyZS00MzA0LWE3M2QtMzczMjExYmNjOGRh-VG9waWNz",
+                    "attributes": [],
+                    "taxonomy": "topics"
+                }
+            }, {
+                "term": {
+                    "name": "US economic recovery",
+                    "id": "YjFhOTNhYTAtZmUxNi00MjIwLTk1YTAtMWFjZmMzY2U3ZGNh-VG9waWNz",
+                    "attributes": [],
+                    "taxonomy": "topics"
+                }
+            }]
+        },
+        "images": [],
+        "package": [],
+        "assets": [],
+        "mediaAssets": []
+    }
+}

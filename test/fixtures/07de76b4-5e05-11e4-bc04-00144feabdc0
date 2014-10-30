@@ -1,0 +1,118 @@
+{
+    "requestUrl": "http://api.ft.com/content/items/v1/07de76b4-5e05-11e4-bc04-00144feabdc0?feature.blogposts=on",
+    "item": {
+        "aspectSet": "article",
+        "aspects": ["assets", "body", "editorial", "images", "lifecycle", "location", "master", "mediaAssets", "metadata", "package", "packaging", "provenance", "summary", "title"],
+        "modelVersion": "1",
+        "id": "07de76b4-5e05-11e4-bc04-00144feabdc0",
+        "apiUrl": "http://api.ft.com/content/items/v1/07de76b4-5e05-11e4-bc04-00144feabdc0",
+        "title": {
+            "title": "Complex origins of Germany’s Die Linke"
+        },
+        "body": {
+            "mediaType": "text/html",
+            "body": "<p>Sir, The common sense of your editorial on Die Linke is to be applauded (“<a title=\"Germany’s left should be brought in from the cold - FT.com\" href=\"http://www.ft.com/cms/s/0/3c9221be-5b74-11e4-a674-00144feab7de.html\">Germany’s left should be brought in from the cold</a>”, October 27). However, it is surely misleading and simplistic (though not entirely wrong) to speak of “Die Linke’s communist origins”. The party is a result of a union between reformist elements of the former Socialist Unity party and Social Democratic party leftwingers. The thrust of your editorial implicitly recognises this complexity.</p>\n<p><span class=\"ft-bold\">Amit A Pandya</span>\n</p>\n<p><span class=\"ft-italic\">Silver Spring, MD, US</span>\n</p>"
+        },
+        "lifecycle": {
+            "initialPublishDateTime": "2014-10-29T22:42:01Z",
+            "lastPublishDateTime": "2014-10-29T22:42:01Z"
+        },
+        "location": {
+            "uri": "http://www.ft.com/cms/s/0/07de76b4-5e05-11e4-bc04-00144feabdc0.html"
+        },
+        "summary": {
+            "excerpt": "From Amit A Pandya, Silver Spring, MD, US"
+        },
+        "packaging": {
+            "spHeadline": "Complex origins of Germany’s Die Linke"
+        },
+        "master": {
+            "masterSource": "Methode",
+            "masterEntityId": "07de76b4-5e05-11e4-bc04-00144feabdc0"
+        },
+        "editorial": {
+            "subheading": "From Amit A Pandya. Sir, The common sense of your editorial on Die Linke is to be applauded",
+            "standFirst": "From Amit A Pandya, Silver Spring, MD, US"
+        },
+        "provenance": {
+            "originatingParty": "FT"
+        },
+        "metadata": {
+            "primarySection": {
+                "term": {
+                    "name": "Letters",
+                    "id": "MTIy-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            },
+            "tags": [{
+                "term": {
+                    "name": "Letters",
+                    "id": "MTIy-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }, {
+                "term": {
+                    "name": "Letter",
+                    "id": "NQ==-R2VucmVz",
+                    "attributes": [],
+                    "taxonomy": "genre"
+                }
+            }, {
+                "term": {
+                    "name": "Text",
+                    "id": "ZjMwY2E2NjctMDA1Ni00ZTk4LWI0MWUtZjk5MTk2ZTMyNGVm-TWVkaWFUeXBlcw==",
+                    "attributes": [],
+                    "taxonomy": "mediaType"
+                }
+            }],
+            "authors": [],
+            "brand": [],
+            "genre": [{
+                "term": {
+                    "name": "Letter",
+                    "id": "NQ==-R2VucmVz",
+                    "attributes": [],
+                    "taxonomy": "genre"
+                }
+            }],
+            "icb": [],
+            "iptc": [],
+            "mediaType": [{
+                "term": {
+                    "name": "Text",
+                    "id": "ZjMwY2E2NjctMDA1Ni00ZTk4LWI0MWUtZjk5MTk2ZTMyNGVm-TWVkaWFUeXBlcw==",
+                    "attributes": [],
+                    "taxonomy": "mediaType"
+                }
+            }],
+            "organisations": [],
+            "people": [],
+            "regions": [],
+            "sections": [{
+                "term": {
+                    "name": "Comment",
+                    "id": "MTE2-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }, {
+                "term": {
+                    "name": "Letters",
+                    "id": "MTIy-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }],
+            "specialReports": [],
+            "subjects": [],
+            "topics": []
+        },
+        "images": [],
+        "package": [],
+        "assets": [],
+        "mediaAssets": []
+    }
+}

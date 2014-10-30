@@ -1,0 +1,505 @@
+{
+    "requestUrl": "http://api.ft.com/content/items/v1/a60413c2-7c46-11e3-9179-00144feabdc0?feature.blogposts=on",
+    "item": {
+        "aspectSet": "article",
+        "aspects": ["assets", "body", "editorial", "images", "lifecycle", "location", "master", "mediaAssets", "metadata", "package", "packaging", "provenance", "summary", "title"],
+        "modelVersion": "1",
+        "id": "a60413c2-7c46-11e3-9179-00144feabdc0",
+        "apiUrl": "http://api.ft.com/content/items/v1/a60413c2-7c46-11e3-9179-00144feabdc0",
+        "title": {
+            "title": "China: Delta blues"
+        },
+        "body": {
+            "mediaType": "text/html",
+            "body": "<aside data-asset-type=\"slideshow\" data-asset-name=\"asset1\"></aside><p>\n</p>\n<p>Gerhard Flatz, the general manager of an Austrian factory in China that makes high-end skiwear for European brands, has a problem. He <a title=\"Factory ‘boys’: the changing face of China’s production lines - FT.com\" href=\"http://www.ft.com/cms/s/0/c8948f1e-2653-11e3-8ef6-00144feab7de.html?siteedition=uk\">cannot find enough skilled seamstresses</a> even though top performers can earn $1,500 a month, about eight times the local minimum wage in Heshan.</p>\n<p>“China has a <a title=\"Chinese labour pool begins to drain - FT.com\" href=\"http://www.ft.com/cms/s/0/ad1e00e6-6149-11e2-957e-00144feab49a.html?siteedition=uk\">shortage of skilled labour</a>,” says Mr Flatz during a tour of the Heshan factory southwest of Guangzhou.</p>\n<p>As he walks past the pattern room where his most talented employees work, the garrulous Austrian explains that he is careful not to reveal their names to prevent poaching.</p>\n<p>“This is like the NSA”, he says with a smile, referring to the most secretive branch of the US intelligence services.</p>\n<p>Heshan is just one of the many cities in <a title=\"Guangdong news headlines - FT.com\" href=\"http://www.ft.com/topics/places/Guangdong\">Guangdong</a> that has transformed the province into the factory of the world. Shenzhen, the home to companies such as Huawei and Tencent, is another.</p>\n<p>When Christina Zhang moved to Shenzhen in 1983, the rural fishing county was a far cry from the booming city it has become in the three decades since <a title=\"Deng Xiaoping and the Transformation of China - FT.com\" href=\"http://www.ft.com/cms/s/2/a1b03b56-f33c-11e0-8383-00144feab49a.html\">Deng Xiaoping</a> created China’s first special economic zone.</p>\n<p>“Most of the area was paddy fields,” says Ms Zhang, who works at PCH International, a logistics company. “I learnt how to ride my bicycle on Shennan Road. There were no cars [but] now it is the main road.”</p>\n<p>Since Deng launched his economic reforms in 1979, Shenzhen has changed from a tiny county of 30,000 people across the border from Hong Kong to a metropolis of 10m with one of the highest per-capita incomes in China.</p>\n<p>Shenzhen, Guangzhou, Dongguan, Foshan and other regional cities form the heart of the Pearl River Delta, a region of 56m that is vital to the world economy because it produces everything from bicycles to jeans and sex toys to iPads.</p>\n<p>Dongguan alone made about 30 per cent of the toys delivered over Christmas around the globe. Yao Kang, deputy Communist party secretary of the city, says it also makes 20 per cent of the sweaters and 10 per cent of the running shoes worn by consumers. As locals say: “When there is a traffic jam in Dongguan, the world runs out of supplies.”</p>\n<p>Underscoring its phenomenal growth, Guangdong last week estimated that its economy grew 8.5 per cent to Rmb6.33tn ($1.05tn) in 2013, which would sandwich it between South Korea and Indonesia.</p>\n<p>The PRD has managed to produce cheap goods for so long because millions of migrants have been willing to work in factories making products they can rarely afford. In Shenzhen, authorities plan to raise its minimum wage by 13 per cent to Rmb1,808 next month. Although the city has the highest minimum wage in China, it would take a worker two months to earn enough to buy an iPad Air.</p>\n<p>But the system is coming under strain in ways that affect everyone from London shoppers to young Chinese in Guangdong: <a title=\"Young Chinese shunning factory jobs, says Foxconn founder - FT.com\" href=\"http://www.ft.com/cms/s/0/6f1576be-2f5a-11e3-8cb2-00144feab7de.html?siteedition=uk\">workers are harder to find</a>, wages are rising rapidly, raw material and land prices are going up, the renminbi is getting stronger and other regions are becoming increasingly attractive for manufacturing.</p>\n<p>The obvious challenge to the region is labour costs, with wages in Guangdong rising at double-digit rates each year. That is unlikely to change since China is targeting nationwide annual increases of 13 per cent in its 2011-15 five-year plan, as part of a push to spur consumption and reduce the economy’s dependence on investment.</p>\n<p><a title=\"Shirt tales from TAL, an apparel powerhouse - FT.com\" href=\"http://www.ft.com/cms/s/0/f31b2d54-60de-11e3-916e-00144feabdc0.html?siteedition=uk\">Roger Lee, chief executive of TAL</a>, a Hong Kong company with 11 factories in Asia that produces clothes for dozens of global brands, says wages have doubled over the past five years. In 2008 its Dongguan factories made clothes at half the cost of its facilities in Malaysia and Thailand but that gap has since disappeared.</p>\n<p>Crystal Group, one of Asia’s largest apparel companies with 11,000 workers in Dongguan, says organic costs – including wages and the strengthening renminbi – have risen 10-12 per cent a year over the past five years. As a result, it has been forced to shift production of commodity items such as T-shirts and underwear elsewhere.</p>\n<p>“Our strategy is to . . . produce them in cheaper countries like Vietnam or Cambodia,” says Dennis Wong, executive director. “That is why we are still surviving.”</p>\n<p>While some companies such as Crystal are shifting production to southeast Asia, others are moving to cheaper parts of China. Samsonite, the luggage maker that outsources about 65 per cent of its production to Chinese companies, has seen many of its vendors move to provinces around Shanghai in the Yangtze River Delta.</p>\n<p>“About 80 or 90 per cent of the people we were working with were based in southern China,” says Tim Parker, chief executive of Samsonite. “Now probably the majority . . . we purchase comes from eastern China”.</p>\n<p><span class=\"ft-bold\">. . .</span>\n</p>\n<p>Despite rising labour costs, any decision to leave the delta is not easy for foreign companies and their local manufacturers. Its ecosystem – everything from clusters of suppliers to road and rail infrastructure to access to ports in Shenzhen and Hong Kong – is hard to match elsewhere without sparking other cost increases.</p>\n<p>Nick Debnam, Asia head of consumer markets at KPMG, says textile manufacturers, for example, can shift lower-skilled production to countries such as Bangladesh and Cambodia relatively easily, although wages in those countries are also rising. But other industries, such as toy manufacturing, which is concentrated in south China, are less mobile as they rely on concentrated clusters of suppliers.</p>\n<p>“There are so many ancillary bits and pieces that need to be in place, it is difficult to move the whole thing lock, stock and barrel out of China,” says Mr Debnam.</p>\n<p>For companies that are contemplating moving inland in China instead of overseas, the decision is no easier. Mr Lee of TAL says his company conducted a study five years ago that concluded that moving inland would cut labour costs by 15 per cent but that the level of infrastructure would not be as good as in Guangdong.</p>\n<p>For manufacturers that cannot easily relocate, one solution is to automate more. Samsonite’s Mr Parker says his Chinese vendors are doing exactly that. He says there is plenty of scope since many Chinese factories use far more basic equipment than, for example, those the suitcase maker employs in its own facility in Belgium.</p>\n<p>“In China . . . you will find a totally different set-up and it is driven . . . by the relatively low cost of labour,” says Mr Parker. “That’s all changing because as the costs of labour increase, so some of our more enterprising suppliers are beginning to invest in more . . . sophisticated sewing equipment in order to reduce the labour content.”</p>\n<p>Some local governments, such as Dongguan, are trying to accelerate that process with subsidies. Mr Yao, the deputy party secretary, points to the knitting town of Dalang as a successful example, saying that its factories used the government funds to buy 40,000 computerised knitting machines, reducing the need for 200,000 workers.</p>\n<p>While manufacturers juggle solutions to rising labour costs, the trend is expected to get worse for various reasons. Rising wages are partly due to local governments raising the minimum levels. In its 2011-15 economic plan, Guangdong is targeting a 40 per cent rise. But the driving cause is factories being forced to pay more to attract workers amid an increasingly tight labour market.</p>\n<p>Several factors explain the scarcity of workers but the main reason is demographics. As a result of its <a title=\"China formally eases one-child policy - FT.com\" href=\"http://www.ft.com/cms/s/0/e10a2290-6fb2-11e3-8352-00144feabdc0.html\">one-child policy</a>, China’s working-age population – people between the ages of 15 and 59 – fell by 3.45m to 937m in 2012, in what was the first decline in many years.</p>\n<p>The labour squeeze is exacerbated in the PRD as migrant workers now have greater opportunities in their home provinces. These new opportunities are a result of central government policies aimed at promoting inland development to reduce the income gap with rich coastal regions. The “go-west” strategy is creating jobs in the interior that are particularly attractive to women who in the past left their children and moved to Guangdong for factory jobs.</p>\n<p>Another reason manufacturers are having to pay more is that workers are increasingly picky about jobs, since they have more choices as the PRD labour market shifts in their favour. Young workers are also less willing than earlier generations of migrants to toil in factories.</p>\n<p>The explosive growth in smartphones and <a title=\"China tech titans hold sway over start-ups - FT.com\" href=\"http://www.ft.com/cms/s/0/ad2a4fba-674a-11e3-a5f9-00144feabdc0.html\">Weibo</a> and Weixin – known as WeChat in English – one of the most popular social media services in China, has further empowered workers by making it easier for them to learn about other factories that may have better conditions.</p>\n<p>Factories say finding female workers is increasingly difficult. The one-child policy, coupled with the general preference for male children, has skewed the gender balance, reducing the number of female workers. But young women also increasingly prefer service industry jobs over more arduous production line work.</p>\n<p><span class=\"ft-bold\">. . .</span>\n</p>\n<p>The demographic and economic trends that are sparking higher wages in the PRD are forcing multinationals to raise prices, put more pressure on their suppliers to cut costs or simply accept lower profits.</p>\n<p>But some manufacturers, such as KTC in Heshan, say a more serious issue than rising wages – which can be absorbed at a cost – is the difficulty in finding enough workers with the right skills to allow production to continue.</p>\n<p>KTC has opened a factory in Laos but, as in the case of Crystal Group, the workers there make less complicated garments than in Heshan because they do not have the same skills as their Chinese peers.</p>\n<p>Top Form, a Hong Kong lingerie maker, faces a similar problem. Kevin Wong, executive director, says it closed a factory in Shenzhen and opened one in Cambodia in 2011.</p>\n<p>Mr Wong says that although wages in the southeast Asian nation are one quarter of the level in Shenzhen, that was not the main reason for the move.</p>\n<p>“It was never the labour cost. Once you don’t have the people, the overhead just kills you,” says Mr Wong, explaining that it was becoming impossible to find enough workers in Shenzhen.</p>\n<p>Regardless of the industry, the challenges in the PRD are forcing all manufacturers to find cost-cutting solutions, with the most extreme one being relocation from China. But Mr Debnam says talk of multinationals abandoning China are overblown, and that many companies do not follow through on their repeated threats to leave China.</p>\n<p>“People think that the cost issues in China and the labour issues in China will inevitably force low value-added production out of China, but it is still there,” says Mr Debnam.</p>\n<p>Given the scale of manufacturing in the PRD, the region is likely to remain the world’s factory for a long time. But manufacturers in the region and consumers buying the products face a pricier future.</p>\n<p>William Fung, chairman of <a title=\"Li &amp; Fung: devotion turns to doubt - FT.com\" href=\"http://www.ft.com/cms/s/3/54a7924c-654a-11e2-a3db-00144feab49a.html\">Li &amp; Fung</a>, the big global sourcing company that procures products for everyone from Walmart to Target, says rising labour and raw material costs mean the model that served China and the world for 30 years has changed for good.</p>\n<p>“The era where China subsidised the world’s standard of living – by giving them really affordable goods from 1979-2009 – is basically over,” says Mr Fung. “People will pay what other people will probably say is a proper price.”</p>\n<p>-------------------------------------------</p>\n<p><span class=\"ft-bold\">Policy: Keep the cage but change the bird</span>\n</p>\n<p>Manufacturers are not alone in worrying about cost pressures in the Pearl River Delta. Guangdong is also promoting policies that it hopes will prevent it from losing economic competitiveness.</p>\n<p>In what Wang Yang, the former Communist party secretary of Guangdong, referred to as <span class=\"ft-italic\">“Teng Long Huan Niao”</span> – “Keep the cage, but change the bird” – the province wants to replace inefficient low-cost and labour-intensive manufacturing with more high-tech and service companies and “greener” manufacturing.</p>\n<p>As part of that push, it is developing several new economic zones to attract knowledge-based industries. They include Qianhai in Shenzhen, which it hopes to turn into a financial centre, and <a title=\"Hong Kong faces threat from Guangzhou port - FT.com\" href=\"http://www.ft.com/intl/cms/s/0/16c77834-7d86-11e3-a48f-00144feabdc0.html\">Nansha port in Guangzhou</a>.</p>\n<p>Guangdong is also talking to Hong Kong and Macau about creating a big <a title=\"High hopes for Macao satellite town - beyondbrics - FT.com\" href=\"http://blogs.ft.com/beyond-brics/2011/09/02/high-hopes-for-macaos-future-satellite-town/\">free-trade zone</a> with the two Chinese special administrative regions. In Guangzhou, Jim Barber, president of UPS International, said the zone would provide an important boost to the region by facilitating cross-border trade and logistics.</p>\n<p>The proposal has taken on greater urgency since the central government unveiled a free-trade zone in Shanghai that is expected to provide a boost to the Yangtze River Delta, one of the main competitors to the PRD in China.</p>\n<p>Xiao Geng, a PRD expert at the Fung Global Institute in Hong Kong, says the delta needs to push ahead with integration to facilitate knowledge-based industries. But he says it is moving too slowly, mainly because of the fragmented nature of the region, which includes many local governments in addition to Hong Kong and Macau.</p>\n<p>Guangdong officials are worried about losing economic ground to Jiangsu – an increasingly prosperous Yangtze River Delta province – particularly since Hu Chunhua, the Guangdong party secretary, is a possible candidate to replace Xi Jinping as president roughly a decade from now.</p>\n<p>The PRD received a boost in 2012 when Mr Xi chose to make his first trip as the new Communist party leader to Shenzhen, following in the footsteps of Deng Xiaoping’s southern tour three decades before. “We came here to . . . show that we’ll unswervingly push forward reform and opening up,” Mr Xi said.</p>\n<p><span class=\"ft-italic\">Additional reporting by Julie Zhu</span>\n</p>\n<p>Twitter: <a title=\"Twitter: Demetri Sevastopulo\" href=\"https://twitter.com/AsiaNewsDemetri\">@AsiaNewsDemetri</a>\n</p>"
+        },
+        "lifecycle": {
+            "initialPublishDateTime": "2014-01-22T19:06:27Z",
+            "lastPublishDateTime": "2014-01-22T19:06:27Z"
+        },
+        "location": {
+            "uri": "http://www.ft.com/cms/s/0/a60413c2-7c46-11e3-9179-00144feabdc0.html"
+        },
+        "summary": {
+            "excerpt": "Shoppers will have to pay more as the world’s factory comes under wage and labour strain"
+        },
+        "packaging": {
+            "kicker": "China",
+            "spHeadline": "Delta blues"
+        },
+        "master": {
+            "masterSource": "Methode",
+            "masterEntityId": "a60413c2-7c46-11e3-9179-00144feabdc0"
+        },
+        "editorial": {
+            "subheading": "Shoppers will have to pay more as the world’s factory comes under wage and labour strain",
+            "leadBody": "Shoppers will have to pay more as the world’s factory comes under wage and labour strain, and pressure builds for a change in direction",
+            "standFirst": "Shoppers will have to pay more as the world’s factory comes under wage and labour strain",
+            "byline": "By Demetri Sevastopulo"
+        },
+        "provenance": {
+            "originatingParty": "FT"
+        },
+        "metadata": {
+            "primarySection": {
+                "term": {
+                    "name": "The Big Read",
+                    "id": "MTE4-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            },
+            "tags": [{
+                "term": {
+                    "name": "The Big Read",
+                    "id": "MTE4-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }, {
+                "term": {
+                    "name": "Analysis",
+                    "id": "MQ==-R2VucmVz",
+                    "attributes": [],
+                    "taxonomy": "genre"
+                }
+            }, {
+                "term": {
+                    "name": "Text",
+                    "id": "ZjMwY2E2NjctMDA1Ni00ZTk4LWI0MWUtZjk5MTk2ZTMyNGVm-TWVkaWFUeXBlcw==",
+                    "attributes": [],
+                    "taxonomy": "mediaType"
+                }
+            }, {
+                "term": {
+                    "name": "Samsonite International SA",
+                    "attributes": [{
+                        "key": "FTSymbol",
+                        "value": "hk:1910"
+                    }]
+                }
+            }, {
+                "term": {
+                    "name": "Crystal Group Inc.",
+                    "attributes": []
+                }
+            }, {
+                "term": {
+                    "name": "United Parcel Service Inc",
+                    "attributes": [{
+                        "key": "FTSymbol",
+                        "value": "us:UPS"
+                    }]
+                }
+            }],
+            "authors": [{
+                "term": {
+                    "name": "Demetri Sevastopulo",
+                    "id": "Q0ItMDAwMTMyNw==-QXV0aG9ycw==",
+                    "attributes": [],
+                    "taxonomy": "authors"
+                }
+            }],
+            "brand": [],
+            "genre": [{
+                "term": {
+                    "name": "Analysis",
+                    "id": "MQ==-R2VucmVz",
+                    "attributes": [],
+                    "taxonomy": "genre"
+                }
+            }],
+            "icb": [{
+                "term": {
+                    "name": "3763 Clothing & Accessories",
+                    "id": "ODY=-SUNC",
+                    "attributes": [],
+                    "taxonomy": "icb"
+                }
+            }],
+            "iptc": [{
+                "term": {
+                    "name": "04008017 - prices",
+                    "id": "MDQwMDgwMTc=-SVBUQw==",
+                    "attributes": [],
+                    "taxonomy": "iptc"
+                }
+            }, {
+                "term": {
+                    "name": "04008024 - commodity markets",
+                    "id": "MDQwMDgwMjQ=-SVBUQw==",
+                    "attributes": [],
+                    "taxonomy": "iptc"
+                }
+            }, {
+                "term": {
+                    "name": "04013007 - textile and clothing",
+                    "id": "MDQwMTMwMDc=-SVBUQw==",
+                    "attributes": [],
+                    "taxonomy": "iptc"
+                }
+            }, {
+                "term": {
+                    "name": "04014003 - recreational and sporting goods",
+                    "id": "MDQwMTQwMDM=-SVBUQw==",
+                    "attributes": [],
+                    "taxonomy": "iptc"
+                }
+            }, {
+                "term": {
+                    "name": "09016000 - employee",
+                    "id": "MDkwMTYwMDA=-SVBUQw==",
+                    "attributes": [],
+                    "taxonomy": "iptc"
+                }
+            }],
+            "mediaType": [{
+                "term": {
+                    "name": "Text",
+                    "id": "ZjMwY2E2NjctMDA1Ni00ZTk4LWI0MWUtZjk5MTk2ZTMyNGVm-TWVkaWFUeXBlcw==",
+                    "attributes": [],
+                    "taxonomy": "mediaType"
+                }
+            }],
+            "organisations": [],
+            "people": [],
+            "regions": [{
+                "term": {
+                    "name": "Shenzhen",
+                    "id": "TnN0ZWluX0dMX0FGVE1fR0xfMTMzMjY4-R0w=",
+                    "attributes": [],
+                    "taxonomy": "regions"
+                }
+            }, {
+                "term": {
+                    "name": "Guangdong",
+                    "id": "TnN0ZWluX0dMX0FGVE1fR0xfMzcxMQ==-R0w=",
+                    "attributes": [],
+                    "taxonomy": "regions"
+                }
+            }, {
+                "term": {
+                    "name": "Dongguan",
+                    "id": "TnN0ZWluX0dMX0FGVE1fR0xfMzk1NTE=-R0w=",
+                    "attributes": [],
+                    "taxonomy": "regions"
+                }
+            }, {
+                "term": {
+                    "name": "Hong Kong",
+                    "id": "TnN0ZWluX0dMX0FGVE1fR0xfNTc0NjY=-R0w=",
+                    "attributes": [],
+                    "taxonomy": "regions"
+                }
+            }, {
+                "term": {
+                    "name": "Guangzhou",
+                    "id": "TnN0ZWluX0dMX0FGVE1fR0xfNTcyOTU=-R0w=",
+                    "attributes": [],
+                    "taxonomy": "regions"
+                }
+            }, {
+                "term": {
+                    "name": "China",
+                    "id": "TnN0ZWluX0dMX0NO-R0w=",
+                    "attributes": [],
+                    "taxonomy": "regions"
+                }
+            }],
+            "sections": [{
+                "term": {
+                    "name": "Comment",
+                    "id": "MTE2-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }, {
+                "term": {
+                    "name": "The Big Read",
+                    "id": "MTE4-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }, {
+                "term": {
+                    "name": "FT Infographics",
+                    "id": "YzQ0YmRhYWYtNTcyYy00ZDVmLWI1YWItZDk2ZWYxNjA0YWNj-U2VjdGlvbnM=",
+                    "attributes": [],
+                    "taxonomy": "sections"
+                }
+            }],
+            "specialReports": [],
+            "subjects": [{
+                "term": {
+                    "name": "Human Resources & Employment",
+                    "id": "MTM=-U3ViamVjdHM=",
+                    "attributes": [],
+                    "taxonomy": "subjects"
+                }
+            }, {
+                "term": {
+                    "name": "Economic Indicators",
+                    "id": "NjU=-U3ViamVjdHM=",
+                    "attributes": [],
+                    "taxonomy": "subjects"
+                }
+            }, {
+                "term": {
+                    "name": "Inward & Outward Investment",
+                    "id": "ODc=-U3ViamVjdHM=",
+                    "attributes": [],
+                    "taxonomy": "subjects"
+                }
+            }],
+            "topics": []
+        },
+        "images": [{
+            "url": "http://im.ft-static.com/content/images/4ec7ffbb-d3c3-4ca5-a1f6-839b5f54e678.img",
+            "type": "primary",
+            "source": "Bloomberg News",
+            "alt": "Shenzen factory",
+            "height": 153,
+            "width": 272,
+            "mediaType": "image/jpeg"
+        }, {
+            "url": "http://im.ft-static.com/content/images/3757f403-8292-4d25-96d5-2c40d09f7256.img",
+            "type": "secondary",
+            "source": "Bloomberg News",
+            "alt": "Shenzen factory",
+            "height": 94,
+            "width": 167,
+            "mediaType": "image/jpeg"
+        }, {
+            "url": "http://im.ft-static.com/content/images/02ccb3d2-cace-403e-8720-0c9dcb6d1441.img",
+            "type": "article",
+            "source": "Bloomberg News",
+            "alt": "Shenzen factory",
+            "height": 338,
+            "width": 600,
+            "mediaType": "image/jpeg"
+        }, {
+            "url": "http://im.ft-static.com/content/images/57c0a2b3-7211-4ccb-85cc-3d3aeb81b597.img",
+            "type": "leader",
+            "source": "Bloomberg News",
+            "alt": "Shenzen factory",
+            "height": 233,
+            "width": 414,
+            "mediaType": "image/jpeg"
+        }, {
+            "url": "http://im.ft-static.com/content/images/5aed4d2c-838f-11e3-86c9-00144feab7de.img",
+            "type": "pop-up",
+            "height": 780,
+            "width": 1142,
+            "mediaType": "image/jpeg"
+        }, {
+            "url": "http://im.ft-static.com/content/images/5c65d7e6-838f-11e3-86c9-00144feab7de.img",
+            "type": "pop-up-promo",
+            "alt": "Growth area",
+            "caption": "China's industrial heartland",
+            "height": 96,
+            "width": 167,
+            "mediaType": "image/gif"
+        }, {
+            "url": "http://im.ft-static.com/content/images/d613ca09-a9bb-44b9-ba80-766e9675e83d.img",
+            "type": "wide-format",
+            "source": "Bloomberg News",
+            "alt": "Shenzen factory",
+            "height": 547,
+            "width": 972,
+            "mediaType": "image/jpeg"
+        }],
+        "package": [{
+            "id": "cca29a36-81d1-11e3-87d5-00144feab7de",
+            "apiUrl": "http://api.ft.com/content/items/v1/cca29a36-81d1-11e3-87d5-00144feab7de",
+            "packaging": {
+                "spHeadline": "China set to mirror Asian giants’ growth"
+            },
+            "provenance": {
+                "originatingParty": "FT"
+            }
+        }, {
+            "id": "1aa3450c-8176-11e3-95aa-00144feab7de",
+            "apiUrl": "http://api.ft.com/content/items/v1/1aa3450c-8176-11e3-95aa-00144feab7de",
+            "packaging": {
+                "spHeadline": "China economic growth continues to cool"
+            },
+            "provenance": {
+                "originatingParty": "FT"
+            }
+        }, {
+            "id": "c8948f1e-2653-11e3-8ef6-00144feab7de",
+            "apiUrl": "http://api.ft.com/content/items/v1/c8948f1e-2653-11e3-8ef6-00144feab7de",
+            "packaging": {
+                "spHeadline": "Changing face of China’s factory floor"
+            },
+            "provenance": {
+                "originatingParty": "FT"
+            }
+        }, {
+            "id": "16c77834-7d86-11e3-a48f-00144feabdc0",
+            "apiUrl": "http://api.ft.com/content/items/v1/16c77834-7d86-11e3-a48f-00144feabdc0",
+            "packaging": {
+                "spHeadline": "Hong Kong faces threat from Guangzhou port"
+            },
+            "provenance": {
+                "originatingParty": "FT"
+            }
+        }, {
+            "id": "0ca021c0-680b-11e3-a905-00144feabdc0",
+            "apiUrl": "http://api.ft.com/content/items/v1/0ca021c0-680b-11e3-a905-00144feabdc0",
+            "packaging": {
+                "kicker": "Undercover Economist",
+                "spHeadline": "Your jobs. Give them to me. Now"
+            },
+            "provenance": {
+                "originatingParty": "FT"
+            }
+        }],
+        "assets": [{
+            "type": "slideshow",
+            "name": "asset1",
+            "fields": {
+                "title": "",
+                "slides": [{
+                    "slideNumber": 1,
+                    "url": "http://im.ft-static.com/content/images/cf8317ce-9062-40d7-8341-08e38cd80a77.img",
+                    "source": "Bloomberg News",
+                    "alt": "Site Visit To Huawei Technologies",
+                    "caption": "Shenzhen has become a centre for high-tech telecoms and electronics companies such as Foxconn and Huawei, and is a growing logistics base",
+                    "height": 547,
+                    "width": 972,
+                    "mediaType": "image/jpeg"
+                }, {
+                    "slideNumber": 2,
+                    "url": "http://im.ft-static.com/content/images/d9e9ca68-fa4a-4742-991c-e3a8db712168.img",
+                    "source": "AP",
+                    "alt": "FILE - In this Sept. 4, 2007 file photo, workers assemble toy cars on the production line at a toy factory in Dongguan, China. Global manufacturers struggling with life-or-death pressures to control costs are finding that the legions of low-wage Chinese workers they rely on have limits. (AP Photo/Eugene Hoshiko, File)",
+                    "caption": "Dongguan is a broad, dense area of light manufacturing, making everything from computers to toys and watches to textiles",
+                    "height": 547,
+                    "width": 972,
+                    "mediaType": "image/jpeg"
+                }, {
+                    "slideNumber": 3,
+                    "url": "http://im.ft-static.com/content/images/250297a5-76c8-4cd1-836b-310be1822194.img",
+                    "source": "Bloomberg News",
+                    "alt": "Fiat CEO Sergio Marchionne Attends New Plant Opening",
+                    "caption": "Guangzhou, the capital of Guangdong province, specialises in industries from transport equipment to chemicals and gasoline refining",
+                    "height": 547,
+                    "width": 972,
+                    "mediaType": "image/jpeg"
+                }, {
+                    "slideNumber": 4,
+                    "url": "http://im.ft-static.com/content/images/c552d8c2-0ce6-45aa-a3e4-f17786a842b2.img",
+                    "source": "Bloomberg News",
+                    "alt": "An employee loads boxed furniture onto a transport truck at a furniture distribution point in Lecong, China February 11, 2004. Photographer: Paul Hilton/Bloomberg News",
+                    "caption": "Foshan includes districts such as Shunde, a centre for household appliances, and Lecong, one of the biggest furniture production areas in China",
+                    "height": 547,
+                    "width": 972,
+                    "mediaType": "image/jpeg"
+                }, {
+                    "slideNumber": 5,
+                    "url": "http://im.ft-static.com/content/images/96a8ba90-c18b-492b-9d91-fb0e1f7993dc.img",
+                    "source": "AFP",
+                    "alt": "A model parades the DONG Huaiguang High",
+                    "caption": "Zhongshan specialises in products such as electrical equipment and textiles, and manufactures much of the lighting and lighting fixtures sold in the nation",
+                    "height": 547,
+                    "width": 972,
+                    "mediaType": "image/jpeg"
+                }, {
+                    "slideNumber": 6,
+                    "url": "http://im.ft-static.com/content/images/8e01dd24-e4fc-4f37-bc6d-5b8ca4fb70aa.img",
+                    "source": "AP",
+                    "alt": "FILE - In this Feb. 11, 2007 file photo, a staff member demonstrates the roulette wheel at Grand Lisboa Casino in Macau. In the Philippines, a $4 billion casino project will soon rise from reclaimed land on Manila Bay. In South Korea, foreign investors will break ground next year on a clutch of casino resorts offshore. The projects are part of a casino building boom rolling across Asia, where governments are trying to develop their tourism markets to capture increasingly affluent Asians with a penchant for gambling. (AP Photo/Kin Cheung, File)",
+                    "caption": "Macau is an enclave of casinos that is now more than seven times the size of Las Vegas, mainly thanks to the growing number of mainland Chinese punters",
+                    "height": 547,
+                    "width": 972,
+                    "mediaType": "image/jpeg"
+                }, {
+                    "slideNumber": 7,
+                    "url": "http://im.ft-static.com/content/images/c49fd683-f9a5-45bd-b972-c43473be5fcb.img",
+                    "height": 547,
+                    "width": 972,
+                    "mediaType": "image/jpeg"
+                }, {
+                    "slideNumber": 8,
+                    "url": "http://im.ft-static.com/content/images/6e171ae1-ad5c-4938-afb9-f1608b4e8aca.img",
+                    "height": 547,
+                    "width": 972,
+                    "mediaType": "image/jpeg"
+                }]
+            }
+        }],
+        "mediaAssets": [{
+            "type": "slideshow",
+            "name": "asset1",
+            "slideshowHeading": "",
+            "slides": [{
+                "slideNumber": 1,
+                "url": "http://im.ft-static.com/content/images/cf8317ce-9062-40d7-8341-08e38cd80a77.img",
+                "source": "Bloomberg News",
+                "alt": "Site Visit To Huawei Technologies",
+                "caption": "Shenzhen has become a centre for high-tech telecoms and electronics companies such as Foxconn and Huawei, and is a growing logistics base",
+                "height": 547,
+                "width": 972,
+                "mediaType": "image/jpeg"
+            }, {
+                "slideNumber": 2,
+                "url": "http://im.ft-static.com/content/images/d9e9ca68-fa4a-4742-991c-e3a8db712168.img",
+                "source": "AP",
+                "alt": "FILE - In this Sept. 4, 2007 file photo, workers assemble toy cars on the production line at a toy factory in Dongguan, China. Global manufacturers struggling with life-or-death pressures to control costs are finding that the legions of low-wage Chinese workers they rely on have limits. (AP Photo/Eugene Hoshiko, File)",
+                "caption": "Dongguan is a broad, dense area of light manufacturing, making everything from computers to toys and watches to textiles",
+                "height": 547,
+                "width": 972,
+                "mediaType": "image/jpeg"
+            }, {
+                "slideNumber": 3,
+                "url": "http://im.ft-static.com/content/images/250297a5-76c8-4cd1-836b-310be1822194.img",
+                "source": "Bloomberg News",
+                "alt": "Fiat CEO Sergio Marchionne Attends New Plant Opening",
+                "caption": "Guangzhou, the capital of Guangdong province, specialises in industries from transport equipment to chemicals and gasoline refining",
+                "height": 547,
+                "width": 972,
+                "mediaType": "image/jpeg"
+            }, {
+                "slideNumber": 4,
+                "url": "http://im.ft-static.com/content/images/c552d8c2-0ce6-45aa-a3e4-f17786a842b2.img",
+                "source": "Bloomberg News",
+                "alt": "An employee loads boxed furniture onto a transport truck at a furniture distribution point in Lecong, China February 11, 2004. Photographer: Paul Hilton/Bloomberg News",
+                "caption": "Foshan includes districts such as Shunde, a centre for household appliances, and Lecong, one of the biggest furniture production areas in China",
+                "height": 547,
+                "width": 972,
+                "mediaType": "image/jpeg"
+            }, {
+                "slideNumber": 5,
+                "url": "http://im.ft-static.com/content/images/96a8ba90-c18b-492b-9d91-fb0e1f7993dc.img",
+                "source": "AFP",
+                "alt": "A model parades the DONG Huaiguang High",
+                "caption": "Zhongshan specialises in products such as electrical equipment and textiles, and manufactures much of the lighting and lighting fixtures sold in the nation",
+                "height": 547,
+                "width": 972,
+                "mediaType": "image/jpeg"
+            }, {
+                "slideNumber": 6,
+                "url": "http://im.ft-static.com/content/images/8e01dd24-e4fc-4f37-bc6d-5b8ca4fb70aa.img",
+                "source": "AP",
+                "alt": "FILE - In this Feb. 11, 2007 file photo, a staff member demonstrates the roulette wheel at Grand Lisboa Casino in Macau. In the Philippines, a $4 billion casino project will soon rise from reclaimed land on Manila Bay. In South Korea, foreign investors will break ground next year on a clutch of casino resorts offshore. The projects are part of a casino building boom rolling across Asia, where governments are trying to develop their tourism markets to capture increasingly affluent Asians with a penchant for gambling. (AP Photo/Kin Cheung, File)",
+                "caption": "Macau is an enclave of casinos that is now more than seven times the size of Las Vegas, mainly thanks to the growing number of mainland Chinese punters",
+                "height": 547,
+                "width": 972,
+                "mediaType": "image/jpeg"
+            }, {
+                "slideNumber": 7,
+                "url": "http://im.ft-static.com/content/images/c49fd683-f9a5-45bd-b972-c43473be5fcb.img",
+                "height": 547,
+                "width": 972,
+                "mediaType": "image/jpeg"
+            }, {
+                "slideNumber": 8,
+                "url": "http://im.ft-static.com/content/images/6e171ae1-ad5c-4938-afb9-f1608b4e8aca.img",
+                "height": 547,
+                "width": 972,
+                "mediaType": "image/jpeg"
+            }]
+        }]
+    }
+}
