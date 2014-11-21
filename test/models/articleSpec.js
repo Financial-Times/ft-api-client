@@ -48,6 +48,14 @@ describe('Article model', function(){
             expect(article.headline).to.equal('Obama steadfast on Syria strikes despite G20 opposition');
         });
 
+        it('Get the alternate headlines, standfirsts, excerpts etc.', function() {
+            var article = new models.Article(fixtures.article);
+            expect(article.spHeadline).to.equal('Obama urges Syria strike despite G20');
+            expect(article.subheading).to.equal('US president to address American people on Tuesday');
+            expect(article.leadBody).to.contain('US president sets out the case for a missile strike');
+            expect(article.standFirst).to.contain('woes highlight the need');
+            expect(article.excerpt).to.contain('US president sets out the case');
+        });
     });
 
     describe('Metadata', function () {

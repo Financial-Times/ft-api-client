@@ -74,6 +74,53 @@ Object.defineProperty(Article.prototype, 'headline', {
     }
 });
 
+Object.defineProperty(Article.prototype, 'spHeadline', {
+    get: function () {
+        if (this.raw.item.packaging) {
+            return this.raw.item.packaging.spHeadline;
+        }
+        return false;
+    }
+});
+
+Object.defineProperty(Article.prototype, 'subheading', {
+    get: function () {
+        if (this.raw.item.editorial) {
+            return this.raw.item.editorial.subheading;
+        }
+        return false;
+    }
+});
+
+Object.defineProperty(Article.prototype, 'leadBody', {
+    get: function () {
+        if (this.raw.item.editorial) {
+            return this.raw.item.editorial.leadBody;
+        }
+        return false;
+    }
+});
+
+Object.defineProperty(Article.prototype, 'standFirst', {
+    get: function () {
+        if (this.raw.item.editorial) {
+            return this.raw.item.editorial.standFirst;
+        }
+        return false;
+    }
+});
+
+
+Object.defineProperty(Article.prototype, 'excerpt', {
+    get: function () {
+        if (this.raw.item.summary) {
+            return this.raw.item.summary.excerpt;
+        }
+        return false;
+    }
+});
+
+
 /**
  * Returns a list of package id's
  */
