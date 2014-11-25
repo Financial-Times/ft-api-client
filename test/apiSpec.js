@@ -8,7 +8,10 @@ var fs      = require("fs");
 
 require('es6-promise').polyfill();
 
-var ft      = require("../lib/api")('123');
+var ft      = require("../lib/api")({
+    apiKey: '123',
+    elasticSearchKey: '123'
+});
 
 describe('API', function(){
 
@@ -20,6 +23,7 @@ describe('API', function(){
         article: fs.readFileSync('test/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' }),
         search:  fs.readFileSync('test/fixtures/search-for__climate-change', { encoding: 'utf8' }),
         searchNoResults : fs.readFileSync('test/fixtures/search-no_results', {encoding: 'utf8'}),
+        elasticSearch : fs.readFileSync('test/fixtures/elasticSearch', {encoding: 'utf8'}),
         page:    fs.readFileSync('test/fixtures/page_front-page', { encoding: 'utf8' })
     };
 
@@ -32,7 +36,7 @@ describe('API', function(){
         });
     });
 
-    it('Check it was cached for a subsequent resposne', function(done) {
+    it('Check it was cached for a subsequent response', function(done) {
         nock(host).get(util.format(path, 'abc', '123')).reply(200, fixtures.article);
         ft.get('abc')
           .then(function (article) {
@@ -45,6 +49,7 @@ describe('API', function(){
         nock(host).get(util.format(path, 'x', '123')).reply(200, fixtures.article);
         nock(host).get(util.format(path, 'y', '123')).reply(200, fixtures.article);
         nock(host).get(util.format(path, 'z', '123')).reply(200, fixtures.article);
+        nock('http://paas:123@bofur-us-east-1.searchly.com').post('/v1Api/item/_mget').reply(200, fixtures.elasticSearch);
         ft.get(['x', 'z', 'y'])
           .then(function (articles) {
             expect(articles.length).to.equal(3);
@@ -112,6 +117,7 @@ describe('API', function(){
         var ids = ['xxx', 'yyy'];
         nock(host).get(util.format(path, ids[0], '123')).reply(200, fixtures.article);
         nock(host).get(util.format(path, ids[1], '123')).reply(503, fixtures.article);
+        nock('http://paas:123@bofur-us-east-1.searchly.com').post('/v1Api/item/_mget').reply(200, fixtures.elasticSearch);
         ft.get(ids)
           .then(function (articles) {
             expect(articles.filter(function (article) {
@@ -138,7 +144,7 @@ describe('API', function(){
                 expect(response.articles.length).to.equal(0);
                 expect(response.meta.facets.length).to.equal(0);
                 done();
-            }, done)
+            }, done);
     });
 
     it('Should return a list of facets that appear in the results', function(done){
