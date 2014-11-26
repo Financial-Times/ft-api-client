@@ -1,10 +1,11 @@
 'use strict';
 
-var expect  = require("chai").expect;
-var nock    = require("nock");
-var sinon   = require("sinon");
-var util    = require("util");
-var fs      = require("fs");
+var expect  = require('chai').expect;
+var nock    = require('nock');
+var sinon   = require('sinon');
+var util    = require('util');
+var fs      = require('fs');
+var request = require('request');
 
 require('es6-promise').polyfill();
 
@@ -49,8 +50,16 @@ describe('API', function(){
         nock(host).get(util.format(path, 'x', '123')).reply(200, fixtures.article);
         nock(host).get(util.format(path, 'y', '123')).reply(200, fixtures.article);
         nock(host).get(util.format(path, 'z', '123')).reply(200, fixtures.article);
-        nock('http://paas:123@bofur-us-east-1.searchly.com').post('/v1Api/item/_mget').reply(200, fixtures.elasticSearch);
         ft.get(['x', 'z', 'y'])
+          .then(function (articles) {
+            expect(articles.length).to.equal(3);
+            done();
+        });
+    });
+
+    it('Get several articles using mget', function(done) {
+        nock('http://paas:123@bofur-us-east-1.searchly.com').post('/v1Api/item/_mget').reply(200, fixtures.elasticSearch);
+        ft.mget(['x', 'z', 'y'])
           .then(function (articles) {
             expect(articles.length).to.equal(3);
             done();
@@ -77,7 +86,7 @@ describe('API', function(){
             return '*';
         });
         nock(host).filteringRequestBody(spy).post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
-        ft.search("Portillo's teeth removed to boost pound", 99)
+        ft.search('Portillo\'s teeth removed to boost pound', 99)
           .then(function () {
             expect(spy.calledOnce).to.true;
             expect(JSON.parse(spy.firstCall.args[0]).resultContext.maxResults).to.equal(99);
@@ -162,4 +171,37 @@ describe('API', function(){
 
             }, done);
     });
+
+    it('Should request different fields if user specifies', function () {
+        sinon.stub(request, 'post');
+        ft.search('Climate change', 20, {
+            offset: 10,
+            highlight: true,
+            aspects: ['testterm1','testterm2'],
+            facets: {
+                '+names': ['testterm3']
+            }
+        });
+        var resultContext = JSON.parse(request.post.lastCall.args[0].body).resultContext;
+        console.log(JSON.stringify(resultContext.aspects, null, '\t'));
+
+        expect(resultContext.aspects).to.eql([
+            "testterm1",
+            "testterm2"
+        ]);
+        expect(resultContext.maxResults).to.equal(20);
+        expect(resultContext.offset).to.equal(10);
+        expect(resultContext.highlight).to.be.true;
+        expect(resultContext.facets.names).to.eql([
+            "organisations",
+            "regions",
+            "sections",
+            "topics",
+            "testterm3"
+        ]);
+
+        request.post.restore();
+    });
+
+
 });
