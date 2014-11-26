@@ -55,3 +55,6 @@ Or retrieve a collection of articles via a search term,
         console.log(articles);
       })
 
+To request more results than the default (`5`) pass in a second parameter with the number required.
+
+To override the [default `resultContext` config](https://github.com/Financial-Times/ft-api-client/blob/v3/lib/v1/search.js#L4) sent to the search api a third parameter can be passed, which should be an object conforming to the structure expected by `resultContext`. The properties in this object will override the defaults. For properties which are arrays prefixing the property name with '+' will concatenate the properties passed to the default set e.g. `'+aspects': ['example']` will add `'example'` to th edefault list of aspects. 
