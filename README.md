@@ -25,7 +25,7 @@ Then,
     var ft = require('../lib2/api')('your-api-key');
 
     ft
-      .get('03b49444-16c9-11e3-bced-00144feabdc0')
+      .mget('03b49444-16c9-11e3-bced-00144feabdc0')
       .then(function (article) {
         console.log(article.id);
         console.log(article.largestImage);
@@ -36,7 +36,7 @@ Then,
 Or you can get several resources in a single request,
 
     ft
-      .get([
+      .mget([
           '03b49444-16c9-11e3-bced-00144feabdc0',
           '7d9ee96e-3a70-11e4-bd08-00144feabdc0',
           'a7008958-f2f3-11e3-a3f8-00144feabdc0'
