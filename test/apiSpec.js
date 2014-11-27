@@ -61,7 +61,7 @@ describe('API', function(){
             var foo = result.articles.map(function (article) {
                 return article.id;
             });
-            expect(result.indexCount).to.equal(12233);
+            expect(result.meta.indexCount).to.equal(12233);
             expect(foo).to.deep.equal([ '3031199c-3e8d-11e4-a620-00144feabdc0',
                                         'c48b2eac-3fb9-11e4-a381-00144feabdc0',
                                         '3c34252e-3fd0-11e4-a381-00144feabdc0'  ]);
