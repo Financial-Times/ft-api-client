@@ -57,10 +57,11 @@ describe('API', function(){
     it('Search for articles matching a term', function(done) {
         nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
         ft.search('Climate change')
-          .then(function (result) {
+          .then(function(result) {
             var foo = result.articles.map(function (article) {
                 return article.id;
             });
+            expect(result.indexCount).to.equal(12233);
             expect(foo).to.deep.equal([ '3031199c-3e8d-11e4-a620-00144feabdc0',
                                         'c48b2eac-3fb9-11e4-a381-00144feabdc0',
                                         '3c34252e-3fd0-11e4-a381-00144feabdc0'  ]);
