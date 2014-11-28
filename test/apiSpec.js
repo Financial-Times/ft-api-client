@@ -99,41 +99,37 @@ describe('API', function(){
         }, function (err) { console.log(err); });
     });
     
-    // We probably want to resolve HTTP errors rather than reject them as in the case of fetching 
-    // several articles in a batch the Promise will fail if it receives a single error. It's probably more 
-    // tolerant to mask the errors.
+    it('Fulfill the Promise.all even if some of the API call fail', function(done) {
+        var ids = ['xxx', 'yyy'];
+        nock(host).get(util.format(path, ids[0], '123')).reply(200, fixtures.article);
+        nock(host).get(util.format(path, ids[1], '123')).reply(503, fixtures.article);
+        ft.get(ids)
+          .then(function (articles) {
+            expect(articles.filter(function (article) {
+                return !!article;
+            }).length).to.equal(1);
+            done();
+        });
+    });
 
-    it('Reject calls that result in API errors', function(done) {
+    it('Configure to reject calls that result in API errors', function(done) {
         var id  = 'abced';
         var spy = sinon.spy();
         nock(host).get(util.format(path, id, '123')).reply(503, '{"message":"error"}');
-        ft.get(id)
+        ft.get(id, {strict: true})
           .catch(spy)
           .then(function () {
             done();
             expect(spy.calledOnce).to.be.true;
           });
     });
-
-    it('Configure to fulfill the Promise.all even if some of the API call fail', function(done) {
-        var ids = ['xxx', 'yyy'];
-        nock(host).get(util.format(path, ids[0], '123')).reply(200, fixtures.article);
-        nock(host).get(util.format(path, ids[1], '123')).reply(503, fixtures.article);
-        ft.get(ids,  {alwaysResolve: true})
-          .then(function (articles) {
-            expect(articles.filter(function (article) {
-                return !!article; 
-            }).length).to.equal(1);
-            done();
-        });
-    });
     
-    it('Reject api calls that return invalid JSON', function(done) {
+    it('Handle api calls that return invalid JSON', function(done) {
         var id = 'abcdefghi';
         nock(host).get(util.format(path, id, '123')).reply(200, '{ "bad" "json" }');
         ft.get(id)
-          .then(noop, function (error) {
-            expect(error).to.match(/^error parsing JSON/);
+          .then(function (res) {
+            expect(res).to.be.undefined;
             done();
         });
     });
@@ -157,7 +153,7 @@ describe('API', function(){
                     expect(response.meta.facets).to.exist;
                     expect(response.meta.facets[0].name).to.equal(result.results[0].facets[0].name);
                     done();
-                }catch(e){
+                } catch(e){
                     done(e);
                 }
 
