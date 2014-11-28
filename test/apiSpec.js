@@ -58,6 +58,7 @@ describe('API', function(){
         nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
         ft.search('Climate change')
           .then(function(result) {
+            
             var foo = result.articles.map(function (article) {
                 return article.id;
             });
@@ -74,7 +75,9 @@ describe('API', function(){
             return '*';
         });
         nock(host).filteringRequestBody(spy).post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
-        ft.search('Portillo\'s teeth removed to boost pound', 99)
+        ft.search('Portillo\'s teeth removed to boost pound', {
+            quantity: 99
+        })
           .then(function () {
             expect(spy.calledOnce).to.true;
             expect(JSON.parse(spy.firstCall.args[0]).resultContext.maxResults).to.equal(99);
@@ -100,21 +103,23 @@ describe('API', function(){
     // several articles in a batch the Promise will fail if it receives a single error. It's probably more 
     // tolerant to mask the errors.
 
-    it('Resolve calls that result in API errors as undefined', function(done) {
+    it('Reject calls that result in API errors', function(done) {
         var id  = 'abced';
-        nock(host).get(util.format(path, id, '123')).reply(503, 'error');
+        var spy = sinon.spy();
+        nock(host).get(util.format(path, id, '123')).reply(503, '{"message":"error"}');
         ft.get(id)
-          .then(function (article) {
-            expect(article).to.equal(undefined);
+          .catch(spy)
+          .then(function () {
             done();
-        });
+            expect(spy.calledOnce).to.be.true;
+          });
     });
 
-    it('Fulfill the Promise.all even if some of the API call fail', function(done) {
+    it('Configure to fulfill the Promise.all even if some of the API call fail', function(done) {
         var ids = ['xxx', 'yyy'];
         nock(host).get(util.format(path, ids[0], '123')).reply(200, fixtures.article);
         nock(host).get(util.format(path, ids[1], '123')).reply(503, fixtures.article);
-        ft.get(ids)
+        ft.get(ids,  {alwaysResolve: true})
           .then(function (articles) {
             expect(articles.filter(function (article) {
                 return !!article; 

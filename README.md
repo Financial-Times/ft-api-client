@@ -63,7 +63,7 @@ To request more results than the default (`5`) pass in a second parameter with t
 
 `.get()` and `.search()` also accepts an optional second parameter, `opts` with the following properties
 
- - `alwaysResolve` - on the event of an error, after it is handled by `config.errorHandler`, the promise for any failed api call will be resolved with `undefined`. This means e.g. `Promise.all(client.get(ids, {alwaysResolve: true}))` can reliably be used when the success of *every* call is not essential
+ - `alwaysResolve` - if `true`, on the event of an error, after it is handled by `config.errorHandler`, the promise for any failed api call will be resolved with `undefined`. This means e.g. `Promise.all(client.get(ids, {alwaysResolve: true}))` can reliably be used when the success of *every* call is not essential
  - `quantity` (only applies to search) - max number of results to return (default 5)
  - `resultContext` (only applies to search) - Overrides the [default `resultContext` config](https://github.com/Financial-Times/ft-api-client/blob/v3/lib/v1/search.js#L4) sent to the search api. Each property in this object will override the default. For properties which are arrays, prefixing the property name with '+' will concatenate with the default set e.g. `'+aspects': ['example']` will add `'example'` to the default list of aspects. 
 
