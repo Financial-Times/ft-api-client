@@ -128,7 +128,7 @@ describe('API', function(){
         nock(host).get(util.format(path, id, '123')).reply(200, '{ "bad" "json" }');
         ft.get(id)
           .then(noop, function (error) {
-            expect(error).to.equal('error parsing JSON');
+            expect(error).to.match(/^error parsing JSON/);
             done();
         });
     });
@@ -159,6 +159,23 @@ describe('API', function(){
             }, done);
     });
 
+
+    it('Should be possible to configure timeout', function () {
+        var ft = require('../lib/api')('123', {timeout: 3000});
+        sinon.stub(request, 'post');
+        sinon.stub(request, 'get');
+        
+        ft.search('Climate change');
+        ft.get([123]);
+        console.log(JSON.stringify(request.post.lastCall.args[0], null, '\t'));
+        expect(request.post.lastCall.args[0].timeout).to.equal(3000);
+        expect(request.get.lastCall.args[0].timeout).to.equal(3000);
+
+        request.get.restore();
+        request.post.restore();
+    });
+
+
     it('Should request different fields if user specifies', function () {
         sinon.stub(request, 'post');
         ft.search('Climate change', 20, {
@@ -170,7 +187,7 @@ describe('API', function(){
             }
         });
         var resultContext = JSON.parse(request.post.lastCall.args[0].body).resultContext;
-        console.log(JSON.stringify(resultContext.aspects, null, '\t'));
+        
 
         expect(resultContext.aspects).to.eql([
             "testterm1",
