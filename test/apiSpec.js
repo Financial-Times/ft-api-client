@@ -176,14 +176,17 @@ describe('API', function(){
     });
 
 
-    it('Should request different fields if user specifies', function () {
+    it('Search should request different fields if user specifies', function () {
         sinon.stub(request, 'post');
-        ft.search('Climate change', 20, {
-            offset: 10,
-            highlight: true,
-            aspects: ['testterm1','testterm2'],
-            facets: {
-                '+names': ['testterm3']
+        ft.search('Climate change', {
+            quantity: 20,
+            resultContext: {
+                offset: 10,
+                highlight: true,
+                aspects: ['testterm1','testterm2'],
+                facets: {
+                    '+names': ['testterm3']
+                }
             }
         });
         var resultContext = JSON.parse(request.post.lastCall.args[0].body).resultContext;
