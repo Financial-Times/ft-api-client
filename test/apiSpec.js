@@ -63,6 +63,28 @@ describe('API', function(){
         });
     });
 
+    it('Emit an event when an item is is requested', function(done) {
+        nock(host).get(util.format(path, 'z', '123')).reply(200, fixtures.article);
+        var spy = sinon.spy(function (message) { });
+        ft.on('ft-api-client:v1:items', spy);
+        ft.get('z')
+          .then(function (articles) {
+            expect(spy.calledOnce).to.be.true;
+            done();
+        });
+    });
+
+    it('Emit an event when a search is performed', function(done) {
+        nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
+        var spy = sinon.spy(function (message) { });
+        ft.on('ft-api-client:v1:search', spy);
+        ft.search('Climate change')
+          .then(function (articles) {
+            expect(spy.calledOnce).to.be.true;
+            done();
+        });
+    });
+
     // FIXME - need tests for no search results, errors, maxResults etc...
     it('Search for articles matching a term', function(done) {
         nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
