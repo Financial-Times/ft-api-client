@@ -108,6 +108,7 @@ describe('API', function(){
         ft.get('k')
           .then(function (articles) {
             expect(spy.lastCall.args[0]).to.match(/^[0-9\.]+$/);
+            expect(spy.lastCall.args[1].statusCode).to.equal(200);
             expect(spy.calledOnce).to.be.true;
             done();
         });
