@@ -13,6 +13,11 @@ var ft = require("../lib/api")('123');
 
 describe('API', function(){
 
+    beforeEach(function () {
+        ft.removeAllListeners('ft-api-client:v1:requestHandler:request');
+        ft.removeAllListeners('ft-api-client:v1:requestHandler:response');
+    })
+
     var noop = function () { };
     var host = 'http://api.ft.com';
     var path = '/content/items/v1/%s?apiKey=%s&feature.blogposts=on';
@@ -91,6 +96,18 @@ describe('API', function(){
         ft.on('ft-api-client:v1:requestHandler:request', spy);
         ft.get('z')
           .then(function (articles) {
+            expect(spy.calledOnce).to.be.true;
+            done();
+        });
+    });
+
+    it('Emit an event when a response is made', function(done) {
+        nock(host).get(util.format(path, 'k', '123')).delay(200).reply(200, fixtures.article);
+        var spy = sinon.spy();
+        ft.on('ft-api-client:v1:requestHandler:response', spy);
+        ft.get('k')
+          .then(function (articles) {
+            expect(spy.lastCall.args[0]).to.match(/^[0-9\.]+$/);
             expect(spy.calledOnce).to.be.true;
             done();
         });
@@ -212,7 +229,6 @@ describe('API', function(){
         
         ft.search('Climate change');
         ft.get([123]);
-        console.log(JSON.stringify(request.post.lastCall.args[0], null, '\t'));
         expect(request.post.lastCall.args[0].timeout).to.equal(3000);
         expect(request.get.lastCall.args[0].timeout).to.equal(3000);
 
