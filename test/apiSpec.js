@@ -24,7 +24,7 @@ describe('API', function(){
         page:    fs.readFileSync('test/fixtures/page_front-page', { encoding: 'utf8' })
     };
 
-    it('Get an article', function(done) {
+    xit('Get an article', function(done) {
         nock(host).get(util.format(path, 'abc', '123')).reply(200, fixtures.article);
         ft.get('abc')
           .then(function (article) {
@@ -33,7 +33,7 @@ describe('API', function(){
         });
     });
 
-    it('Check it was cached for a subsequent resposne', function(done) {
+    xit('Check it was cached for a subsequent resposne', function(done) {
         nock(host).get(util.format(path, 'abc', '123')).reply(200, fixtures.article);
         ft.get('abc')
           .then(function (article) {
@@ -42,7 +42,7 @@ describe('API', function(){
         });
     });    
     
-    it('Get several articles in a single request', function(done) {
+    xit('Get several articles in a single request', function(done) {
         nock(host).get(util.format(path, 'x', '123')).reply(200, fixtures.article);
         nock(host).get(util.format(path, 'y', '123')).reply(200, fixtures.article);
         nock(host).get(util.format(path, 'z', '123')).reply(200, fixtures.article);
@@ -54,7 +54,7 @@ describe('API', function(){
     });
 
     // FIXME - need tests for no search results, errors, maxResults etc...
-    it('Search for articles matching a term', function(done) {
+    xit('Search for articles matching a term', function(done) {
         nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
         ft.search('Climate change')
           .then(function(result) {
@@ -70,7 +70,7 @@ describe('API', function(){
         }, function (err) { console.log(err); });
     });
     
-    it('Return the specified number of search results', function(done) {
+    xit('Return the specified number of search results', function(done) {
         var spy = sinon.spy(function (body) {
             return '*';
         });
@@ -85,7 +85,7 @@ describe('API', function(){
         }, function (err) { console.log(err); });
     });
 
-    it('Search for pages (i.e. curated content)', function(done) {
+    xit('Search for pages (i.e. curated content)', function(done) {
         var path = '/site/v1/pages/4c499f12-4e94-11de-8d4c-00144feabdc0/main-content?apiKey=%s&feature.blogposts=on';
         nock(host).get(util.format(path, '123')).reply(200, fixtures.page);
         ft.search('page:Front page')
@@ -97,6 +97,20 @@ describe('API', function(){
             expect(foo[1]).to.equal('118b635a-4a34-11e4-bc07-00144feab7de');
             done();
         }, function (err) { console.log(err); });
+    });
+    
+
+
+    it('Always reject requests for single articles that result in API errors', function(done) {
+        var id  = 'abced';
+        var spy = sinon.spy();
+        nock(host).get(util.format(path, id, '123')).reply(503, '{"message":"error"}');
+        ft.get(id)
+          .catch(spy)
+          .then(function () {
+            done();
+            expect(spy.calledOnce).to.be.true;
+          });
     });
     
     it('Fulfill the Promise.all even if some of the API call fail', function(done) {
@@ -112,11 +126,12 @@ describe('API', function(){
         });
     });
 
-    it('Configure to reject calls that result in API errors', function(done) {
-        var id  = 'abced';
+    it('Configure to reject compound calls that result in API errors', function(done) {
         var spy = sinon.spy();
-        nock(host).get(util.format(path, id, '123')).reply(503, '{"message":"error"}');
-        ft.get(id, {strict: true})
+        var ids = ['xxx', 'yyy'];
+        nock(host).get(util.format(path, ids[0], '123')).reply(200, fixtures.article);
+        nock(host).get(util.format(path, ids[1], '123')).reply(503, fixtures.article);
+        ft.get(ids, {strict: true})
           .catch(spy)
           .then(function () {
             done();
@@ -124,7 +139,18 @@ describe('API', function(){
           });
     });
     
-    it('Handle api calls that return invalid JSON', function(done) {
+    it('Expose/define the http status code in any errors', function(done) {
+        var id = 'abcdefghi';
+        nock(host).get(util.format(path, id, '123')).reply(403, '{ "message": "calamity!" }');
+        ft.get(id)
+          .catch(function (err) {
+            expect(err.statusCode).to.equal(403);
+            expect('' + err).to.match(/403 .* calamity\!/);
+            done();
+          });
+    });
+
+    xit('Handle api calls that return invalid JSON', function(done) {
         var id = 'abcdefghi';
         nock(host).get(util.format(path, id, '123')).reply(200, '{ "bad" "json" }');
         ft.get(id)
@@ -134,7 +160,7 @@ describe('API', function(){
         });
     });
 
-    it('Should not die when search returns zero results', function(done){
+    xit('Should not die when search returns zero results', function(done){
         nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.searchNoResults);
         ft.search('brand:Apple')
             .then(function(response){
@@ -144,7 +170,7 @@ describe('API', function(){
             }, done)
     });
 
-    it('Should return a list of facets that appear in the results', function(done){
+    xit('Should return a list of facets that appear in the results', function(done){
         var result = JSON.parse(fixtures.search);
         nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
         ft.search('Climate change')
@@ -161,7 +187,7 @@ describe('API', function(){
     });
 
 
-    it('Should be possible to configure timeout', function () {
+    xit('Should be possible to configure timeout', function () {
         var ft = require('../lib/api')('123', {timeout: 3000});
         sinon.stub(request, 'post');
         sinon.stub(request, 'get');
@@ -177,7 +203,7 @@ describe('API', function(){
     });
 
 
-    it('Search should request different fields if user specifies', function () {
+    xit('Search should request different fields if user specifies', function () {
         sinon.stub(request, 'post');
         ft.search('Climate change', {
             quantity: 20,
