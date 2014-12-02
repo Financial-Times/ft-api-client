@@ -44,10 +44,10 @@ describe('API', function(){
     });    
     
     it('Get several articles in a single request', function(done) {
-        nock(host).get(util.format(path, 'x', '123')).reply(200, fixtures.article);
-        nock(host).get(util.format(path, 'y', '123')).reply(200, fixtures.article);
-        nock(host).get(util.format(path, 'z', '123')).reply(200, fixtures.article);
-        ft.get(['x', 'z', 'y'])
+        nock(host).get(util.format(path, 'a', '123')).reply(200, fixtures.article);
+        nock(host).get(util.format(path, 'b', '123')).reply(200, fixtures.article);
+        nock(host).get(util.format(path, 'c', '123')).reply(200, fixtures.article);
+        ft.get(['a', 'b', 'c'])
           .then(function (articles) {
             expect(articles.length).to.equal(3);
             done();
@@ -64,10 +64,10 @@ describe('API', function(){
     });
 
     it('Emit an event when an item is is requested', function(done) {
-        nock(host).get(util.format(path, 'z', '123')).reply(200, fixtures.article);
-        var spy = sinon.spy(function (message) { });
+        nock(host).get(util.format(path, 'm', '123')).reply(200, fixtures.article);
+        var spy = sinon.spy(function (message) { });  // FIXME remove listeners
         ft.on('ft-api-client:v1:items', spy);
-        ft.get('z')
+        ft.get('m')
           .then(function (articles) {
             expect(spy.calledOnce).to.be.true;
             done();
@@ -79,6 +79,17 @@ describe('API', function(){
         var spy = sinon.spy(function (message) { });
         ft.on('ft-api-client:v1:search', spy);
         ft.search('Climate change')
+          .then(function (articles) {
+            expect(spy.calledOnce).to.be.true;
+            done();
+        });
+    });
+    
+    it('Emit an event when a request is made', function(done) {
+        nock(host).get(util.format(path, 'z', '123')).reply(200, fixtures.article);
+        var spy = sinon.spy(function (message) { });
+        ft.on('ft-api-client:v1:requestHandler:request', spy);
+        ft.get('z')
           .then(function (articles) {
             expect(spy.calledOnce).to.be.true;
             done();
