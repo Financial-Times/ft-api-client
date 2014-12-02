@@ -9,10 +9,7 @@ var request = require('request');
 
 require('es6-promise').polyfill();
 
-var ft      = require("../lib/api")({
-    apiKey: '123',
-    elasticSearchKey: '123'
-});
+var ft = require("../lib/api")('123');
 
 describe('API', function(){
 
@@ -70,10 +67,12 @@ describe('API', function(){
     it('Search for articles matching a term', function(done) {
         nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
         ft.search('Climate change')
-          .then(function (result) {
+          .then(function(result) {
+            
             var foo = result.articles.map(function (article) {
                 return article.id;
             });
+            expect(result.meta.indexCount).to.equal(12233);
             expect(foo).to.deep.equal([ '3031199c-3e8d-11e4-a620-00144feabdc0',
                                         'c48b2eac-3fb9-11e4-a381-00144feabdc0',
                                         '3c34252e-3fd0-11e4-a381-00144feabdc0'  ]);
@@ -86,7 +85,9 @@ describe('API', function(){
             return '*';
         });
         nock(host).filteringRequestBody(spy).post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
-        ft.search('Portillo\'s teeth removed to boost pound', 99)
+        ft.search('Portillo\'s teeth removed to boost pound', {
+            quantity: 99
+        })
           .then(function () {
             expect(spy.calledOnce).to.true;
             expect(JSON.parse(spy.firstCall.args[0]).resultContext.maxResults).to.equal(99);
@@ -108,20 +109,6 @@ describe('API', function(){
         }, function (err) { console.log(err); });
     });
     
-    // We probably want to resolve HTTP errors rather than reject them as in the case of fetching 
-    // several articles in a batch the Promise will fail if it receives a single error. It's probably more 
-    // tolerant to mask the errors.
-
-    it('Resolve calls that result in API errors as undefined', function(done) {
-        var id  = 'abced';
-        nock(host).get(util.format(path, id, '123')).reply(503, 'error');
-        ft.get(id)
-          .then(function (article) {
-            expect(article).to.equal(undefined);
-            done();
-        });
-    });
-
     it('Fulfill the Promise.all even if some of the API call fail', function(done) {
         var ids = ['xxx', 'yyy'];
         nock(host).get(util.format(path, ids[0], '123')).reply(200, fixtures.article);
@@ -130,18 +117,30 @@ describe('API', function(){
         ft.get(ids)
           .then(function (articles) {
             expect(articles.filter(function (article) {
-                return !!article; 
+                return !!article;
             }).length).to.equal(1);
             done();
         });
     });
+
+    it('Configure to reject calls that result in API errors', function(done) {
+        var id  = 'abced';
+        var spy = sinon.spy();
+        nock(host).get(util.format(path, id, '123')).reply(503, '{"message":"error"}');
+        ft.get(id, {strict: true})
+          .catch(spy)
+          .then(function () {
+            done();
+            expect(spy.calledOnce).to.be.true;
+          });
+    });
     
-    it('Reject api calls that return invalid JSON', function(done) {
+    it('Handle api calls that return invalid JSON', function(done) {
         var id = 'abcdefghi';
         nock(host).get(util.format(path, id, '123')).reply(200, '{ "bad" "json" }');
         ft.get(id)
-          .then(noop, function (error) {
-            expect(error).to.equal('error parsing JSON');
+          .then(function (res) {
+            expect(res).to.be.undefined;
             done();
         });
     });
@@ -165,25 +164,45 @@ describe('API', function(){
                     expect(response.meta.facets).to.exist;
                     expect(response.meta.facets[0].name).to.equal(result.results[0].facets[0].name);
                     done();
-                }catch(e){
+                } catch(e){
                     done(e);
                 }
 
             }, done);
     });
 
-    it('Should request different fields if user specifies', function () {
+
+    it('Should be possible to configure timeout', function () {
+        var ft = require('../lib/api')('123', {timeout: 3000});
         sinon.stub(request, 'post');
-        ft.search('Climate change', 20, {
-            offset: 10,
-            highlight: true,
-            aspects: ['testterm1','testterm2'],
-            facets: {
-                '+names': ['testterm3']
+        sinon.stub(request, 'get');
+        
+        ft.search('Climate change');
+        ft.get([123]);
+        console.log(JSON.stringify(request.post.lastCall.args[0], null, '\t'));
+        expect(request.post.lastCall.args[0].timeout).to.equal(3000);
+        expect(request.get.lastCall.args[0].timeout).to.equal(3000);
+
+        request.get.restore();
+        request.post.restore();
+    });
+
+
+    it('Search should request different fields if user specifies', function () {
+        sinon.stub(request, 'post');
+        ft.search('Climate change', {
+            quantity: 20,
+            resultContext: {
+                offset: 10,
+                highlight: true,
+                aspects: ['testterm1','testterm2'],
+                facets: {
+                    '+names': ['testterm3']
+                }
             }
         });
         var resultContext = JSON.parse(request.post.lastCall.args[0].body).resultContext;
-        console.log(JSON.stringify(resultContext.aspects, null, '\t'));
+        
 
         expect(resultContext.aspects).to.eql([
             "testterm1",
