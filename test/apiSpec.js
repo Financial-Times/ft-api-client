@@ -101,8 +101,8 @@ describe('API', function(){
         });
     });
 
-    it('Emit an event when a response is made', function(done) {
-        nock(host).get(util.format(path, 'k', '123')).delay(200).reply(200, fixtures.article);
+    it('Emit an event when a response is received', function(done) {
+        nock(host).get(util.format(path, 'k', '123')).delay(10).reply(200, fixtures.article);
         var spy = sinon.spy();
         ft.on('ft-api-client:v1:requestHandler:response', spy);
         ft.get('k')
@@ -110,6 +110,18 @@ describe('API', function(){
             expect(spy.lastCall.args[0]).to.match(/^[0-9\.]+$/);
             expect(spy.lastCall.args[1].statusCode).to.equal(200);
             expect(spy.calledOnce).to.be.true;
+            done();
+        });
+    });
+    
+    it('Emit an event when a response is received using mget', function(done) {
+        nock('http://paas:123@bofur-us-east-1.searchly.com').post('/v1Api/item/_mget').reply(200, fixtures.elasticSearch);
+        var spy = sinon.spy();
+        ft.on('ft-api-client:v1:elasticSearch:response', spy);
+        ft.mget(['a', 'b', 'c'])
+          .then(function (articles) {
+            expect(spy.lastCall.args[0]).to.match(/^[0-9\.]+$/);
+            expect(spy.lastCall.args[1].statusCode).to.equal(200);
             done();
         });
     });
