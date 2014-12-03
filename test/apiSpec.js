@@ -101,7 +101,7 @@ describe('API', function(){
         });
     });
 
-    it('Emit an event when a response is received', function(done) {
+    it('Emit an event when a item response is received', function(done) {
         nock(host).get(util.format(path, 'k', '123')).delay(10).reply(200, fixtures.article);
         var spy = sinon.spy();
         ft.on('ft-api-client:v1:requestHandler:response', spy);
@@ -109,6 +109,17 @@ describe('API', function(){
           .then(function (articles) {
             expect(spy.lastCall.args[0]).to.match(/^[0-9\.]+$/);
             expect(spy.lastCall.args[1].statusCode).to.equal(200);
+            expect(spy.calledOnce).to.be.true;
+            done();
+        });
+    });
+    
+    it('Emit an event when a search response is received', function(done) {
+        nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
+        var spy = sinon.spy(function (message) { });
+        ft.on('ft-api-client:v1:complexSearch:response', spy);
+        ft.search('Climate change')
+          .then(function (articles) {
             expect(spy.calledOnce).to.be.true;
             done();
         });
