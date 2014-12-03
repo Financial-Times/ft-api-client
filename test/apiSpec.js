@@ -183,10 +183,24 @@ describe('API', function(){
         }, function (err) { console.log(err); });
     });
     
+
+
+    it('Always reject requests for single articles that result in API errors', function(done) {
+        var id  = 'abced';
+        var spy = sinon.spy();
+        nock(host).get(util.format(path, id, '123')).reply(503, '{"message":"error"}');
+        ft.get(id)
+          .catch(spy)
+          .then(function () {
+            done();
+            expect(spy.calledOnce).to.be.true;
+          });
+    });
+    
     it('Fulfill the Promise.all even if some of the API call fail', function(done) {
         var ids = ['xxx', 'yyy'];
         nock(host).get(util.format(path, ids[0], '123')).reply(200, fixtures.article);
-        nock(host).get(util.format(path, ids[1], '123')).reply(503, fixtures.article);
+        nock(host).get(util.format(path, ids[1], '123')).reply(503, '{"message":"error"}');
         nock('http://paas:123@bofur-us-east-1.searchly.com').post('/v1Api/item/_mget').reply(200, fixtures.elasticSearch);
         ft.get(ids)
           .then(function (articles) {
@@ -197,26 +211,53 @@ describe('API', function(){
         });
     });
 
-    it('Configure to reject calls that result in API errors', function(done) {
-        var id  = 'abced';
+    it('Configure to reject the Promise.all if some of the API call fail', function(done) {
         var spy = sinon.spy();
-        nock(host).get(util.format(path, id, '123')).reply(503, '{"message":"error"}');
-        ft.get(id, {strict: true})
+        var ids = ['aaa', 'bbb'];
+        nock(host).get(util.format(path, ids[0], '123')).reply(200, fixtures.article);
+        nock(host).get(util.format(path, ids[1], '123')).reply(503, '{"message":"error"}');
+        ft.get(ids, {strict: true})
           .catch(spy)
           .then(function () {
-            done();
             expect(spy.calledOnce).to.be.true;
+            done();
+          });
+    });
+
+    it('Reject the Promise.all if all of the API calls fail', function(done) {
+        var ids = ['sss', 'ttt'];
+        var spy = sinon.spy();
+        nock(host).get(util.format(path, ids[0], '123')).reply(503, '{"message":"error"}');
+        nock(host).get(util.format(path, ids[1], '123')).reply(503, '{"message":"error"}');
+        ft.get(ids)
+          .catch(spy)
+          .then(function () {
+            expect(spy.calledOnce).to.be.true;
+            done();
           });
     });
     
-    it('Handle api calls that return invalid JSON', function(done) {
+    it('Expose/define the http status code in any errors', function(done) {
         var id = 'abcdefghi';
+        nock(host).get(util.format(path, id, '123')).reply(403, '{ "message": "calamity!" }');
+        ft.get(id)
+          .catch(function (err) {
+            expect(err.statusCode).to.equal(403);
+            expect('' + err).to.match(/403 .* calamity\!/);
+            done();
+          });
+    });
+
+    it('Reject api calls that return invalid JSON', function(done) {
+        var id = 'jklmnop';
+        var spy = sinon.spy();
         nock(host).get(util.format(path, id, '123')).reply(200, '{ "bad" "json" }');
         ft.get(id)
-          .then(function (res) {
-            expect(res).to.be.undefined;
+          .catch(spy)
+          .then(function () {
+            expect(spy.calledOnce).to.be.true;
             done();
-        });
+          });
     });
 
     it('Should not die when search returns zero results', function(done){
