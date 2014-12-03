@@ -13,6 +13,11 @@ var ft = require("../lib/api")('123');
 
 describe('API', function(){
 
+    beforeEach(function () {
+        ft.removeAllListeners('ft-api-client:v1:requestHandler:request');
+        ft.removeAllListeners('ft-api-client:v1:requestHandler:response');
+    })
+
     var noop = function () { };
     var host = 'http://api.ft.com';
     var path = '/content/items/v1/%s?apiKey=%s&feature.blogposts=on';
@@ -44,10 +49,10 @@ describe('API', function(){
     });    
     
     it('Get several articles in a single request', function(done) {
-        nock(host).get(util.format(path, 'x', '123')).reply(200, fixtures.article);
-        nock(host).get(util.format(path, 'y', '123')).reply(200, fixtures.article);
-        nock(host).get(util.format(path, 'z', '123')).reply(200, fixtures.article);
-        ft.get(['x', 'z', 'y'])
+        nock(host).get(util.format(path, 'a', '123')).reply(200, fixtures.article);
+        nock(host).get(util.format(path, 'b', '123')).reply(200, fixtures.article);
+        nock(host).get(util.format(path, 'c', '123')).reply(200, fixtures.article);
+        ft.get(['a', 'b', 'c'])
           .then(function (articles) {
             expect(articles.length).to.equal(3);
             done();
@@ -59,6 +64,75 @@ describe('API', function(){
         ft.mget(['x', 'z', 'y'])
           .then(function (articles) {
             expect(articles.length).to.equal(3);
+            done();
+        });
+    });
+
+    it('Emit an event when an item is is requested', function(done) {
+        nock(host).get(util.format(path, 'm', '123')).reply(200, fixtures.article);
+        var spy = sinon.spy(function (message) { });  // FIXME remove listeners
+        ft.on('ft-api-client:v1:items', spy);
+        ft.get('m')
+          .then(function (articles) {
+            expect(spy.calledOnce).to.be.true;
+            done();
+        });
+    });
+
+    it('Emit an event when a search is performed', function(done) {
+        nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
+        var spy = sinon.spy(function (message) { });
+        ft.on('ft-api-client:v1:search', spy);
+        ft.search('Climate change')
+          .then(function (articles) {
+            expect(spy.calledOnce).to.be.true;
+            done();
+        });
+    });
+    
+    it('Emit an event when a request is made', function(done) {
+        nock(host).get(util.format(path, 'z', '123')).reply(200, fixtures.article);
+        var spy = sinon.spy(function (message) { });
+        ft.on('ft-api-client:v1:requestHandler:request', spy);
+        ft.get('z')
+          .then(function (articles) {
+            expect(spy.calledOnce).to.be.true;
+            done();
+        });
+    });
+
+    it('Emit an event when a item response is received', function(done) {
+        nock(host).get(util.format(path, 'k', '123')).delay(10).reply(200, fixtures.article);
+        var spy = sinon.spy();
+        ft.on('ft-api-client:v1:requestHandler:response', spy);
+        ft.get('k')
+          .then(function (articles) {
+            expect(spy.lastCall.args[0]).to.match(/^[0-9\.]+$/);
+            expect(spy.lastCall.args[1].statusCode).to.equal(200);
+            expect(spy.calledOnce).to.be.true;
+            done();
+        });
+    });
+    
+    it('Emit an event when a search response is received', function(done) {
+        nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
+        var spy = sinon.spy(function (message) { });
+        ft.on('ft-api-client:v1:complexSearch:response', spy);
+        ft.search('Climate change')
+          .then(function (articles) {
+            expect(spy.calledOnce).to.be.true;
+            done();
+        });
+    });
+    
+    it('Emit an event when a response is received using mget', function(done) {
+        nock('http://paas:123@bofur-us-east-1.searchly.com').post('/v1Api/item/_mget').reply(200, fixtures.elasticSearch);
+        var spy = sinon.spy();
+        ft.on('ft-api-client:v1:elasticSearch:response', spy);
+        ft.mget(['a', 'b', 'c'])
+          .then(function (articles) {
+            expect(spy.lastCall.args[0]).to.match(/^[0-9\.]+$/);
+            expect(spy.lastCall.args[1].statusCode).to.equal(200);
             done();
         });
     });
@@ -179,7 +253,6 @@ describe('API', function(){
         
         ft.search('Climate change');
         ft.get([123]);
-        console.log(JSON.stringify(request.post.lastCall.args[0], null, '\t'));
         expect(request.post.lastCall.args[0].timeout).to.equal(3000);
         expect(request.get.lastCall.args[0].timeout).to.equal(3000);
 
