@@ -518,6 +518,15 @@
                 "mediaType": "image/jpeg"
             },
             {
+                "url": "http://im.ft-static.com/content/images/alternative.img",
+                "type": "primary",
+                "source": "AFP/Getty Images",
+                "alt": "RUSSIA-G20-SUMMIT",
+                "height": 2000,
+                "width": 2000,
+                "mediaType": "image/jpeg"
+            },
+            {
                 "url": "http://im.ft-static.com/content/images/9ba9fc53-8af1-4145-9109-bd6f0ccff3bd.img",
                 "type": "secondary",
                 "source": "AFP/Getty Images",

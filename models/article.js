@@ -444,10 +444,12 @@ Object.defineProperty(Article.prototype, 'body', {
 Object.defineProperty(Article.prototype, 'largestImage', {
     get: function () {
         if (this.raw.item.images) {
-            var sortedImages = this.raw.item.images.sort(function (a, b) {
-                return a.width < b.width;
+            var images = {};
+
+            this.raw.item.images.forEach(function(img) {
+                images[img.type] = img;
             });
-            return sortedImages[0];
+            return images['wide-format'] || images['article'] || images['primary'];
         }
     }
 });
