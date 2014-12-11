@@ -1,3 +1,5 @@
+API_KEY := $(shell cat ~/.ftapi)
+
 .PHONY: test
 
 test:
@@ -10,4 +12,4 @@ example:
 	@export DEBUG=*; export apikey=`cat ~/.ftapi`; node examples/article
 
 refresh-pages:
-	@export apikey=`cat ~/.ftapi`; curl -H "X-Api-Key: ${apikey}" -o data/pagesList.json http://api.ft.com/site/v1/pages
+	curl -o data/pagesList.json http://api.ft.com/site/v1/pages?apiKey=${API_KEY}
