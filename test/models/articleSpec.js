@@ -21,6 +21,7 @@ describe('Article model', function(){
         article3: JSON.parse(fs.readFileSync('test/fixtures/b9d1b2ca-5dfe-11e4-bc04-00144feabdc0', { encoding: 'utf8' })), 
         article4: JSON.parse(fs.readFileSync('test/fixtures/a60413c2-7c46-11e3-9179-00144feabdc0', { encoding: 'utf8' })), 
         article5: JSON.parse(fs.readFileSync('test/fixtures/07de76b4-5e05-11e4-bc04-00144feabdc0', { encoding: 'utf8' })), 
+        weekendArticle : JSON.parse(fs.readFileSync('test/fixtures/7803a998-7aeb-11e4-8646-00144feabdc0(weekend)', { encoding: 'utf8' }))
     };
 
     describe('Editorial', function () {
@@ -151,6 +152,13 @@ describe('Article model', function(){
             expect(article.genre).to.equal('News');
         });
         
+        it('Get whether article is in weekend', function() {
+            var article = new models.Article(fixtures.article);
+            expect(article.isWeekend).to.be.false;
+            var wearticle = new models.Article(fixtures.weekendArticle);
+            expect(wearticle.isWeekend).to.be.true;
+        });
+
         //START: Visual Tones
         it('Get the (visual) tone of the article with video', function() {
             var article = new models.Article(fixtures.article);

@@ -454,4 +454,12 @@ Object.defineProperty(Article.prototype, 'largestImage', {
     }
 });
 
+Object.defineProperty(Article.prototype, 'isWeekend', {
+    get: function () {
+        return !!(this.raw.item.usage && this.raw.item.usage.publications.some(function (pub) {
+            return pub.name === 'FT Weekend';
+        }));
+    }
+});
+
 module.exports = Article;
