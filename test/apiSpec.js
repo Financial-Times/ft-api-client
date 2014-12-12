@@ -361,6 +361,14 @@ describe('API', function(){
                 done();
             }, function (err) { console.log(err); });
         });
+
+        it('Handle non-existent pages', function(done) {
+            ft.search('page:Biggetty biggetty bong', {strict: true})
+              .catch(function (err) {
+                expect(err.statusCode).to.equal(404);
+                done();
+              });
+        });
     });
 
 
