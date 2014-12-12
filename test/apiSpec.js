@@ -223,13 +223,24 @@ describe('API', function(){
           });
     });
     
-    it('Expose/define the http status code in any errors', function(done) {
+    it('Expose/define the http status code in any errors delivered as json', function(done) {
         var id = 'abcdefghi';
         nock(host).get(util.format(path, id, '123')).reply(403, '{ "message": "calamity!" }');
         ft.get(id)
           .catch(function (err) {
             expect(err.statusCode).to.equal(403);
             expect('' + err).to.match(/403 .* calamity\!/);
+            done();
+          });
+    });
+
+    it('Expose/define the http status code in any errors delivered as text', function(done) {
+        var id = 'lllllllllll';
+        nock(host).get(util.format(path, id, '123')).reply(403, 'unauthorized');
+        ft.get(id)
+          .catch(function (err) {
+            expect(err.statusCode).to.equal(403);
+            expect('' + err).to.match(/403 .* unauthorized/);
             done();
           });
     });
