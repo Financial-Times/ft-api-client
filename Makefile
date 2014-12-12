@@ -10,6 +10,3 @@ test-debug:
 
 example:
 	@export DEBUG=*; export apikey=`cat ~/.ftapi`; node examples/article
-
-refresh-pages:
-	curl -o data/pagesList.json http://api.ft.com/site/v1/pages?apiKey=${API_KEY}

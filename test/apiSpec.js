@@ -14,6 +14,7 @@ var ft = require("../lib/api")('123');
 describe('API', function(){
 
     beforeEach(function () {
+        nock(host).get('/site/v1/pages?apiKey=123').reply(200, fixtures.pages);
         ft.removeAllListeners('ft-api-client:v1:requestHandler:request');
         ft.removeAllListeners('ft-api-client:v1:requestHandler:response');
     })
@@ -27,7 +28,8 @@ describe('API', function(){
         search:  fs.readFileSync('test/fixtures/search-for__climate-change', { encoding: 'utf8' }),
         searchNoResults : fs.readFileSync('test/fixtures/search-no_results', {encoding: 'utf8'}),
         elasticSearch : fs.readFileSync('test/fixtures/elasticSearch', {encoding: 'utf8'}),
-        page:    fs.readFileSync('test/fixtures/page_front-page', { encoding: 'utf8' })
+        page:    fs.readFileSync('test/fixtures/page_front-page', { encoding: 'utf8' }),
+        pages:    fs.readFileSync('test/fixtures/pages', { encoding: 'utf8' })
     };
 
     it('Get an article', function(done) {
@@ -168,22 +170,6 @@ describe('API', function(){
             done();
         }, function (err) { console.log(err); });
     });
-
-    it('Search for pages (i.e. curated content)', function(done) {
-        var path = '/site/v1/pages/4c499f12-4e94-11de-8d4c-00144feabdc0/main-content?apiKey=%s&feature.blogposts=on&feature.usage=on';
-        nock(host).get(util.format(path, '123')).reply(200, fixtures.page);
-        ft.search('page:Front page')
-          .then(function (results) {
-            var articles = results.articles;
-            var foo = articles.map(function (article) {
-                return article.id;
-            });
-            expect(foo[1]).to.equal('118b635a-4a34-11e4-bc07-00144feab7de');
-            done();
-        }, function (err) { console.log(err); });
-    });
-    
-
 
     it('Always reject requests for single articles that result in API errors', function(done) {
         var id  = 'abced';
@@ -334,6 +320,47 @@ describe('API', function(){
         ]);
 
         request.post.restore();
+    });
+
+    describe('pages', function () {
+
+        var pagesJob = require('../jobs/pages');
+
+        beforeEach(function () {
+            sinon.stub(pagesJob, 'get', function () {
+                return JSON.parse(fs.readFileSync('./test/fixtures/pages')).pages;
+            });
+        });
+        
+        afterEach(function () {
+            pagesJob.get.restore();
+        });
+
+        it('Retrieve page metadata', function(done) {
+            ft.pageInfo('Front page')
+              .then(function (result) {
+                expect(result).to.eql({
+                    id: '4c499f12-4e94-11de-8d4c-00144feabdc0',
+                    title: 'Front page',
+                    apiUrl: 'http://api.ft.com/site/v1/pages/4c499f12-4e94-11de-8d4c-00144feabdc0',
+                    webUrl: 'http://www.ft.com/home/uk' 
+                });
+                done();
+            }, function (err) { console.log(err); });
+        });
+
+        it('Search for pages (i.e. curated content)', function(done) {
+            nock(host).get('/site/v1/pages/4c499f12-4e94-11de-8d4c-00144feabdc0/main-content?apiKey=123&feature.blogposts=on&feature.usage=on').reply(200, fixtures.page);
+            ft.search('page:Front page')
+              .then(function (results) {
+                var articles = results.articles;
+                var foo = articles.map(function (article) {
+                    return article.id;
+                });
+                expect(foo[1]).to.equal('118b635a-4a34-11e4-bc07-00144feab7de');
+                done();
+            }, function (err) { console.log(err); });
+        });
     });
 
 
