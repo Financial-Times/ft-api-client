@@ -9,7 +9,7 @@ var request = require('request');
 
 require('es6-promise').polyfill();
 
-var ft = require("../lib/api")('123');
+var ft = require("../lib/api")('123', {elasticSearchUri: 'http://123.foundcluster.com/v1_api/item'});
 
 describe('API', function(){
 
@@ -62,7 +62,7 @@ describe('API', function(){
     });
 
     it('Get several articles using mget', function(done) {
-        nock('http://paas:123@bofur-us-east-1.searchly.com').post('/v1Api/item/_mget').reply(200, fixtures.elasticSearch);
+        nock('http://123.foundcluster.com/v1_api/item').post('/v1_api/item/_mget').reply(200, fixtures.elasticSearch);
         ft.mget(['x', 'z', 'y'])
           .then(function (articles) {
             expect(articles.length).to.equal(3);
@@ -128,7 +128,7 @@ describe('API', function(){
     });
     
     it('Emit an event when a response is received using mget', function(done) {
-        nock('http://paas:123@bofur-us-east-1.searchly.com').post('/v1Api/item/_mget').reply(200, fixtures.elasticSearch);
+        nock('http://123.foundcluster.com/v1_api/item').post('/v1_api/item/_mget').reply(200, fixtures.elasticSearch);
         var spy = sinon.spy();
         ft.on('ft-api-client:v1:elasticSearch:response', spy);
         ft.mget(['a', 'b', 'c'])
