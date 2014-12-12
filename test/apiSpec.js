@@ -32,7 +32,7 @@ describe('API', function(){
         pages:    fs.readFileSync('test/fixtures/pages', { encoding: 'utf8' })
     };
 
-    xit('Get an article', function(done) {
+    it('Get an article', function(done) {
         nock(host).get(util.format(path, 'abc', '123')).reply(200, fixtures.article);
         ft.get('abc')
           .then(function (article) {
@@ -41,7 +41,7 @@ describe('API', function(){
         });
     });
 
-    xit('Check it was cached for a subsequent response', function(done) {
+    it('Check it was cached for a subsequent response', function(done) {
         nock(host).get(util.format(path, 'abc', '123')).reply(200, fixtures.article);
         ft.get('abc')
           .then(function (article) {
@@ -50,7 +50,7 @@ describe('API', function(){
         });
     });    
     
-    xit('Get several articles in a single request', function(done) {
+    it('Get several articles in a single request', function(done) {
         nock(host).get(util.format(path, 'a', '123')).reply(200, fixtures.article);
         nock(host).get(util.format(path, 'b', '123')).reply(200, fixtures.article);
         nock(host).get(util.format(path, 'c', '123')).reply(200, fixtures.article);
@@ -61,7 +61,7 @@ describe('API', function(){
         });
     });
 
-    xit('Get several articles using mget', function(done) {
+    it('Get several articles using mget', function(done) {
         nock('http://paas:123@bofur-us-east-1.searchly.com').post('/v1Api/item/_mget').reply(200, fixtures.elasticSearch);
         ft.mget(['x', 'z', 'y'])
           .then(function (articles) {
@@ -70,7 +70,7 @@ describe('API', function(){
         });
     });
 
-    xit('Emit an event when an item is is requested', function(done) {
+    it('Emit an event when an item is is requested', function(done) {
         nock(host).get(util.format(path, 'm', '123')).reply(200, fixtures.article);
         var spy = sinon.spy(function (message) { });  // FIXME remove listeners
         ft.on('ft-api-client:v1:items', spy);
@@ -81,7 +81,7 @@ describe('API', function(){
         });
     });
 
-    xit('Emit an event when a search is performed', function(done) {
+    it('Emit an event when a search is performed', function(done) {
         nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
         var spy = sinon.spy(function (message) { });
         ft.on('ft-api-client:v1:search', spy);
@@ -92,7 +92,7 @@ describe('API', function(){
         });
     });
     
-    xit('Emit an event when a request is made', function(done) {
+    it('Emit an event when a request is made', function(done) {
         nock(host).get(util.format(path, 'z', '123')).reply(200, fixtures.article);
         var spy = sinon.spy(function (message) { });
         ft.on('ft-api-client:v1:requestHandler:request', spy);
@@ -103,7 +103,7 @@ describe('API', function(){
         });
     });
 
-    xit('Emit an event when a item response is received', function(done) {
+    it('Emit an event when a item response is received', function(done) {
         nock(host).get(util.format(path, 'k', '123')).delay(10).reply(200, fixtures.article);
         var spy = sinon.spy();
         ft.on('ft-api-client:v1:requestHandler:response', spy);
@@ -116,7 +116,7 @@ describe('API', function(){
         });
     });
     
-    xit('Emit an event when a search response is received', function(done) {
+    it('Emit an event when a search response is received', function(done) {
         nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
         var spy = sinon.spy(function (message) { });
         ft.on('ft-api-client:v1:complexSearch:response', spy);
@@ -127,7 +127,7 @@ describe('API', function(){
         });
     });
     
-    xit('Emit an event when a response is received using mget', function(done) {
+    it('Emit an event when a response is received using mget', function(done) {
         nock('http://paas:123@bofur-us-east-1.searchly.com').post('/v1Api/item/_mget').reply(200, fixtures.elasticSearch);
         var spy = sinon.spy();
         ft.on('ft-api-client:v1:elasticSearch:response', spy);
@@ -140,7 +140,7 @@ describe('API', function(){
     });
 
     // FIXME - need tests for no search results, errors, maxResults etc...
-    xit('Search for articles matching a term', function(done) {
+    it('Search for articles matching a term', function(done) {
         nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
         ft.search('Climate change')
           .then(function(result) {
@@ -156,7 +156,7 @@ describe('API', function(){
         }, function (err) { console.log(err); });
     });
     
-    xit('Return the specified number of search results', function(done) {
+    it('Return the specified number of search results', function(done) {
         var spy = sinon.spy(function (body) {
             return '*';
         });
@@ -171,7 +171,7 @@ describe('API', function(){
         }, function (err) { console.log(err); });
     });
 
-    xit('Always reject requests for single articles that result in API errors', function(done) {
+    it('Always reject requests for single articles that result in API errors', function(done) {
         var id  = 'abced';
         var spy = sinon.spy();
         nock(host).get(util.format(path, id, '123')).reply(503, '{"message":"error"}');
@@ -183,7 +183,7 @@ describe('API', function(){
           });
     });
     
-    xit('Fulfill the Promise.all even if some of the API call fail', function(done) {
+    it('Fulfill the Promise.all even if some of the API call fail', function(done) {
         var ids = ['xxx', 'yyy'];
         nock(host).get(util.format(path, ids[0], '123')).reply(200, fixtures.article);
         nock(host).get(util.format(path, ids[1], '123')).reply(503, '{"message":"error"}');
@@ -197,7 +197,7 @@ describe('API', function(){
         });
     });
 
-    xit('Configure to reject the Promise.all if some of the API call fail', function(done) {
+    it('Configure to reject the Promise.all if some of the API call fail', function(done) {
         var spy = sinon.spy();
         var ids = ['aaa', 'bbb'];
         nock(host).get(util.format(path, ids[0], '123')).reply(200, fixtures.article);
@@ -210,7 +210,7 @@ describe('API', function(){
           });
     });
 
-    xit('Reject the Promise.all if all of the API calls fail', function(done) {
+    it('Reject the Promise.all if all of the API calls fail', function(done) {
         var ids = ['sss', 'ttt'];
         var spy = sinon.spy();
         nock(host).get(util.format(path, ids[0], '123')).reply(503, '{"message":"error"}');
@@ -223,7 +223,7 @@ describe('API', function(){
           });
     });
     
-    xit('Expose/define the http status code in any errors', function(done) {
+    it('Expose/define the http status code in any errors', function(done) {
         var id = 'abcdefghi';
         nock(host).get(util.format(path, id, '123')).reply(403, '{ "message": "calamity!" }');
         ft.get(id)
@@ -234,7 +234,7 @@ describe('API', function(){
           });
     });
 
-    xit('Reject api calls that return invalid JSON', function(done) {
+    it('Reject api calls that return invalid JSON', function(done) {
         var id = 'jklmnop';
         var spy = sinon.spy();
         nock(host).get(util.format(path, id, '123')).reply(200, '{ "bad" "json" }');
@@ -246,7 +246,7 @@ describe('API', function(){
           });
     });
 
-    xit('Should not die when search returns zero results', function(done){
+    it('Should not die when search returns zero results', function(done){
         nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.searchNoResults);
         ft.search('brand:Apple')
             .then(function(response){
@@ -256,7 +256,7 @@ describe('API', function(){
             }, done);
     });
 
-    xit('Should return a list of facets that appear in the results', function(done){
+    it('Should return a list of facets that appear in the results', function(done){
         var result = JSON.parse(fixtures.search);
         nock(host).filteringRequestBody(/.*/, '*').post(util.format(searchPath, '123'), '*').reply(200, fixtures.search);
         ft.search('Climate change')
@@ -273,7 +273,7 @@ describe('API', function(){
     });
 
 
-    xit('Should be possible to configure timeout', function () {
+    it('Should be possible to configure timeout', function () {
         var ft = require('../lib/api')('123', {timeout: 3000});
         sinon.stub(request, 'post');
         sinon.stub(request, 'get');
@@ -288,7 +288,7 @@ describe('API', function(){
     });
 
 
-    xit('Search should request different fields if user specifies', function () {
+    it('Search should request different fields if user specifies', function () {
         sinon.stub(request, 'post');
         ft.search('Climate change', {
             quantity: 20,
@@ -325,10 +325,8 @@ describe('API', function(){
     describe('pages', function () {
 
         var pagesJob = require('../jobs/pages');
-        var ft;
 
         beforeEach(function () {
-            ft = require("../lib/api")('123');
             sinon.stub(pagesJob, 'get', function () {
                 return JSON.parse(fs.readFileSync('./test/fixtures/pages')).pages;
             });
@@ -338,20 +336,30 @@ describe('API', function(){
             pagesJob.get.restore();
         });
 
+        it('Retrieve page metadata', function(done) {
+            ft.pageInfo('Front page')
+              .then(function (result) {
+                expect(result).to.eql({
+                    id: '4c499f12-4e94-11de-8d4c-00144feabdc0',
+                    title: 'Front page',
+                    apiUrl: 'http://api.ft.com/site/v1/pages/4c499f12-4e94-11de-8d4c-00144feabdc0',
+                    webUrl: 'http://www.ft.com/home/uk' 
+                });
+                done();
+            }, function (err) { console.log(err); });
+        });
+
         it('Search for pages (i.e. curated content)', function(done) {
-            // wait for poller
-            setTimeout(function () {
-                nock(host).get('/site/v1/pages/4c499f12-4e94-11de-8d4c-00144feabdc0/main-content').reply(fixtures.page);
-                ft.search('page:Front page')
-                  .then(function (results) {
-                    var articles = results.articles;
-                    var foo = articles.map(function (article) {
-                        return article.id;
-                    });
-                    expect(foo[1]).to.equal('118b635a-4a34-11e4-bc07-00144feab7de');
-                    done();
-                }, function (err) { console.log(err); });
-            })
+            nock(host).get('/site/v1/pages/4c499f12-4e94-11de-8d4c-00144feabdc0/main-content?apiKey=123&feature.blogposts=on&feature.usage=on').reply(200, fixtures.page);
+            ft.search('page:Front page')
+              .then(function (results) {
+                var articles = results.articles;
+                var foo = articles.map(function (article) {
+                    return article.id;
+                });
+                expect(foo[1]).to.equal('118b635a-4a34-11e4-bc07-00144feab7de');
+                done();
+            }, function (err) { console.log(err); });
         });
     });
 

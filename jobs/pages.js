@@ -1,8 +1,7 @@
 'use strict';
 
-var Poller = require('ft-poller'),
-    pages = [],
-    _ = require('lodash');
+var Poller = require('ft-poller');
+var pages = [];
 
 
 
@@ -27,7 +26,6 @@ module.exports = {
         });
 
         poller.start({initialRequest: true});
-        console.log('started')
         this.poller = poller;
 
         return this;
