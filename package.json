@@ -20,7 +20,8 @@
     "lodash": "^2.4.1",
     "lru-cache": "^2.5.0",
     "request": "2.22.0",
-    "es6-promise": "^1.0.0"
+    "es6-promise": "^1.0.0",
+    "ft-poller": "https://github.com/Financial-Times/ft-poller/archive/v1.0.1.tar.gz"
   },
   "devDependencies": {
     "chai": "^1.9.1",

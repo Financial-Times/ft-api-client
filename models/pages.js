@@ -1,11 +1,9 @@
 'use strict';
-var pageList = require('../data/pagesList.json');
+var pages = require('../jobs/pages');
 var _ = require('lodash');
 
 module.exports.findByTitle = function (title) {
-	return _.find(pageList.pages, function (item) {
-		if (item.title === title) {
-			return item;
-		}
-	});
+	return pages.get().filter(function (item) {
+		return (item && item.title === title);
+	})[0];
 };
