@@ -17,7 +17,7 @@ Where `config is an optional object accepting two properties
 
 - `timeout` - maximum time (in ms) to wait for requests to complete
 - `errorHandler` - function used to handle any errors resulting from any single api call (including the construction of models). The default handler logs to the console when `export DEBUG=ft-api-client:*;` is set.
-- `elasticSearchKey` - The API key used when communicating with elastic search
+- `elasticSearchUri` - The URI for the search instance to be used. Along the lines of http://123123123123123123123-eu-west-1.foundcluster.com:9200/ft_api/item
 
 
 ### Articles
@@ -45,7 +45,7 @@ Or you can get several resources in a single request,
         console.log(articles);
       })
 
-Alternatively use the new `mget` method in exactly the same way. To use `megt` you need to pass a `elasticSearchKey` property and value into the configuration
+Alternatively use the new `mget` method in exactly the same way. To use `megt` you need to pass a `elasticSearchUri` property and value into the configuration
 
 ### Search 
 
