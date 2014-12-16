@@ -258,6 +258,13 @@ describe('Article model', function(){
             expect(p.length).to.equal(4);
             expect(p.text()).to.match(/(.*)principle\.”$/);
         });
+        
+        it('Provides an option to output as plain text', function() {
+            var article = new models.Article(fixtures.article);
+            var p = article.paragraphs(0, 4, { plainText: true });
+            expect((p.match(/<p>/g) || []).length).to.equal(4);
+            expect(p).to.match(/(.*)principle\.&#x201D;<\/p>$/);
+        });
 
     });
 
