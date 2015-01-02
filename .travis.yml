@@ -1,4 +1,5 @@
 script:
+- npm install -g origami-build-tools
 - make test
 language: node_js
 node_js:

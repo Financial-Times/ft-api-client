@@ -2,11 +2,15 @@ API_KEY := $(shell cat ~/.ftapi)
 
 .PHONY: test
 
+install:
+	origami-build-tools install
+
 test:
-	@./node_modules/.bin/mocha test test/models
+	origami-build-tools verify
+	mocha test test/models
 
 test-debug:
-	@./node_modules/.bin/mocha --debug-brk test test/models
+	mocha --debug-brk test test/models
 
 example:
-	@export DEBUG=*; export apikey=`cat ~/.ftapi`; node examples/article
+	export DEBUG=*; export apikey=`cat ~/.ftapi`; node examples/article
