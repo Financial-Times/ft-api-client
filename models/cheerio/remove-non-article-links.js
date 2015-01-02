@@ -7,8 +7,11 @@ module.exports = function (html) {
     var $ = cheerio.load(html);
     $('a').replaceWith(function (index, el) {
         var isContentApiLink = /^\/([\w\d]+)-([\w\d]+)-([\w\d]+)-([\w\d]+)-([\w\d]+)$/.test(el.attribs.href);
+	var clone;
         if (isContentApiLink) {
-            return el;
+            clone = $(el).clone();
+	    clone.removeAttr('title');
+	    return clone;
         } else {
             return el.children;
         }
