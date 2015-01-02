@@ -10,6 +10,9 @@ module.exports = function (html) {
 	var clone;
         if (isContentApiLink) {
             clone = $(el).clone();
+
+	    // TODO: We shouldn't remove these title attributes but right now these affect the word count
+	    // so taking the expedient option.
 	    clone.removeAttr('title');
 	    return clone;
         } else {
