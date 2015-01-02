@@ -10,7 +10,7 @@ module.exports = function (html) {
         if (isContentApiLink) {
             return el;
         } else {
-            return el.children[0];
+            return el.children;
         }
 
     });
