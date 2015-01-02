@@ -12,7 +12,7 @@ var findInboundLinks        = require('../models/cheerio/find-inbound-links');
 var findOutboundLinks       = require('../models/cheerio/find-outbound-links');
 
 function Article (obj) {
-    if (obj && obj.item) { 
+    if (obj && obj.item) {
         this.parse(obj);
     }
 }
@@ -136,11 +136,11 @@ Object.defineProperty(Article.prototype, 'packages', {
 });
 
 /**
- * Returns a list of authors 
+ * Returns a list of authors
  */
 Object.defineProperty(Article.prototype, 'authors', {
     get: function () {
-        if (this.raw.item.metadata && this.raw.item.metadata.authors) { 
+        if (this.raw.item.metadata && this.raw.item.metadata.authors) {
             return this.raw.item.metadata.authors.map(function (author) {
                 author.term.searchString = 'authors:"' + author.term.name + '"';
                 return author.term;
@@ -151,11 +151,11 @@ Object.defineProperty(Article.prototype, 'authors', {
 });
 
 /**
- * Returns a list of people 
+ * Returns a list of people
  */
 Object.defineProperty(Article.prototype, 'people', {
     get: function () {
-        if (this.raw.item.metadata && this.raw.item.metadata.people) { 
+        if (this.raw.item.metadata && this.raw.item.metadata.people) {
             return this.raw.item.metadata.people.map(function (person) {
                 person.term.searchString = 'people:"' + person.term.name + '"';
                 return person.term;
@@ -166,7 +166,7 @@ Object.defineProperty(Article.prototype, 'people', {
 });
 
 /**
- * Returns a list of organisations 
+ * Returns a list of organisations
  */
 Object.defineProperty(Article.prototype, 'organisations', {
     get: function () {
@@ -181,7 +181,7 @@ Object.defineProperty(Article.prototype, 'organisations', {
 });
 
 /**
- * Returns a list of countries, places etc. 
+ * Returns a list of countries, places etc.
  */
 Object.defineProperty(Article.prototype, 'regions', {
     get: function () {
@@ -196,7 +196,7 @@ Object.defineProperty(Article.prototype, 'regions', {
 });
 
 /**
- * Returns a list of topics 
+ * Returns a list of topics
  */
 Object.defineProperty(Article.prototype, 'topics', {
     get: function () {
@@ -226,7 +226,7 @@ Object.defineProperty(Article.prototype, 'subjects', {
 });
 
 /**
- * Returns a list of stock market ticker symbols related to the article 
+ * Returns a list of stock market ticker symbols related to the article
  */
 Object.defineProperty(Article.prototype, 'tickerSymbols', {
     get: function () {
@@ -236,9 +236,9 @@ Object.defineProperty(Article.prototype, 'tickerSymbols', {
                     return attribute.key === 'FTSymbol';
                 });
             }).map(function (company) {
-                return { 
+                return {
                     name: company.term.name,
-                    code: company.term.attributes.filter(function (attribute) { 
+                    code: company.term.attributes.filter(function (attribute) {
                         return attribute.key === 'FTSymbol';
                     })[0].value
                 };
@@ -249,11 +249,11 @@ Object.defineProperty(Article.prototype, 'tickerSymbols', {
 });
 
 /**
- * Returns a the genre. For simplicity articles only have one genre. 
+ * Returns a the genre. For simplicity articles only have one genre.
  */
 Object.defineProperty(Article.prototype, 'genre', {
     get: function () {
-        if (this.raw.item.metadata && this.raw.item.metadata.genre) { 
+        if (this.raw.item.metadata && this.raw.item.metadata.genre) {
             return this.raw.item.metadata.genre[0].term.name;
         }
         return undefined;
@@ -261,11 +261,11 @@ Object.defineProperty(Article.prototype, 'genre', {
 });
 
 /**
- * Returns the brand. For simplicity articles only have one brand. 
+ * Returns the brand. For simplicity articles only have one brand.
  */
 Object.defineProperty(Article.prototype, 'brand', {
     get: function () {
-        if (this.raw.item.metadata && this.raw.item.metadata.brand && this.raw.item.metadata.brand.length) { 
+        if (this.raw.item.metadata && this.raw.item.metadata.brand && this.raw.item.metadata.brand.length) {
             return this.raw.item.metadata.brand[0].term;
         }
         return undefined;
@@ -280,7 +280,7 @@ Object.defineProperty(Article.prototype, 'brand', {
 Object.defineProperty(Article.prototype, 'visualTone', {
     get: function () {
         if (this.has_video) {
-            return 'video';    
+            return 'video';
         } else {
             switch (this.genre) {
                 case 'Analysis':
@@ -291,17 +291,17 @@ Object.defineProperty(Article.prototype, 'visualTone', {
                     return 'news';
                 default:
                     return 'vanilla';
-            }    
+            }
         }
     }
 });
 
 /**
- * Returns a the primary section object 
+ * Returns a the primary section object
  */
 Object.defineProperty(Article.prototype, 'primarySection', {
     get: function () {
-        if (this.raw.item.metadata && this.raw.item.metadata.primarySection) { 
+        if (this.raw.item.metadata && this.raw.item.metadata.primarySection) {
             return this.raw.item.metadata.primarySection.term;
         }
         return [];
@@ -309,11 +309,11 @@ Object.defineProperty(Article.prototype, 'primarySection', {
 });
 
 /**
- * Returns a the primary theme object 
+ * Returns a the primary theme object
  */
 Object.defineProperty(Article.prototype, 'primaryTheme', {
     get: function () {
-        if (this.raw.item.metadata && this.raw.item.metadata.primaryTheme) { 
+        if (this.raw.item.metadata && this.raw.item.metadata.primaryTheme) {
             return this.raw.item.metadata.primaryTheme.term;
         }
         return [];
@@ -340,7 +340,7 @@ Object.defineProperty(Article.prototype, 'lastUpdated', {
 
 /**
  * Indicates that the article contains a video.
- * @return Boolean 
+ * @return Boolean
  */
 Object.defineProperty(Article.prototype, 'has_video', {
     get: function () {
@@ -355,8 +355,8 @@ Object.defineProperty(Article.prototype, 'has_video', {
 });
 
 /**
- * Returns a list of videos associated with the article  
- * @return Array 
+ * Returns a list of videos associated with the article
+ * @return Array
  */
 Object.defineProperty(Article.prototype, 'videos', {
     get: function () {
@@ -372,14 +372,14 @@ Object.defineProperty(Article.prototype, 'videos', {
 
 /**
  * Indicates that the article contains a gallery.
- * @return Boolean 
+ * @return Boolean
  */
 Object.defineProperty(Article.prototype, 'has_gallery', {
     get: function () {
         if (this.raw.item.assets) {
             return this.raw.item.assets.some(function (asset) {
                 return asset.type === 'slideshow';
-            }); 
+            });
         } else {
             return false;
         }
@@ -387,8 +387,8 @@ Object.defineProperty(Article.prototype, 'has_gallery', {
 });
 
 /**
- * Returns a list of slideshows associated with the article  
- * @return Array 
+ * Returns a list of slideshows associated with the article
+ * @return Array
  */
 Object.defineProperty(Article.prototype, 'galleries', {
     get: function () {
@@ -404,7 +404,7 @@ Object.defineProperty(Article.prototype, 'galleries', {
 
 
 /**
- * Extracts the pull quotes from the article assets 
+ * Extracts the pull quotes from the article assets
  * @return Object
  */
 Object.defineProperty(Article.prototype, 'quotes', {
@@ -412,7 +412,7 @@ Object.defineProperty(Article.prototype, 'quotes', {
         if (this.raw.item.assets) {
             return this.raw.item.assets.filter(function (asset) {
                 return asset.type === 'pullQuote';
-            }); 
+            });
         } else {
             return [];
         }
