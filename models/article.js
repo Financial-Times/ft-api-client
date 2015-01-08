@@ -18,7 +18,7 @@ function Article (obj) {
 }
 
 function withSearchString (term) {
-    term.searchString = term.taxonomy + ':"' + term.name + '"';
+    term.searchString = term.taxonomy + ':"' + encodeURIComponent(term.name) + '"';
     return term;
 }
 
@@ -317,7 +317,7 @@ Object.defineProperty(Article.prototype, 'primarySection', {
         if (this.raw.item.metadata && this.raw.item.metadata.primarySection) {
             return withSearchString(this.raw.item.metadata.primarySection.term);
         }
-        return [];
+        return undefined;
     }
 });
 
@@ -329,7 +329,7 @@ Object.defineProperty(Article.prototype, 'primaryTheme', {
         if (this.raw.item.metadata && this.raw.item.metadata.primaryTheme) {
             return withSearchString(this.raw.item.metadata.primaryTheme.term);
         }
-        return [];
+        return undefined;
     }
 });
 
