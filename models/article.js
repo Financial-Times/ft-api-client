@@ -336,9 +336,11 @@ Object.defineProperty(Article.prototype, 'primaryTheme', {
 
 Object.defineProperty(Article.prototype, 'relatedTopics', {
     get: function () {
-        return _.uniq([this.primaryTheme].concat(this.people, this.regions, this.organisations, this.topics), function (tag) {
-            return tag.searchString;
-        });
+        return _.uniq([this.primaryTheme]
+            .concat(this.people, this.regions, this.organisations, this.topics)
+            .filter(function (tag) { return !!tag; }), function (tag) {
+                return tag.searchString;
+            });
     }
 });
 
@@ -348,10 +350,11 @@ Object.defineProperty(Article.prototype, 'relatedTopics', {
  */
 Object.defineProperty(Article.prototype, 'allTags', {
     get: function () {
-        return _.uniq([this.primaryTheme, this.primarySection].concat(this.authors,
-            this.people, this.organisations, this.packages, this.regions,
-            this.sections,this.topics, this.subjects, this.brand,
-            this.sections), function (tag) {
+        return _.uniq([this.primaryTheme, this.primarySection]
+            .concat(this.authors, this.people, this.organisations,
+                this.packages, this.regions, this.sections,this.topics,
+                this.subjects, this.brand, this.sections)
+            .filter(function (tag) { return !!tag; }), function (tag) {
                 return tag.searchString;
             });
     }
