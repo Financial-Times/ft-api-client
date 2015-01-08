@@ -75,7 +75,7 @@ describe('Article model', function(){
                 return author.name;
             }).join(", ");
             expect(authors).to.equal("Charles Clover, Courtney Weaver, George Parker");
-            expect(article.authors[0].searchString).to.equal('authors:"Charles Clover"');
+            expect(article.authors[0].searchString).to.equal('authors:"Charles%20Clover"');
         });
 
         it('Get a list of associated people', function() {
@@ -84,7 +84,7 @@ describe('Article model', function(){
                 return people.name;
             }).join(", ");
             expect(people).to.equal("Vladimir Putin, Barack Obama, David Cameron (politician)");
-            expect(article.people[0].searchString).to.equal('people:"Vladimir Putin"');
+            expect(article.people[0].searchString).to.equal('people:"Vladimir%20Putin"');
         });
 
         it('Get a list of organisations mentioned', function() {
@@ -93,7 +93,7 @@ describe('Article model', function(){
                 return org.name;
             }).join(", ");
             expect(org).to.equal("Group of Twenty");
-            expect(article.organisations[0].searchString).to.equal('organisations:"Group of Twenty"');
+            expect(article.organisations[0].searchString).to.equal('organisations:"Group%20of%20Twenty"');
         });
 
         it('Get a list of regions the article mentions', function() {
@@ -102,7 +102,7 @@ describe('Article model', function(){
                 return region.name;
             }).join(", ");
             expect(regions).to.equal("United Kingdom, Russia, Syria, United States of America");
-            expect(article.regions[0].searchString).to.equal('regions:"United Kingdom"');
+            expect(article.regions[0].searchString).to.equal('regions:"United%20Kingdom"');
         });
 
         // TODO - not sure if we want to use sections in v3 as it re-enforces
@@ -117,7 +117,7 @@ describe('Article model', function(){
                 return subject.name;
             }).join(", ");
             expect(subjects).to.equal("Summits & Talks, National Security, Politics, General News, Human Resources & Employment, Industrial Relations & Unions");
-            expect(article.subjects[0].searchString).to.equal('subjects:"Summits & Talks"');
+            expect(article.subjects[0].searchString).to.equal('subjects:"Summits%20%26%20Talks"');
 
         });
 
@@ -127,7 +127,7 @@ describe('Article model', function(){
                 return topic.name;
             }).join(", ");
             expect(topics).to.equal("Syria crisis");
-            expect(article.topics[0].searchString).to.equal('topics:"Syria crisis"');
+            expect(article.topics[0].searchString).to.equal('topics:"Syria%20crisis"');
         });
 
         it('Get all metatags assigned to an article', function() {
@@ -161,13 +161,13 @@ describe('Article model', function(){
         it('Get the primary section', function() {
             var article = new models.Article(fixtures.article);
             expect(article.primarySection.name).to.equal('Middle Eastern Politics & Society');
-            expect(article.primarySection.searchString).to.equal('sections:"Middle Eastern Politics & Society"')
+            expect(article.primarySection.searchString).to.equal('sections:"Middle%20Eastern%20Politics%20%26%20Society"')
         });
 
         it('Get the primary theme', function() {
             var article = new models.Article(fixtures.article);
             expect(article.primaryTheme.name).to.equal('Scottish Independence');
-            expect(article.primaryTheme.searchString).to.equal('topics:"Scottish Independence"')
+            expect(article.primaryTheme.searchString).to.equal('topics:"Scottish%20Independence"')
         });
 
         it('Get the genre of the article', function() {
