@@ -18,7 +18,7 @@ function Article (obj) {
 }
 
 function withSearchString (term) {
-    term.searchString = term.taxonomy + ':"' + term.name + '"';
+    term.searchString = encodeURIComponent(term.taxonomy + ':"' + term.name + '"');
     return term;
 }
 
