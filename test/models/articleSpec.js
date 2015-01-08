@@ -3,6 +3,7 @@
 var expect  = require("chai").expect;
 var fs      = require("fs");
 var cheerio = require("cheerio");
+var _ = require('lodash');
 
 var models  = require("../../models");
 
@@ -24,6 +25,7 @@ describe('Article model', function(){
         weekendArticle : JSON.parse(fs.readFileSync('test/fixtures/7803a998-7aeb-11e4-8646-00144feabdc0(weekend)', { encoding: 'utf8' }))
     };
 
+
     describe('Editorial', function () {
 
         it('Convert article links to relative paths', function() {
@@ -40,7 +42,6 @@ describe('Article model', function(){
 
         it('Calculate the article word count and estimated reading time', function() {
             var article = new models.Article(fixtures.article);
-	    console.log(article.body);
             expect(article.wordCount).to.equal(775);
             expect(article.readingTime).to.equal(3); // in minutes
         });
@@ -106,7 +107,8 @@ describe('Article model', function(){
 
         // TODO - not sure if we want to use sections in v3 as it re-enforces
         // the view that the world is seen through our editorial structure.
-
+        // NOTE (RE) - this is now implemented in order to normalise data before
+        // pumping out into alltags list used by following
         xit('Get a list of the sections an article is classfied under', function() { });
 
         it('Get a subjects the article is about', function() {
@@ -126,6 +128,26 @@ describe('Article model', function(){
             }).join(", ");
             expect(topics).to.equal("Syria crisis");
             expect(article.topics[0].searchString).to.equal('topics:"Syria crisis"');
+        });
+
+        it('Get all metatags assigned to an article', function() {
+            var article = new models.Article(fixtures.article);
+            expect(article.allTags.length).to.be.at.least([article.primarySection].concat(article.people, article.regions, article.organisations, article.topics).length);
+            expect(_.uniq(article.allTags, function (tag) {
+                return tag.searchString;
+            }).length).to.equal(article.allTags.length);
+            expect(article.allTags[0].searchString).to.exist;
+        });
+
+        it('Get list of most related metatags (related topics)', function() {
+            var article = new models.Article(fixtures.article);
+
+            expect(article.relatedTopics.length).to.be.at.most([article.primaryTheme].concat(article.people, article.regions, article.organisations, article.topics).length);
+            expect(_.uniq(article.relatedTopics, function (tag) {
+                return tag.searchString;
+            }).length).to.equal(article.relatedTopics.length);
+
+            expect(article.relatedTopics[0].searchString).to.equal(article.primaryTheme.searchString);
         });
 
         it('Get a list of organisations stock market symbols', function() {

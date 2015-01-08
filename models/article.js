@@ -2,7 +2,7 @@
 
 var url     = require('url');
 var util    = require('util');
-
+var _ = require('lodash');
 // body text processing
 var cheerio                 = require('cheerio');
 var removeNonArticleLinks   = require('../models/cheerio/remove-non-article-links');
@@ -15,6 +15,11 @@ function Article (obj) {
     if (obj && obj.item) {
         this.parse(obj);
     }
+}
+
+function withSearchString (term) {
+    term.searchString = term.taxonomy + ':"' + term.name + '"';
+    return term;
 }
 
 /**
@@ -142,8 +147,7 @@ Object.defineProperty(Article.prototype, 'authors', {
     get: function () {
         if (this.raw.item.metadata && this.raw.item.metadata.authors) {
             return this.raw.item.metadata.authors.map(function (author) {
-                author.term.searchString = 'authors:"' + author.term.name + '"';
-                return author.term;
+                return withSearchString(author.term);
             });
         }
         return [];
@@ -157,8 +161,21 @@ Object.defineProperty(Article.prototype, 'people', {
     get: function () {
         if (this.raw.item.metadata && this.raw.item.metadata.people) {
             return this.raw.item.metadata.people.map(function (person) {
-                person.term.searchString = 'people:"' + person.term.name + '"';
-                return person.term;
+                return withSearchString(person.term);
+            });
+        }
+        return [];
+    }
+});
+
+/**
+ * Returns a list of sections
+ */
+Object.defineProperty(Article.prototype, 'sections', {
+    get: function () {
+        if (this.raw.item.metadata && this.raw.item.metadata.sections) {
+            return this.raw.item.metadata.sections.map(function (section) {
+                return withSearchString(section.term);
             });
         }
         return [];
@@ -172,8 +189,7 @@ Object.defineProperty(Article.prototype, 'organisations', {
     get: function () {
         if (this.raw.item.metadata && this.raw.item.metadata.organisations) {
             return this.raw.item.metadata.organisations.map(function (org) {
-                org.term.searchString = 'organisations:"' + org.term.name + '"';
-                return org.term;
+                return withSearchString(org.term);
             });
         }
         return [];
@@ -187,8 +203,7 @@ Object.defineProperty(Article.prototype, 'regions', {
     get: function () {
         if (this.raw.item.metadata && this.raw.item.metadata.regions) {
             return this.raw.item.metadata.regions.map(function (region) {
-                region.term.searchString = 'regions:"' + region.term.name + '"';
-                return region.term;
+                return withSearchString(region.term);
             });
         }
         return [];
@@ -202,8 +217,7 @@ Object.defineProperty(Article.prototype, 'topics', {
     get: function () {
         if (this.raw.item.metadata && this.raw.item.metadata.topics) {
             return this.raw.item.metadata.topics.map(function (topic) {
-                topic.term.searchString = 'topics:"' + topic.term.name + '"';
-                return topic.term;
+                return withSearchString(topic.term);
             });
         }
         return [];
@@ -217,8 +231,7 @@ Object.defineProperty(Article.prototype, 'subjects', {
     get: function () {
         if (this.raw.item.metadata && this.raw.item.metadata.subjects) {
             return this.raw.item.metadata.subjects.map(function (subject) {
-                subject.term.searchString = 'subjects:"' + subject.term.name + '"';
-                return subject.term;
+                return withSearchString(subject.term);
             });
         }
         return [];
@@ -302,9 +315,7 @@ Object.defineProperty(Article.prototype, 'visualTone', {
 Object.defineProperty(Article.prototype, 'primarySection', {
     get: function () {
         if (this.raw.item.metadata && this.raw.item.metadata.primarySection) {
-            var term = this.raw.item.metadata.primarySection.term;
-            term.searchString = term.taxonomy + ':"' + term.name + '"';
-            return term;
+            return withSearchString(this.raw.item.metadata.primarySection.term);
         }
         return [];
     }
@@ -316,13 +327,36 @@ Object.defineProperty(Article.prototype, 'primarySection', {
 Object.defineProperty(Article.prototype, 'primaryTheme', {
     get: function () {
         if (this.raw.item.metadata && this.raw.item.metadata.primaryTheme) {
-            var term = this.raw.item.metadata.primaryTheme.term;
-            term.searchString = term.taxonomy + ':"' + term.name + '"';
-            return term;
+            return withSearchString(this.raw.item.metadata.primaryTheme.term);
         }
         return [];
     }
 });
+
+
+Object.defineProperty(Article.prototype, 'relatedTopics', {
+    get: function () {
+        return _.uniq([this.primaryTheme].concat(this.people, this.regions, this.organisations, this.topics), function (tag) {
+            return tag.searchString;
+        });
+    }
+});
+
+
+/**
+ * Returns all metadata terms the article is tagged with
+ */
+Object.defineProperty(Article.prototype, 'allTags', {
+    get: function () {
+        return _.uniq([this.primaryTheme, this.primarySection].concat(this.authors,
+            this.people, this.organisations, this.packages, this.regions,
+            this.sections,this.topics, this.subjects, this.brand,
+            this.sections), function (tag) {
+                return tag.searchString;
+            });
+    }
+});
+
 
 /**
  * The resource's published date as a JavaScript Date object.
