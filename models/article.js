@@ -302,7 +302,9 @@ Object.defineProperty(Article.prototype, 'visualTone', {
 Object.defineProperty(Article.prototype, 'primarySection', {
     get: function () {
         if (this.raw.item.metadata && this.raw.item.metadata.primarySection) {
-            return this.raw.item.metadata.primarySection.term;
+            var term = this.raw.item.metadata.primarySection.term;
+            term.searchString = term.taxonomy + ':"' + term.name + '"';
+            return term;
         }
         return [];
     }
@@ -314,7 +316,9 @@ Object.defineProperty(Article.prototype, 'primarySection', {
 Object.defineProperty(Article.prototype, 'primaryTheme', {
     get: function () {
         if (this.raw.item.metadata && this.raw.item.metadata.primaryTheme) {
-            return this.raw.item.metadata.primaryTheme.term;
+            var term = this.raw.item.metadata.primaryTheme.term;
+            term.searchString = term.taxonomy + ':"' + term.name + '"';
+            return term;
         }
         return [];
     }

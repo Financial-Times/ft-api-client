@@ -139,13 +139,13 @@ describe('Article model', function(){
         it('Get the primary section', function() {
             var article = new models.Article(fixtures.article);
             expect(article.primarySection.name).to.equal('Middle Eastern Politics & Society');
-            // TODO expect(article.organisations[0].searchString).to.equal('organisations:"Group of Twenty"')
+            expect(article.primarySection.searchString).to.equal('sections:"Middle Eastern Politics & Society"')
         });
 
         it('Get the primary theme', function() {
             var article = new models.Article(fixtures.article);
             expect(article.primaryTheme.name).to.equal('Scottish Independence');
-            // TODO expect(article.organisations[0].searchString).to.equal('organisations:"Group of Twenty"')
+            expect(article.primaryTheme.searchString).to.equal('topics:"Scottish Independence"')
         });
 
         it('Get the genre of the article', function() {
