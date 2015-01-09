@@ -142,11 +142,8 @@ describe('Article model', function(){
         it('Get list of most related metatags (related topics)', function() {
             var article = new models.Article(fixtures.article);
 
-            expect(article.relatedTopics.length).to.be.at.most([article.primaryTheme].concat(article.people, article.regions, article.organisations, article.topics).length);
-            expect(_.uniq(article.relatedTopics, function (tag) {
-                return tag.searchString;
-            }).length).to.equal(article.relatedTopics.length);
-
+            expect(article.relatedTopics.length).to.be.at.most(5);
+            expect(article.relatedTopics.length).to.be.at.least(1);
             expect(article.relatedTopics[0].searchString).to.equal(article.primaryTheme.searchString);
         });
 

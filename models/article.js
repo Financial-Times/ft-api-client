@@ -340,7 +340,8 @@ Object.defineProperty(Article.prototype, 'relatedTopics', {
             .concat(this.people, this.regions, this.organisations, this.topics)
             .filter(function (tag) { return !!tag; }), function (tag) {
                 return tag.searchString;
-            });
+            })
+            .slice(0, 5);
     }
 });
 
