@@ -1,0 +1,766 @@
+{
+    "query": {
+        "queryString": "topics:\"Climate change\"",
+        "queryContext": {
+            "curations": [
+                "ARTICLES"
+            ]
+        },
+        "resultContext": {
+            "maxResults": 3,
+            "offset": 0,
+            "aspects": [
+                "editorial",
+                "images",
+                "lifecycle",
+                "location",
+                "master",
+                "metadata",
+                "nature",
+                "summary",
+                "title"
+            ],
+            "facets": {
+                "names": [
+                    "organisations"
+                ],
+                "maxElements": -1,
+                "minThreshold": 100
+            },
+            "contextual": true,
+            "highlight": false
+        }
+    },
+    "results": [
+        {
+            "indexCount": 12233,
+            "curations": [
+                "ARTICLES"
+            ],
+            "results": [
+                {
+                    "aspectSet": "article",
+                    "modelVersion": "1",
+                    "id": "3031199c-3e8d-11e4-a620-00144feabdc0",
+                    "apiUrl": "http://api.ft.com/content/items/v1/3031199c-3e8d-11e4-a620-00144feabdc0",
+                    "title": {
+                        "title": "The tree that recharges your phone"
+                    },
+                    "lifecycle": {
+                        "initialPublishDateTime": "2014-09-18T11:53:36Z",
+                        "lastPublishDateTime": "2014-09-18T11:53:36Z"
+                    },
+                    "nature": {
+                        "category": "article"
+                    },
+                    "location": {
+                        "uri": "http://www.ft.com/cms/s/0/3031199c-3e8d-11e4-a620-00144feabdc0.html"
+                    },
+                    "summary": {
+                        "excerpt": "Milena Ristovic, a secondary school teacher in the Serbian capital of Belgrade, suffers from a complaint common to millions"
+                    },
+                    "master": {
+                        "masterSource": "Methode",
+                        "masterEntityId": "3031199c-3e8d-11e4-a620-00144feabdc0"
+                    },
+                    "editorial": {
+                        "byline": "By Snezana Curcic"
+                    },
+                    "metadata": {
+                        "primarySection": {
+                            "term": {
+                                "name": "Management",
+                                "taxonomy": "sections"
+                            }
+                        },
+                        "primaryTheme": {
+                            "term": {
+                                "name": "Tech start-ups",
+                                "taxonomy": "topics"
+                            }
+                        },
+                        "genre": [
+                            {
+                                "term": {
+                                    "name": "Feature",
+                                    "taxonomy": "genre"
+                                }
+                            }
+                        ],
+                        "icb": [
+                            {
+                                "term": {
+                                    "name": "0580 Alternative Energy",
+                                    "taxonomy": "icb"
+                                }
+                            }
+                        ],
+                        "iptc": [
+                            {
+                                "term": {
+                                    "name": "06001000 - renewable energy",
+                                    "taxonomy": "iptc"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "04003009 - wireless technology",
+                                    "taxonomy": "iptc"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "08003003 - accomplishment",
+                                    "taxonomy": "iptc"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "05005002 - middle schools",
+                                    "taxonomy": "iptc"
+                                }
+                            }
+                        ],
+                        "organisations": [
+                            {
+                                "term": {
+                                    "name": "European Union",
+                                    "taxonomy": "organisations"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Strawberry Tree Inc.",
+                                    "taxonomy": "organisations"
+                                }
+                            }
+                        ],
+                        "regions": [
+                            {
+                                "term": {
+                                    "name": "United States of America",
+                                    "taxonomy": "regions"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "California",
+                                    "taxonomy": "regions"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Serbia",
+                                    "taxonomy": "regions"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Boston, Massachusetts",
+                                    "taxonomy": "regions"
+                                }
+                            }
+                        ],
+                        "sections": [
+                            {
+                                "term": {
+                                    "name": "Technology",
+                                    "taxonomy": "sections"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Management",
+                                    "taxonomy": "sections"
+                                }
+                            }
+                        ],
+                        "topics": [
+                            {
+                                "term": {
+                                    "name": "Tech start-ups",
+                                    "taxonomy": "topics"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Climate change",
+                                    "taxonomy": "topics"
+                                }
+                            }
+                        ]
+                    },
+                    "images": [
+                        {
+                            "url": "http://im.media.ft.com/content/images/f3ceeca3-876d-4351-b725-86e78435d924.img",
+                            "type": "secondary"
+                        }
+                    ]
+                },
+                {
+                    "aspectSet": "article",
+                    "modelVersion": "1",
+                    "id": "c48b2eac-3fb9-11e4-a381-00144feabdc0",
+                    "apiUrl": "http://api.ft.com/content/items/v1/c48b2eac-3fb9-11e4-a381-00144feabdc0",
+                    "title": {
+                        "title": "China debates how to impose carbon caps"
+                    },
+                    "lifecycle": {
+                        "initialPublishDateTime": "2014-09-19T05:35:17Z",
+                        "lastPublishDateTime": "2014-09-19T05:35:17Z"
+                    },
+                    "nature": {
+                        "category": "article"
+                    },
+                    "location": {
+                        "uri": "http://www.ft.com/cms/s/0/c48b2eac-3fb9-11e4-a381-00144feabdc0.html"
+                    },
+                    "summary": {
+                        "excerpt": "...do so, the nation’s chief climate change negotiator said on Friday. Xie Zhenhua is heading to the UN climate change summit called by Ban Ki-moon...willingness to co-operate in global climate change talks. “If we want the carbon dioxide..."
+                    },
+                    "master": {
+                        "masterSource": "Methode",
+                        "masterEntityId": "c48b2eac-3fb9-11e4-a381-00144feabdc0"
+                    },
+                    "editorial": {
+                        "byline": "By Lucy Hornby in Beijing"
+                    },
+                    "metadata": {
+                        "primarySection": {
+                            "term": {
+                                "name": "China",
+                                "taxonomy": "sections"
+                            }
+                        },
+                        "primaryTheme": {
+                            "term": {
+                                "name": "Climate change",
+                                "taxonomy": "topics"
+                            }
+                        },
+                        "genre": [
+                            {
+                                "term": {
+                                    "name": "News",
+                                    "taxonomy": "genre"
+                                }
+                            }
+                        ],
+                        "icb": [
+                            {
+                                "term": {
+                                    "name": "7500 Utilities",
+                                    "taxonomy": "icb"
+                                }
+                            }
+                        ],
+                        "iptc": [
+                            {
+                                "term": {
+                                    "name": "06011000 - global warming",
+                                    "taxonomy": "iptc"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "06005001 - air pollution",
+                                    "taxonomy": "iptc"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "17002000 - global change",
+                                    "taxonomy": "iptc"
+                                }
+                            }
+                        ],
+                        "organisations": [
+                            {
+                                "term": {
+                                    "name": "United Nations",
+                                    "taxonomy": "organisations"
+                                }
+                            }
+                        ],
+                        "people": [
+                            {
+                                "term": {
+                                    "name": "Xi Jinping",
+                                    "taxonomy": "people"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Ban Ki-moon",
+                                    "taxonomy": "people"
+                                }
+                            }
+                        ],
+                        "regions": [
+                            {
+                                "term": {
+                                    "name": "China",
+                                    "taxonomy": "regions"
+                                }
+                            }
+                        ],
+                        "sections": [
+                            {
+                                "term": {
+                                    "name": "World",
+                                    "taxonomy": "sections"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Asia-Pacific",
+                                    "taxonomy": "sections"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Emerging Markets",
+                                    "taxonomy": "sections"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Energy",
+                                    "taxonomy": "sections"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "China",
+                                    "taxonomy": "sections"
+                                }
+                            }
+                        ],
+                        "subjects": [
+                            {
+                                "term": {
+                                    "name": "Pollution & Waste",
+                                    "taxonomy": "subjects"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Environment",
+                                    "taxonomy": "subjects"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "General News",
+                                    "taxonomy": "subjects"
+                                }
+                            }
+                        ],
+                        "topics": [
+                            {
+                                "term": {
+                                    "name": "Climate change",
+                                    "taxonomy": "topics"
+                                }
+                            }
+                        ],
+                        "authors": [
+                            {
+                                "term": {
+                                    "name": "Lucy Hornby",
+                                    "taxonomy": "authors"
+                                }
+                            }
+                        ]
+                    },
+                    "images": [
+                        {
+                            "url": "http://im.media.ft.com/content/images/55bfc2cc-e545-4286-8c97-df7166d5e97b.img",
+                            "type": "secondary"
+                        }
+                    ]
+                },
+                {
+                    "aspectSet": "article",
+                    "modelVersion": "1",
+                    "id": "3c34252e-3fd0-11e4-a381-00144feabdc0",
+                    "apiUrl": "http://api.ft.com/content/items/v1/3c34252e-3fd0-11e4-a381-00144feabdc0",
+                    "title": {
+                        "title": "When buying bonds can damage your wealth"
+                    },
+                    "lifecycle": {
+                        "initialPublishDateTime": "2014-09-19T08:16:22Z",
+                        "lastPublishDateTime": "2014-09-19T08:16:22Z"
+                    },
+                    "nature": {
+                        "category": "article"
+                    },
+                    "location": {
+                        "uri": "http://www.ft.com/cms/s/0/3c34252e-3fd0-11e4-a381-00144feabdc0.html"
+                    },
+                    "summary": {
+                        "excerpt": "Buying bonds can damage your wealth. Buying junk bonds . . . well, what does it say on the label? The buyers of the bonds"
+                    },
+                    "master": {
+                        "masterSource": "Methode",
+                        "masterEntityId": "3c34252e-3fd0-11e4-a381-00144feabdc0"
+                    },
+                    "editorial": {
+                        "byline": "By Neil Collins"
+                    },
+                    "metadata": {
+                        "primarySection": {
+                            "term": {
+                                "name": "Markets",
+                                "taxonomy": "sections"
+                            }
+                        },
+                        "primaryTheme": {
+                            "term": {
+                                "name": "Phones 4u Ltd",
+                                "taxonomy": "organisations"
+                            }
+                        },
+                        "brand": [
+                            {
+                                "term": {
+                                    "name": "Neil Collins",
+                                    "taxonomy": "brand"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Inside London",
+                                    "taxonomy": "brand"
+                                }
+                            }
+                        ],
+                        "genre": [
+                            {
+                                "term": {
+                                    "name": "Comment",
+                                    "taxonomy": "genre"
+                                }
+                            }
+                        ],
+                        "icb": [
+                            {
+                                "term": {
+                                    "name": "7570 Gas, Water & Multiutilities",
+                                    "taxonomy": "icb"
+                                }
+                            }
+                        ],
+                        "iptc": [
+                            {
+                                "term": {
+                                    "name": "11010000 - parties and movements",
+                                    "taxonomy": "iptc"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "06011000 - global warming",
+                                    "taxonomy": "iptc"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "04016000 - company information",
+                                    "taxonomy": "iptc"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "17002000 - global change",
+                                    "taxonomy": "iptc"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "04008017 - prices",
+                                    "taxonomy": "iptc"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "04016015 - dividend announcement",
+                                    "taxonomy": "iptc"
+                                }
+                            }
+                        ],
+                        "organisations": [
+                            {
+                                "term": {
+                                    "name": "European Union",
+                                    "taxonomy": "organisations"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Vodafone Group PLC",
+                                    "taxonomy": "organisations"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Phones 4u Ltd",
+                                    "taxonomy": "organisations"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Dixons Retail PLC",
+                                    "taxonomy": "organisations"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Carphone Warehouse",
+                                    "taxonomy": "organisations"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "BC Partners Ltd",
+                                    "taxonomy": "organisations"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "National Grid PLC",
+                                    "taxonomy": "organisations"
+                                }
+                            }
+                        ],
+                        "sections": [
+                            {
+                                "term": {
+                                    "name": "Utilities",
+                                    "taxonomy": "sections"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Financial Commentary",
+                                    "taxonomy": "sections"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Companies",
+                                    "taxonomy": "sections"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Energy",
+                                    "taxonomy": "sections"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Markets",
+                                    "taxonomy": "sections"
+                                }
+                            }
+                        ],
+                        "subjects": [
+                            {
+                                "term": {
+                                    "name": "Dividends",
+                                    "taxonomy": "subjects"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Natural Resources",
+                                    "taxonomy": "subjects"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Corporate Finance",
+                                    "taxonomy": "subjects"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "Environment",
+                                    "taxonomy": "subjects"
+                                }
+                            },
+                            {
+                                "term": {
+                                    "name": "General News",
+                                    "taxonomy": "subjects"
+                                }
+                            }
+                        ],
+                        "topics": [
+                            {
+                                "term": {
+                                    "name": "Climate change",
+                                    "taxonomy": "topics"
+                                }
+                            }
+                        ],
+                        "authors": [
+                            {
+                                "term": {
+                                    "name": "Neil Collins",
+                                    "taxonomy": "authors"
+                                }
+                            }
+                        ]
+                    },
+                    "images": [
+                        {
+                            "url": "http://im.media.ft.com/content/images/5840a3dd-b9a0-4fb7-bff9-05d3d1ec0868.img",
+                            "type": "secondary"
+                        }
+                    ]
+                }
+            ],
+            "facets": [
+                {
+                    "name": "organisations",
+                    "facetElements": [
+                        {
+                            "name": "European Union",
+                            "count": 2332
+                        },
+                        {
+                            "name": "United Nations",
+                            "count": 1222
+                        },
+                        {
+                            "name": "European Commission",
+                            "count": 696
+                        },
+                        {
+                            "name": "BP PLC",
+                            "count": 303
+                        },
+                        {
+                            "name": "Financial Times Ltd",
+                            "count": 285
+                        },
+                        {
+                            "name": "International Energy Agency",
+                            "count": 277
+                        },
+                        {
+                            "name": "Greenpeace International",
+                            "count": 248
+                        },
+                        {
+                            "name": "Republican Party US",
+                            "count": 242
+                        },
+                        {
+                            "name": "World Bank",
+                            "count": 232
+                        },
+                        {
+                            "name": "Democratic Party US",
+                            "count": 221
+                        },
+                        {
+                            "name": "General Electric Co",
+                            "count": 209
+                        },
+                        {
+                            "name": "Royal Dutch Shell",
+                            "count": 204
+                        },
+                        {
+                            "name": "RWE AG",
+                            "count": 155
+                        },
+                        {
+                            "name": "Alternative Investment Market",
+                            "count": 150
+                        },
+                        {
+                            "name": "Exxon Mobil Corp",
+                            "count": 150
+                        },
+                        {
+                            "name": "Friends of the Earth",
+                            "count": 147
+                        },
+                        {
+                            "name": "Confederation of British Industry",
+                            "count": 147
+                        },
+                        {
+                            "name": "Environmental Protection Agency USA",
+                            "count": 141
+                        },
+                        {
+                            "name": "Siemens AG",
+                            "count": 134
+                        },
+                        {
+                            "name": "General Motors Co",
+                            "count": 131
+                        },
+                        {
+                            "name": "Conservative Party UK",
+                            "count": 126
+                        },
+                        {
+                            "name": "Areva SA",
+                            "count": 126
+                        },
+                        {
+                            "name": "EDF Energy PLC",
+                            "count": 125
+                        },
+                        {
+                            "name": "Centrica PLC",
+                            "count": 122
+                        },
+                        {
+                            "name": "EDF",
+                            "count": 121
+                        },
+                        {
+                            "name": "United Nations Organization",
+                            "count": 110
+                        },
+                        {
+                            "name": "G20",
+                            "count": 108
+                        },
+                        {
+                            "name": "Toyota Motor Corp",
+                            "count": 104
+                        },
+                        {
+                            "name": "Congress USA",
+                            "count": 103
+                        },
+                        {
+                            "name": "BG Group PLC",
+                            "count": 103
+                        },
+                        {
+                            "name": "École de technologie supérieure",
+                            "count": 103
+                        },
+                        {
+                            "name": "Iberdrola SA",
+                            "count": 101
+                        },
+                        {
+                            "name": "SSE PLC",
+                            "count": 100
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
