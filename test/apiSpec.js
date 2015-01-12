@@ -9,7 +9,7 @@ var request = require('request');
 
 require('es6-promise').polyfill();
 
-var ft = require("../lib/api")('123', {elasticSearchUri: 'http://123.foundcluster.com/v1_api/item'});
+var ft = require("../api")('123', {elasticSearchUri: 'http://123.foundcluster.com/v1_api/item'});
 
 describe('API', function(){
 
@@ -335,7 +335,7 @@ describe('API', function(){
 
     describe('pages', function () {
 
-        var pagesJob = require('../jobs/pages');
+        var pagesJob = require('../lib/jobs/pages');
 
         beforeEach(function () {
             sinon.stub(pagesJob, 'get', function () {

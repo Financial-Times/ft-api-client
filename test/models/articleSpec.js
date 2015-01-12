@@ -5,7 +5,7 @@ var fs      = require("fs");
 var cheerio = require("cheerio");
 var _ = require('lodash');
 
-var models  = require("../../models");
+var Article  = require("../../lib/models/Article");
 
 describe('Article model', function(){
 
@@ -29,30 +29,30 @@ describe('Article model', function(){
     describe('Editorial', function () {
 
         it('Convert article links to relative paths', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.body).not.to.contain('href="http://"');
         });
 
         // This is specifically for Next. We don't support all types of content from day 1.
         it('Remove links that are not Content API articles from the body', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             var $ = cheerio.load(article.body);
             expect($('a').length).to.equal(2);
         });
 
         it('Calculate the article word count and estimated reading time', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.wordCount).to.equal(775);
             expect(article.readingTime).to.equal(3); // in minutes
         });
 
         it('Get the headline', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.headline).to.equal('Obama steadfast on Syria strikes despite G20 opposition');
         });
 
         it('Get the alternate headlines, standfirsts, excerpts etc.', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.spHeadline).to.equal('Obama urges Syria strike despite G20');
             expect(article.subheading).to.equal('US president to address American people on Tuesday');
             expect(article.leadBody).to.contain('US president sets out the case for a missile strike');
@@ -64,13 +64,13 @@ describe('Article model', function(){
     describe('Metadata', function () {
 
         it('Get the published and updated dates', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.firstPublished.toUTCString()).to.equal('Fri, 06 Sep 2013 09:12:45 GMT');
             expect(article.lastUpdated.toUTCString()).to.equal('Fri, 06 Sep 2013 16:16:04 GMT');
         });
 
         it('Get a list of article authors (i.e. byline)', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             var authors = article.authors.map(function (author) {
                 return author.name;
             }).join(", ");
@@ -79,7 +79,7 @@ describe('Article model', function(){
         });
 
         it('Get a list of associated people', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             var people = article.people.map(function (people) {
                 return people.name;
             }).join(", ");
@@ -88,7 +88,7 @@ describe('Article model', function(){
         });
 
         it('Get a list of organisations mentioned', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             var org = article.organisations.map(function (org) {
                 return org.name;
             }).join(", ");
@@ -97,7 +97,7 @@ describe('Article model', function(){
         });
 
         it('Get a list of regions the article mentions', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             var regions = article.regions.map(function (region) {
                 return region.name;
             }).join(", ");
@@ -112,7 +112,7 @@ describe('Article model', function(){
         xit('Get a list of the sections an article is classfied under', function() { });
 
         it('Get a subjects the article is about', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             var subjects = article.subjects.map(function (subject) {
                 return subject.name;
             }).join(", ");
@@ -122,7 +122,7 @@ describe('Article model', function(){
         });
 
         it('Get a list of topics the article refers to', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             var topics = article.topics.map(function (topic) {
                 return topic.name;
             }).join(", ");
@@ -131,7 +131,7 @@ describe('Article model', function(){
         });
 
         it('Get all metatags assigned to an article', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.allTags.length).to.be.at.least([article.primarySection].concat(article.people, article.regions, article.organisations, article.topics).length);
             expect(_.uniq(article.allTags, function (tag) {
                 return tag.searchString;
@@ -140,7 +140,7 @@ describe('Article model', function(){
         });
 
         it('Get list of most related metatags (related topics)', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
 
             expect(article.relatedTopics.length).to.be.at.most(5);
             expect(article.relatedTopics.length).to.be.at.least(1);
@@ -148,7 +148,7 @@ describe('Article model', function(){
         });
 
         it('Get a list of organisations stock market symbols', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.tickerSymbols).to.deep.equal([
                     { "code": "uk:SBRY", "name": "J Sainsbury PLC" },
                     { "code": "uk:TSCO", "name": "Tesco PLC" }
@@ -156,58 +156,58 @@ describe('Article model', function(){
         });
 
         it('Get the primary section', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.primarySection.name).to.equal('Middle Eastern Politics & Society');
             expect(article.primarySection.searchString).to.equal('sections:"Middle%20Eastern%20Politics%20%26%20Society"')
         });
 
         it('Get the primary theme', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.primaryTheme.name).to.equal('Scottish Independence');
             expect(article.primaryTheme.searchString).to.equal('topics:"Scottish%20Independence"')
         });
 
         it('Get the genre of the article', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.genre).to.equal('News');
         });
 
         it('Get whether article is in weekend', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.isWeekend).to.be.false;
-            var wearticle = new models.Article(fixtures.weekendArticle);
+            var wearticle = new Article(fixtures.weekendArticle);
             expect(wearticle.isWeekend).to.be.true;
         });
 
         //START: Visual Tones
         it('Get the (visual) tone of the article with video', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.visualTone).to.equal('video');
         });
 
         it('Get the (visual) tone of the news article', function() {
-            var article = new models.Article(fixtures.article2);
+            var article = new Article(fixtures.article2);
             expect(article.visualTone).to.equal('news');
         });
 
         it('Get the (visual) tone of the comment article', function() {
-            var article = new models.Article(fixtures.article3);
+            var article = new Article(fixtures.article3);
             expect(article.visualTone).to.equal('comment');
         });
 
         it('Get the (visual) tone of the analysis article', function() {
-            var article = new models.Article(fixtures.article4);
+            var article = new Article(fixtures.article4);
             expect(article.visualTone).to.equal('analysis');
         });
 
         it('Get the (visual) tone of the letters article', function() {
-            var article = new models.Article(fixtures.article5);
+            var article = new Article(fixtures.article5);
             expect(article.visualTone).to.equal('vanilla');
         });
         //END: Visual Tones
 
         it('Get the brand of the article', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.brand.name).to.equal('Gavyn Davies');
         });
 
@@ -216,33 +216,33 @@ describe('Article model', function(){
     describe('Assets', function () {
 
         it("Indicates if the article contains video", function () {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.has_video).to.be.true;
         });
 
         it("Get the associated videos", function () {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.videos[0].fields.sourceReference).to.equal('3794473930001');
         });
 
         it("List the packages", function () {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.packages[2]).to.equal('ecfea614-1712-11e3-9ec2-00144feabdc0');
         });
 
         // TODO - Is there a difference between a gallery and a slideshow?
         it("Indicates if the article contains a gallery or slideshow", function () {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.has_gallery).to.be.true;
         });
 
         it("Get associated pull quotes", function () {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.quotes[0].fields.body).to.contain('One of the biggest concerns');
         });
 
         it('Get the largest image associated with the article', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.largestImage.url).to.equal('http://im.ft-static.com/content/images/4cec0d2e-8898-4193-8db4-dc0c2ba33df9.img');
         });
 
@@ -251,12 +251,12 @@ describe('Article model', function(){
 
         // Factors the effect prominence
         it("List inbound links", function () {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.inboundLinks[0]).to.equal('http://www.ft.com/cms/s/0/654f3846-149c-11e3-b3db-00144feabdc0.html');
         });
 
         it("List outbound links", function () {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(article.outboundLinks[1]).to.equal('http://www.bbc.co.uk/news/uk-29662245');
         });
 
@@ -267,13 +267,13 @@ describe('Article model', function(){
     describe('Paragraphs', function () {
 
         it("Provides an option to remove images from paragraphs", function () {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             expect(!!article.paragraphs(0, 1, { removeImages: false }).html().match(/<img[^>]*>/)).to.be.true;
             expect(!!article.paragraphs(0, 1).html().match(/<img[^>]*>/)).to.be.false;
         });
 
         it('Get a specified number of paragraphs from the article body', function() {
-            var article = new models.Article(fixtures.article);
+            var article = new Article(fixtures.article);
             var p = article.paragraphs(0, 4);
             expect(p.length).to.equal(4);
             expect(p.text()).to.match(/(.*)principle\.”$/);

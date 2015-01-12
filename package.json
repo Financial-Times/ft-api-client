@@ -10,7 +10,7 @@
   },
   "license": "BSD",
   "description": "A client for the Financial Times content and search APIs",
-  "main": "./lib/api",
+  "main": "./api",
   "directories": {
     "lib": "./lib"
   },
