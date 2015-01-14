@@ -1,9 +1,9 @@
 {
-    "maxNotificationsPerCall": 200,
-    "maxConcurrentRequests": 20,
-    "maxRetries": 20,
-    "defaultDelayMilliseconds": 1,
-    "retryDelayMilliseconds": 10,
-    "defaultCacheTTLMilliseconds": 120000,
-    "maxCacheSize": 4000
+	"maxNotificationsPerCall": 200,
+	"maxConcurrentRequests": 20,
+	"maxRetries": 20,
+	"defaultDelayMilliseconds": 1,
+	"retryDelayMilliseconds": 10,
+	"defaultCacheTTLMilliseconds": 120000,
+	"maxCacheSize": 4000
 }

@@ -1,14 +1,13 @@
+/* global it, describe */
 'use strict';
 
 var expect  = require("chai").expect;
 var fs      = require("fs");
-var path    = require('path')
-var cheerio = require("cheerio");
-
+var path    = require('path');
 var Facet  = require("../../lib/models/facet");
 
 describe('Facets model', function(){
-   var fixtureFilePath = path.resolve('test/fixtures/search-for__climate-change');
+	var fixtureFilePath = path.resolve('test/fixtures/search-for__climate-change');
 	var fixture = fs.readFileSync(fixtureFilePath, {encoding:'utf8'});
 
 	it('Can correctly parse the facets out of a search result', function(){

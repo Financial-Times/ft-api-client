@@ -1,3 +1,4 @@
+/* global it, describe, xit */
 'use strict';
 
 var expect  = require("chai").expect;
@@ -5,7 +6,7 @@ var fs      = require("fs");
 var cheerio = require("cheerio");
 var _ = require('lodash');
 
-var Article  = require("../../lib/models/Article");
+var Article  = require("../../lib/models/article");
 
 describe('Article model', function(){
 
@@ -158,13 +159,13 @@ describe('Article model', function(){
 		it('Get the primary section', function() {
 			var article = new Article(fixtures.article);
 			expect(article.primarySection.name).to.equal('Middle Eastern Politics & Society');
-			expect(article.primarySection.searchString).to.equal('sections:"Middle%20Eastern%20Politics%20%26%20Society"')
+			expect(article.primarySection.searchString).to.equal('sections:"Middle%20Eastern%20Politics%20%26%20Society"');
 		});
 
 		it('Get the primary theme', function() {
 			var article = new Article(fixtures.article);
 			expect(article.primaryTheme.name).to.equal('Scottish Independence');
-			expect(article.primaryTheme.searchString).to.equal('topics:"Scottish%20Independence"')
+			expect(article.primaryTheme.searchString).to.equal('topics:"Scottish%20Independence"');
 		});
 
 		it('Get the genre of the article', function() {

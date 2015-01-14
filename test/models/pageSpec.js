@@ -1,7 +1,8 @@
+/* global it, describe, beforeEach, afterEach */
 'use strict';
+
 var expect  = require("chai").expect;
 var fs      = require("fs");
-var cheerio = require("cheerio");
 var pagesModel  = require("../../lib/models/pages");
 var sinon = require('sinon');
 var pagesJob = require('../../lib/jobs/pages');
