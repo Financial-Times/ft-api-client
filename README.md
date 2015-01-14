@@ -18,7 +18,7 @@ Where `config is an optional object accepting two properties
 - `timeout` - maximum time (in ms) to wait for requests to complete
 - `errorHandler` - function used to handle any errors resulting from any single api call (including the construction of models). The default handler logs to the console when `export DEBUG=ft-api-client:*;` is set.
 - `elasticSearchUri` - The URI for the search instance to be used. Along the lines of http://123123123123123123123-eu-west-1.foundcluster.com:9200/ft_api/item
-
+- `pollForPages` [Boolean]- polls capi periodically for a list of pages. defaults to `true`
 
 ### Articles
 
@@ -45,9 +45,9 @@ Or you can get several resources in a single request,
         console.log(articles);
       })
 
-Alternatively use the new `mget` method in exactly the same way. To use `megt` you need to pass a `elasticSearchUri` property and value into the configuration
+Alternatively use the new `mget` method in exactly the same way. To use `mget` you need to pass a `elasticSearchUri` property and value into the configuration
 
-### Search 
+### Search
 
 Or retrieve a collection of articles via a search term,
 
@@ -63,9 +63,9 @@ To request more results than the default (`5`) pass in a second parameter with t
 
 `.get()` and `.search()` also accepts an optional second parameter, `opts` with the following properties
 
- - `strict` - By default if a sub-promise of a request for multiple articles is rejected it will, after it is handled by `config.errorHandler`, be forced to resolve with `undefined`. This means e.g. `Promise.all(client.get(ids, {alwaysResolve: true}))` can reliably be used when the success of *every* call is not essential. If `strict: true`, then the prmoise will stay in its rejected state. 
+ - `strict` - By default if a sub-promise of a request for multiple articles is rejected it will, after it is handled by `config.errorHandler`, be forced to resolve with `undefined`. This means e.g. `Promise.all(client.get(ids, {alwaysResolve: true}))` can reliably be used when the success of *every* call is not essential. If `strict: true`, then the prmoise will stay in its rejected state.
  - `quantity` (only applies to search) - max number of results to return (default 5)
- - `resultContext` (only applies to search) - Overrides the [default `resultContext` config](https://github.com/Financial-Times/ft-api-client/blob/v3/lib/v1/search.js#L4) sent to the search api. Each property in this object will override the default. For properties which are arrays, prefixing the property name with '+' will concatenate with the default set e.g. `'+aspects': ['example']` will add `'example'` to the default list of aspects. 
+ - `resultContext` (only applies to search) - Overrides the [default `resultContext` config](https://github.com/Financial-Times/ft-api-client/blob/v3/lib/v1/search.js#L4) sent to the search api. Each property in this object will override the default. For properties which are arrays, prefixing the property name with '+' will concatenate with the default set e.g. `'+aspects': ['example']` will add `'example'` to the default list of aspects.
 
 ### Pages
 
