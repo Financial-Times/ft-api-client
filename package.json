@@ -1,64 +1,64 @@
 {
-	"name": "ft-api-client",
-	"version": "3.9.4",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/Financial-Times/ft-api-client.git"
-	},
-	"scripts": {
-		"test": "./node_modules/.bin/grunt"
-	},
-	"license": "BSD",
-	"description": "A client for the Financial Times content and search APIs",
-	"main": "./api",
-	"directories": {
-		"lib": "./lib"
-	},
-	"dependencies": {
-		"cheerio": "^0.17.0",
-		"debug": "^2.0.0",
-		"lodash": "^2.4.1",
-		"lru-cache": "^2.5.0",
-		"request": "2.22.0",
-		"es6-promise": "^1.0.0",
-		"ft-poller": "https://github.com/Financial-Times/ft-poller/archive/v1.0.1.tar.gz"
-	},
-	"devDependencies": {
-		"chai": "^1.9.1",
-		"grunt": "0.4.1",
-		"grunt-cli": "^0.1.13",
-		"grunt-contrib-jshint": "0.10.0",
-		"grunt-contrib-watch": "0.4.4",
-		"grunt-jasmine-node": "0.1.0",
-		"jshint": "2.5.0",
-		"mocha": "^1.21.4",
-		"nock": "^0.47.0",
-		"sinon": "^1.10.3"
-	},
-	"keywords": [
-		"FT",
-		"Financial",
-		"Times",
-		"CAPI",
-		"API",
-		"SAPI"
-	],
-	"contributors": [
-		{
-			"name": "Richard Still",
-			"email": "richard.still@ft.com"
-		},
-		{
-			"name": "Sebastian Wolf",
-			"email": "sebastian.wolf@ft.com"
-		},
-		{
-			"name": "James Nicholls",
-			"email": "james.nicholls@ft.com"
-		},
-		{
-			"name": "Arjun Gadhia",
-			"email": "arjun.gadhia@ft.com"
-		}
-	]
+  "name": "ft-api-client",
+  "version": "3.10.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Financial-Times/ft-api-client.git"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/grunt"
+  },
+  "license": "BSD",
+  "description": "A client for the Financial Times content and search APIs",
+  "main": "./api",
+  "directories": {
+    "lib": "./lib"
+  },
+  "dependencies": {
+    "cheerio": "^0.17.0",
+    "debug": "^2.0.0",
+    "lodash": "^2.4.1",
+    "lru-cache": "^2.5.0",
+    "request": "2.22.0",
+    "es6-promise": "^1.0.0",
+    "ft-poller": "https://github.com/Financial-Times/ft-poller/archive/v1.0.1.tar.gz"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "grunt": "0.4.1",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jshint": "0.10.0",
+    "grunt-contrib-watch": "0.4.4",
+    "grunt-jasmine-node": "0.1.0",
+    "jshint": "2.5.0",
+    "mocha": "^1.21.4",
+    "nock": "^0.47.0",
+    "sinon": "^1.10.3"
+  },
+  "keywords": [
+    "FT",
+    "Financial",
+    "Times",
+    "CAPI",
+    "API",
+    "SAPI"
+  ],
+  "contributors": [
+    {
+      "name": "Richard Still",
+      "email": "richard.still@ft.com"
+    },
+    {
+      "name": "Sebastian Wolf",
+      "email": "sebastian.wolf@ft.com"
+    },
+    {
+      "name": "James Nicholls",
+      "email": "james.nicholls@ft.com"
+    },
+    {
+      "name": "Arjun Gadhia",
+      "email": "arjun.gadhia@ft.com"
+    }
+  ]
 }
