@@ -28,7 +28,7 @@ var FtApi = function (apikey, config) {
 
 
 	this.apikey = apikey;
-	if (config.pollForPages) {
+	if (this.config.pollForPages) {
 		pagesPoller.init(apikey);
 	}
 };
