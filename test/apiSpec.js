@@ -114,16 +114,16 @@ describe('API', function(){
 					});
 			});
 
-			// it('Emit an event when a page is requested', function(done) {
-			//     var spy = sinon.spy(function (message) { });
-			//     resolveWith = {pageItems: []};
-			//     ft.on('ft-api-client:v1:page:request', spy);
-			//     ft.search('page:Front page')
-			//       .then(function (articles) {
-			//         expect(spy.calledOnce).to.be.true;
-			//         done();
-			//     });
-			// });
+			it('Emit an event when a page is requested', function(done) {
+				var spy = sinon.spy(function (message) { });
+				resolveWith = {pageItems: []};
+				ft.on('ft-api-client:v1:pages:request', spy);
+				ft.search('page:Front page')
+					.then(function (articles) {
+						expect(spy.calledOnce).to.be.true;
+						done();
+					});
+			});
 		});
 
 		describe('request success', function () {
@@ -162,18 +162,8 @@ describe('API', function(){
 						done();
 					});
 			});
+			// page response events tested for in pages describe block lower down the page as need to mock the pages job
 
-
-			// it('Emit an event when a page is requested', function(done) {
-			//     var spy = sinon.spy(function (message) { });
-			//     resolveWith = {pageItems: []};
-			//     ft.on('ft-api-client:v1:page:request', spy);
-			//     ft.search('page:Front page')
-			//       .then(function (articles) {
-			//         expect(spy.calledOnce).to.be.true;
-			//         done();
-			//     });
-			// });
 		});
 
 
@@ -420,7 +410,17 @@ describe('API', function(){
 					done();
 				});
 		});
-	});
 
+		it('Emit an event when a page response is received', function(done) {
+			nock(host).get('/site/v1/pages/4c499f12-4e94-11de-8d4c-00144feabdc0/main-content?apiKey=123&feature.blogposts=on&feature.usage=on').reply(200, fixtures.page);
+			var spy = sinon.spy(function (message) { });
+			ft.on('ft-api-client:v1:pages:response', spy);
+			ft.search('page:Front page')
+				.then(function (articles) {
+					expect(spy.calledOnce).to.be.true;
+					done();
+				});
+		});
+	});
 
 });
