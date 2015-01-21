@@ -42,23 +42,5 @@
     "CAPI",
     "API",
     "SAPI"
-  ],
-  "contributors": [
-    {
-      "name": "Richard Still",
-      "email": "richard.still@ft.com"
-    },
-    {
-      "name": "Sebastian Wolf",
-      "email": "sebastian.wolf@ft.com"
-    },
-    {
-      "name": "James Nicholls",
-      "email": "james.nicholls@ft.com"
-    },
-    {
-      "name": "Arjun Gadhia",
-      "email": "arjun.gadhia@ft.com"
-    }
   ]
 }
