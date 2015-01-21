@@ -72,7 +72,9 @@ describe('API', function(){
 	describe('events', function () {
 
 		describe('request send', function () {
-			var resolveWith = {};
+			var resolveWith = {
+				item: { lifecycle: { lastPublishDateTime: '2013-05-30T09:21:53Z' } }
+			};
 
 			beforeEach(function () {
 				sinon.stub(ft, 'request', function () {
@@ -413,6 +415,20 @@ describe('API', function(){
 
 		it('Emit an event when a page response is received', function(done) {
 			nock(host).get('/site/v1/pages/4c499f12-4e94-11de-8d4c-00144feabdc0/main-content?apiKey=123&feature.blogposts=on&feature.usage=on').reply(200, fixtures.page);
+			nock(host).get(util.format(path, '27963a92-4a36-11e4-8de3-00144feab7de', '123')).reply(200, fixtures.article);
+			nock(host).get(util.format(path, '118b635a-4a34-11e4-bc07-00144feab7de', '123')).reply(200, fixtures.article);
+			nock(host).get(util.format(path, '71657e32-4a20-11e4-8de3-00144feab7de', '123')).reply(200, fixtures.article);
+			nock(host).get(util.format(path, "41394eae-49f9-11e4-8de3-00144feab7de", '123')).reply(200, fixtures.article);
+			nock(host).get(util.format(path, "2bfa11d6-4a44-11e4-8de3-00144feab7de", '123')).reply(200, fixtures.article);
+			nock(host).get(util.format(path, "c39027be-4a31-11e4-bc07-00144feab7de", '123')).reply(200, fixtures.article);
+			nock(host).get(util.format(path, "8e818300-4a0a-11e4-8de3-00144feab7de", '123')).reply(200, fixtures.article);
+			nock(host).get(util.format(path, "a7175db0-4a30-11e4-8de3-00144feab7de", '123')).reply(200, fixtures.article);
+			nock(host).get(util.format(path, "49070bf8-4a3f-11e4-8de3-00144feab7de", '123')).reply(200, fixtures.article);
+			nock(host).get(util.format(path, "d52b5210-4a35-11e4-bc07-00144feab7de", '123')).reply(200, fixtures.article);
+			nock(host).get(util.format(path, "d8938ffc-4a04-11e4-8de3-00144feab7de", '123')).reply(200, fixtures.article);
+			nock(host).get(util.format(path, "d8938ffc-4a04-11e4-8de3-00144feab7de", '123')).reply(200, fixtures.article);
+			nock(host).get(util.format(path, "1cd4c684-483b-11e4-b5ad-00144feab7de", '123')).reply(200, fixtures.article);
+			nock(host).get(util.format(path, "82eff258-3f2c-11e4-a861-00144feabdc0", '123')).reply(200, fixtures.article);
 			var spy = sinon.spy(function (message) { });
 			ft.on('ft-api-client:v1:pages:response', spy);
 			ft.search('page:Front page')
