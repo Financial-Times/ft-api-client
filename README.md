@@ -76,6 +76,9 @@ To retrieve the articles in a given page simply search for 'page:page name'. To 
         console.log(metadata);
       })
 
+## Models
+
+The capi1 article model is available at `require('ft-api-client').models.v1.Article` and can be instantiated as follows: `new Article({response from capi})`
 
 ## Development
 

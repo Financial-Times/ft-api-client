@@ -26,6 +26,10 @@ describe('Article model', function(){
 		weekendArticle : JSON.parse(fs.readFileSync('test/fixtures/7803a998-7aeb-11e4-8646-00144feabdc0(weekend)', { encoding: 'utf8' }))
 	};
 
+	describe('publicly exposed', function () {
+		var client = require('../../api');
+		expect(client.models.v1.Article).to.equal(Article);
+	});
 
 	describe('Editorial', function () {
 
