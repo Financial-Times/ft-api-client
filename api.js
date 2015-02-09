@@ -53,3 +53,9 @@ FtApi.prototype.request = require('./lib/utils/request');
 module.exports = function (apikey, config) {
 	return new FtApi(apikey, config);
 };
+
+module.exports.models = {
+	v1: {
+		Article: require('./lib/models/article')
+	}
+};
