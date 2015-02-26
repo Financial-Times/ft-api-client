@@ -23,8 +23,15 @@ describe('Article model', function(){
 		article3: JSON.parse(fs.readFileSync('test/fixtures/b9d1b2ca-5dfe-11e4-bc04-00144feabdc0', { encoding: 'utf8' })),
 		article4: JSON.parse(fs.readFileSync('test/fixtures/a60413c2-7c46-11e3-9179-00144feabdc0', { encoding: 'utf8' })),
 		article5: JSON.parse(fs.readFileSync('test/fixtures/07de76b4-5e05-11e4-bc04-00144feabdc0', { encoding: 'utf8' })),
-		weekendArticle : JSON.parse(fs.readFileSync('test/fixtures/7803a998-7aeb-11e4-8646-00144feabdc0(weekend)', { encoding: 'utf8' }))
+		weekendArticle : JSON.parse(fs.readFileSync('test/fixtures/7803a998-7aeb-11e4-8646-00144feabdc0(weekend)', { encoding: 'utf8' })),
+		premiumArticle : JSON.parse(fs.readFileSync('test/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' })),
+		unconditionalArticle : JSON.parse(fs.readFileSync('test/fixtures/03b49444-16c9-11e3-bced-00144feabdc0', { encoding: 'utf8' }))
 	};
+
+	fixtures.article2.item.location.uri = fixtures.article2.item.location.uri.replace('/0/', '/1/');
+	fixtures.premiumArticle.item.location.uri = fixtures.premiumArticle.item.location.uri.replace('/0/', '/3/');
+	fixtures.unconditionalArticle.item.location.uri = fixtures.unconditionalArticle.item.location.uri.replace('/0/', '/2/');
+
 
 	describe('publicly exposed', function () {
 		var client = require('../../api');
@@ -282,6 +289,22 @@ describe('Article model', function(){
 			var p = article.paragraphs(0, 4);
 			expect(p.length).to.equal(4);
 			expect(p.text()).to.match(/(.*)principle\.”$/);
+		});
+
+	});
+
+	describe('Access', function(){
+
+		it('Should be able to ge the content classification level for an article', function(){
+			var article1 = new Article(fixtures.article);
+			var article2 = new Article(fixtures.article2);
+			var article3 = new Article(fixtures.premiumArticle);
+			var article4 = new Article(fixtures.unconditionalArticle);
+
+			expect(article1.contentClassification).to.equal('conditional_standard');
+			expect(article2.contentClassification).to.equal('conditional_standard');
+			expect(article3.contentClassification).to.equal('conditional_premium');
+			expect(article4.contentClassification).to.equal('unconditional');
 		});
 
 	});
