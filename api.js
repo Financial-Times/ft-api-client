@@ -50,6 +50,8 @@ FtApi.prototype.page = require('./lib/api/page');
 
 FtApi.prototype.request = require('./lib/utils/request');
 
+FtApi.prototype.elasticSearch = require('./lib/api/elasticSearch');
+
 module.exports = function (apikey, config) {
 	return new FtApi(apikey, config);
 };
