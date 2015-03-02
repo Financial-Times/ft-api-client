@@ -6,8 +6,6 @@ var PathMapper = require('./lib/PathMapper.js'),
   contentCalls = require('./lib/contentCalls.js'),
   notificationsCalls = require('./lib/notificationsCalls.js');
 
-var rm = new RequestManager();
-
 function FtApi (options) {
   options = options || {};
   if (typeof options.apiKey !== 'string' || options.apiKey === '') {
@@ -22,7 +20,7 @@ function FtApi (options) {
 
   this.pathMapper = new PathMapper(options.apiKey, options.featureFlags);
   this.logger = new Logger();
-  this.requestManager = rm;
+  this.requestManager = new RequestManager(options);
 
   if (typeof options.logLevel === 'number') {
     this.setLogLevel(options.logLevel);
