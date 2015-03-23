@@ -1,6 +1,7 @@
 'use strict';
 
 require('es6-promise').polyfill();
+require('isomorphic-fetch');
 
 var EventEmitter = require('events').EventEmitter;
 var pagesPoller  = require('./lib/jobs/pages');
