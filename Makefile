@@ -6,7 +6,7 @@ install:
 	origami-build-tools install
 
 test:
-	origami-build-tools verify
+	next-build-tools verify
 	mocha test test/models
 
 test-debug:

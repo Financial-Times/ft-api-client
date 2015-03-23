@@ -6,7 +6,6 @@ var nock    = require('nock');
 var sinon   = require('sinon');
 var util    = require('util');
 var fs      = require('fs');
-var request = require('request');
 
 require('es6-promise').polyfill();
 
