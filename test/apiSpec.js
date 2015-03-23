@@ -15,8 +15,6 @@ describe('API', function(){
 
 	beforeEach(function () {
 		nock(host).get('/site/v1/pages?apiKey=123').reply(200, fixtures.pages);
-		ft.removeAllListeners('ft-api-client:v1:requestHandler:request');
-		ft.removeAllListeners('ft-api-client:v1:requestHandler:response');
 	});
 
 	var host = 'http://api.ft.com';

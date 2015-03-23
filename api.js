@@ -3,7 +3,6 @@
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
-var EventEmitter = require('events').EventEmitter;
 var pagesPoller  = require('./lib/jobs/pages');
 
 var defaultConfig = {
@@ -33,11 +32,6 @@ var FtApi = function (apikey, config) {
 		pagesPoller.init(apikey);
 	}
 };
-
-// mixin the EventEmitter methods
-Object.getOwnPropertyNames(EventEmitter.prototype).forEach(function (fn) {
-	FtApi.prototype[fn] = EventEmitter.prototype[fn];
-});
 
 FtApi.prototype.search = require('./lib/api/search');
 
