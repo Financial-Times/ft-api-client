@@ -5,7 +5,7 @@ This is a node module that acts as a wrapper for the FT content api (<https://de
 Using the client
 -----------------
 
-###Instantiating
+### Instantiating
 
 The client is implemented as an instantiable FtApi object.
 Create a client instance by calling FtApi as a constructor an object containing your api key and optional configuration:
@@ -14,6 +14,7 @@ The configuration options are as follows:
 * `apiKey`: The (string) API key for your app to access the Content API
 * `logLevel`: *optional* One of `FtApi.LOG_LEVEL_NONE`, `FtApi.LOG_LEVEL_ERROR` or `FtApi.LOG_LEVEL_INFO`. See *Logging* below for more details.
 * `featureFlags`: *optional* An array of strings containing the names of feature flags to be used with the content API.
+* `version`: *optional* *experimental* Specificy an API version to use, defaults to 1, optionally specify 2. Use with Care!
 
 Examples:
 
@@ -33,29 +34,29 @@ Examples:
 		logLevel: FtApi.LOG_LEVEL_NONE 
 	});
 
-###Methods
+### Methods
 With this instance of the FtApi Object provides a number of methods that allow you to easily retrieve data from the FT content API.
 The Content API contains *content items*, *content item notifications*,*pages* and *page content*.
 
-#####Content Items
+##### Content Items
 A [content item](https://developer.ft.com/api-reference/content-items#resource) represents a single piece of FT content (e.g. an article). The following methods are available:
 * `getItem(id, callback)` - retrieve a single item with the given id
 * `getItems(ids, itemCallback, optionalDoneCallback)` - retrieve multiple items (with an array of ids). The *itemCallback* will be executed for each individual item retrieved, and the *optionalDoneCallback* will be executed at the end once all items have been retrieved. Pass null as *itemCallback* if you don't care about it.
 
-#####Content Item Notifications
+##### Content Item Notifications
 [Content item notifications](https://developer.ft.com/api-reference/notifications/) is a feed of content which has recently been modified or deleted. The following methods are available:
 * `getNotificationsSince(sinceDateTime, callback)` - get ALL notifications since the given time
 * `getNotificationsUpTo(maxNotifications, callback)` - get a maximum of *maxNotifications* notifications from the last 15 minuidtes
 * `getNotificationsUpTo(maxNotifications, sinceDateTime, callback)` - get a maximum of *maxNotifications* notifications from the given time
 
-#####Pages
+##### Pages
 A [page](https://developer.ft.com/api-reference/pages#resource) is is a collection of page resources, each of which represents a published page on the FT.com website. The following methods are available:
 * `getPage(id, callback)` - retrieve a single page with the given page id
 * `getPages(ids, itemCallback, optionalDoneCallback)` - retrieve multiple pages (with an array of ids). The *itemCallback* will be executed for each individual item retrieved, and the *optionalDoneCallback* will be executed at the end once all items have been retrieved. Pass null as *itemCallback* if you don't care about it.
 * `getPageList(callback)` - retrieve a list of all pages published on FT.com
 * `getPageContent(id, callback)` - retrieve the [main content](https://developer.ft.com/api-reference/page-items/main-content) for a given page id.
 
-###Logging
+### Logging
 
 The API has three logging levels:
 * `LOG_LEVEL_NONE` - Logs no info messages and no errors
@@ -139,7 +140,7 @@ or
 
 Note: You may wish to sense-check the expected item count against the length of the items array to ensure you received all the items you requested.
 
-####Errors
+#### Errors
 An error object has the format:
 
 	{
@@ -252,7 +253,7 @@ Note: The 'handle all items' callback is optional.
 	});
 
 
-#####Fetching an FT page
+##### Fetching an FT page
 
 Get a page available on www.ft.com. Provides the page id, title, apiUrl, webUrl and a link to retrieve the main items of content listed on the page.
 Note: The 'handle all pages' callback is optional.
@@ -288,7 +289,7 @@ Note: The 'handle all pages' callback is optional.
 	ftApi.getPages(pageIds, handlePageResponse, handleAllPages);
 
 
-#####Fetching an FT page main content
+##### Fetching an FT page main content
 
 List all page items available on a published www.ft.com page.
 

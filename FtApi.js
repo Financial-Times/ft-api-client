@@ -13,12 +13,18 @@ function FtApi (options) {
         'which must be a non-empty string');
   }
 
-
   if(!Array.isArray(options.featureFlags)) {
     options.featureFlags = [];
   }
 
-  this.pathMapper = new PathMapper(options.apiKey, options.featureFlags);
+  // Use v2 paths
+  var apiVersion = options.apiVersion ? options.apiVersion : 1;
+
+  this.pathMapper = new PathMapper(options.apiKey, {
+    features: options.featureFlags,
+    apiVersion: apiVersion
+  });
+
   this.logger = new Logger();
   this.requestManager = new RequestManager(options);
 
