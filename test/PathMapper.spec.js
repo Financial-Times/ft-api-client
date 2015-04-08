@@ -194,7 +194,9 @@ describe('FT API Path Mapper', function () {
     it('appends any feature flags to the url',
     function () {
       var itemId, contentPath;
-      pathMapper = new PathMapper(STUB_API_KEY, ['blogposts', 'other_feature']);
+      pathMapper = new PathMapper(STUB_API_KEY, {
+        features:['blogposts', 'other_feature']
+      });
       // Given a pathMapper instance with a stub api key as above, and an item id
       itemId = STUB_ITEM_ID;
       // When we get the content path for the item
@@ -238,7 +240,7 @@ describe('FT API Path Mapper', function () {
     it('ignores features that are not a string',
     function () {
       var itemId, contentPath;
-      pathMapper = new PathMapper(STUB_API_KEY, [{}, 'valid_feature', 5]);
+      pathMapper = new PathMapper(STUB_API_KEY, {features:[{}, 'valid_feature', 5]});
       // Given a pathMapper instance with a stub api key as above, and an item id
       itemId = STUB_ITEM_ID;
       // When we get the content path for the item
@@ -259,7 +261,7 @@ describe('FT API Path Mapper', function () {
     it('encodes special characters in the Feature Flag string',
     function () {
       var itemId, contentPath;
-      pathMapper = new PathMapper(STUB_API_KEY, ['f£@tur3&_Some*?']);
+      pathMapper = new PathMapper(STUB_API_KEY, {features:['f£@tur3&_Some*?']});
       // Given a pathMapper instance with a stub api key as above, and an item id
       itemId = STUB_ITEM_ID;
       // When we get the content path for the item
