@@ -12,7 +12,7 @@ deploy:
   provider: npm
   email: wheresrhys@gmail.com
   api_key:
-    secure: beHmrPVGWHAiEQtrNAPSKe9e/9UWDXOpCFBL2gHINqLOoTL4F0/LMMKAbMqJb/FI3uoQpyFnAdGQehjpPDWxhLtmWCagnlCShhUnGS0HimA0p0pwclAIM70ODTifCQUTeepT8PCLCC7vh5pWTHwpP/a1ZKMbEbHtrXfBJAtJa+8=
+    secure: XLb21k5YYR3XeGloXiLXPA7tPd6eZEHX3TYQBlr4u1ynclVJ+z0hTZsVAcwnAj8jINBWIreNiBwzOk+2GtzatV4eraM+RkFXdfq7uE/hSwnxy586pWFQs9NORztl1LzI9PzV2hy/oOvatd8Q/MZOZuMCxNNsYnSvAaWO5LUQSGM=
   on:
     all_branches: true
     tags: true
