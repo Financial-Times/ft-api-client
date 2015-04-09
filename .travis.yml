@@ -1,7 +1,19 @@
+sudo: false
+language: node_js
 script:
 - npm install -g origami-build-tools
 - make test
-language: node_js
 node_js:
 - '0.10'
-- '0.11'
+- '0.12'
+before_deploy:
+- npm-prepublish --verbose
+deploy:
+  provider: npm
+  email: wheresrhys@gmail.com
+  api_key:
+    secure: beHmrPVGWHAiEQtrNAPSKe9e/9UWDXOpCFBL2gHINqLOoTL4F0/LMMKAbMqJb/FI3uoQpyFnAdGQehjpPDWxhLtmWCagnlCShhUnGS0HimA0p0pwclAIM70ODTifCQUTeepT8PCLCC7vh5pWTHwpP/a1ZKMbEbHtrXfBJAtJa+8=
+  on:
+    all_branches: true
+    tags: true
+    repo: Financial-Times/ft-api-client
