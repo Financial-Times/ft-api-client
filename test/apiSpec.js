@@ -274,16 +274,13 @@ describe('API', function(){
 			pagesJob.get.restore();
 		});
 
-		it('Retrieve page metadata', function(done) {
-			ft.pageInfo('Front page')
-				.then(function (result) {
-				expect(result).to.eql({
-					id: '4c499f12-4e94-11de-8d4c-00144feabdc0',
-					title: 'Front page',
-					apiUrl: 'http://api.ft.com/site/v1/pages/4c499f12-4e94-11de-8d4c-00144feabdc0',
-					webUrl: 'http://www.ft.com/home/uk'
-				});
-				done();
+		it('Retrieve page metadata', function() {
+			var result = ft.pageInfo('Front page');
+			expect(result).to.eql({
+				id: '4c499f12-4e94-11de-8d4c-00144feabdc0',
+				title: 'Front page',
+				apiUrl: 'http://api.ft.com/site/v1/pages/4c499f12-4e94-11de-8d4c-00144feabdc0',
+				webUrl: 'http://www.ft.com/home/uk'
 			});
 		});
 
