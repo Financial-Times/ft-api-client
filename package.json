@@ -12,7 +12,7 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "request": "2.22.0",
+    "request": "2.88.0",
     "moment": "2.0.0",
     "underscore": "1.5.1",
     "ttl-lru-cache": "0.0.2"
