@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "request": "2.22.0",
-    "moment": "2.0.0",
+    "moment": "2.24.0",
     "underscore": "1.5.1",
     "ttl-lru-cache": "0.0.2"
   },
